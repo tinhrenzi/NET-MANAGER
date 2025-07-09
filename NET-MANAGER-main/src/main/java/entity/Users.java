@@ -4,10 +4,18 @@
  */
 package entity;
 
+import lombok.*;
+
+
 /**
  *
  * @author VINH
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
+
 public class Users {
     String admin;
     String employee;

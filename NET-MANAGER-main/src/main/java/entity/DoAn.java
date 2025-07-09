@@ -3,11 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
-
+import lombok.*;
 /**
  *
  * @author VINH
  */
-public class NewClass {
-    
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
+public class DoAn {
+    String maDoan ;
+    String tenDoAn ;
+    float donGia;
+    int soLuong;
+    boolean trangThai;
 }
