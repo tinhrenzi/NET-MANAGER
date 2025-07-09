@@ -4,10 +4,12 @@
  */
 package controller;
 
+import entity.Order;
+
 /**
  *
  * @author NITRO 5
  */
-public interface OrderController {
+public interface OrderController extends CurdController<Order>{
     
 }
