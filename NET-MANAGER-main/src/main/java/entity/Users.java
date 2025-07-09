@@ -9,5 +9,7 @@ package entity;
  * @author VINH
  */
 public class Users {
+    String admin;
+    String employee;
     
 }
