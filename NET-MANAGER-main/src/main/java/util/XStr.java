@@ -39,17 +39,4 @@ public class XStr {
         return key.substring(key.length() - 8);
     }
 
-    public static void main(String[] args) {
-        String encodedText = XStr.encodeB64("Nguyễn Nghiệm");
-        System.out.println(encodedText); // => Tmd1eT9uIE5naGk/bQ==
-
-        String decodedText = XStr.decodeB64("Tmd1eT9uIE5naGk/bQ==");
-        System.out.println(decodedText); // => Nguyễn Nghiệm
-
-        String key1 = XStr.getKey();
-        System.out.println(key1); // => XXXXXXXX (8 random characters)
-
-        String key2 = XStr.getKey("Nguyễn", "Nghiệm", "PolyHCM");
-        System.out.println(key2); // => 329FB580
-    }
 }
