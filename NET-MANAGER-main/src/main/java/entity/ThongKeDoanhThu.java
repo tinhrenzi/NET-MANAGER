@@ -5,11 +5,19 @@
 package entity;
 
 import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author FPT
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
 public class ThongKeDoanhThu {
      private String idUser;
     private String maHoaDon;
