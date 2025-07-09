@@ -4,10 +4,15 @@
  */
 package entity;
 
+import lombok.*;
 /**
  *
  * @author FPT
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
 public class DoUong {
     private String maDoUong;
     private String tenDoUong;
