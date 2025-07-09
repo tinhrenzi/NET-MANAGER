@@ -19,5 +19,4 @@ import lombok.*;
 public class Users {
     String admin;
     String employee;
-    
 }
