@@ -4,10 +4,12 @@
  */
 package dao;
 
+import entity.Users;
+
 /**
  *
  * @author VINH
  */
-public interface UserDAO {
+public interface UserDAO extends crudDAO<Users, Integer>{
     
 }

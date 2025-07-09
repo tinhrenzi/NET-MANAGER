@@ -7,6 +7,7 @@ package controller;
 /**
  *
  * @author NITRO 5
+ * @param <Entity>
  */
 public interface CurdController<Entity> {
     void create();
