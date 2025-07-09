@@ -4,13 +4,18 @@
  */
 package dao;
 
-import controller.CrudController;
-import entity.DoAn;
+import java.util.List;
 
 /**
  *
  * @author VINH
+ * @param <T>
+ * @param <ID>
  */
-public interface DoAnDAO{
-    
+public interface crudDAO<T, ID> {
+    T create (T entity);
+    void update(T entity);
+    void deleteByID(ID id);
+    List<T> findAll();
+    T findByID(ID id);
 }
