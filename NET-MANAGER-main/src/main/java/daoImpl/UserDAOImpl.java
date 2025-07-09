@@ -8,6 +8,6 @@ package daoImpl;
  *
  * @author VINH
  */
-public class UserDAO {
+public class UserDAOImpl {
     
 }
