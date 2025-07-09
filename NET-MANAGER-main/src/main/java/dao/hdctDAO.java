@@ -4,12 +4,12 @@
  */
 package dao;
 
-import entity.HoaDon;
+import entity.HoaDonChiTiet;
 
 /**
  *
  * @author VINH
  */
-public interface HoaDonDAO extends crudDAO<HoaDon, String>{
+public interface hdctDAO extends crudDAO<HoaDonChiTiet, String>{
     
 }

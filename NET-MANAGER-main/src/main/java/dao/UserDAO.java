@@ -10,6 +10,6 @@ import entity.Users;
  *
  * @author VINH
  */
-public interface UserDAO extends crudDAO<Users, Integer>{
+public interface UserDAO extends crudDAO<Users, String>{
     
 }

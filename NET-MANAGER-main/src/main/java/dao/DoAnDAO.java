@@ -11,6 +11,6 @@ import entity.DoAn;
  *
  * @author VINH
  */
-public interface DoAnDAO extends crudDAO<DoAn, Integer>{
+public interface DoAnDAO extends crudDAO<DoAn, String>{
     
 }

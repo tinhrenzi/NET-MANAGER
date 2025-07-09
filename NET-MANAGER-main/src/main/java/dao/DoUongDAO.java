@@ -10,6 +10,6 @@ import entity.DoUong;
  *
  * @author VINH
  */
-public interface DoUongDAO extends crudDAO<DoUong, Integer>{
+public interface DoUongDAO extends crudDAO<DoUong, String>{
     
 }
