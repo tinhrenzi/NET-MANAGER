@@ -11,6 +11,13 @@ import java.util.UUID;
  *
  * @author VINH
  */
+
+/*
+
+    Dùng để kiểm tra chuỗi nhằm phục vụ mục đích tạo ID.
+
+*/
+
 public class XStr {
     public static boolean isBlank(String text) {
         return text == null || text.trim().length() == 0;

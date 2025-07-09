@@ -18,6 +18,13 @@ import static util.XJdbc.openConnection;
  * @author NghiemN
  * @version 1.0
  */
+
+/*
+
+    Dùng để tối giản lại các câu lệnh sql và có thể tái sử dụng nhiều lần.
+
+*/
+
 public class XQuery {
 
     /*

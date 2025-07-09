@@ -16,6 +16,12 @@ import javax.swing.JLabel;
  *
  * @author VINH
  */
+/*
+
+    Dùng để load icon từ file lên
+
+*/
+
 public class XIcon {
     /*
      * Đọc icon từ resource hoặc file

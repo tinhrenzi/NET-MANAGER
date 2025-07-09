@@ -12,6 +12,11 @@ import java.util.Date;
  *
  * @author VINH
  */
+/*
+
+    Đây là class tiện ích dùng để xử lí ngày giờ và chuyển đổi định dạng
+
+*/
 public class XDate {
     public static final String PATTERN_FULL = "yyyy-MM-dd HH:mm:ss";
     public static final String PATTERN_SHORT = "MM/dd/yyyy";

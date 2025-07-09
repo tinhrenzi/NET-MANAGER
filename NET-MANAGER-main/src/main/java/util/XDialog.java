@@ -10,6 +10,12 @@ import javax.swing.JOptionPane;
  *
  * @author VINH
  */
+/*
+    
+    Dùng để hiển thị hộp thoại
+
+*/
+
 public class XDialog {
     public static void alert(String message){
         XDialog.alert(message, "Thông báo!");

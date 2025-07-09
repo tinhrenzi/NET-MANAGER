@@ -13,6 +13,11 @@ import lombok.*;
  *
  * @author VINH
  */
+/*
+    
+    Đại diện cho khoảng thời gian, dùng để hỗ trợ chức năng lọc theo thời gian.
+
+*/
 @AllArgsConstructor
 @Data
 public class TimeRange {

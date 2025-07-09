@@ -14,6 +14,13 @@ import java.sql.SQLException;
  *
  * @author VINH 
  */
+
+/*
+    
+    Dùng để kết nối tới cơ sở dữ liệu
+
+*/
+
 public class XJdbc {
 
     private static Connection connection;
