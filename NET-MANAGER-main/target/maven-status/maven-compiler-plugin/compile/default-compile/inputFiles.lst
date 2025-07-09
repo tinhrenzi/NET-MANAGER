@@ -1,21 +1,22 @@
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\Controllerchungu.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\crudController.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\newController.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\NewInterface.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\OrderController.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\WelcomeController.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\DoAnDAO.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\UserDAO.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\UserDAO.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\DoAn.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\Users.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\LoginJDialog.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\NET_MANAGER_JFrame.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\WelcomeJDialog.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\TimeRange.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XDate.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XDialog.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XIcon.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XJdbc.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XQuery.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XStr.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\Controllerchungu.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\CrudController.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\OrderController.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\WelcomeController.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\DoAnDAO.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\UserDAO.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\DoAnDAOImpl.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\NewInterface.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\UserDAOImpl.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\DoAn.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\Users.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\LoginJDialog.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\MainView.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\NET_MANAGER_JFrame.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\WelcomeJDialog.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\TimeRange.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XDate.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XDialog.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XIcon.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XJdbc.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XQuery.java
+C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XStr.java
