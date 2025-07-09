@@ -7,6 +7,7 @@ package controller;
 /**
  *
  * @author VINH
+ * @param <Entity>
  */
 public interface CrudController<Entity> {
     void create();
