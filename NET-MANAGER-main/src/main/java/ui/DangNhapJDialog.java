@@ -8,12 +8,12 @@ package ui;
  *
  * @author Admin
  */
-public class DangNhapJFrame extends javax.swing.JFrame {
+public class DangNhapJDialog extends javax.swing.JFrame {
 
     /**
      * Creates new form Dangnhap
      */
-    public DangNhapJFrame() {
+    public DangNhapJDialog() {
         initComponents();
     }
 
@@ -153,7 +153,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DangNhapJFrame().setVisible(true);
+                new DangNhapJDialog().setVisible(true);
             }
         });
     }
