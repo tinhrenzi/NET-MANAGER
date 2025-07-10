@@ -18,6 +18,8 @@ import lombok.*;
 @Data
 
 public class Users {
-    String admin;
-    String employee;
+    
+  private String admin;
+  private String employee;
+    
 }
