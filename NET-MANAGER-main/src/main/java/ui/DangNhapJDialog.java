@@ -4,16 +4,20 @@
  */
 package ui;
 
+import controller.DangNhapController;
+
 /**
  *
  * @author Admin
  */
-public class DangNhapJDialog extends javax.swing.JFrame {
+public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapController{
 
     /**
      * Creates new form Dangnhap
      */
-    public DangNhapJDialog() {
+    public DangNhapJDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -153,7 +157,14 @@ public class DangNhapJDialog extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DangNhapJDialog().setVisible(true);
+                DangNhapJDialog dialog = new DangNhapJDialog(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override 
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -171,4 +182,19 @@ public class DangNhapJDialog extends javax.swing.JFrame {
     private javax.swing.JPasswordField pwdPassWord;
     private javax.swing.JTextField txtNameAccount;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void open() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void login() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void exit() {
+        DangNhapController.super.exit(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
 }
