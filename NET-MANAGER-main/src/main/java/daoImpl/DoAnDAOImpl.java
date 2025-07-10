@@ -60,7 +60,7 @@ public class DoAnDAOImpl implements DoAnDAO {
 
     @Override
     public DoAn findByID(String id) {
-       return XQuery.getSingleBean(DoAn.class, id, findByID(id));
+       return XQuery.getSingleBean(DoAn.class, id, SELECT_BY_ID_SQL);
     }
 }
 
