@@ -36,14 +36,14 @@ public class UserDAOImpl implements UsersDAO {
     @Override
     public void update(Users entity) {
         XJdbc.executeUpdate(UPDATE_SQL,
-                entity.getIdUser(),
+                entity.getSoDienThoai(),
                 entity.getTenDangNhap(),
                 entity.getNamSinh(),
                 entity.getVaiTro(),
                 entity.getEmail(),
                 entity.getMatKhau(),
                 entity.getNgayTaoUser(),
-                entity.getSoDienThoai()
+                entity.getIdUser()
         );
     }
 
