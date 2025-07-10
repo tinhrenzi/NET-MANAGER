@@ -8,6 +8,7 @@ import dao.UsersDAO;
 import entity.Users;
 import util.XJdbc;
 import util.XQuery;
+
 import java.util.List;
 
 public class UserDAOImpl implements UsersDAO {
@@ -19,39 +20,41 @@ public class UserDAOImpl implements UsersDAO {
     private final String SELECT_BY_ID_SQL = "SELECT * FROM NguoiDung WHERE IdUser=?";
 
     @Override
-    public Users create(Users entity) {
-        XJdbc.executeUpdate(INSERT_SQL,
-                entity.getIdUser(),
-                entity.getTenDangNhap(),
-                entity.getMatKhau(),
-                entity.getVaiTro(),
-                entity.isEnable(), // Cột Enable bị thiếu!
-                entity.getNamSinh(),
-                entity.getEmail(),
-                entity.getSoDienThoai(),
-                entity.getNgayTaoUser()
-        );
-        return entity;
+    public Users create(Users user) {
+        Object[] args = {
+            user.getIdUser(),
+            user.getTenDangNhap(),
+            user.getMatKhau(),
+            user.getVaiTro(),
+            user.isEnable(),
+            new java.sql.Date(user.getNamSinh().getTime()),
+            user.getEmail(),
+            user.getSoDienThoai(),
+            new java.sql.Date(user.getNgayTaoUser().getTime())
+        };
+        XJdbc.executeUpdate(INSERT_SQL, args);
+        return user;
     }
 
     @Override
-    public void update(Users entity) {
-        XJdbc.executeUpdate(UPDATE_SQL,
-                entity.getTenDangNhap(),
-                entity.getMatKhau(),
-                entity.getVaiTro(),
-                entity.isEnable(), // Cột Enable bị thiếu!
-                entity.getNamSinh(),
-                entity.getEmail(),
-                entity.getSoDienThoai(),
-                entity.getNgayTaoUser(),
-                entity.getIdUser()
-        );
+    public void update(Users user) {
+        Object[] args = {
+            user.getTenDangNhap(),
+            user.getMatKhau(),
+            user.getVaiTro(),
+            user.isEnable(),
+            new java.sql.Date(user.getNamSinh().getTime()),
+            user.getEmail(),
+            user.getSoDienThoai(),
+            new java.sql.Date(user.getNgayTaoUser().getTime()),
+            user.getIdUser()
+        };
+        XJdbc.executeUpdate(UPDATE_SQL, args);
     }
 
     @Override
-    public void deleteByID(String id) {
-        XJdbc.executeUpdate(DELETE_SQL, id);
+    public void deleteByID(String idUser) {
+        XJdbc.executeUpdate(DELETE_SQL, idUser);
     }
 
     @Override
@@ -60,9 +63,7 @@ public class UserDAOImpl implements UsersDAO {
     }
 
     @Override
-    public Users findByID(String id) {
-        return XQuery.getSingleBean(Users.class, SELECT_BY_ID_SQL, id);
-
+    public Users findByID(String idUser) {
+        return XQuery.getSingleBean(Users.class, SELECT_BY_ID_SQL, idUser);
     }
-
 }
