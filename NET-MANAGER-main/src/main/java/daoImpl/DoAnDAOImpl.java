@@ -27,7 +27,7 @@ public class DoAnDAOImpl implements DoAnDAO {
             da.getTenDoAn(),
             da.getDonGia(),
             da.getSoLuong(),
-            da.isTrangThai()
+            da.getTrangThai()
         };
         XJdbc.executeUpdate(INSERT_SQL, args);
         return da;
@@ -39,7 +39,7 @@ public class DoAnDAOImpl implements DoAnDAO {
             da.getTenDoAn(),
             da.getDonGia(),
             da.getSoLuong(),
-            da.isTrangThai(),
+            da.getTrangThai(),
             da.getMaDoan()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);
