@@ -4,10 +4,18 @@
  */
 package controller;
 
+import util.XDialog;
+
 /**
  *
  * @author VINH
  */
 public interface DangNhapController {
-    
+    void open();
+    void login();
+    default void exit(){
+    if(XDialog.confirm("Bạn muốn kết thúc?")){
+    System.exit(0);
+     }
+    }
 }
