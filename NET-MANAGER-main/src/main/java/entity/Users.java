@@ -19,7 +19,14 @@ import lombok.*;
 
 public class Users {
     
-  private String admin;
-  private String employee;
+    private String idUser;
+    private String tenDangNhap;
+    private String matKhau;
+    private String vaiTro;
+    private boolean enable;
+    private Date namSinh;
+    private String email;
+    private String soDienThoai;
+    private Date ngayTaoUser;
     
 }
