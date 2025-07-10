@@ -1,6 +1,7 @@
 controller\QuenMatKhauController.class
 controller\ThanhToanController.class
 controller\DoiMatKhauController.class
+util\XJdbc.class
 controller\DangNhapController.class
 controller\HoaDonController.class
 controller\ThongKeDoanhThuController.class
