@@ -10,6 +10,6 @@ import entity.Order;
  *
  * @author NITRO 5
  */
-public interface OrderController extends CurdController<Order>{
+public interface OrderController extends crudController<Order>{ // Kế thừa crudController để thực hiện các chức năng bên trong
     
 }
