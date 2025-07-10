@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package daoImpl;
+
 import dao.UsersDAO;
 import entity.NguoiDung;
 import entity.Users;
@@ -20,28 +21,46 @@ public class UserDAOImpl implements UsersDAO {
 
     @Override
     public Users create(Users entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        XJdbc.executeUpdate(INSERT_SQL,
+                entity.getIdUser(),
+                entity.getTenDangNhap(),
+                entity.getNamSinh(),
+                entity.getVaiTro(),
+                entity.getEmail(),
+                entity.getMatKhau(),
+                entity.getNgayTaoUser(),
+                entity.getSoDienThoai()
+        );
+        return entity;
     }
 
     @Override
     public void update(Users entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        XJdbc.executeUpdate(UPDATE_SQL,
+                entity.getIdUser(),
+                entity.getTenDangNhap(),
+                entity.getNamSinh(),
+                entity.getVaiTro(),
+                entity.getEmail(),
+                entity.getMatKhau(),
+                entity.getNgayTaoUser(),
+                entity.getSoDienThoai()
+        );
     }
 
     @Override
     public void deleteByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        XJdbc.executeQuery(id, DELETE_SQL);
     }
 
     @Override
     public List<Users> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return XQuery.getBeanList(Users.class, SELECT_ALL_SQL);
     }
 
     @Override
     public Users findByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return XQuery.getSingleBean(Users.class, id, SELECT_BY_ID_SQL);
     }
 
 }
-
