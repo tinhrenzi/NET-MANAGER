@@ -23,11 +23,11 @@ public class DoAnDAOImpl implements DoAnDAO {
     @Override
     public DoAn create(DoAn da) {
         Object[] args = {
-            da.getMaDoAn(),
+            da.getMaDoan(),
             da.getTenDoAn(),
             da.getDonGia(),
             da.getSoLuong(),
-            da.getTrangThai()
+            da.isTrangThai()
         };
         XJdbc.executeUpdate(INSERT_SQL, args);
         return da;
@@ -39,25 +39,28 @@ public class DoAnDAOImpl implements DoAnDAO {
             da.getTenDoAn(),
             da.getDonGia(),
             da.getSoLuong(),
-            da.getTrangThai(),
-            da.getMaDoAn()
+            da.isTrangThai(),
+            da.getMaDoan()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);
     }
 
-    @Override
-    public void deleteById(String maDoAn) {
-        XJdbc.executeUpdate(DELETE_SQL, maDoAn);
-    }
+    
 
     @Override
     public List<DoAn> findAll() {
         return XQuery.getBeanList(DoAn.class, SELECT_ALL_SQL);
     }
 
+
     @Override
-    public DoAn findById(String maDoAn) {
-        return XQuery.getSingleBean(DoAn.class, SELECT_BY_ID_SQL, maDoAn);
+    public void deleteByID(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public DoAn findByID(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

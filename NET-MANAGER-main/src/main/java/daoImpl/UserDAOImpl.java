@@ -3,13 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package daoImpl;
-import dao.UserDAO;
+import dao.UsersDAO;
 import entity.NguoiDung;
+import entity.Users;
 import util.XJdbc;
 import util.XQuery;
 import java.util.List;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UsersDAO {
 
     private final String INSERT_SQL = "INSERT INTO NguoiDung (IdUser, TenDangNhap, MatKhau, VaiTro, Enable, NamSinh, Email, SoDienThoai, NgayTaoUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String UPDATE_SQL = "UPDATE NguoiDung SET TenDangNhap=?, MatKhau=?, VaiTro=?, Enable=?, NamSinh=?, Email=?, SoDienThoai=?, NgayTaoUser=? WHERE IdUser=?";
@@ -18,51 +19,29 @@ public class UserDAOImpl implements UserDAO {
     private final String SELECT_BY_ID_SQL = "SELECT * FROM NguoiDung WHERE IdUser=?";
 
     @Override
-    public NguoiDung create(NguoiDung user) {
-        Object[] args = {
-            user.getIdUser(),
-            user.getTenDangNhap(),
-            user.getMatKhau(),
-            user.getVaiTro(),
-            user.isEnable(),
-            user.getNamSinh(),
-            user.getEmail(),
-            user.getSoDienThoai(),
-            user.getNgayTaoUser()
-        };
-        XJdbc.executeUpdate(INSERT_SQL, args);
-        return user;
+    public Users create(Users entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(NguoiDung user) {
-        Object[] args = {
-            user.getTenDangNhap(),
-            user.getMatKhau(),
-            user.getVaiTro(),
-            user.isEnable(),
-            user.getNamSinh(),
-            user.getEmail(),
-            user.getSoDienThoai(),
-            user.getNgayTaoUser(),
-            user.getIdUser()
-        };
-        XJdbc.executeUpdate(UPDATE_SQL, args);
+    public void update(Users entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void deleteById(String idUser) {
-        XJdbc.executeUpdate(DELETE_SQL, idUser);
+    public void deleteByID(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<NguoiDung> findAll() {
-        return XQuery.getBeanList(NguoiDung.class, SELECT_ALL_SQL);
+    public List<Users> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public NguoiDung findById(String idUser) {
-        return XQuery.getSingleBean(NguoiDung.class, SELECT_BY_ID_SQL, idUser);
+    public Users findByID(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }
 
