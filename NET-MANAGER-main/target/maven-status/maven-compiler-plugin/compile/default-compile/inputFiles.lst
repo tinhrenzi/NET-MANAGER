@@ -1,4 +1,5 @@
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\crudController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DangNhapController.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DoiMatKhauController.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\HoaDonChiTietController.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\HoaDonController.java
@@ -35,7 +36,7 @@ H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\DoiMatKhauJFrame.
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\GiaoDienChinhJFrame.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\danhsachdoan.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\danhsachdouong.java
-H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyNhanVienJFrame.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyNhanVienJDialog.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyThucDonJFrame.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\ThanhToanJFrame.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\Thucdon.java
