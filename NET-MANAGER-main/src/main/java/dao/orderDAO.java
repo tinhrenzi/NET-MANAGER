@@ -10,6 +10,6 @@ import entity.Order;
  *
  * @author VINH
  */
-public interface orderDAO extends crudDAO<Order, String>{
+public interface orderDAO extends crudDAO<Order, String>{// Khóa chính là kiểu Nvarchar nên để String
     
 }
