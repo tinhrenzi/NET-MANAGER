@@ -55,14 +55,12 @@ public class DoAnDAOImpl implements DoAnDAO {
 
     @Override
     public void deleteByID(String id) {
-       
+       XJdbc.executeUpdate(id, DELETE_SQL);
     }
 
     @Override
     public DoAn findByID(String id) {
-       
-        return null;
-       
+       return XQuery.getSingleBean(DoAn.class, id, findByID(id));
     }
 }
 
