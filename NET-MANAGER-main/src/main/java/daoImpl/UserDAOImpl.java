@@ -23,12 +23,13 @@ public class UserDAOImpl implements UsersDAO {
         XJdbc.executeUpdate(INSERT_SQL,
                 entity.getIdUser(),
                 entity.getTenDangNhap(),
-                entity.getNamSinh(),
-                entity.getVaiTro(),
-                entity.getEmail(),
                 entity.getMatKhau(),
-                entity.getNgayTaoUser(),
-                entity.getSoDienThoai()
+                entity.getVaiTro(),
+                entity.isEnable(), // Cột Enable bị thiếu!
+                entity.getNamSinh(),
+                entity.getEmail(),
+                entity.getSoDienThoai(),
+                entity.getNgayTaoUser()
         );
         return entity;
     }
@@ -36,12 +37,13 @@ public class UserDAOImpl implements UsersDAO {
     @Override
     public void update(Users entity) {
         XJdbc.executeUpdate(UPDATE_SQL,
-                entity.getSoDienThoai(),
                 entity.getTenDangNhap(),
-                entity.getNamSinh(),
-                entity.getVaiTro(),
-                entity.getEmail(),
                 entity.getMatKhau(),
+                entity.getVaiTro(),
+                entity.isEnable(), // Cột Enable bị thiếu!
+                entity.getNamSinh(),
+                entity.getEmail(),
+                entity.getSoDienThoai(),
                 entity.getNgayTaoUser(),
                 entity.getIdUser()
         );
@@ -49,7 +51,7 @@ public class UserDAOImpl implements UsersDAO {
 
     @Override
     public void deleteByID(String id) {
-        XJdbc.executeQuery(id, DELETE_SQL);
+        XJdbc.executeUpdate(DELETE_SQL, id);
     }
 
     @Override
@@ -59,7 +61,8 @@ public class UserDAOImpl implements UsersDAO {
 
     @Override
     public Users findByID(String id) {
-        return XQuery.getSingleBean(Users.class, id, SELECT_BY_ID_SQL);
+        return XQuery.getSingleBean(Users.class, SELECT_BY_ID_SQL, id);
+
     }
 
 }
