@@ -5,7 +5,6 @@
 package daoImpl;
 
 import dao.UsersDAO;
-import entity.NguoiDung;
 import entity.Users;
 import util.XJdbc;
 import util.XQuery;
