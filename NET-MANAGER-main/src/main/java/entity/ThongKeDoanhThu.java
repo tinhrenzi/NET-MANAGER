@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class ThongKeDoanhThu {
-     private String idUser;
+    private String idUser;
     private String maHoaDon;
     private Date ngayThongKe;
     private double tongTien;

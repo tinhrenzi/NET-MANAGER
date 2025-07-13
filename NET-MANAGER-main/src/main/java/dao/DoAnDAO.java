@@ -11,6 +11,6 @@ import entity.DoAn;
  *
  * @author VINH
  */
-public interface DoAnDAO extends crudDAO<DoAn, String>{
+public interface DoAnDAO extends crudDAO<DoAn, String>{ // Khóa chính là kiểu Nvarchar nên để String
     
 }
