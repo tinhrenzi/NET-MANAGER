@@ -10,6 +10,6 @@ import entity.ThongKeDoanhThu;
  *
  * @author VINH
  */
-public interface ThongKeDoanhThuDAO extends crudDAO<ThongKeDoanhThu, String>{
+public interface ThongKeDoanhThuDAO extends crudDAO<ThongKeDoanhThu, String>{// Khóa chính là kiểu Nvarchar nên để String
     
 }

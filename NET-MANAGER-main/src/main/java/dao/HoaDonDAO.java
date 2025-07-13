@@ -10,6 +10,6 @@ import entity.HoaDon;
  *
  * @author VINH
  */
-public interface HoaDonDAO extends crudDAO<HoaDon, String>{
+public interface HoaDonDAO extends crudDAO<HoaDon, String>{// Khóa chính là kiểu Nvarchar nên để String
     
 }

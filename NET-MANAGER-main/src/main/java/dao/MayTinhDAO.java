@@ -10,6 +10,6 @@ import entity.MayTinh;
  *
  * @author VINH
  */
-public interface MayTinhDAO extends crudDAO<MayTinh, String>{
+public interface MayTinhDAO extends crudDAO<MayTinh, String>{// Khóa chính là kiểu Nvarchar nên để String
     
 }

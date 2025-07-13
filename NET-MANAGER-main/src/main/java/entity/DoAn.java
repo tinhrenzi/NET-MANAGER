@@ -13,9 +13,9 @@ import lombok.*;
 @Builder
 @Data
 public class DoAn {
-    String maDoan ;
-    String tenDoAn ;
-    float donGia;
-    int soLuong;
-    boolean trangThai;
+   private String maDoan ;
+   private String tenDoAn ;
+   private float donGia;
+   private int soLuong;
+   private String trangThai;
 }
