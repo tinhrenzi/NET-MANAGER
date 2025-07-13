@@ -30,7 +30,7 @@ public class DoAnDAOImpl implements DoAnDAO {
     @Override
     public DoAn create(DoAn da) {
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(INSERT_SQL)) {
-            stmt.setString(1, da.getMaDoan());
+            stmt.setString(1, da.getMaDoAn());
             stmt.setString(2, da.getTenDoAn());
             stmt.setFloat(3, da.getDonGia());
             stmt.setInt(4, da.getSoLuong());
@@ -50,7 +50,7 @@ public class DoAnDAOImpl implements DoAnDAO {
             da.getDonGia(),
             da.getSoLuong(),
             da.getTrangThai(),
-            da.getMaDoan()
+            da.getMaDoAn()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);
     }

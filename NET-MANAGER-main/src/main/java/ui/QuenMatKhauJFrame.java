@@ -42,7 +42,7 @@ public class QuenMatKhauJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Quyên Mật Khẩu");
+        jLabel1.setText("Quên Mật Khẩu");
 
         jLabel2.setText("Nhập Mật Khẩu Mới");
 
@@ -61,7 +61,7 @@ public class QuenMatKhauJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addComponent(jLabel1)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
