@@ -11,7 +11,7 @@ package ui;
 public class QuenMatKhauJDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form QuyenMatKhauJDialog
+     * Creates new form QuenMatKhauJDialog
      */
     public QuenMatKhauJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -60,9 +60,9 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
+                .addGap(117, 117, 117)
                 .addComponent(jLabel1)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +70,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addGap(44, 44, 44)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNameAccount)
                     .addComponent(txtNewPassWord)
@@ -105,10 +105,10 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
                     .addComponent(jLabel5)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConfirm)
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,7 +139,6 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(QuenMatKhauJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
