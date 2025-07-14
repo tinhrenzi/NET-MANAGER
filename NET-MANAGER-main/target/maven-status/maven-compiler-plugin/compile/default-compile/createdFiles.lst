@@ -16,7 +16,6 @@ controller\OrderController.class
 ui\manager\ThucdonJFrame$1.class
 ui\WelcomeJDialog$2$1.class
 controller\DoiMatKhauController.class
-ui\QuyenMatKhauJFame.class
 daoImpl\MayTinhDAOImpl.class
 ui\manager\QuanLyThucDonJDialog$1.class
 controller\ThongKeDoanhThuController.class
@@ -71,7 +70,6 @@ daoImpl\HoaDonChiTietDAOImpl.class
 ui\DangNhapJFrame$1.class
 ui\manager\danhsachdoan.class
 util\XQuery.class
-ui\QuyenMatKhauJFame$1.class
 dao\UsersDAO.class
 entity\DoUong.class
 util\TimeRange.class
