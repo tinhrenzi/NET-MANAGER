@@ -4,15 +4,22 @@
  */
 package ui;
 
+import controller.DangNhapController;
+import dao.UsersDAO;
+import daoImpl.UserDAOImpl;
+import entity.Users;
+import util.XDialog;
+
 /**
  *
  * @author Admin
  */
-public class DangNhapJDialog extends javax.swing.JDialog {
+public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapController{
 
     /**
      * Creates new form DangNhapJDialog
      */
+    UsersDAO dao = new UserDAOImpl();
     public DangNhapJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -37,6 +44,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         btnLogin = new javax.swing.JButton();
         btnChangePassword = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,6 +62,14 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         btnChangePassword.setText("Đổi Mật Khẩu");
 
         jButton3.setText("Quên Mật Khẩu");
+
+        btnExit.setForeground(new java.awt.Color(204, 0, 0));
+        btnExit.setText("X");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,7 +90,8 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExit))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
                 .addComponent(btnLogin)
@@ -87,7 +104,9 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnExit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -110,6 +129,11 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        this.exit();
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,6 +179,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -165,4 +190,26 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     private javax.swing.JPasswordField pwdPassWord;
     private javax.swing.JTextField txtNameAccount;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void open() {
+    this.setLocationRelativeTo(null);
+    }
+
+    @Override
+    public void login() {
+         String username = txtNameAccount.getText();
+         String password = pwdPassWord.getText();
+         Users user = dao.findByID(username);
+         if (user == null) {
+         XDialog.alert("Sai tên đăng nhập!");
+         } else if (!password.equals(user.getMatKhau())) {
+         XDialog.alert("Sai mật khẩu đăng nhập!");
+         } else if (!user.isEnable()) {
+         XDialog.alert("Tài khoản của bạn đang tạm dừng!");
+         } else {
+         //XAuth.user = user; // duy trì user đăng nhập để sử dụng khi cần
+         this.dispose();
+         }
+    }
 }
