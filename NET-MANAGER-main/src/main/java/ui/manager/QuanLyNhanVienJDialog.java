@@ -425,7 +425,15 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        txtDate.setText("");
+        txtDateCre.setText("");
+        txtEmail.setText("");
+        txtFindbyid.setText("");
+        txtId.setText("");
+        txtName.setText("");
+        txtPass.setText("");
+        txtPhone.setText("");
+        buttonGroup1.clearSelection();
     }
 
     @Override
