@@ -8,6 +8,7 @@ import controller.DangNhapController;
 import dao.UsersDAO;
 import daoImpl.UserDAOImpl;
 import entity.Users;
+import util.XAuth;
 import util.XDialog;
 
 /**
@@ -58,6 +59,11 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         pwdPassWord.setText("jPasswordField1");
 
         btnLogin.setText("Đăng Nhập");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         btnChangePassword.setText("Đổi Mật Khẩu");
 
@@ -135,6 +141,11 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         this.exit();
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        this.login();
+    }//GEN-LAST:event_btnLoginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -200,7 +211,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     public void login() {
          String username = txtNameAccount.getText();
          String password = pwdPassWord.getText();
-         Users user = dao.findByID(username);
+         Users user = dao.findByUsername(username);
          if (user == null) {
          XDialog.alert("Sai tên đăng nhập!");
          } else if (!password.equals(user.getMatKhau())) {
@@ -208,7 +219,9 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
          } else if (!user.isEnable()) {
          XDialog.alert("Tài khoản của bạn đang tạm dừng!");
          } else {
-         //XAuth.user = user; // duy trì user đăng nhập để sử dụng khi cần
+         XAuth.user = user; // duy trì user đăng nhập để sử dụng khi cần
+         XDialog.alert("Dang nhap thanh cong");
+         
          this.dispose();
          }
     }

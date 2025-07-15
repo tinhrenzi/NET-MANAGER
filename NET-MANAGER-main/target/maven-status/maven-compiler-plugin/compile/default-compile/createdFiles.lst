@@ -10,6 +10,7 @@ ui\DangNhapJDialog.class
 controller\OrderController.class
 ui\DoiMatKhauJDialog$1.class
 ui\WelcomeJDialog$2$1.class
+ui\DangNhapJDialog$3$1.class
 controller\DoiMatKhauController.class
 daoImpl\MayTinhDAOImpl.class
 controller\ThongKeDoanhThuController.class
@@ -41,6 +42,7 @@ daoImpl\DoUongDAOImpl.class
 dao\DoUongDAO.class
 daoImpl\DoAnDAOImpl.class
 daoImpl\HoaDonChiTietDAOImpl.class
+ui\DangNhapJDialog$3.class
 util\XQuery.class
 ui\QuenMatKhauJDialog$1$1.class
 util\TimeRange.class
@@ -85,5 +87,4 @@ util\XDate.class
 ui\DoiMatKhauJDialog.class
 dao\UsersDAO.class
 entity\DoUong.class
-ui\DangNhapJDialog$2$1.class
 entity\HoaDonChiTiet.class

@@ -11,5 +11,5 @@ import entity.Users;
  * @author VINH
  */
 public interface UsersDAO extends crudDAO<Users, String>{// Khóa chính là kiểu Nvarchar nên để String
-    
+    Users findByUsername (String username);
 }

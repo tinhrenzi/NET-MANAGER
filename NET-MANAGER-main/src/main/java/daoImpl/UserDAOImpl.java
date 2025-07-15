@@ -18,6 +18,7 @@ public class UserDAOImpl implements UsersDAO {
     private final String DELETE_SQL = "DELETE FROM NguoiDung WHERE IdUser=?";
     private final String SELECT_ALL_SQL = "SELECT * FROM NguoiDung";
     private final String SELECT_BY_ID_SQL = "SELECT * FROM NguoiDung WHERE IdUser=?";
+    private final String findByUsername = "SELECT * FROM NguoiDung WHERE TenDangNhap=?";
 
     @Override
     public Users create(Users user) {
@@ -65,5 +66,10 @@ public class UserDAOImpl implements UsersDAO {
     @Override
     public Users findByID(String idUser) {
         return XQuery.getSingleBean(Users.class, SELECT_BY_ID_SQL, idUser);
+    }
+
+    @Override
+    public Users findByUsername(String username) {
+return XQuery.getSingleBean(Users.class, findByUsername, username);
     }
 }
