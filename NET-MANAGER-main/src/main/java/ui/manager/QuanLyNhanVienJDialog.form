@@ -128,7 +128,7 @@
                                                   <Component id="txtEmail" pref="198" max="32767" attributes="0"/>
                                                   <Component id="txtPhone" alignment="0" max="32767" attributes="0"/>
                                               </Group>
-                                              <Component id="txtDate" alignment="0" min="-2" pref="175" max="-2" attributes="0"/>
+                                              <Component id="txtNamSinh" alignment="0" min="-2" pref="175" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -204,7 +204,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNamSinh" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtPass" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="txtDateCre" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -263,7 +263,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtPhone">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtDate">
+        <Component class="javax.swing.JTextField" name="txtNamSinh">
         </Component>
         <Component class="javax.swing.JRadioButton" name="rdo1">
           <Properties>

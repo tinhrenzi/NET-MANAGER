@@ -60,7 +60,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         jLabel9 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         txtPhone = new javax.swing.JTextField();
-        txtDate = new javax.swing.JTextField();
+        txtNamSinh = new javax.swing.JTextField();
         rdo1 = new javax.swing.JRadioButton();
         rdo2 = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
@@ -186,7 +186,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                                                 .addComponent(jLabel9)
                                                 .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                                                 .addComponent(txtPhone))
-                                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
@@ -242,7 +242,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtDateCre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -410,11 +410,11 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.JRadioButton rdo1;
     private javax.swing.JRadioButton rdo2;
     private javax.swing.JTable tblUsermager;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtDateCre;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFindbyid;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNamSinh;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtPhone;
@@ -435,7 +435,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         txtPass.setText(entity.getMatKhau());
         txtEmail.setText(entity.getEmail());
         txtPhone.setText(entity.getSoDienThoai());
-        txtDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
+        txtNamSinh.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
         txtDateCre.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNgayTaoUser()));
         rdo1.setSelected(entity.isEnable());
         rdo2.setSelected(!entity.isEnable());
@@ -451,15 +451,11 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         users.setMatKhau(txtPass.getText());
         users.setVaiTro(txtVaitro.getText());
         users.setEnable(rdo1.isSelected());
-        try {
-            users.setNamSinh(sdtf.parse(txtDate.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        users.setNamSinh(txtNamSinh.getText());
         users.setEmail(txtEmail.getText());
         users.setSoDienThoai(txtPhone.getText());
         try {
-            users.setNgayTaoUser(sdtf.parse(txtDate.getText()));
+            users.setNgayTaoUser(sdtf.parse(txtNamSinh.getText()));
         } catch (ParseException ex) {
             Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -525,7 +521,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public void clear() {
-        txtDate.setText("");
+        txtNamSinh.setText("");
         txtDateCre.setText("");
         txtEmail.setText("");
         txtFindbyid.setText("");

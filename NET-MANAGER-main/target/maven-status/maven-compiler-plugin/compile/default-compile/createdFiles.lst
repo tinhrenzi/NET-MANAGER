@@ -17,6 +17,7 @@ dao\orderDAO.class
 ui\GiaoDienChinhJFrame$2.class
 ui\manager\DanhSachDoAnJDialog.class
 controller\crudController.class
+util\XAuth.class
 ui\GiaoDienChinhJFrame.class
 controller\QuenMatKhauController.class
 ui\DangNhapJDialog$2.class
