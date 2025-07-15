@@ -65,10 +65,10 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         jLabel10 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         txtFindbyid = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        btnFind = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        btnEmployee = new javax.swing.JTable();
-        btnSearch = new javax.swing.JButton();
+        tblUsermager = new javax.swing.JTable();
+        btnExit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -228,9 +228,9 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButton5.setText("Tìm kiếm");
+        btnFind.setText("Tìm kiếm");
 
-        btnEmployee.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsermager.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -241,9 +241,14 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 "ID", "Tên ĐN", "Mật khẩu", "Ngày Sinh", "Email", "Phone", "Trạng thái", "Vai trò", "Ngày tạo"
             }
         ));
-        jScrollPane1.setViewportView(btnEmployee);
+        jScrollPane1.setViewportView(tblUsermager);
 
-        btnSearch.setText("X");
+        btnExit.setText("X");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Thông Tin Nhân Viên");
 
@@ -256,7 +261,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 .addGap(337, 337, 337)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSearch))
+                .addComponent(btnExit))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -268,7 +273,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 .addGap(48, 475, Short.MAX_VALUE)
                 .addComponent(txtFindbyid, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(btnFind)
                 .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
@@ -276,7 +281,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(btnSearch))
+                    .addComponent(btnExit))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,7 +291,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFindbyid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addComponent(btnFind))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -340,11 +345,10 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JTable btnEmployee;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -363,6 +367,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton rdo1;
     private javax.swing.JRadioButton rdo2;
+    private javax.swing.JTable tblUsermager;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtDateCre;
     private javax.swing.JTextField txtEmail;
