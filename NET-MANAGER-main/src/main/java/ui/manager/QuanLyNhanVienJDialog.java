@@ -4,15 +4,23 @@
  */
 package ui.manager;
 
+import controller.QuanLyNhanVienController;
+import dao.UsersDAO;
+import daoImpl.UserDAOImpl;
+import entity.Users;
+import java.util.List;
+
 /**
  *
  * @author Admin
  */
-public class QuanLyNhanVienJDialog extends javax.swing.JDialog {
+public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLyNhanVienController{
 
     /**
      * Creates new form QuanLyNhanVienJDialog
      */
+     UsersDAO dao = new UserDAOImpl();
+     List<Users> items = List.of();
     public QuanLyNhanVienJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -345,4 +353,64 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+        public void open() {
+         this.setLocationRelativeTo(null);
+         this.fillToTable();
+         this.clear();
+        }
+
+    @Override
+    public void setForm(Users entity) {
+    txtUsers.setText(entity.getUsername());
+    txtName.setText(entity.getFullname());
+    txtPassword.setText(entity.getPassword());
+    txtCheckPass.setText(entity.getPassword());
+    lblImage.setIcon(new ImageIcon(entity.getPhoto()));
+        rdoVaiTro1.setSelected(entity.isManager());
+        rdoVaiTro2.setSelected(!entity.isManager());
+        rdoTrangThai1.setSelected(entity.isEnabled());
+        rdoTrangThai.setSelected(!entity.isEnabled());
+    }
+
+    @Override
+    public Users getForm() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void fillToTable() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void edit() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void create() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void clear() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
