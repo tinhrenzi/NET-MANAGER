@@ -27,7 +27,7 @@ public class UserDAOImpl implements UsersDAO {
             user.getMatKhau(),
             user.getVaiTro(),
             user.isEnable(),
-            new java.sql.Date(user.getNamSinh().getTime()),
+            user.getNamSinh(),
             user.getEmail(),
             user.getSoDienThoai(),
             new java.sql.Date(user.getNgayTaoUser().getTime())
@@ -43,7 +43,7 @@ public class UserDAOImpl implements UsersDAO {
             user.getMatKhau(),
             user.getVaiTro(),
             user.isEnable(),
-            new java.sql.Date(user.getNamSinh().getTime()),
+            user.isEnable(),
             user.getEmail(),
             user.getSoDienThoai(),
             new java.sql.Date(user.getNgayTaoUser().getTime()),
