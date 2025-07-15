@@ -98,7 +98,7 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jTextField1" min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="txtVaitro" min="-2" pref="175" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -214,7 +214,7 @@
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtVaitro" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -343,7 +343,7 @@
             <Property name="text" type="java.lang.String" value="Vai tr&#xf2;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtVaitro">
         </Component>
       </SubComponents>
     </Container>
@@ -368,11 +368,11 @@
                 <Column editable="true" title="ID" type="java.lang.Object"/>
                 <Column editable="true" title="T&#xea;n &#x110;N" type="java.lang.Object"/>
                 <Column editable="true" title="M&#x1ead;t kh&#x1ea9;u" type="java.lang.Object"/>
-                <Column editable="true" title="Nga&#x300;y Sinh" type="java.lang.Object"/>
-                <Column editable="true" title="Email" type="java.lang.Object"/>
-                <Column editable="true" title="Phone" type="java.lang.Object"/>
-                <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
                 <Column editable="true" title="Vai tr&#xf2;" type="java.lang.Object"/>
+                <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
+                <Column editable="true" title="N&#x103;m sinh" type="java.lang.Object"/>
+                <Column editable="true" title="Email" type="java.lang.Object"/>
+                <Column editable="true" title="S&#x1ed1; &#x111;i&#x1ec7;n th&#x1ea1;i" type="java.lang.Object"/>
                 <Column editable="true" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
               </Table>
             </Property>

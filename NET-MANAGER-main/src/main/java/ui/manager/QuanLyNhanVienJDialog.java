@@ -8,8 +8,13 @@ import controller.QuanLyNhanVienController;
 import dao.UsersDAO;
 import daoImpl.UserDAOImpl;
 import entity.Users;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import util.XDialog;
 
 /**
@@ -64,7 +69,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         txtPass = new javax.swing.JTextField();
         txtDateCre = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtVaitro = new javax.swing.JTextField();
         txtFindbyid = new javax.swing.JTextField();
         btnFind = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -139,7 +144,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtVaitro, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +231,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel10)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtVaitro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         btnFind.setText("Tìm kiếm");
@@ -239,7 +244,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên ĐN", "Mật khẩu", "Ngày Sinh", "Email", "Phone", "Trạng thái", "Vai trò", "Ngày tạo"
+                "ID", "Tên ĐN", "Mật khẩu", "Vai trò", "Trạng thái", "Năm sinh", "Email", "Số điện thại", "Ngày tạo"
             }
         ));
         jScrollPane1.setViewportView(tblUsermager);
@@ -346,6 +351,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
@@ -369,7 +375,6 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton rdo1;
     private javax.swing.JRadioButton rdo2;
     private javax.swing.JTable tblUsermager;
@@ -381,6 +386,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtVaitro;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -406,14 +412,48 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public Users getForm() {
-        
+        Users users=new Users();
+        SimpleDateFormat sdtf = new SimpleDateFormat();
+        users.setTenDangNhap(txtName.getText());
+        users.setIdUser(txtId.getText());
+        users.setMatKhau(txtPass.getText());
+        users.setVaiTro(txtVaitro.getText());
+        users.setEnable(rdo1.isSelected());
+         try {
+             users.setNamSinh(sdtf.parse(txtDate.getText()));
+         } catch (ParseException ex) {
+             Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        users.setEmail(txtEmail.getText());
+        users.setSoDienThoai(txtPhone.getText());
+         try {
+             users.setNgayTaoUser(sdtf.parse(txtDate.getText()));
+         } catch (ParseException ex) {
+             Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
+         }
          return null;
-        
     }
 
     @Override
     public void fillToTable() {
-
+    DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
+    model.setRowCount(0);
+    items = dao.findAll();
+    items.forEach(item -> {
+    Object[] rowData = {
+      item.getIdUser(),
+      item.getTenDangNhap(),
+      item.getMatKhau(),
+      item.getVaiTro(),
+      item.isEnable() ? "Hoạt động" : "Không hoạt động",
+      item.getNamSinh(),
+      item.getEmail(),
+      item.getSoDienThoai(),
+      item.getNgayTaoUser(),  
+      false
+      };
+      model.addRow(rowData);
+      });
     }
 
     @Override
@@ -423,12 +463,17 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public void create() {
-
+    Users user = this.getForm();
+    dao.create(user);
+    this.fillToTable();
+    this.clear();
     }
 
     @Override
     public void update() {
-
+    Users user = this.getForm();
+    dao.update(user);
+    this.fillToTable();
     }
 
     @Override
@@ -457,5 +502,15 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     @Override
     public void setEditable(boolean editable) {
 
+    }
+    public void findname(String name){
+    String ten = txtFindbyid.getText();
+    DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
+    model.setRowCount(0);
+        for (Users i : items) {
+            if (i.getIdUser().toLowerCase().contains(ten.toLowerCase())) {
+            model.addRow(new Object[]{i.getIdUser(),i.getTenDangNhap(),i.getMatKhau(),i.getVaiTro(),i.isEnable(),i.getNamSinh(),i.getEmail(),i.getSoDienThoai(),i.getNgayTaoUser()});
+        }   
+        }
     }
 }
