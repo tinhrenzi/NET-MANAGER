@@ -442,25 +442,43 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     }
 
-    @Override
-    public Users getForm() {
-        Users users = new Users();
-        SimpleDateFormat sdtf = new SimpleDateFormat();
-        users.setTenDangNhap(txtName.getText());
+@Override
+public Users getForm() {
+    Users users = new Users();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    try {
         users.setIdUser(txtId.getText());
+        users.setTenDangNhap(txtName.getText());
         users.setMatKhau(txtPass.getText());
         users.setVaiTro(txtVaitro.getText());
         users.setEnable(rdo1.isSelected());
-        users.setNamSinh(txtNamSinh.getText());
         users.setEmail(txtEmail.getText());
         users.setSoDienThoai(txtPhone.getText());
-        try {
-            users.setNgayTaoUser(sdtf.parse(txtNamSinh.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
+
+        // Parse ngày sinh
+        String namSinhText = txtNamSinh.getText();
+        if (!namSinhText.trim().isEmpty()) {
+            users.setNamSinh(namSinhText); // giữ nguyên là String
         }
+
+        // Parse ngày tạo
+        String ngayTaoText = txtDateCre.getText();
+        if (!ngayTaoText.trim().isEmpty()) {
+            users.setNgayTaoUser(sdf.parse(ngayTaoText)); // sử dụng txtDateCre
+        } else {
+            users.setNgayTaoUser(new java.util.Date()); // nếu trống thì gán ngày hiện tại
+        }
+
+    } catch (ParseException ex) {
+        Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ. Vui lòng nhập dd/MM/yyyy");
         return null;
     }
+
+    return users;
+}
+
 
     @Override
     public void fillToTable() {
