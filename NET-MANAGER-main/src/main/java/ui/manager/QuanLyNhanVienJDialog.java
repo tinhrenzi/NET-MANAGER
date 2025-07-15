@@ -10,6 +10,7 @@ import daoImpl.UserDAOImpl;
 import entity.Users;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import util.XDialog;
 
 /**
  *
@@ -194,9 +195,9 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(rdo1)
@@ -420,7 +421,12 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (XDialog.confirm("Ban xac nhan xoa?")) {
+            String id = txtId.getText();
+            dao.deleteByID(id);
+            this.fillToTable();
+            this.clear();
+        }
     }
 
     @Override
