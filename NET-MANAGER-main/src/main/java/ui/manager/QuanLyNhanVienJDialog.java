@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
 
@@ -21,13 +22,14 @@ import util.XDialog;
  *
  * @author Admin
  */
-public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLyNhanVienController{
+public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLyNhanVienController {
 
     /**
      * Creates new form QuanLyNhanVienJDialog
      */
-     UsersDAO dao = new UserDAOImpl();
-     List<Users> items = List.of();
+    UsersDAO dao = new UserDAOImpl();
+    List<Users> items = List.of();
+
     public QuanLyNhanVienJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -351,7 +353,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
@@ -390,21 +392,21 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     // End of variables declaration//GEN-END:variables
 
     @Override
-        public void open() {
-         this.setLocationRelativeTo(null);
-         this.fillToTable();
-         this.clear();
-        }
+    public void open() {
+        this.setLocationRelativeTo(null);
+        this.fillToTable();
+        this.clear();
+    }
 
     @Override
     public void setForm(Users entity) {
-    txtId.setText(entity.getIdUser());
-    txtName.setText(entity.getTenDangNhap());
-    txtPass.setText(entity.getMatKhau());
-    txtEmail.setText(entity.getEmail());
-    txtPhone.setText(entity.getSoDienThoai());
-    txtDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
-    txtDateCre.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNgayTaoUser()));
+        txtId.setText(entity.getIdUser());
+        txtName.setText(entity.getTenDangNhap());
+        txtPass.setText(entity.getMatKhau());
+        txtEmail.setText(entity.getEmail());
+        txtPhone.setText(entity.getSoDienThoai());
+        txtDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
+        txtDateCre.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNgayTaoUser()));
         rdo1.setSelected(entity.isEnable());
         rdo2.setSelected(!entity.isEnable());
 
@@ -412,68 +414,73 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public Users getForm() {
-        Users users=new Users();
+        Users users = new Users();
         SimpleDateFormat sdtf = new SimpleDateFormat();
         users.setTenDangNhap(txtName.getText());
         users.setIdUser(txtId.getText());
         users.setMatKhau(txtPass.getText());
         users.setVaiTro(txtVaitro.getText());
         users.setEnable(rdo1.isSelected());
-         try {
-             users.setNamSinh(sdtf.parse(txtDate.getText()));
-         } catch (ParseException ex) {
-             Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        try {
+            users.setNamSinh(sdtf.parse(txtDate.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         users.setEmail(txtEmail.getText());
         users.setSoDienThoai(txtPhone.getText());
-         try {
-             users.setNgayTaoUser(sdtf.parse(txtDate.getText()));
-         } catch (ParseException ex) {
-             Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         return null;
+        try {
+            users.setNgayTaoUser(sdtf.parse(txtDate.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public void fillToTable() {
-    DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
-    model.setRowCount(0);
-    items = dao.findAll();
-    items.forEach(item -> {
-    Object[] rowData = {
-      item.getIdUser(),
-      item.getTenDangNhap(),
-      item.getMatKhau(),
-      item.getVaiTro(),
-      item.isEnable() ? "Hoạt động" : "Không hoạt động",
-      item.getNamSinh(),
-      item.getEmail(),
-      item.getSoDienThoai(),
-      item.getNgayTaoUser(),  
-      false
-      };
-      model.addRow(rowData);
-      });
+        DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
+        model.setRowCount(0);
+        items = dao.findAll();
+        items.forEach(item -> {
+            Object[] rowData = {
+                item.getIdUser(),
+                item.getTenDangNhap(),
+                item.getMatKhau(),
+                item.getVaiTro(),
+                item.isEnable() ? "Hoạt động" : "Không hoạt động",
+                item.getNamSinh(),
+                item.getEmail(),
+                item.getSoDienThoai(),
+                item.getNgayTaoUser(),
+                false
+            };
+            model.addRow(rowData);
+        });
     }
 
     @Override
     public void edit() {
+        int row = tblUsermager.getSelectedRow();
 
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui long chon dong can chinh sua");
+            return;
+        }
     }
 
     @Override
     public void create() {
-    Users user = this.getForm();
-    dao.create(user);
-    this.fillToTable();
-    this.clear();
+        Users user = this.getForm();
+        dao.create(user);
+        this.fillToTable();
+        this.clear();
     }
 
     @Override
     public void update() {
-    Users user = this.getForm();
-    dao.update(user);
-    this.fillToTable();
+        Users user = this.getForm();
+        dao.update(user);
+        this.fillToTable();
     }
 
     @Override
@@ -503,14 +510,15 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     public void setEditable(boolean editable) {
 
     }
-    public void findname(String name){
-    String ten = txtFindbyid.getText();
-    DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
-    model.setRowCount(0);
+
+    public void findname(String name) {
+        String ten = txtFindbyid.getText();
+        DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
+        model.setRowCount(0);
         for (Users i : items) {
             if (i.getIdUser().toLowerCase().contains(ten.toLowerCase())) {
-            model.addRow(new Object[]{i.getIdUser(),i.getTenDangNhap(),i.getMatKhau(),i.getVaiTro(),i.isEnable(),i.getNamSinh(),i.getEmail(),i.getSoDienThoai(),i.getNgayTaoUser()});
-        }   
+                model.addRow(new Object[]{i.getIdUser(), i.getTenDangNhap(), i.getMatKhau(), i.getVaiTro(), i.isEnable(), i.getNamSinh(), i.getEmail(), i.getSoDienThoai(), i.getNgayTaoUser()});
+            }
         }
     }
 }

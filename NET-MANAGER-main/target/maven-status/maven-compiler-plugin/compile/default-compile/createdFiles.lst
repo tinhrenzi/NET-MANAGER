@@ -28,6 +28,7 @@ ui\manager\ThucDonJDialog.class
 entity\Order.class
 ui\QuenMatKhauJDialog$1.class
 daoImpl\UserDAOImpl.class
+ui\manager\QuanLyThongKeJDialog$1.class
 controller\QuanLyNhanVienController.class
 ui\manager\ThanhToanJDialog$1.class
 dao\HoaDonChiTietDAO.class
@@ -62,10 +63,12 @@ controller\ThucDonController.class
 daoImpl\HoaDonDAOImpl.class
 ui\manager\DanhSachDoAnJDialog$1.class
 ui\manager\QuanLyThucDonJDialog$1$1.class
+ui\manager\QuanLyThongKeJDialog.class
 ui\manager\QuanLyNhanVienJDialog$2.class
 entity\Users.class
 entity\DoAn.class
 ui\manager\QuanLyThucDonJDialog.class
+ui\manager\QuanLyThongKeJDialog$1$1.class
 util\XStr.class
 controller\WelcomeController.class
 dao\MayTinhDAO.class
