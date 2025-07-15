@@ -12,15 +12,14 @@ public class Users {
     private String matKhau;
     private String vaiTro;
     private boolean enable;
-    private Date namSinh;
+    private String namSinh;
     private String email;
     private String soDienThoai;
     private Date ngayTaoUser;
 
     public Users() {}
 
-    public Users(String idUser, String tenDangNhap, String matKhau, String vaiTro, boolean enable,
-                 Date namSinh, String email, String soDienThoai, Date ngayTaoUser) {
+    public Users(String idUser, String tenDangNhap, String matKhau, String vaiTro, boolean enable, String namSinh, String email, String soDienThoai, Date ngayTaoUser) {
         this.idUser = idUser;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
@@ -31,6 +30,8 @@ public class Users {
         this.soDienThoai = soDienThoai;
         this.ngayTaoUser = ngayTaoUser;
     }
+
+    
 
     public String getIdUser() { return idUser; }
     public void setIdUser(String idUser) { this.idUser = idUser; }
@@ -47,8 +48,8 @@ public class Users {
     public boolean isEnable() { return enable; }
     public void setEnable(boolean enable) { this.enable = enable; }
 
-    public Date getNamSinh() { return namSinh; }
-    public void setNamSinh(Date namSinh) { this.namSinh = namSinh; }
+    public String getNamSinh() { return namSinh; }
+    public void setNamSinh(String namSinh) { this.namSinh = namSinh; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
