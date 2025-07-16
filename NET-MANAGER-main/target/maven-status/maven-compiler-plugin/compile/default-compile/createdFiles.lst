@@ -1,7 +1,9 @@
 ui\manager\ThucDonJDialog$1$1.class
+ui\NetManagerJFrem$8.class
 controller\DangNhapController.class
 ui\manager\ThucDonJDialog$1.class
 controller\HoaDonChiTietController.class
+ui\NetManagerJFrem$5.class
 ui\WelcomeJDialog$1.class
 entity\ThongKeDoanhThu.class
 ui\manager\QuanLyNhanVienJDialog$3.class
@@ -32,6 +34,7 @@ ui\manager\ThucDonJDialog.class
 entity\Order.class
 ui\QuenMatKhauJDialog$1.class
 daoImpl\UserDAOImpl.class
+ui\NetManagerJFrem$7.class
 ui\manager\QuanLyThongKeJDialog$1.class
 ui\manager\QuanLyNhanVienJDialog$5.class
 controller\QuanLyNhanVienController.class
@@ -60,12 +63,14 @@ util\XDialog.class
 ui\GiaoDienChinhJFrame$1.class
 ui\manager\DanhSachDoUongJDialog.class
 ui\DangNhapJDialog$1.class
+ui\NetManagerJFrem$9.class
 ui\manager\QuanLyNhanVienJDialog$1.class
 ui\manager\QuanLyThucDonJDialog$1.class
 controller\MayTinhController.class
 daoImpl\OrderDAOImpl.class
 ui\manager\ThanhToanJDialog.class
 ui\WelcomeJDialog$2.class
+ui\NetManagerJFrem$6.class
 daoImpl\ThongKeDoanhThuDAOImpl.class
 ui\manager\QuanLyNhanVienJDialog$4.class
 controller\ThucDonController.class

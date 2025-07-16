@@ -16,6 +16,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog {
     public QuanLyThongKeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

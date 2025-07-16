@@ -16,6 +16,7 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog {
     public DanhSachDoAnJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -16,6 +16,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
     public QuanLyThucDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -10,7 +10,7 @@ import ui.manager.QuanLyNhanVienJDialog;
 import ui.manager.QuanLyThongKeJDialog;
 import ui.manager.QuanLyThucDonJDialog;
 import ui.manager.ThanhToanJDialog;
-import ui.manager.ThucDonJDialog;
+import ui.manager.*;
 import util.XDialog;
 
 /**
@@ -33,8 +33,7 @@ public interface GiaoDienChinhController {
     
     default void showNhanVien(JFrame jFrame){
         this.showDialog(new QuanLyNhanVienJDialog(jFrame, true));
-    }
-    
+    }   
     default void showDichVu(JFrame jFrame){
         this.showDialog(new ThucDonJDialog(jFrame, true));
     } 
@@ -48,7 +47,6 @@ public interface GiaoDienChinhController {
     }
     
     default void showQLmay(JFrame jFrame){
-        this.showDialog(new QuanLyThucDonJDialog(jFrame,true));
     }
     
     default void showThanhtoan(JFrame jFrame){
