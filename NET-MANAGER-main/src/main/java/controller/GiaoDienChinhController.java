@@ -7,7 +7,10 @@ package controller;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import ui.manager.QuanLyNhanVienJDialog;
+import ui.manager.QuanLyThongKeJDialog;
 import ui.manager.QuanLyThucDonJDialog;
+import ui.manager.ThanhToanJDialog;
+import ui.manager.ThucDonJDialog;
 import util.XDialog;
 
 /**
@@ -33,15 +36,25 @@ public interface GiaoDienChinhController {
     }
     
     default void showDichVu(JFrame jFrame){
-        this.showDialog(new QuanLyThucDonJDialog(jFrame, true));
+        this.showDialog(new ThucDonJDialog(jFrame, true));
+    } 
+    
+    default void showQLOrder(JFrame jFrame){
+        this.showDialog(new QuanLyThucDonJDialog(jFrame,true));
     }
     
-    default void showThongTin(){
-        
+    default void showQLThongke(JFrame jFrame){
+        this.showDialog(new QuanLyThongKeJDialog(jFrame,true));
     }
     
-    default void showTaiKhoan(){
-        
+    default void showQLmay(JFrame jFrame){
+        this.showDialog(new QuanLyThucDonJDialog(jFrame,true));
     }
+    
+    default void showThanhtoan(JFrame jFrame){
+        this.showDialog(new ThanhToanJDialog(jFrame,true));
+    }
+    
+    
     
 }

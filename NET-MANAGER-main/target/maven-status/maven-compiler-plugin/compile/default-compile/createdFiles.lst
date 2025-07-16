@@ -21,6 +21,7 @@ controller\crudController.class
 ui\NetManagerJFrem.class
 util\XAuth.class
 ui\GiaoDienChinhJFrame.class
+ui\NetManagerJFrem$3.class
 controller\QuenMatKhauController.class
 ui\DangNhapJDialog$2.class
 util\XJdbc.class
@@ -85,6 +86,7 @@ ui\DoiMatKhauJDialog$1$1.class
 controller\ThanhToanController.class
 controller\GiaoDienChinhController.class
 ui\manager\DanhSachDoUongJDialog$1.class
+ui\NetManagerJFrem$4.class
 dao\HoaDonDAO.class
 util\XDate.class
 ui\DoiMatKhauJDialog.class
