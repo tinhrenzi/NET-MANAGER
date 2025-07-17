@@ -391,15 +391,18 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     txtName.setText(tblUsermager.getValueAt(row, 1).toString());
     txtPass.setText(tblUsermager.getValueAt(row, 2).toString());
     cboVaitro.setSelectedItem(tblUsermager.getValueAt(row, 3).toString());
-    txtNamSinh.setText(tblUsermager.getValueAt(row, 4).toString());
-    txtEmail.setText(tblUsermager.getValueAt(row, 5).toString());
-    txtPhone.setText(tblUsermager.getValueAt(row, 6).toString());
-    txtDateCre.setText(tblUsermager.getValueAt(row, 7).toString());
-        if (user.isEnable()) {
-            user.setEnable(true);
-        }else{
-            user.setEnable(true);
-        }
+     String status = tblUsermager.getValueAt(row, 4).toString();
+    if (status.equalsIgnoreCase("Hoạt động")) {
+        rdo1.setSelected(true);
+    } else {
+        rdo2.setSelected(true);
+    }
+
+    txtNamSinh.setText(tblUsermager.getValueAt(row, 5).toString());
+    txtEmail.setText(tblUsermager.getValueAt(row, 6).toString());
+    txtPhone.setText(tblUsermager.getValueAt(row, 7).toString());
+    txtDateCre.setText(tblUsermager.getValueAt(row, 8).toString());
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
