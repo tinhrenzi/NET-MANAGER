@@ -46,6 +46,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
@@ -71,7 +72,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         txtPass = new javax.swing.JTextField();
         txtDateCre = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtVaitro = new javax.swing.JTextField();
+        cboVaitro = new javax.swing.JComboBox<>();
         txtFindbyid = new javax.swing.JTextField();
         btnFind = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -153,6 +154,8 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
         jLabel10.setText("Vai trò");
 
+        cboVaitro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lý ", "Nhân viên", " " }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -161,7 +164,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtVaitro, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboVaitro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +190,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                                                 .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                                                 .addComponent(txtPhone))
                                             .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(rdo1)
@@ -247,8 +250,9 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                             .addComponent(txtDateCre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel10)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtVaitro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboVaitro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         btnFind.setText("Tìm kiếm");
@@ -293,7 +297,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 475, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtFindbyid, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnFind)
@@ -392,6 +396,8 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JComboBox<String> cboVaitro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -418,7 +424,6 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtPhone;
-    private javax.swing.JTextField txtVaitro;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -434,6 +439,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         txtName.setText(entity.getTenDangNhap());
         txtPass.setText(entity.getMatKhau());
         txtEmail.setText(entity.getEmail());
+        cboVaitro.setSelectedItem(entity.getVaiTro());
         txtPhone.setText(entity.getSoDienThoai());
         txtNamSinh.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
         txtDateCre.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNgayTaoUser()));
@@ -451,7 +457,7 @@ public Users getForm() {
         users.setIdUser(txtId.getText());
         users.setTenDangNhap(txtName.getText());
         users.setMatKhau(txtPass.getText());
-        users.setVaiTro(txtVaitro.getText());
+        users.setVaiTro(cboVaitro.getSelectedIndex());
         users.setEnable(rdo1.isSelected());
         users.setEmail(txtEmail.getText());
         users.setSoDienThoai(txtPhone.getText());

@@ -10,7 +10,7 @@ public class Users {
     private String idUser;
     private String tenDangNhap;
     private String matKhau;
-    private String vaiTro;
+    private int vaiTro;
     private boolean enable;
     private String namSinh;
     private String email;
@@ -19,7 +19,7 @@ public class Users {
 
     public Users() {}
 
-    public Users(String idUser, String tenDangNhap, String matKhau, String vaiTro, boolean enable, String namSinh, String email, String soDienThoai, Date ngayTaoUser) {
+    public Users(String idUser, String tenDangNhap, String matKhau, int vaiTro, boolean enable, String namSinh, String email, String soDienThoai, Date ngayTaoUser) {
         this.idUser = idUser;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
@@ -30,6 +30,7 @@ public class Users {
         this.soDienThoai = soDienThoai;
         this.ngayTaoUser = ngayTaoUser;
     }
+
 
     
 
@@ -42,8 +43,8 @@ public class Users {
     public String getMatKhau() { return matKhau; }
     public void setMatKhau(String matKhau) { this.matKhau = matKhau; }
 
-    public String getVaiTro() { return vaiTro; }
-    public void setVaiTro(String vaiTro) { this.vaiTro = vaiTro; }
+    public int getVaiTro() { return vaiTro; }
+    public void setVaiTro(int vaiTro) { this.vaiTro = vaiTro; }
 
     public boolean isEnable() { return enable; }
     public void setEnable(boolean enable) { this.enable = enable; }

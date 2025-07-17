@@ -18,7 +18,7 @@ public class XAuth {
         user.setTenDangNhap("bao1");
         user.setMatKhau("123");
         user.setEnable(true);
-        user.setVaiTro("Manager");
+        user.setVaiTro(1);
         user.setEmail("bao@gmail.com");
         user.setSoDienThoai("0123456789");
         user.setNgayTaoUser(new java.util.Date());
