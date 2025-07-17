@@ -6,8 +6,6 @@ package ui;
 
 
 import controller.GiaoDienChinhController;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 /**
  *
