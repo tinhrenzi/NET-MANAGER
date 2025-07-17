@@ -22,7 +22,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     MayTinhDAO dao = new MayTinhDAOImpl();
     List<MayTinh> list = new ArrayList<>();
-    private JFrame mainFrame;
 
     /**
      * Creates new form MoMayJDialog
