@@ -53,6 +53,7 @@ util\XQuery.class
 ui\QuenMatKhauJDialog$1$1.class
 util\TimeRange.class
 util\XIcon.class
+ui\NetManagerJFrem$10.class
 ui\NetManagerJFrem$1.class
 dao\DoAnDAO.class
 entity\HoaDon.class

@@ -44,6 +44,11 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnOrder.setText("Order");
@@ -189,6 +194,11 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
         this.showQLThongke(this);
     }//GEN-LAST:event_btnQLTKActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        init();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -239,28 +249,9 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
 
     @Override
     public void init() {
-        GiaoDienChinhController.super.
+        // Hien thi Welcome va Login
+        this.showWelcome(this);
+        this.showLogin(this);
     }
 
-    @Override
-    public void exit() {
-        GiaoDienChinhController.super.exit(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
-    @Override
-    public void showDialog(JDialog dialog) {
-        GiaoDienChinhController.super.showDialog(dialog); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
-    @Override
-    public void showNhanVien(JFrame jFrame) {
-        GiaoDienChinhController.super.showNhanVien(jFrame); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
-    @Override
-    public void showDichVu(JFrame jFrame) {
-        GiaoDienChinhController.super.showDichVu(jFrame); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-    
-    
 }
