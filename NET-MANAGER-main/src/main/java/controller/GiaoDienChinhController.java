@@ -6,6 +6,8 @@ package controller;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import ui.DangNhapJDialog;
+import ui.WelcomeJDialog;
 import ui.manager.QuanLyNhanVienJDialog;
 import ui.manager.QuanLyThongKeJDialog;
 import ui.manager.QuanLyThucDonJDialog;
@@ -29,6 +31,14 @@ public interface GiaoDienChinhController {
     default void showDialog(JDialog dialog){
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
+    }
+    
+    default void showWelcome(JFrame jFrame){
+        this.showDialog(new WelcomeJDialog(jFrame, true));
+    }
+    
+    default void showLogin(JFrame jFrame){
+        this.showDialog(new DangNhapJDialog(jFrame, true));
     }
     
     default void showNhanVien(JFrame jFrame){

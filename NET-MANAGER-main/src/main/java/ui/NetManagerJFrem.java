@@ -239,7 +239,7 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GiaoDienChinhController.super.
     }
 
     @Override
@@ -261,5 +261,6 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
     public void showDichVu(JFrame jFrame) {
         GiaoDienChinhController.super.showDichVu(jFrame); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-
+    
+    
 }
