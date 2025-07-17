@@ -112,6 +112,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         btnTatMay.setText("Tắt máy");
 
         jButton3.setText("Thoát");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rdoHoatDong);
         rdoHoatDong.setText("Đang hoạt động");
@@ -242,6 +247,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         this.create();
     }//GEN-LAST:event_btnMoMayActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.close();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -321,10 +331,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     }
 
-    @Override
-    public void exit() {
-
-    }
 
     @Override
     public void setForm(MayTinh entity) {

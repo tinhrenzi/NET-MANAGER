@@ -12,6 +12,7 @@ import entity.MayTinh;
  */
 public interface MoMayController extends crudController<MayTinh>{
     void open();
-    void close();
-    void exit();
+    default void close(){
+        System.exit(2);
+    };
 }
