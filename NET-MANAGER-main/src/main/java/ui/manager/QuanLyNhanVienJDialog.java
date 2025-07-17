@@ -268,6 +268,11 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 "ID", "Tên ĐN", "Mật khẩu", "Vai trò", "Trạng thái", "Năm sinh", "Email", "Số điện thại", "Ngày tạo"
             }
         ));
+        tblUsermager.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsermagerMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUsermager);
 
         jLabel2.setText("Thông Tin Nhân Viên");
@@ -332,6 +337,12 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         this.delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void tblUsermagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsermagerMouseClicked
+        // TODO add your handling code here:
+        int index = tblUsermager.getSelectedRow();
+        fillTXT(index);
+    }//GEN-LAST:event_tblUsermagerMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -374,7 +385,22 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         });
     }
 
-
+    public void fillTXT( int row){
+        Users user = new Users();
+    txtId.setText(tblUsermager.getValueAt(row, 0).toString());
+    txtName.setText(tblUsermager.getValueAt(row, 1).toString());
+    txtPass.setText(tblUsermager.getValueAt(row, 2).toString());
+    cboVaitro.setSelectedItem(tblUsermager.getValueAt(row, 3).toString());
+    txtNamSinh.setText(tblUsermager.getValueAt(row, 4).toString());
+    txtEmail.setText(tblUsermager.getValueAt(row, 5).toString());
+    txtPhone.setText(tblUsermager.getValueAt(row, 6).toString());
+    txtDateCre.setText(tblUsermager.getValueAt(row, 7).toString());
+        if (user.isEnable()) {
+            user.setEnable(true);
+        }else{
+            user.setEnable(true);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;

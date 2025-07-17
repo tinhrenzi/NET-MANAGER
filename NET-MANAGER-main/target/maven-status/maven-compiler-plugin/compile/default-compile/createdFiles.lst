@@ -40,6 +40,7 @@ ui\QuenMatKhauJDialog$1.class
 daoImpl\UserDAOImpl.class
 ui\NetManagerJFrem$7.class
 ui\manager\QuanLyThongKeJDialog$1.class
+ui\manager\QuanLyNhanVienJDialog$5.class
 controller\QuanLyNhanVienController.class
 ui\manager\ThanhToanJDialog$1.class
 ui\NetManagerJFrem$2.class
@@ -58,7 +59,6 @@ ui\manager\MoMayJDialog$2.class
 ui\QuenMatKhauJDialog$1$1.class
 util\TimeRange.class
 util\XIcon.class
-ui\manager\QuanLyNhanVienJDialog$4$1.class
 ui\NetManagerJFrem$10.class
 ui\DangNhapJDialog$4.class
 ui\NetManagerJFrem$1.class
@@ -88,6 +88,7 @@ daoImpl\HoaDonDAOImpl.class
 ui\manager\DanhSachDoAnJDialog$1.class
 ui\manager\QuanLyThucDonJDialog$1$1.class
 ui\manager\QuanLyThongKeJDialog.class
+ui\manager\QuanLyNhanVienJDialog$5$1.class
 ui\manager\QuanLyNhanVienJDialog$2.class
 entity\Users.class
 entity\DoAn.class
@@ -96,6 +97,7 @@ ui\manager\QuanLyThongKeJDialog$1$1.class
 util\XStr.class
 controller\WelcomeController.class
 dao\MayTinhDAO.class
+ui\manager\MoMayJDialog$4.class
 ui\DoiMatKhauJDialog$1$1.class
 controller\ThanhToanController.class
 controller\GiaoDienChinhController.class
