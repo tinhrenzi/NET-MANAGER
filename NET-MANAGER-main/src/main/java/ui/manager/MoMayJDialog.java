@@ -332,17 +332,54 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         txtTenMay.setText(entity.getTenMay());
         txtViTri.setText(entity.getViTri());
         buttonGroup1.clearSelection();
-        while (rdoHoatDong.isSelected()) {            
-            
+        while (rdoHoatDong.isSelected()) {
+
         }
     }
 
-    @Override
-    public MayTinh getForm() {
+@Override
+public MayTinh getForm() {
+    MayTinh entity = new MayTinh();
 
+    String maMay = txtMaMay.getText().trim();
+    if (maMay.isEmpty()) {
+        XDialog.alert("Mã máy không được để trống!");
         return null;
-
     }
+
+    String tenMay = txtTenMay.getText().trim();
+    if (tenMay.isEmpty()) {
+        XDialog.alert("Tên máy không được để trống!");
+        return null;
+    }
+
+    String viTri = txtViTri.getText().trim();
+    if (viTri.isEmpty()) {
+        XDialog.alert("Vị trí không được để trống!");
+        return null;
+    }
+
+    String trangThai;
+    if (rdoHoatDong.isSelected()) {
+        trangThai = "Đang hoạt động";
+    } else if (rdoNgungHoatDong.isSelected()) {
+        trangThai = "Ngừng hoạt động";
+    } else if (rdoBaoTri.isSelected()) {
+        trangThai = "Bảo trì";
+    } else {
+        XDialog.alert("Vui lòng chọn trạng thái!");
+        return null;
+    }
+
+    // Gán các giá trị vào entity
+    entity.setMaMayTinh(maMay);
+    entity.setTenMay(tenMay);
+    entity.setViTri(viTri);
+    entity.setTrangThai(trangThai);
+
+    return entity;
+}
+
 
     @Override
     public void fillToTable() {
@@ -375,9 +412,10 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             dao.create(entity);
             this.fillToTable();
             this.clear();
-            XDialog.alert("Tạo thẻ thành công!");
+            XDialog.alert("Mở máy thành công!");
         } catch (Exception e) {
-            XDialog.alert("Lỗi khi tạo thẻ: " + e.getMessage());
+            XDialog.alert("Lỗi: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
