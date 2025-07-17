@@ -146,7 +146,7 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
         });
         getContentPane().add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 163, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\ChatGPT Image 22_27_18 16 thg 7, 2025.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\ChatGPT Image 22_27_18 16 thg 7, 2025.png")); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
 
         pack();

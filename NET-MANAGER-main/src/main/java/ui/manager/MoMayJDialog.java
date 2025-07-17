@@ -65,6 +65,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         txtViTri = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -111,6 +116,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         });
 
         btnTatMay.setText("Tắt máy");
+        btnTatMay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTatMayActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rdoHoatDong);
         rdoHoatDong.setText("Đang hoạt động");
@@ -238,6 +248,17 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         this.create();
     }//GEN-LAST:event_btnMoMayActionPerformed
 
+    private void btnTatMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatMayActionPerformed
+        // TODO add your handling code here:
+        this.update();
+    }//GEN-LAST:event_btnTatMayActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        int index = tblDanhSach.getSelectedRow();
+        this.fillText(index);
+    }//GEN-LAST:event_formMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -322,49 +343,48 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         }
     }
 
-@Override
-public MayTinh getForm() {
-    MayTinh entity = new MayTinh();
+    @Override
+    public MayTinh getForm() {
+        MayTinh entity = new MayTinh();
 
-    String maMay = txtMaMay.getText().trim();
-    if (maMay.isEmpty()) {
-        XDialog.alert("Mã máy không được để trống!");
-        return null;
+        String maMay = txtMaMay.getText().trim();
+        if (maMay.isEmpty()) {
+            XDialog.alert("Mã máy không được để trống!");
+            return null;
+        }
+
+        String tenMay = txtTenMay.getText().trim();
+        if (tenMay.isEmpty()) {
+            XDialog.alert("Tên máy không được để trống!");
+            return null;
+        }
+
+        String viTri = txtViTri.getText().trim();
+        if (viTri.isEmpty()) {
+            XDialog.alert("Vị trí không được để trống!");
+            return null;
+        }
+
+        String trangThai;
+        if (rdoHoatDong.isSelected()) {
+            trangThai = "Đang hoạt động";
+        } else if (rdoNgungHoatDong.isSelected()) {
+            trangThai = "Ngừng hoạt động";
+        } else if (rdoBaoTri.isSelected()) {
+            trangThai = "Bảo trì";
+        } else {
+            XDialog.alert("Vui lòng chọn trạng thái!");
+            return null;
+        }
+
+        // Gán các giá trị vào entity
+        entity.setMaMayTinh(maMay);
+        entity.setTenMay(tenMay);
+        entity.setViTri(viTri);
+        entity.setTrangThai(trangThai);
+
+        return entity;
     }
-
-    String tenMay = txtTenMay.getText().trim();
-    if (tenMay.isEmpty()) {
-        XDialog.alert("Tên máy không được để trống!");
-        return null;
-    }
-
-    String viTri = txtViTri.getText().trim();
-    if (viTri.isEmpty()) {
-        XDialog.alert("Vị trí không được để trống!");
-        return null;
-    }
-
-    String trangThai;
-    if (rdoHoatDong.isSelected()) {
-        trangThai = "Đang hoạt động";
-    } else if (rdoNgungHoatDong.isSelected()) {
-        trangThai = "Ngừng hoạt động";
-    } else if (rdoBaoTri.isSelected()) {
-        trangThai = "Bảo trì";
-    } else {
-        XDialog.alert("Vui lòng chọn trạng thái!");
-        return null;
-    }
-
-    // Gán các giá trị vào entity
-    entity.setMaMayTinh(maMay);
-    entity.setTenMay(tenMay);
-    entity.setViTri(viTri);
-    entity.setTrangThai(trangThai);
-
-    return entity;
-}
-
 
     @Override
     public void fillToTable() {
@@ -398,14 +418,26 @@ public MayTinh getForm() {
             e.printStackTrace();
         }
     }
-// khong dung den
-    @Override
-    public void edit() {
-
-    }
 
     @Override
     public void update() {
+        MayTinh mt = this.getForm();
+        dao.update(mt);
+        this.fillToTable();
+    }
+
+    public void fillText(int row){
+        txtMaMay.setText(tblDanhSach.getValueAt(row, 0).toString());
+        txtTenMay.setText(tblDanhSach.getValueAt(row, 1).toString());
+        txtViTri.setText(tblDanhSach.getValueAt(row, 2).toString());
+        rdoHoatDong.isSelected();
+    }
+
+// khong dung den
+
+    @Override
+    public void edit() {
+
     }
 
     @Override
@@ -422,7 +454,7 @@ public MayTinh getForm() {
 
     @Override
     public void close() {
-        
+
     }
 
 }
