@@ -424,7 +424,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         txtName.setText(entity.getTenDangNhap());
         txtPass.setText(entity.getMatKhau());
         txtEmail.setText(entity.getEmail());
-        cboVaitro.setSelectedItem(entity.getVaiTro());
+        cboVaitro.setSelectedItem(entity.getVaiTro()+1);
         txtPhone.setText(entity.getSoDienThoai());
         txtNamSinh.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
         txtDateCre.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNgayTaoUser()));
@@ -442,17 +442,11 @@ public Users getForm() {
         users.setIdUser(txtId.getText());
         users.setTenDangNhap(txtName.getText());
         users.setMatKhau(txtPass.getText());
-        users.setVaiTro(cboVaitro.getSelectedIndex());
+        users.setVaiTro(cboVaitro.getSelectedIndex()+1);
         users.setEnable(rdo1.isSelected());
         users.setEmail(txtEmail.getText());
         users.setSoDienThoai(txtPhone.getText());
-
-        // Parse ngày sinh
-        String namSinhText = txtNamSinh.getText();
-        if (!namSinhText.trim().isEmpty()) {
-            users.setNamSinh(namSinhText); // giữ nguyên là String
-        }
-
+        users.setNamSinh(Integer.parseInt(txtNamSinh.getText()));
         // Parse ngày tạo
         String ngayTaoText = txtDateCre.getText();
         if (!ngayTaoText.trim().isEmpty()) {
@@ -477,11 +471,16 @@ public Users getForm() {
         model.setRowCount(0);
         items = dao.findAll();
         items.forEach(item -> {
+             String Vaitro = switch (item.getVaiTro()){
+            case 1 -> "Quản lý";
+                case 2 -> "Nhân viên";
+            default ->"ko ro";  
+            };
             Object[] rowData = {
                 item.getIdUser(),
                 item.getTenDangNhap(),
                 item.getMatKhau(),
-                item.getVaiTro(),
+                Vaitro,
                 item.isEnable() ? "Hoạt động" : "Không hoạt động",
                 item.getNamSinh(),
                 item.getEmail(),

@@ -62,8 +62,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
 
         jLabel3.setText("Mật Khẩu");
 
-        pwdPassWord.setText("jPasswordField1");
-
         btnLogin.setText("Đăng Nhập");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +108,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExit))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
+                .addContainerGap(65, Short.MAX_VALUE)
                 .addComponent(btnLogin)
                 .addGap(18, 18, 18)
                 .addComponent(btnChangePassword)

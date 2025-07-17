@@ -48,7 +48,7 @@
               <Component id="btnExit" min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="153" max="32767" attributes="0"/>
+              <EmptySpace pref="65" max="32767" attributes="0"/>
               <Component id="btnLogin" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnChangePassword" min="-2" max="-2" attributes="0"/>
@@ -114,9 +114,6 @@
     <Component class="javax.swing.JTextField" name="txtNameAccount">
     </Component>
     <Component class="javax.swing.JPasswordField" name="pwdPassWord">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
     </Component>

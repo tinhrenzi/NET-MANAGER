@@ -96,7 +96,6 @@ ui\manager\QuanLyThongKeJDialog$1$1.class
 util\XStr.class
 controller\WelcomeController.class
 dao\MayTinhDAO.class
-ui\manager\MoMayJDialog$4.class
 ui\DoiMatKhauJDialog$1$1.class
 controller\ThanhToanController.class
 controller\GiaoDienChinhController.class
