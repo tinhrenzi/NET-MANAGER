@@ -5,6 +5,7 @@
 package controller;
 
 import entity.MayTinh;
+import javax.swing.JFrame;
 
 /**
  *
@@ -14,8 +15,11 @@ public interface MoMayController extends crudController<MayTinh> {
 
     void open();
 
-    default void close() {
-        System.exit(2);
-    }
-;
+// Sửa trong interface
+default void close(java.awt.Window currentWindow, java.awt.Window mainWindow) {
+    currentWindow.dispose();
+    mainWindow.setVisible(true);
+}
+         
+
 }
