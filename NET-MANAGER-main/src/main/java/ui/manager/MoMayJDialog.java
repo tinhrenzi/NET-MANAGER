@@ -327,12 +327,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }
 
     @Override
-    public void close() {
-
-    }
-
-
-    @Override
     public void setForm(MayTinh entity) {
         txtMaMay.setText(entity.getMaMayTinh());
         txtTenMay.setText(entity.getTenMay());
@@ -404,11 +398,6 @@ public MayTinh getForm() {
     }
 
     @Override
-    public void edit() {
-
-    }
-
-    @Override
     public void create() {
         MayTinh entity = this.getForm();
         if (entity == null) {
@@ -423,6 +412,11 @@ public MayTinh getForm() {
             XDialog.alert("Lỗi: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+// khong dung den
+    @Override
+    public void edit() {
+
     }
 
     @Override

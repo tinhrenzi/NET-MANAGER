@@ -10,9 +10,12 @@ import entity.MayTinh;
  *
  * @author VINH
  */
-public interface MoMayController extends crudController<MayTinh>{
+public interface MoMayController extends crudController<MayTinh> {
+
     void open();
-    default void close(){
+
+    default void close() {
         System.exit(2);
-    };
+    }
+;
 }
