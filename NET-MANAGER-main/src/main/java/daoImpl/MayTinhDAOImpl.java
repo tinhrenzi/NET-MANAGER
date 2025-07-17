@@ -16,8 +16,8 @@ public class MayTinhDAOImpl implements MayTinhDAO {
     private final String INSERT_SQL = "INSERT INTO MayTinh (MaMayTinh, TenMay, TrangThai, ViTri) VALUES (?, ?, ?, ?)";
     private final String UPDATE_SQL = "UPDATE MayTinh SET TenMay=?, TrangThai=?, ViTri=? WHERE MaMayTinh=?";
     private final String DELETE_SQL = "DELETE FROM MayTinh WHERE MaMayTinh=?";
-    private final String SELECT_ALL_SQL = "SELECT * FROM MayTinh";
-    private final String SELECT_BY_ID_SQL = "SELECT * FROM MayTinh WHERE MaMayTinh=?";
+    private final String findAll = "SELECT * FROM MayTinh";
+    private final String findById = "SELECT * FROM MayTinh WHERE MaMayTinh=?";
 
     @Override
     public MayTinh create(MayTinh mt) {
@@ -49,12 +49,12 @@ public class MayTinhDAOImpl implements MayTinhDAO {
 
     @Override
     public List<MayTinh> findAll() {
-        return XQuery.getBeanList(MayTinh.class, SELECT_ALL_SQL);
+        return XQuery.getBeanList(MayTinh.class, findAll);
     }
 
     @Override
     public MayTinh findByID(String id) {
-        return XQuery.getSingleBean(MayTinh.class, SELECT_BY_ID_SQL, id);
+        return XQuery.getSingleBean(MayTinh.class, findById, id);
     }
 }
 

@@ -48,6 +48,11 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Đăng Nhập");
@@ -66,6 +71,11 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         });
 
         btnChangePassword.setText("Đổi Mật Khẩu");
+        btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangePasswordActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Quên Mật Khẩu");
 
@@ -146,6 +156,15 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         this.login();
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_btnChangePasswordActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -205,6 +224,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     @Override
     public void open() {
     this.setLocationRelativeTo(null);
+    
     }
 
     @Override
