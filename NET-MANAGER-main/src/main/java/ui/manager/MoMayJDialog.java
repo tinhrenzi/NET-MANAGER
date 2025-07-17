@@ -30,7 +30,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.mainFrame = (JFrame) parent;
         setLocationRelativeTo(null);
     }
 
@@ -252,7 +251,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
-        this.close(this, mainFrame);
     }//GEN-LAST:event_btnThoatActionPerformed
 
     /**
@@ -436,6 +434,11 @@ public MayTinh getForm() {
 
     @Override
     public void setEditable(boolean editable) {
+    }
+
+    @Override
+    public void close() {
+        
     }
 
 }
