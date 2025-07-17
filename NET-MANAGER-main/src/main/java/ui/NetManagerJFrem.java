@@ -154,7 +154,7 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
 
     private void btnMoMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoMayActionPerformed
         // TODO add your handling code here:
-      
+        this.showMoMay(this);
     }//GEN-LAST:event_btnMoMayActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

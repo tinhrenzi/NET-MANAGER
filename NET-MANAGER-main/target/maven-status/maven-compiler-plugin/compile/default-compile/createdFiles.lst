@@ -9,6 +9,7 @@ entity\ThongKeDoanhThu.class
 ui\manager\QuanLyNhanVienJDialog$3.class
 ui\WelcomeJDialog.class
 ui\DangNhapJDialog.class
+ui\manager\MoMayJDialog$1$1.class
 controller\OrderController.class
 ui\DoiMatKhauJDialog$1.class
 ui\WelcomeJDialog$2$1.class
@@ -28,6 +29,7 @@ controller\QuenMatKhauController.class
 ui\DangNhapJDialog$2.class
 util\XJdbc.class
 dao\ThongKeDoanhThuDAO.class
+ui\manager\MoMayJDialog.class
 ui\manager\ThanhToanJDialog$1$1.class
 dao\crudDAO.class
 ui\manager\ThucDonJDialog.class
@@ -63,6 +65,7 @@ ui\manager\QuanLyNhanVienJDialog.class
 util\XDialog.class
 ui\GiaoDienChinhJFrame$1.class
 ui\manager\DanhSachDoUongJDialog.class
+ui\manager\MoMayJDialog$1.class
 ui\DangNhapJDialog$1.class
 ui\NetManagerJFrem$9.class
 ui\manager\QuanLyNhanVienJDialog$1.class
