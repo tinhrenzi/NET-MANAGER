@@ -50,7 +50,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         jPanel2 = new javax.swing.JPanel();
         btnMoMay = new javax.swing.JButton();
         btnTatMay = new javax.swing.JButton();
-        btnThoat = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         rdoHoatDong = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
@@ -113,13 +112,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
         btnTatMay.setText("Tắt máy");
 
-        btnThoat.setText("Thoát");
-        btnThoat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThoatActionPerformed(evt);
-            }
-        });
-
         buttonGroup1.add(rdoHoatDong);
         rdoHoatDong.setText("Đang hoạt động");
 
@@ -146,13 +138,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(267, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMoMay)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(btnTatMay)
-                .addGap(18, 18, 18)
-                .addComponent(btnThoat)
-                .addGap(35, 35, 35))
+                .addGap(41, 41, 41))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -179,7 +169,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                         .addComponent(rdoNgungHoatDong)
                         .addGap(106, 106, 106)
                         .addComponent(txtViTri, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,13 +197,12 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(spiThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMoMay)
-                    .addComponent(btnTatMay)
-                    .addComponent(btnThoat))
+                    .addComponent(btnTatMay))
                 .addGap(21, 21, 21))
         );
 
@@ -248,10 +237,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         // TODO add your handling code here:
         this.create();
     }//GEN-LAST:event_btnMoMayActionPerformed
-
-    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThoatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,7 +283,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMoMay;
     private javax.swing.JButton btnTatMay;
-    private javax.swing.JButton btnThoat;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
