@@ -62,6 +62,9 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         txtTenMay = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtViTri = new javax.swing.JTextField();
+        btnThemMay = new javax.swing.JButton();
+        btnOpen = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,7 +97,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -178,7 +181,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                         .addComponent(rdoNgungHoatDong)
                         .addGap(106, 106, 106)
                         .addComponent(txtViTri, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,6 +220,17 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
         jTabbedPane1.addTab("Thêm máy", jPanel2);
 
+        btnThemMay.setText("Thêm máy");
+        btnThemMay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemMayActionPerformed(evt);
+            }
+        });
+
+        btnOpen.setText("Mở máy");
+
+        btnClose.setText("Tắt máy");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -225,13 +239,26 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnThemMay)
+                .addGap(35, 35, 35)
+                .addComponent(btnOpen)
+                .addGap(29, 29, 29)
+                .addComponent(btnClose)
+                .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThemMay)
+                    .addComponent(btnOpen)
+                    .addComponent(btnClose))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,7 +271,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     private void btnMoMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoMayActionPerformed
         // TODO add your handling code here:
-        this.create();
+        
     }//GEN-LAST:event_btnMoMayActionPerformed
 
     private void btnTatMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatMayActionPerformed
@@ -254,9 +281,12 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        int index = tblDanhSach.getSelectedRow();
-        this.fillText(index);
     }//GEN-LAST:event_formMouseClicked
+
+    private void btnThemMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemMayActionPerformed
+        // TODO add your handling code here:
+        this.create();
+    }//GEN-LAST:event_btnThemMayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,8 +331,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnMoMay;
+    private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnTatMay;
+    private javax.swing.JButton btnThemMay;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -423,13 +456,29 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         MayTinh mt = this.getForm();
         dao.update(mt);
         this.fillToTable();
-    }
-
-    public void fillText(int row){
-        txtMaMay.setText(tblDanhSach.getValueAt(row, 0).toString());
-        txtTenMay.setText(tblDanhSach.getValueAt(row, 1).toString());
-        txtViTri.setText(tblDanhSach.getValueAt(row, 2).toString());
-        rdoHoatDong.isSelected();
+        MayTinh entity = this.getForm();
+        if (entity == null) {
+            return;
+        }
+        // Set status to "Ngừng hoạt động" or "Bảo trì" based on selection
+        if (rdoNgungHoatDong.isSelected() || rdoBaoTri.isSelected()) {
+            if (rdoNgungHoatDong.isSelected()) {
+                entity.setTrangThai("Ngừng hoạt động");
+            } else if (rdoBaoTri.isSelected()) {
+                entity.setTrangThai("Bảo trì");
+            }
+            try {
+                dao.update(entity);
+                this.fillToTable();
+                this.clear();
+                XDialog.alert("Tắt máy thành công!");
+            } catch (Exception e) {
+                XDialog.alert("Lỗi: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            XDialog.alert("Vui lòng chọn trạng thái 'Ngừng hoạt động' hoặc 'Bảo trì'!");
+        }
     }
 
 // khong dung den
@@ -455,5 +504,4 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     public void close() {
 
     }
-
 }
