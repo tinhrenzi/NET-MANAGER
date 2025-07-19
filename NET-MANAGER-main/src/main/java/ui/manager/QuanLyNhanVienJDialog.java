@@ -514,8 +514,8 @@ public Users getForm() {
                 item.getNamSinh(),
                 item.getEmail(),
                 item.getSoDienThoai(),
-                item.getNgayTaoUser(),
-                false
+                item.getNgayTaoUser()
+                
             };
             model.addRow(rowData);
         });

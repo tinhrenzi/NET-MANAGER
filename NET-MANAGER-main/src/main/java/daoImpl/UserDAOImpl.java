@@ -44,7 +44,7 @@ public class UserDAOImpl implements UsersDAO {
             user.getMatKhau(),
             user.getVaiTro(),
             user.isEnable(),
-            user.isEnable(),
+            user.getNamSinh(),
             user.getEmail(),
             user.getSoDienThoai(),
             new java.sql.Date(user.getNgayTaoUser().getTime()),
