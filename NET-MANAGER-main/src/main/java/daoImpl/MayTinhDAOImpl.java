@@ -13,8 +13,8 @@ import java.util.List;
 
 public class MayTinhDAOImpl implements MayTinhDAO {
 
-    private final String INSERT_SQL = "INSERT INTO MayTinh (MaMayTinh, TenMay, TrangThai, ViTri) VALUES (?, ?, ?, ?)";
-    private final String UPDATE_SQL = "UPDATE MayTinh SET TenMay=?, TrangThai=?, ViTri=? WHERE MaMayTinh=?";
+    private final String INSERT_SQL = "INSERT INTO MayTinh (MaMayTinh, TenMay, TrangThai, ViTri, ThoiGian) VALUES (?,?, ?, ?, ?)";
+    private final String UPDATE_SQL = "UPDATE MayTinh SET TenMay=?, TrangThai=?, ViTri=?, ThoiGian=? WHERE MaMayTinh=?";
     private final String DELETE_SQL = "DELETE FROM MayTinh WHERE MaMayTinh=?";
     private final String findAll = "SELECT * FROM MayTinh";
     private final String findById = "SELECT * FROM MayTinh WHERE MaMayTinh=?";
@@ -25,7 +25,8 @@ public class MayTinhDAOImpl implements MayTinhDAO {
             mt.getMaMayTinh(),
             mt.getTenMay(),
             mt.getTrangThai(),
-            mt.getViTri()
+            mt.getViTri(),
+            mt.getThoiGian()
         };
         XJdbc.executeUpdate(INSERT_SQL, args);
         return mt;
@@ -37,6 +38,7 @@ public class MayTinhDAOImpl implements MayTinhDAO {
             mt.getTenMay(),
             mt.getTrangThai(),
             mt.getViTri(),
+            mt.getThoiGian(),
             mt.getMaMayTinh()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);

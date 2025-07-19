@@ -9,14 +9,16 @@ public class MayTinh {
     private String tenMay;
     private String trangThai;
     private String viTri;
+    private int thoiGian;
 
     public MayTinh() {}
 
-    public MayTinh(String maMayTinh, String tenMay, String trangThai, String viTri) {
+    public MayTinh(String maMayTinh, String tenMay, String trangThai, String viTri, int thoiGian) {
         this.maMayTinh = maMayTinh;
         this.tenMay = tenMay;
         this.trangThai = trangThai;
         this.viTri = viTri;
+        this.thoiGian = thoiGian;
     }
 
     public String getMaMayTinh() {
@@ -50,4 +52,13 @@ public class MayTinh {
     public void setViTri(String viTri) {
         this.viTri = viTri;
     }
+
+    public int getThoiGian() {
+        return thoiGian;
+    }
+
+    public void setThoiGian(int thoiGian) {
+        this.thoiGian = thoiGian;
+    }
+
 }
