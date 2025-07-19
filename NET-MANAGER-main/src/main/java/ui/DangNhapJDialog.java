@@ -46,7 +46,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         btnLogin = new javax.swing.JButton();
         btnChangePassword = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -78,14 +77,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
 
         jButton3.setText("Quên Mật Khẩu");
 
-        btnExit.setForeground(new java.awt.Color(204, 0, 0));
-        btnExit.setText("X");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,8 +96,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExit))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(65, Short.MAX_VALUE)
                 .addComponent(btnLogin)
@@ -119,9 +109,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(btnExit))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -144,11 +132,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
-        this.exit();
-    }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
@@ -208,7 +191,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
-    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
