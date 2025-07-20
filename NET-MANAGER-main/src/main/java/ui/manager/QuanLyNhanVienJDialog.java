@@ -69,6 +69,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         btnCreate = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtPass = new javax.swing.JTextField();
         txtDateCre = new javax.swing.JTextField();
@@ -126,16 +127,28 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
             }
         });
 
+        jButton1.setText("Clear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -147,7 +160,9 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 .addComponent(btnUpdate)
                 .addGap(24, 24, 24)
                 .addComponent(btnDelete)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jLabel12.setText("Ngày tạo");
@@ -256,6 +271,11 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         );
 
         btnFind.setText("Tìm kiếm");
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
 
         tblUsermager.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -343,6 +363,17 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         fillTXT(index);
     }//GEN-LAST:event_tblUsermagerMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.clear();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+        // TODO add your handling code here:
+        String id = txtFindbyid.getText();
+        this.findname(id);
+    }//GEN-LAST:event_btnFindActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -412,6 +443,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cboVaitro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -514,7 +546,8 @@ public Users getForm() {
                 item.getNamSinh(),
                 item.getEmail(),
                 item.getSoDienThoai(),
-                item.getNgayTaoUser()
+                item.getNgayTaoUser(),
+                false
                 
             };
             model.addRow(rowData);
@@ -567,6 +600,7 @@ public Users getForm() {
         txtPass.setText("");
         txtPhone.setText("");
         buttonGroup1.clearSelection();
+        
     }
 
     @Override
@@ -579,8 +613,21 @@ public Users getForm() {
         DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
         model.setRowCount(0);
         for (Users i : items) {
+            String Vaitro = switch (i.getVaiTro()){
+            case 1 -> "Quản lý";
+                case 2 -> "Nhân viên";
+            default ->"ko ro";  
+            };
             if (i.getIdUser().toLowerCase().contains(ten.toLowerCase())) {
-                model.addRow(new Object[]{i.getIdUser(), i.getTenDangNhap(), i.getMatKhau(), i.getVaiTro(), i.isEnable(), i.getNamSinh(), i.getEmail(), i.getSoDienThoai(), i.getNgayTaoUser()});
+                model.addRow(new Object[]{i.getIdUser(),
+                    i.getTenDangNhap(),
+                    i.getMatKhau(),
+                    Vaitro,
+                    i.isEnable() ? "Hoạt động":"Không hoạt động",
+                    i.getNamSinh(),
+                    i.getEmail(),
+                    i.getSoDienThoai(),
+                    i.getNgayTaoUser()});
             }
         }
     }
