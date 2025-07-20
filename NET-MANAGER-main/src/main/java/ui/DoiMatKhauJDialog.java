@@ -64,6 +64,11 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
         jLabel4.setText("Xác Định Mật Khẩu Mới");
 
         btnConfirm.setText("Cập Nhật");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
 
         txtNewpass.setText("jPasswordField1");
 
@@ -74,8 +79,18 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
         jLabel5.setText("Mật Khẩu");
 
         btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Clear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,6 +160,21 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        // TODO add your handling code here:
+        this.save();
+    }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.clear();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here:
+        this.close();
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,5 +265,11 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
     public void close() {
         this.dispose();
     }
-    
+
+    public void clear() {
+        txtUsername.setText("");
+        txtPassword.setText("");
+        txtNewpass.setText("");
+        txtConfirm.setText("");
+    }
 }

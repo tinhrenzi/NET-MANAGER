@@ -100,6 +100,18 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
         jLabel9.setText("Phone");
 
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+
+        txtPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPhoneActionPerformed(evt);
+            }
+        });
+
         buttonGroup1.add(rdo1);
         rdo1.setText("Hoạt động");
 
@@ -343,13 +355,43 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
-        this.create();
+    String email = txtEmail.getText().trim();
+    String phone = txtPhone.getText().trim();
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
+    if (email.isEmpty() || phone.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
+        return;
+    }
+    if (!email.matches(emailRegex)) {
+        JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+        return;
+    }
+    if (!phone.matches(phoneRegex)) {
+        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
+        return;
+    }
+    this.create();   
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-        this.update();
+    String email = txtEmail.getText().trim();
+    String phone = txtPhone.getText().trim();
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
+    if (email.isEmpty() || phone.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
+        return;
+    }
+    if (!email.matches(emailRegex)) {
+        JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+        return;
+    }
+    if (!phone.matches(phoneRegex)) {
+        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
+        return;
+    }
+    this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -373,6 +415,15 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         String id = txtFindbyid.getText();
         this.findname(id);
     }//GEN-LAST:event_btnFindActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtPhoneActionPerformed
 
     /**
      * @param args the command line arguments

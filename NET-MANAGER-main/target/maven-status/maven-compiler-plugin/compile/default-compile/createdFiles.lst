@@ -4,6 +4,7 @@ ui\NetManagerJFrem$8.class
 controller\DangNhapController.class
 ui\manager\DanhSachDoAnJDialog$6.class
 ui\manager\ThucDonJDialog$1.class
+ui\DoiMatKhauJDialog$4$1.class
 controller\HoaDonChiTietController.class
 ui\NetManagerJFrem$5.class
 ui\WelcomeJDialog$1.class
@@ -11,6 +12,7 @@ entity\ThongKeDoanhThu.class
 ui\manager\QuanLyNhanVienJDialog$3.class
 ui\WelcomeJDialog.class
 ui\DangNhapJDialog.class
+ui\DoiMatKhauJDialog$4.class
 controller\OrderController.class
 ui\DoiMatKhauJDialog$1.class
 ui\WelcomeJDialog$2$1.class
@@ -60,6 +62,7 @@ controller\MoMayController.class
 daoImpl\HoaDonChiTietDAOImpl.class
 ui\DangNhapJDialog$3.class
 util\XQuery.class
+ui\DoiMatKhauJDialog$3.class
 ui\manager\DanhSachDoAnJDialog$3.class
 ui\manager\MoMayJDialog$2.class
 ui\manager\MoMayJDialog$8.class
@@ -105,9 +108,10 @@ ui\manager\QuanLyThucDonJDialog.class
 ui\manager\QuanLyThongKeJDialog$1$1.class
 util\XStr.class
 controller\WelcomeController.class
+ui\manager\QuanLyNhanVienJDialog$9$1.class
 dao\MayTinhDAO.class
 ui\manager\MoMayJDialog$4.class
-ui\DoiMatKhauJDialog$1$1.class
+ui\manager\QuanLyNhanVienJDialog$8.class
 controller\ThanhToanController.class
 controller\GiaoDienChinhController.class
 ui\manager\DanhSachDoUongJDialog$1.class
@@ -116,6 +120,7 @@ dao\HoaDonDAO.class
 util\XDate.class
 ui\DoiMatKhauJDialog.class
 ui\manager\DanhSachDoAnJDialog$7.class
+ui\manager\QuanLyNhanVienJDialog$9.class
 dao\UsersDAO.class
 entity\DoUong.class
 entity\HoaDonChiTiet.class
