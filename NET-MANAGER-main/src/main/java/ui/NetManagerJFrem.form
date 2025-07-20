@@ -30,6 +30,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnOrder">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\img\8665027_basket_shopping_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Order"/>
       </Properties>
       <Events>
@@ -51,7 +54,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="240" y="450" width="-1" height="-1"/>
+          <AbsoluteConstraints x="240" y="450" width="570" height="-1"/>
         </Constraint>
       </Constraints>
 
@@ -59,7 +62,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="btnQLNV" linkSize="3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnQLTD" linkSize="3" min="-2" max="-2" attributes="0"/>
@@ -67,7 +70,7 @@
                   <Component id="btnQLMT" linkSize="3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnQLTK" linkSize="3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,6 +126,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnMoMay">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\img\8678667_shut_down_button_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="M&#x1edf; m&#xe1;y"/>
       </Properties>
       <Events>
@@ -152,6 +158,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnThanhToan">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\img\211635_card_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n"/>
       </Properties>
       <Events>

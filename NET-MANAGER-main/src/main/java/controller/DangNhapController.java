@@ -6,7 +6,7 @@ package controller;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import ui.DangNhapJDialog;
+import ui.DoiMatKhauJDialog;
 import util.XDialog;
 
 /**
@@ -23,14 +23,5 @@ public interface DangNhapController {
         if (XDialog.confirm("Bạn muốn kết thúc?")) {
             System.exit(0);
         }
-    }
-    
-    default void showDialog(JDialog dialog){
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-    }
-    
-    default void showDoiMatKhau(JFrame jFrame){
-        this.showDialog(new DangNhapJDialog(jFrame, true));
     }
 }

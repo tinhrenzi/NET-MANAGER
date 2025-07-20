@@ -8,6 +8,7 @@ import controller.DangNhapController;
 import dao.UsersDAO;
 import daoImpl.UserDAOImpl;
 import entity.Users;
+import java.awt.Frame;
 import util.XAuth;
 import util.XDialog;
 
@@ -140,7 +141,9 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
-       
+        this.dispose();
+        DoiMatKhauJDialog dialog = new DoiMatKhauJDialog((Frame) this.getParent(), true);
+         dialog.setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
