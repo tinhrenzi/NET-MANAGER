@@ -67,7 +67,6 @@ ui\NetManagerJFrem$1.class
 dao\DoAnDAO.class
 entity\HoaDon.class
 ui\manager\DanhSachDoUongJDialog$1$1.class
-ui\manager\DanhSachDoAnJDialog$1$1.class
 ui\manager\QuanLyNhanVienJDialog.class
 util\XDialog.class
 ui\GiaoDienChinhJFrame$1.class
