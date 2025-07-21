@@ -387,4 +387,29 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public List<Order> getLichSuSuDung(Date tuNgay, Date denNgay, String maMay, String tenKhachHang) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<ThongKeDoanhThu> getDoanhThu(Date tuNgay, Date denNgay) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<HoaDonChiTiet> getLichSuBanHang(Date tuNgay, Date denNgay) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public double getTongDoanhThu(Date tuNgay, Date denNgay) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int getTongGioSuDung(Date tuNgay, Date denNgay, String maMay) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
