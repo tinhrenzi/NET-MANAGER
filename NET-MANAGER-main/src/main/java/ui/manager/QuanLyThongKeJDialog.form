@@ -300,8 +300,8 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Danh Thu">
-                <Property name="tabTitle" type="java.lang.String" value="Danh Thu"/>
+              <JTabbedPaneConstraints tabName="Doanh Thu">
+                <Property name="tabTitle" type="java.lang.String" value="Doanh Thu"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -327,7 +327,7 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel10" min="-2" pref="88" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jTextField5" min="-2" pref="134" max="-2" attributes="0"/>
                           </Group>
@@ -461,7 +461,7 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xf4;&#x309;ng Danh Thu"/>
+                <Property name="text" type="java.lang.String" value="T&#xf4;&#x309;ng Doanh Thu"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField5">

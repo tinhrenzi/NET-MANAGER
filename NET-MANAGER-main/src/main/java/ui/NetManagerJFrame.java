@@ -11,12 +11,12 @@ import controller.GiaoDienChinhController;
  *
  * @author NITRO 5
  */
-public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinhController{
+public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChinhController{
 
     /**
      * Creates new form NetManagerJFrem
      */
-    public NetManagerJFrem() {
+    public NetManagerJFrame() {
         initComponents();
         setLocationRelativeTo(null);
         this.init();
@@ -50,7 +50,6 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnOrder.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\8665027_basket_shopping_icon.png")); // NOI18N
         btnOrder.setText("Order");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +122,6 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 570, -1));
 
-        btnMoMay.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\8678667_shut_down_button_icon.png")); // NOI18N
         btnMoMay.setText("Mở máy");
         btnMoMay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +139,6 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
         });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 0, 130, 40));
 
-        btnThanhToan.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\211635_card_icon.png")); // NOI18N
         btnThanhToan.setText("Thanh toán");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,8 +146,6 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
             }
         });
         getContentPane().add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 163, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\ChatGPT Image 22_27_18 16 thg 7, 2025.png")); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
 
         pack();
@@ -217,20 +212,21 @@ public class NetManagerJFrem extends javax.swing.JFrame implements GiaoDienChinh
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NetManagerJFrem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NetManagerJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NetManagerJFrem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NetManagerJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NetManagerJFrem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NetManagerJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NetManagerJFrem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NetManagerJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NetManagerJFrem().setVisible(true);
+                new NetManagerJFrame().setVisible(true);
             }
         });
     }
