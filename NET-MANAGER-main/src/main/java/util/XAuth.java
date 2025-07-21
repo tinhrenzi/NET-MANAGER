@@ -11,16 +11,13 @@ import entity.Users;
  * @author Baoau
  */
 public class XAuth {
-      public static Users user;
+    public static Users user = null; // ban đầu null
 
-    static {
-        user = new Users();
-        user.setTenDangNhap("bao1");
-        user.setMatKhau("123");
-        user.setEnable(true);
-        user.setVaiTro(1);
-        user.setEmail("bao@gmail.com");
-        user.setSoDienThoai("0123456789");
-        user.setNgayTaoUser(new java.util.Date());
+    public static boolean isLogin() {
+        return user != null;
+    }
+
+    public static void clear() {
+        user = null;
     }
 }
