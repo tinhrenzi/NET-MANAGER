@@ -70,6 +70,6 @@ public class UserDAOImpl implements UsersDAO {
 
     @Override
     public Users findByUsername(String username) {
-return XQuery.getSingleBean(Users.class, findByUsername, username);
+        return XQuery.getSingleBean(Users.class, findByUsername, username);
     }
 }
