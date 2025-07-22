@@ -6,6 +6,7 @@ package ui;
 
 
 import controller.GiaoDienChinhController;
+import javax.swing.JLabel;
 import util.XAuth;
 
 /**
@@ -76,7 +77,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         lbclmenu = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,6 +88,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnOrder.setBackground(new java.awt.Color(204, 204, 204));
         btnOrder.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\8665027_basket_shopping_icon.png")); // NOI18N
         btnOrder.setText("Order");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
@@ -94,8 +96,9 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 btnOrderActionPerformed(evt);
             }
         });
-        getContentPane().add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 160, -1));
+        getContentPane().add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 160, -1));
 
+        btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
         btnMoMay.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\8678667_shut_down_button_icon.png")); // NOI18N
         btnMoMay.setText("Mở máy");
         btnMoMay.addActionListener(new java.awt.event.ActionListener() {
@@ -103,9 +106,10 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 btnMoMayActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMoMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 160, -1));
+        getContentPane().add(btnMoMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 160, -1));
 
-        jButton8.setForeground(new java.awt.Color(255, 0, 0));
+        jButton8.setBackground(new java.awt.Color(204, 204, 204));
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Đăng xuất");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +118,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         });
         getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, 130, 40));
 
+        btnThanhToan.setBackground(new java.awt.Color(204, 204, 204));
         btnThanhToan.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\211635_card_icon.png")); // NOI18N
         btnThanhToan.setText("Thanh toán");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +126,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 btnThanhToanActionPerformed(evt);
             }
         });
-        getContentPane().add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 163, -1));
+        getContentPane().add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 163, -1));
 
         menuHeThong.setBackground(new java.awt.Color(66, 116, 176));
         menuHeThong.setPreferredSize(new java.awt.Dimension(140, 410));
@@ -207,10 +212,14 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 410));
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1020, 10));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("_______\n_______\n_______");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\menu.png")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\ChatGPT Image 22_27_18 16 thg 7, 2025.png")); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
@@ -267,6 +276,11 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         btnclmenu();
     }//GEN-LAST:event_lbclmenuActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        btnopmenu();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -311,9 +325,9 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JButton btnQLTD;
     private javax.swing.JButton btnQLTK;
     private javax.swing.JButton btnThanhToan;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
