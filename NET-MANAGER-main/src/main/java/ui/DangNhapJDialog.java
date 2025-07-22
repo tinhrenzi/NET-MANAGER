@@ -141,8 +141,8 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-        this.login();
+
+    this.login();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
@@ -216,8 +216,33 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     this.setLocationRelativeTo(null);
     
     }
-
+    
     @Override
+    public void login() {
+        String username = txtNameAccount.getText().trim();
+        String password = new String(pwdPassWord.getPassword()).trim();
+
+        Users user = dao.findByUsername(username);
+
+        if (user == null) {
+            XDialog.alert("Sai tên đăng nhập!");
+        } else if (!password.equals(user.getMatKhau())) {
+            XDialog.alert("Sai mật khẩu đăng nhập!");
+        } else if (!user.isEnable()) {
+            XDialog.alert("Tài khoản của bạn đang bị khóa!");
+        } else {
+            // ✅ Đăng nhập thành công
+            XAuth.user = user;
+            this.dispose(); // Đóng form login
+
+            // Mở giao diện chính
+            //NetManagerJFrame main = new NetManagerJFrame();
+            //main.setVisible(true);
+        }
+    }
+
+
+    /*@Override
     public void login() {
          String username = txtNameAccount.getText();
          String password = pwdPassWord.getText();
@@ -232,5 +257,5 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
          XAuth.user = user; // duy trì user đăng nhập để sử dụng khi cần
          this.dispose();
          }
-    }
+    }*/
 }

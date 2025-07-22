@@ -17,6 +17,14 @@ public class XAuth {
         return user != null;
     }
 
+    public static boolean isQuanLy() {
+        return isLogin() && user.getVaiTro() == 1;
+    }
+
+    public static boolean isNhanVien() {
+        return isLogin() && user.getVaiTro() == 0;
+    }
+
     public static void clear() {
         user = null;
     }

@@ -6,6 +6,7 @@ package ui;
 
 
 import controller.GiaoDienChinhController;
+import util.XAuth;
 
 /**
  *
@@ -32,7 +33,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private void initComponents() {
 
         btnOrder = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        menuHeThong = new javax.swing.JPanel();
         btnQLTK = new javax.swing.JButton();
         btnQLMT = new javax.swing.JButton();
         btnQLTD = new javax.swing.JButton();
@@ -58,7 +59,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         });
         getContentPane().add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 520, 160, -1));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        menuHeThong.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnQLTK.setText("Quản lý thống kê");
         btnQLTK.addActionListener(new java.awt.event.ActionListener() {
@@ -88,11 +89,11 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout menuHeThongLayout = new javax.swing.GroupLayout(menuHeThong);
+        menuHeThong.setLayout(menuHeThongLayout);
+        menuHeThongLayout.setHorizontalGroup(
+            menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(btnQLNV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -104,13 +105,13 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
+        menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
 
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        menuHeThongLayout.setVerticalGroup(
+            menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuHeThongLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQLTK)
                     .addComponent(btnQLMT)
                     .addComponent(btnQLTD)
@@ -118,9 +119,9 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
+        menuHeThongLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 570, -1));
+        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 570, -1));
 
         btnMoMay.setText("Mở máy");
         btnMoMay.addActionListener(new java.awt.event.ActionListener() {
@@ -146,8 +147,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
         getContentPane().add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 520, 163, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\ChatGPT Image 22_27_18 16 thg 7, 2025.png")); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
 
         pack();
@@ -243,7 +242,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel menuHeThong;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -251,6 +250,22 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         // Hien thi Welcome va Login
         this.showWelcome(this);
         this.showLogin(this);
+        if(XAuth.user != null){
+        setRole();
+        }else{
+            System.exit(0);
+        }
     }
+    public void setRole() {
+        int role = XAuth.user.getVaiTro();
+    if (role == 2) { // Nhân viên
+        // Ẩn nút quản lý nhân viên chẳng hạn
+        menuHeThong.setEnabled(false);
+        btnQLNV.setEnabled(false);
+        btnQLMT.setEnabled(false);
+        btnQLTD.setEnabled(false);
+        btnQLTK.setEnabled(false);
+    }
+}
 
 }
