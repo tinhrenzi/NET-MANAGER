@@ -240,22 +240,4 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
             //main.setVisible(true);
         }
     }
-
-
-    /*@Override
-    public void login() {
-         String username = txtNameAccount.getText();
-         String password = pwdPassWord.getText();
-         Users user = dao.findByUsername(username);
-         if (user == null) {
-         XDialog.alert("Sai tên đăng nhập!");
-         } else if (!password.equals(user.getMatKhau())) {
-         XDialog.alert("Sai mật khẩu đăng nhập!");
-         } else if (!user.isEnable()) {
-         XDialog.alert("Tài khoản của bạn đang tạm dừng!");
-         } else {
-         XAuth.user = user; // duy trì user đăng nhập để sử dụng khi cần
-         this.dispose();
-         }
-    }*/
 }

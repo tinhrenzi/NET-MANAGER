@@ -5,11 +5,13 @@ ui\manager\DanhSachDoAnJDialog$6.class
 ui\manager\ThucDonJDialog$1.class
 ui\DoiMatKhauJDialog$4$1.class
 controller\HoaDonChiTietController.class
+ui\GiaoDienChinhJFrame$5.class
 ui\WelcomeJDialog$1.class
 entity\ThongKeDoanhThu.class
 ui\manager\QuanLyNhanVienJDialog$3.class
 ui\WelcomeJDialog.class
 ui\DangNhapJDialog.class
+ui\NetManagerJFrame$11.class
 ui\DoiMatKhauJDialog$4.class
 controller\OrderController.class
 ui\DoiMatKhauJDialog$1.class
@@ -19,6 +21,7 @@ ui\NetManagerJFrame$8.class
 daoImpl\MayTinhDAOImpl.class
 controller\ThongKeDoanhThuController.class
 dao\orderDAO.class
+ui\NetManagerJFrame$14.class
 ui\GiaoDienChinhJFrame$2.class
 ui\manager\DanhSachDoAnJDialog.class
 controller\crudController.class
@@ -28,6 +31,7 @@ controller\QuenMatKhauController.class
 ui\DangNhapJDialog$2.class
 util\XJdbc.class
 dao\ThongKeDoanhThuDAO.class
+ui\NetManagerJFrame$13.class
 ui\manager\MoMayJDialog.class
 ui\manager\ThanhToanJDialog$1$1.class
 dao\crudDAO.class
@@ -62,9 +66,12 @@ util\XQuery.class
 ui\DoiMatKhauJDialog$3.class
 ui\manager\DanhSachDoAnJDialog$3.class
 ui\manager\MoMayJDialog$2.class
+ui\NetManagerJFrame$12.class
 ui\QuenMatKhauJDialog$1$1.class
 util\TimeRange.class
+daoImpl\QuanLyThongKeDaoImpl.class
 ui\NetManagerJFrame$9.class
+controller\QuanLyThongKeController.class
 util\XIcon.class
 ui\DangNhapJDialog$4.class
 ui\manager\QuanLyNhanVienJDialog$7.class
@@ -106,6 +113,8 @@ ui\manager\QuanLyThucDonJDialog.class
 ui\manager\QuanLyThongKeJDialog$1$1.class
 util\XStr.class
 controller\WelcomeController.class
+dao\QuanLyThongKeDAO.class
+ui\GiaoDienChinhJFrame$3.class
 ui\manager\QuanLyNhanVienJDialog$9$1.class
 dao\MayTinhDAO.class
 ui\manager\MoMayJDialog$4.class
@@ -113,6 +122,7 @@ ui\manager\QuanLyNhanVienJDialog$8.class
 ui\NetManagerJFrame$5.class
 controller\ThanhToanController.class
 controller\GiaoDienChinhController.class
+ui\GiaoDienChinhJFrame$4.class
 ui\NetManagerJFrame$6.class
 ui\manager\DanhSachDoUongJDialog$1.class
 dao\HoaDonDAO.class
