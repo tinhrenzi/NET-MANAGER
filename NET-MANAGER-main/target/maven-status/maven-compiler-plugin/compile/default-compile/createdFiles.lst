@@ -51,7 +51,6 @@ controller\QuanLyNhanVienController.class
 ui\manager\ThanhToanJDialog$1.class
 ui\manager\QuanLyNhanVienJDialog$6.class
 dao\HoaDonChiTietDAO.class
-ui\DangNhapJDialog$4$1.class
 entity\MayTinh.class
 ui\QuenMatKhauJDialog.class
 controller\HoaDonController.class
@@ -74,7 +73,7 @@ daoImpl\QuanLyThongKeDaoImpl.class
 ui\NetManagerJFrame$9.class
 controller\QuanLyThongKeController.class
 util\XIcon.class
-ui\DangNhapJDialog$4.class
+ui\NetManagerJFrame$15.class
 ui\manager\QuanLyNhanVienJDialog$7.class
 dao\DoAnDAO.class
 entity\HoaDon.class

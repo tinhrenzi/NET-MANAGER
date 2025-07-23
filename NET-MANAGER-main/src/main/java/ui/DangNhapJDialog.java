@@ -45,7 +45,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         pwdPassWord = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
         btnLogin = new javax.swing.JButton();
-        btnChangePassword = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -68,13 +67,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
-            }
-        });
-
-        btnChangePassword.setText("Đổi Mật Khẩu");
-        btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangePasswordActionPerformed(evt);
             }
         });
 
@@ -101,8 +93,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnLogin)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnChangePassword)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3))
                     .addComponent(jSeparator2))
@@ -132,7 +122,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
-                    .addComponent(btnChangePassword)
                     .addComponent(jButton3))
                 .addGap(0, 21, Short.MAX_VALUE))
         );
@@ -144,15 +133,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
 
     this.login();
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        if (XAuth.user == null) {
-            XDialog.alert("Phải đăng nhập trước mới đổi mk");
-        } else {
-            new DoiMatKhauJDialog(null, true).setVisible(true);
-        }
-
-    }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
@@ -201,7 +181,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

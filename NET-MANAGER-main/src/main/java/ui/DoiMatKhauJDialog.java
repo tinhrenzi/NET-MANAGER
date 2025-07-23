@@ -78,14 +78,14 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
 
         jLabel5.setText("Mật Khẩu");
 
-        btnClose.setText("Close");
+        btnClose.setText("Đóng");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCloseActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Clear");
+        jButton1.setText("Xóa");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
