@@ -270,6 +270,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
     @Override
     public void close() {
         this.dispose();
+        int a;
     }
 
     public void clear() {
