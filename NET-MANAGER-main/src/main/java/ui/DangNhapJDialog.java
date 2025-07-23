@@ -231,11 +231,8 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     } else if (!user.isEnable()) {
         XDialog.alert("Tài khoản của bạn đang tạm dừng!");
     } else {
-        
         XAuth.user = user;
-
-        XDialog.alert( "Đăng nhập thành công!");
-        
+        this.dispose();
     }
 }
 }

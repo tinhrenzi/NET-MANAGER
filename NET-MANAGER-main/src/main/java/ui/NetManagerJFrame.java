@@ -109,7 +109,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().add(btnMoMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 160, -1));
 
         jButton8.setBackground(new java.awt.Color(204, 204, 204));
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setForeground(new java.awt.Color(255, 0, 0));
         jButton8.setText("Đăng xuất");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
