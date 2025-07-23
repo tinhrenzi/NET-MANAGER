@@ -234,7 +234,8 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        this.exit();
+        this.dispose();
+      new DangNhapJDialog(null, true).setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed

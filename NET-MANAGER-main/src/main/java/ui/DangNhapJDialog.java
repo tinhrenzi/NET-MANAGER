@@ -146,11 +146,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-      if (XAuth.user == null) {
-        XDialog.alert( "Vui lòng đăng nhập trước khi đổi mật khẩu!");
-    } else {
-        new DoiMatKhauJDialog(null, true).setVisible(true);
-    }
+      new DoiMatKhauJDialog(null, true).setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
