@@ -66,6 +66,7 @@ util\XQuery.class
 ui\DoiMatKhauJDialog$3.class
 ui\manager\DanhSachDoAnJDialog$3.class
 ui\manager\MoMayJDialog$2.class
+ui\manager\MoMayJDialog$8.class
 ui\NetManagerJFrame$12.class
 ui\QuenMatKhauJDialog$1$1.class
 util\TimeRange.class

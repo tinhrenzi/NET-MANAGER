@@ -248,29 +248,33 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
 
     @Override
     public void save() {
-        String username = txtUsername.getText();
-        String password = new String(txtNewpass.getPassword());
-        String newpass = new String(txtNewpass.getPassword());
-       String confirm = new String(txtConfirm.getPassword());
+     String username = txtUsername.getText();
+    String password = new String(txtPassword.getPassword());
+    String newpass = new String(txtNewpass.getPassword());
+    String confirm = new String(txtConfirm.getPassword());
 
-        if (!newpass.equals(confirm)) {
-            XDialog.alert( "Xác nhận mật khẩu không đúng!");
-        } else if (!username.equals(XAuth.user.getTenDangNhap())) {
-            XDialog.alert("Sai tên đăng nhập!");
-        } else if (!password.equals(XAuth.user.getMatKhau())) {
-            XDialog.alert( "Sai mật khẩu!");
-        } else {
-            XAuth.user.setMatKhau(newpass);
-            dao.update(XAuth.user);
-            XDialog.alert( "Đổi mật khẩu thành công!");
-            this.dispose();
-        }
+    if (!newpass.equals(confirm)) {
+        XDialog.alert("Xác nhận mật khẩu không đúng!");
+    } else if (!username.equals(XAuth.user.getTenDangNhap())) {
+        XDialog.alert("Sai tên đăng nhập!");
+    } else if (!password.equals(XAuth.user.getMatKhau())) {
+        XDialog.alert("Sai mật khẩu!");
+    } else {
+        // ✅ Cập nhật mật khẩu bằng username
+        dao.updatePassword(username, newpass);
+        // ✅ Cập nhật lại trong XAuth để đồng bộ
+        XAuth.user.setMatKhau(newpass);
+        XDialog.alert("Đổi mật khẩu thành công!");
+        this.dispose();
+    }
+    
+
     }
 
     @Override
     public void close() {
         this.dispose();
-        int a;
+       
     }
 
     public void clear() {

@@ -12,4 +12,5 @@ import entity.Users;
  */
 public interface UsersDAO extends crudDAO<Users, String>{// Khóa chính là kiểu Nvarchar nên để String
     Users findByUsername (String username);
+    void updatePassword(String username, String newPassword);
 }

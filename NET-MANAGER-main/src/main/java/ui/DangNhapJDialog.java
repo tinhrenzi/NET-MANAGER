@@ -146,10 +146,11 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        DoiMatKhauJDialog dialog = new DoiMatKhauJDialog((Frame) this.getParent(), true);
-         dialog.setVisible(true);
+      if (XAuth.user == null) {
+        XDialog.alert( "Vui lòng đăng nhập trước khi đổi mật khẩu!");
+    } else {
+        new DoiMatKhauJDialog(null, true).setVisible(true);
+    }
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -216,28 +217,25 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     this.setLocationRelativeTo(null);
     
     }
-    
+
     @Override
     public void login() {
-        String username = txtNameAccount.getText().trim();
-        String password = new String(pwdPassWord.getPassword()).trim();
+    String username = txtNameAccount.getText();
+    String password = pwdPassWord.getText();
+    Users user = dao.findByUsername(username);
 
-        Users user = dao.findByUsername(username);
+    if (user == null) {
+        XDialog.alert("Sai tên đăng nhập!");
+    } else if (!password.equals(user.getMatKhau())) {
+        XDialog.alert("Sai mật khẩu đăng nhập!");
+    } else if (!user.isEnable()) {
+        XDialog.alert("Tài khoản của bạn đang tạm dừng!");
+    } else {
+        
+        XAuth.user = user;
 
-        if (user == null) {
-            XDialog.alert("Sai tên đăng nhập!");
-        } else if (!password.equals(user.getMatKhau())) {
-            XDialog.alert("Sai mật khẩu đăng nhập!");
-        } else if (!user.isEnable()) {
-            XDialog.alert("Tài khoản của bạn đang bị khóa!");
-        } else {
-            // ✅ Đăng nhập thành công
-            XAuth.user = user;
-            this.dispose(); // Đóng form login
-
-            // Mở giao diện chính
-            //NetManagerJFrame main = new NetManagerJFrame();
-            //main.setVisible(true);
-        }
+        XDialog.alert( "Đăng nhập thành công!");
+        
     }
+}
 }

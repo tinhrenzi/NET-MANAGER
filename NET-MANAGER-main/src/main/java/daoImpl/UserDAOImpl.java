@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package daoImpl;
 
 import dao.UsersDAO;
@@ -71,5 +67,12 @@ public class UserDAOImpl implements UsersDAO {
     @Override
     public Users findByUsername(String username) {
         return XQuery.getSingleBean(Users.class, findByUsername, username);
+    }
+
+    // ✅ Thêm hàm cập nhật mật khẩu theo tên đăng nhập:
+    @Override
+    public void updatePassword(String username, String newPassword) {
+        String sql = "UPDATE NguoiDung SET MatKhau = ? WHERE TenDangNhap = ?";
+        XJdbc.executeUpdate(sql, newPassword, username);
     }
 }
