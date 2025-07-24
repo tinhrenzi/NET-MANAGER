@@ -16,6 +16,7 @@ ui\DoiMatKhauJDialog$4.class
 controller\OrderController.class
 ui\DoiMatKhauJDialog$1.class
 ui\WelcomeJDialog$2$1.class
+controller\DanhSachMayController.class
 ui\DangNhapJDialog$3$1.class
 controller\DoiMatKhauController.class
 ui\NetManagerJFrame$8.class
@@ -29,10 +30,12 @@ ui\manager\DanhSachMayJDialog.class
 controller\crudController.class
 ui\manager\DanhSachMayJDialog$2$1.class
 util\XAuth.class
+ui\manager\QuanLyNhanVienJDialog$12$1.class
 ui\GiaoDienChinhJFrame.class
 controller\QuenMatKhauController.class
 ui\DangNhapJDialog$2.class
 util\XJdbc.class
+ui\manager\QuanLyNhanVienJDialog$12.class
 dao\ThongKeDoanhThuDAO.class
 ui\NetManagerJFrame$13.class
 ui\manager\MoMayJDialog.class
@@ -107,6 +110,7 @@ ui\manager\DanhSachDoAnJDialog$5.class
 ui\manager\DanhSachMayJDialog$2.class
 ui\manager\QuanLyNhanVienJDialog$4.class
 controller\ThucDonController.class
+ui\manager\QuanLyNhanVienJDialog$11.class
 daoImpl\HoaDonDAOImpl.class
 ui\manager\DanhSachDoAnJDialog$1.class
 ui\manager\QuanLyThucDonJDialog$1$1.class
@@ -120,7 +124,6 @@ util\XStr.class
 controller\WelcomeController.class
 dao\QuanLyThongKeDAO.class
 ui\GiaoDienChinhJFrame$3.class
-ui\manager\QuanLyNhanVienJDialog$9$1.class
 dao\MayTinhDAO.class
 ui\manager\MoMayJDialog$4.class
 ui\manager\QuanLyNhanVienJDialog$8.class
