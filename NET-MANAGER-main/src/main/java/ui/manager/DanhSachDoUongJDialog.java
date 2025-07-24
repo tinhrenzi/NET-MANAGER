@@ -58,6 +58,11 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel2.setText("Tên Do uong");
 
@@ -243,6 +248,10 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
         // TODO add your handling code here:
         this.create();
     }//GEN-LAST:event_btnCreActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.open();        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
