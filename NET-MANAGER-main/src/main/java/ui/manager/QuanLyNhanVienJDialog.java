@@ -625,14 +625,12 @@ public Users getForm() {
         users.setEmail(txtEmail.getText());
         users.setSoDienThoai(txtPhone.getText());
         users.setNamSinh(Integer.parseInt(txtNamSinh.getText()));
-        // Parse ngày tạo
-        String ngayTaoText = txtDateCre.getText();
-        if (!ngayTaoText.trim().isEmpty()) {
-            users.setNgayTaoUser(sdf.parse(ngayTaoText)); // sử dụng txtDateCre
-        } else {
-            users.setNgayTaoUser(new java.util.Date()); // nếu trống thì gán ngày hiện tại
-        }
-
+    String ngayTaoText = txtDateCre.getText().trim();
+    if (!ngayTaoText.isEmpty()) {
+        users.setNgayTaoUser(sdf.parse(ngayTaoText));
+    } else {
+        users.setNgayTaoUser(new java.util.Date());
+    }
     } catch (ParseException ex) {
         Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
         JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ. Vui lòng nhập dd/MM/yyyy");
@@ -647,6 +645,7 @@ public Users getForm() {
     public void fillToTable() {
         DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
         model.setRowCount(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         items = dao.findAll();
         items.forEach(item -> {
              String Vaitro = switch (item.getVaiTro()){
@@ -663,9 +662,8 @@ public Users getForm() {
                 item.getNamSinh(),
                 item.getEmail(),
                 item.getSoDienThoai(),
-                item.getNgayTaoUser(),
-                false
-                
+                sdf.format(item.getNgayTaoUser()),
+                false               
             };
             model.addRow(rowData);
         });
