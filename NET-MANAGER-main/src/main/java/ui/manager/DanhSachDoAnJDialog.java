@@ -24,7 +24,7 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
     /**
      * Creates new form DanhSachDoAnJDialog
      */
-    DoAnDAO dao=new DoAnDAOImpl();
+   private DoAnDAO dao=new DoAnDAOImpl();
     List<DoAn>list=List.of();
     
     public DanhSachDoAnJDialog(java.awt.Frame parent, boolean modal) {
@@ -366,9 +366,9 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
     private javax.swing.JTextField txtSoLuong;
     // End of variables declaration//GEN-END:variables
 
-            @Override
-    public void open() {
-        this.setLocationRelativeTo(null);
+         @Override
+    public void open() {// lấy 
+        this.setLocationRelativeTo(null);//
         this.fillToTable();
         this.clear();
     }
@@ -376,10 +376,11 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
     @Override
     public void setForm(DoAn entity) {
     System.out.println(" DonGia: " + entity.getDonGia());
-    txtName.setText(entity.getTenDoAn());
     txtIdDA.setText(entity.getMaDoAn());
+    txtName.setText(entity.getTenDoAn());
     txtDonGia.setText(String.valueOf(entity.getDonGia()));
     txtSoLuong.setText(String.valueOf(entity.getSoLuong()));
+    
     if ("Còn".equalsIgnoreCase(entity.getTrangThai())) {
         rdocon.setSelected(true);
     } else {
@@ -389,8 +390,8 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
 
    @Override
 public DoAn getForm() {
-    String ten = txtName.getText().trim();
     String ma = txtIdDA.getText().trim();
+    String ten = txtName.getText().trim();
     String giaStr = txtDonGia.getText().trim();
     String soLuongStr = txtSoLuong.getText().trim();
     String trangThai = rdocon.isSelected() ? "Còn" : "Hết";
@@ -423,9 +424,9 @@ public DoAn getForm() {
 
     for (DoAn da : dao.findAll()) {
         Object[] row = {
-           
-            da.getTenDoAn(),
+            
             da.getMaDoAn(),
+            da.getTenDoAn(),
             da.getDonGia(),
             da.getSoLuong(),
             da.getTrangThai()
@@ -440,8 +441,8 @@ public DoAn getForm() {
         String ma = (String) tblDA.getValueAt(row, 1); // CỘT 1: MaDoAn
         DoAn da = dao.findByID(ma);
         if (da != null) {
-            txtName.setText(da.getTenDoAn());
             txtIdDA.setText(da.getMaDoAn());
+            txtName.setText(da.getTenDoAn());
             txtDonGia.setText(String.valueOf(da.getDonGia()));
             txtSoLuong.setText(String.valueOf(da.getSoLuong()));
             if ("Còn".equalsIgnoreCase(da.getTrangThai())) {
@@ -456,42 +457,36 @@ public DoAn getForm() {
 
     @Override
     public void create() {
-         DoAn du = getForm();
-            dao.create(du);
+         DoAn da = getForm();
+            dao.create(da);
             fillToTable();
             clear();
     }
 
     @Override
     public void update() {
-        DoAn da = getForm();
+        if (XDialog.confirm("sua thanh cong")) {
+            DoAn da =  getForm();
             dao.update(da);
             fillToTable();
             clear();
+        }
     }
 
     @Override
 public void delete() {
-    int row = tblDA.getSelectedRow();
-    if (row >= 0) {
-        String ma = tblDA.getValueAt(row, 1).toString(); // Lấy cột MaDoAn
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xoá?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            dao.deleteByID(ma);
+        if (XDialog.confirm("ban co muon xoa kg")) {
+            String id = txtIdDA.getText();
+            dao.deleteByID(id);
             fillToTable();
             clear();
-            JOptionPane.showMessageDialog(this, "Xoá thành công");
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xoá");
-    }
-    fillToTable();
 }
 
     @Override
     public void clear() {
-            txtName.setText("");
             txtIdDA.setText("");
+            txtName.setText("");
             txtDonGia.setText("");
             txtSoLuong.setText("");
             buttonGroup1.clearSelection();
@@ -500,8 +495,8 @@ public void delete() {
 
     @Override
     public void setEditable(boolean editable) {
-        txtName.setEditable(editable);
         txtIdDA.setEditable(editable);
+        txtName.setEditable(editable);
         txtDonGia.setEditable(editable);
         txtSoLuong.setEditable(editable);
 

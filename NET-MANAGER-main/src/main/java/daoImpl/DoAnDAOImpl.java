@@ -45,6 +45,9 @@ public class DoAnDAOImpl implements DoAnDAO {
 
     @Override
     public void update(DoAn da) {
+         if (da == null) return; // Kiểm tra null
+
+    try {
         Object[] args = {
             da.getTenDoAn(),
             da.getDonGia(),
@@ -53,6 +56,10 @@ public class DoAnDAOImpl implements DoAnDAO {
             da.getMaDoAn()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+        
     }
 
     
@@ -73,5 +80,4 @@ public void deleteByID(String id) {
 public DoAn findByID(String id) {
    return XQuery.getSingleBean(DoAn.class, SELECT_BY_ID_SQL, id); 
 }
-
 }
