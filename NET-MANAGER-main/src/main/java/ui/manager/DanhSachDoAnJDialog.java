@@ -31,6 +31,7 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        this.open();
     }
 
     /**
@@ -57,9 +58,6 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
         btnCre = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtSoLuong = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        rdocon = new javax.swing.JRadioButton();
-        rdohet = new javax.swing.JRadioButton();
         btnDetele = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btn_thst = new javax.swing.JButton();
@@ -85,22 +83,18 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
 
         tblDA.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "TenDoAn", "MaDoAn", "GiaDoAn", "SoLuong", "TrangThai"
+                "TenDoAn", "MaDoAn", "GiaDoAn", "SoLuong"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        ));
+        tblDA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDAMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblDA);
@@ -113,14 +107,6 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
         });
 
         jLabel5.setText("Soluong");
-
-        jLabel6.setText("TrangThai");
-
-        buttonGroup1.add(rdocon);
-        rdocon.setText("Con");
-
-        buttonGroup1.add(rdohet);
-        rdohet.setText("Het");
 
         btnDetele.setText("Detele");
         btnDetele.addActionListener(new java.awt.event.ActionListener() {
@@ -178,12 +164,7 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
                         .addComponent(jLabel2)
                         .addGap(57, 57, 57)
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdocon, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdohet, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                .addGap(41, 228, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -211,28 +192,19 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel6)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtIdDA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(rdocon)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtIdDA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(rdohet))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -284,6 +256,12 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
         this.clear();
     }//GEN-LAST:event_clearActionPerformed
 
+    private void tblDAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDAMouseClicked
+        // TODO add your handling code here:
+        int index = tblDA.getSelectedRow();
+        fillTXT(index);
+    }//GEN-LAST:event_tblDAMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -331,13 +309,7 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
     txtName.setText(tblDA.getValueAt(row, 1).toString());
     txtDonGia.setText(tblDA.getValueAt(row, 2).toString());
     txtSoLuong.setText(tblDA.getValueAt(row, 3).toString());
-     String status = tblDA.getValueAt(row, 4).toString();
      
-    if (status.equalsIgnoreCase("còn")) {
-        rdocon.setSelected(true);
-    } else {
-        rdohet.setSelected(true);
-    }
 
     }
 
@@ -354,11 +326,8 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JRadioButton rdocon;
-    private javax.swing.JRadioButton rdohet;
     private javax.swing.JTable tblDA;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtIdDA;
@@ -381,11 +350,6 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
     txtDonGia.setText(String.valueOf(entity.getDonGia()));
     txtSoLuong.setText(String.valueOf(entity.getSoLuong()));
     
-    if ("Còn".equalsIgnoreCase(entity.getTrangThai())) {
-        rdocon.setSelected(true);
-    } else {
-        rdohet.setSelected(true);
-    }
     }
 
    @Override
@@ -394,7 +358,6 @@ public DoAn getForm() {
     String ten = txtName.getText().trim();
     String giaStr = txtDonGia.getText().trim();
     String soLuongStr = txtSoLuong.getText().trim();
-    String trangThai = rdocon.isSelected() ? "Còn" : "Hết";
     try {
         float gia = Float.parseFloat(giaStr);
         if (gia <= 0) {
@@ -408,7 +371,7 @@ public DoAn getForm() {
             return null;
         }
 
-        return new DoAn(ma, ten, gia, soLuong, trangThai);
+        return new DoAn(ma, ten, gia, soLuong);
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Đơn giá và số lượng phải là số hợp lệ!");
@@ -429,7 +392,6 @@ public DoAn getForm() {
             da.getTenDoAn(),
             da.getDonGia(),
             da.getSoLuong(),
-            da.getTrangThai()
         };
         model.addRow(row);
     }
@@ -445,11 +407,6 @@ public DoAn getForm() {
             txtName.setText(da.getTenDoAn());
             txtDonGia.setText(String.valueOf(da.getDonGia()));
             txtSoLuong.setText(String.valueOf(da.getSoLuong()));
-            if ("Còn".equalsIgnoreCase(da.getTrangThai())) {
-                rdocon.setSelected(true);
-            } else {
-                rdohet.setSelected(true);
-            }
         }
     }
 }
@@ -489,7 +446,7 @@ public void delete() {
             txtName.setText("");
             txtDonGia.setText("");
             txtSoLuong.setText("");
-            buttonGroup1.clearSelection();
+            
             
     }
 
@@ -499,9 +456,6 @@ public void delete() {
         txtName.setEditable(editable);
         txtDonGia.setEditable(editable);
         txtSoLuong.setEditable(editable);
-
-        rdocon.setEnabled(editable);
-        rdohet.setEnabled(editable);
 
         btnCre.setEnabled(editable);
         btnUpdate.setEnabled(editable);

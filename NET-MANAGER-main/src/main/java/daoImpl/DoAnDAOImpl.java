@@ -18,8 +18,8 @@ import static util.XJdbc.openConnection;
 public class DoAnDAOImpl implements DoAnDAO {
 
     // Câu lệnh SQL
-    private final String INSERT_SQL = "INSERT INTO DoAn (MaDoAn, TenDoAn, DonGia, SoLuong, TrangThai) VALUES (?, ?, ?, ?, ?)";
-    private final String UPDATE_SQL = "UPDATE DoAn SET TenDoAn=?, DonGia=?, SoLuong=?, TrangThai=? WHERE MaDoAn=?";
+    private final String INSERT_SQL = "INSERT INTO DoAn (MaDoAn, TenDoAn, DonGia, SoLuong) VALUES (?, ?, ?, ?)";
+    private final String UPDATE_SQL = "UPDATE DoAn SET TenDoAn=?, DonGia=?, SoLuong=? WHERE MaDoAn=?";
     private final String DELETE_SQL = "DELETE FROM DoAn WHERE MaDoAn=?";
     private final String SELECT_ALL_SQL = "SELECT * FROM DoAn";
     private final String SELECT_BY_ID_SQL = "SELECT * FROM DoAn WHERE MaDoAn=?";
@@ -34,7 +34,6 @@ public class DoAnDAOImpl implements DoAnDAO {
             stmt.setString(2, da.getTenDoAn());
             stmt.setFloat(3, da.getDonGia());
             stmt.setInt(4, da.getSoLuong());
-            stmt.setString(5, da.getTrangThai());
             stmt.executeUpdate();
             return da;
         } catch (SQLException e) {
@@ -52,7 +51,6 @@ public class DoAnDAOImpl implements DoAnDAO {
             da.getTenDoAn(),
             da.getDonGia(),
             da.getSoLuong(),
-            da.getTrangThai(),
             da.getMaDoAn()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);

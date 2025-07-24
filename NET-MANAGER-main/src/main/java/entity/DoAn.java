@@ -8,30 +8,49 @@ public class DoAn {
     private String tenDoAn;
     private float donGia;
     private int soLuong;
-    private String trangThai;
+   
 
     public DoAn() {}
 
-    public DoAn(String maDoAn, String tenDoAn, float donGia, int soLuong, String trangThai) {
+    public DoAn(String maDoAn, String tenDoAn, float donGia, int soLuong) {
         this.maDoAn = maDoAn;
         this.tenDoAn = tenDoAn;
         this.donGia = donGia;
         this.soLuong = soLuong;
-        this.trangThai = trangThai;
+    }
+    
+
+    public String getMaDoAn() {
+        return maDoAn;
     }
 
-    public String getMaDoAn() { return maDoAn; }
-    public void setMaDoAn(String maDoAn) { this.maDoAn = maDoAn; }
+    public void setMaDoAn(String maDoAn) {
+        this.maDoAn = maDoAn;
+    }
 
-    public String getTenDoAn() { return tenDoAn; }
-    public void setTenDoAn(String tenDoAn) { this.tenDoAn = tenDoAn; }
+    public String getTenDoAn() {
+        return tenDoAn;
+    }
 
-    public float getDonGia() { return donGia; }
-    public void setDonGia(float donGia) { this.donGia = donGia; }
+    public void setTenDoAn(String tenDoAn) {
+        this.tenDoAn = tenDoAn;
+    }
 
-    public int getSoLuong() { return soLuong; }
-    public void setSoLuong(int soLuong) { this.soLuong = soLuong; }
+    public float getDonGia() {
+        return donGia;
+    }
 
-    public String getTrangThai() { return trangThai; }
-    public void setTrangThai(String trangThai) { this.trangThai = trangThai; }
+    public void setDonGia(float donGia) {
+        this.donGia = donGia;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    
 }
