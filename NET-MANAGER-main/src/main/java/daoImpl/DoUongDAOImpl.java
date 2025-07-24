@@ -14,8 +14,8 @@ import java.util.List;
 
 public class DoUongDAOImpl implements DoUongDAO {
 
-    private final String INSERT_SQL = "INSERT INTO DoUong (MaDoUong, TenDoUong, DonGia, SoLuong, TrangThai) VALUES (?, ?, ?, ?, ?)";
-    private final String UPDATE_SQL = "UPDATE DoUong SET TenDoUong=?, DonGia=?, SoLuong=?, TrangThai=? WHERE MaDoUong=?";
+    private final String INSERT_SQL = "INSERT INTO DoUong (MaDoUong, TenDoUong, DonGia, SoLuong) VALUES (?, ?, ?, ?)";
+    private final String UPDATE_SQL = "UPDATE DoUong SET TenDoUong=?, DonGia=?, SoLuong=? WHERE MaDoUong=?";
     private final String DELETE_SQL = "DELETE FROM DoUong WHERE MaDoUong=?";
     private final String SELECT_ALL_SQL = "SELECT * FROM DoUong";
     private final String SELECT_BY_ID_SQL = "SELECT * FROM DoUong WHERE MaDoUong=?";
@@ -27,7 +27,6 @@ public class DoUongDAOImpl implements DoUongDAO {
             du.getTenDoUong(),
             du.getDonGia(),
             du.getSoLuong(),
-            du.getTrangThai()
         };
         XJdbc.executeUpdate(INSERT_SQL, args);
         return du;
@@ -39,7 +38,6 @@ public class DoUongDAOImpl implements DoUongDAO {
             du.getTenDoUong(),
             du.getDonGia(),
             du.getSoLuong(),
-            du.getTrangThai(),
             du.getMaDoUong()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);
