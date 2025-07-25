@@ -134,9 +134,9 @@
                                       <Component id="rdo1" min="-2" max="-2" attributes="0"/>
                                       <Component id="rdo2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtDateCre" min="-2" pref="196" max="-2" attributes="0"/>
+                                      <Component id="dacDateCre" min="-2" pref="208" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel10" min="-2" pref="48" max="-2" attributes="0"/>
@@ -203,7 +203,7 @@
                                   <Component id="txtNamSinh" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtPass" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="txtDateCre" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="dacDateCre" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
@@ -379,8 +379,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPassActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtDateCre">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
             <Property name="text" type="java.lang.String" value="Vai tr&#xf2;"/>
@@ -399,6 +397,8 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dacDateCre">
         </Component>
       </SubComponents>
     </Container>

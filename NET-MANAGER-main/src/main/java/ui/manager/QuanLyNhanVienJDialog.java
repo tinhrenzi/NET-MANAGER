@@ -8,12 +8,9 @@ import controller.QuanLyNhanVienController;
 import dao.UsersDAO;
 import daoImpl.UserDAOImpl;
 import entity.Users;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
@@ -72,9 +69,9 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtPass = new javax.swing.JTextField();
-        txtDateCre = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         cboVaitro = new javax.swing.JComboBox<>();
+        dacDateCre = new com.toedter.calendar.JDateChooser();
         txtFindbyid = new javax.swing.JTextField();
         btnFind = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -251,8 +248,8 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                                     .addComponent(rdo1)
                                     .addComponent(rdo2)
                                     .addComponent(jLabel12)
-                                    .addComponent(txtDateCre, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(48, 48, 48))
+                                    .addComponent(dacDateCre, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -302,7 +299,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtDateCre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dacDateCre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel10)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -569,7 +566,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     txtNamSinh.setText(tblUsermager.getValueAt(row, 5).toString());
     txtEmail.setText(tblUsermager.getValueAt(row, 6).toString());
     txtPhone.setText(tblUsermager.getValueAt(row, 7).toString());
-    txtDateCre.setText(tblUsermager.getValueAt(row, 8).toString());
+    dacDateCre.setDate((java.sql.Date)tblUsermager.getValueAt(row, 8));
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -580,6 +577,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cboVaitro;
+    private com.toedter.calendar.JDateChooser dacDateCre;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -599,7 +597,6 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.JRadioButton rdo1;
     private javax.swing.JRadioButton rdo2;
     private javax.swing.JTable tblUsermager;
-    private javax.swing.JTextField txtDateCre;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFindbyid;
     private javax.swing.JTextField txtId;
@@ -625,7 +622,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         cboVaitro.setSelectedItem(entity.getVaiTro()+1);
         txtPhone.setText(entity.getSoDienThoai());
         txtNamSinh.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
-        txtDateCre.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNgayTaoUser()));
+        dacDateCre.setDate(entity.getNgayTaoUser());
         rdo1.setSelected(entity.isEnable());
         rdo2.setSelected(!entity.isEnable());
 
@@ -645,15 +642,17 @@ public Users getForm() {
         users.setEmail(txtEmail.getText());
         users.setSoDienThoai(txtPhone.getText());
         users.setNamSinh(Integer.parseInt(txtNamSinh.getText()));
-    String ngayTaoText = txtDateCre.getText().trim();
+        users.setNgayTaoUser(dacDateCre.getDate());
+    /*String ngayTaoText = txtDateCre.getText().trim();
     if (!ngayTaoText.isEmpty()) {
         users.setNgayTaoUser(sdf.parse(ngayTaoText));
     } else {
         users.setNgayTaoUser(new java.util.Date());
-    }
-    } catch (ParseException ex) {
-        Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ. Vui lòng nhập dd/MM/yyyy");
+    }*/
+    } catch (Exception ex) {
+        //Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        ex.printStackTrace();
+        //JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ. Vui lòng nhập dd/MM/yyyy");
         return null;
     }
 
@@ -665,7 +664,7 @@ public Users getForm() {
     public void fillToTable() {
         DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
         model.setRowCount(0);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         items = dao.findAll();
         items.forEach(item -> {
              String Vaitro = switch (item.getVaiTro()){
@@ -682,7 +681,8 @@ public Users getForm() {
                 item.getNamSinh(),
                 item.getEmail(),
                 item.getSoDienThoai(),
-                sdf.format(item.getNgayTaoUser()),
+                item.getNgayTaoUser(),
+                //sdf.format(item.getNgayTaoUser()),
                 false               
             };
             model.addRow(rowData);
@@ -727,7 +727,7 @@ public Users getForm() {
     @Override
     public void clear() {
         txtNamSinh.setText("");
-        txtDateCre.setText("");
+        dacDateCre.setDate(null);
         txtEmail.setText("");
         txtFindbyid.setText("");
         txtId.setText("");
