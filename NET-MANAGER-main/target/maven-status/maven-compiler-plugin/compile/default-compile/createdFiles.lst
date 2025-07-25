@@ -24,7 +24,6 @@ controller\DoiMatKhauController.class
 ui\NetManagerJFrame$8.class
 daoImpl\MayTinhDAOImpl.class
 controller\ThongKeDoanhThuController.class
-ui\manager\DanhSachDoUongJDialog$7$1.class
 dao\orderDAO.class
 ui\NetManagerJFrame$14.class
 ui\GiaoDienChinhJFrame$2.class
@@ -62,6 +61,7 @@ controller\QuanLyNhanVienController.class
 ui\manager\ThanhToanJDialog$1.class
 ui\manager\QuanLyNhanVienJDialog$13.class
 ui\manager\QuanLyNhanVienJDialog$6.class
+ui\manager\DanhSachDoUongJDialog$8$1.class
 dao\HoaDonChiTietDAO.class
 entity\MayTinh.class
 ui\QuenMatKhauJDialog.class
@@ -153,3 +153,4 @@ dao\UsersDAO.class
 ui\NetManagerJFrame.class
 entity\DoUong.class
 entity\HoaDonChiTiet.class
+ui\manager\DanhSachDoUongJDialog$8.class
