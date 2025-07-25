@@ -145,14 +145,17 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIdDU, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btn_thst)
+                .addGap(48, 48, 48))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(0, 224, Short.MAX_VALUE)
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(btnCre)
                             .addGap(30, 30, 30)
                             .addComponent(btnUpdate)
@@ -160,9 +163,7 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
                             .addComponent(btnDetele)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(clear)
-                            .addGap(31, 31, 31)
-                            .addComponent(btn_thst)
-                            .addGap(26, 26, 26))
+                            .addGap(129, 129, 129))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jSeparator1)
                             .addContainerGap())
@@ -179,7 +180,8 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
                                     .addGap(67, 67, 67)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         layout.setVerticalGroup(
@@ -196,7 +198,9 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                .addComponent(btn_thst)
+                .addGap(41, 41, 41))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(5, 5, 5)
@@ -218,7 +222,6 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
                         .addComponent(btnCre)
                         .addComponent(btnDetele)
                         .addComponent(btnUpdate)
-                        .addComponent(btn_thst)
                         .addComponent(clear))
                     .addGap(5, 5, 5)))
         );
@@ -401,7 +404,7 @@ public DoUong getForm() {
     public void edit() {
     int row = tblDU.getSelectedRow();
     if (row >= 0) {
-        String ma = (String) tblDU.getValueAt(row, 1); // CỘT 1: MaDoAn
+        String ma = (String) tblDU.getValueAt(row, 0);
         DoUong da = dao.findByID(ma);
         if (da != null) {
            

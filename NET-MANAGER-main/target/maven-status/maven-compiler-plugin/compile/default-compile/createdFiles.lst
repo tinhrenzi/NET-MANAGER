@@ -34,7 +34,6 @@ controller\crudController.class
 ui\manager\DanhSachMayJDialog$2$1.class
 util\XAuth.class
 ui\GiaoDienChinhJFrame.class
-controller\QuenMatKhauController.class
 ui\DangNhapJDialog$2.class
 util\XJdbc.class
 ui\manager\QuanLyNhanVienJDialog$12.class
@@ -102,6 +101,7 @@ ui\manager\DanhSachDoUongJDialog.class
 ui\manager\MoMayJDialog$1.class
 ui\DangNhapJDialog$1.class
 ui\NetManagerJFrame$1.class
+controller\QuanLyThucDonController.class
 ui\manager\DanhSachDoUongJDialog$3.class
 ui\manager\MoMayJDialog$6.class
 ui\manager\QuanLyNhanVienJDialog$1.class

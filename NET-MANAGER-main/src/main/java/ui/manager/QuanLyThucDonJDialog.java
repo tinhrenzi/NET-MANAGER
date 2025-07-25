@@ -3,12 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package ui.manager;
-
+import ui.manager.DanhSachDoUongJDialog;
+import controller.QuanLyNhanVienController;
+import controller.QuanLyThucDonController;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Admin
  */
-public class QuanLyThucDonJDialog extends javax.swing.JDialog {
+public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanLyThucDonController{
 
     /**
      * Creates new form QuanLyThucDonJDialog
@@ -17,6 +22,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+          this.init(); 
     }
 
     /**
@@ -35,31 +41,31 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDA = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblDU = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Quản Lý Thực Đơn");
 
-        btnThemDA.setText("Thêm Đồ Ăn");
+        btnThemDA.setText("Thêm Đồ Uống");
         btnThemDA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemDAActionPerformed(evt);
             }
         });
 
-        btnThemDU.setText("Thêm Đồ Uống");
+        btnThemDU.setText("Thêm Đồ Ăn");
         btnThemDU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemDUActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDA.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -67,10 +73,10 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã đồ ăn", "Tên đồ ăn", "Đơn giá", "Số lượng"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblDA);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,7 +97,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("Đồ ăn", jPanel1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblDU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -99,18 +105,18 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã đồ uống", "Tên đồ uống", "Đơn giá", "Số lượng"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblDU);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,9 +141,10 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
                     .addComponent(jTabbedPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnThemDU)
+                        .addGap(62, 62, 62)
                         .addComponent(btnThemDA)
-                        .addGap(51, 51, 51)
-                        .addComponent(btnThemDU)))
+                        .addGap(16, 16, 16)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE))
         );
@@ -150,9 +157,9 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThemDU)
-                    .addComponent(btnThemDA))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThemDA)
+                    .addComponent(btnThemDU))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -160,11 +167,15 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemDUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDUActionPerformed
-        // TODO add your handling code here:
+            DanhSachDoAnJDialog dialog = new DanhSachDoAnJDialog((javax.swing.JFrame) this.getOwner(), true);
+            dialog.setVisible(true); 
+            loadDataDoAn();
     }//GEN-LAST:event_btnThemDUActionPerformed
 
     private void btnThemDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDAActionPerformed
-        // TODO add your handling code here:
+        DanhSachDoUongJDialog dialog = new DanhSachDoUongJDialog((javax.swing.JFrame) this.getOwner(), true);
+        dialog.setVisible(true);    
+           loadDataDoUong();
     }//GEN-LAST:event_btnThemDAActionPerformed
 
     /**
@@ -219,7 +230,59 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tblDA;
+    private javax.swing.JTable tblDU;
     // End of variables declaration//GEN-END:variables
+private void loadDataDoAn() {
+    DefaultTableModel model = (DefaultTableModel) tblDA.getModel();
+    model.setRowCount(0);
+
+    dao.DoAnDAO dao = new daoImpl.DoAnDAOImpl();
+    for (entity.DoAn da : dao.findAll()) {
+        Object[] row = {
+            da.getMaDoAn(),
+            da.getTenDoAn(),
+            da.getDonGia(),
+            da.getSoLuong()
+        };
+        model.addRow(row);
+    }
+}
+
+private void loadDataDoUong() {
+    DefaultTableModel model = (DefaultTableModel) tblDU.getModel();
+    model.setRowCount(0);
+
+    dao.DoUongDAO dao = new daoImpl.DoUongDAOImpl();
+    for (entity.DoUong du : dao.findAll()) {
+        Object[] row = {
+            du.getMaDoUong(),
+            du.getTenDoUong(),
+            du.getDonGia(),
+            du.getSoLuong()
+        };
+        model.addRow(row);
+    }
+}
+    @Override
+    public void init() {
+        loadDataDoAn();
+        loadDataDoUong();
+        }
+
+    @Override
+    public void showDialog(JDialog dialog) {
+        QuanLyThucDonController.super.showDialog(dialog);
+    }
+
+    @Override
+    public void showDanhSachDoAn(JFrame jFrame) {
+         QuanLyThucDonController.super.showDanhSachDoAn(jFrame);
+    }
+
+    @Override
+    public void showDanhSachDoUong(JFrame jFrame) {
+         QuanLyThucDonController.super.showDanhSachDoUong(jFrame);
+    }
+    
 }
