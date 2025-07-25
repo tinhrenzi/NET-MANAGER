@@ -98,7 +98,7 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
                 {null, null, null, null}
             },
             new String [] {
-                "Tên Đồ Uống", "Mã Đồ Uống", "Số Lượng ", "Đơn giá"
+                "Mã Đồ Uống", "Tên Đồ Uống", "Số Lượng ", "Đơn giá"
             }
         ));
         tblDU.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -343,16 +343,18 @@ public class DanhSachDoUongJDialog extends javax.swing.JDialog implements DoUong
     @Override
     public void setForm(DoUong entity) {
     System.out.println(" DonGia: " + entity.getDonGia());
-    txtName.setText(entity.getTenDoUong());
+    
     txtIdDU.setText(entity.getMaDoUong());
+    txtName.setText(entity.getTenDoUong());
     txtDonGia.setText(String.valueOf(entity.getDonGia()));
     txtSoLuong.setText(String.valueOf(entity.getSoLuong()));
     }
 
    @Override
 public DoUong getForm() {
-    String ten = txtName.getText().trim();
+    
     String ma = txtIdDU.getText().trim();
+    String ten = txtName.getText().trim();
     String giaStr = txtDonGia.getText().trim();
     String soLuongStr = txtSoLuong.getText().trim();
     
@@ -386,8 +388,9 @@ public DoUong getForm() {
     for (DoUong da : dao.findAll()) {
         Object[] row = {
            
-            da.getTenDoUong(),
+            
             da.getMaDoUong(),
+            da.getTenDoUong(),
             da.getDonGia(),
             da.getSoLuong()
         };
@@ -401,8 +404,9 @@ public DoUong getForm() {
         String ma = (String) tblDU.getValueAt(row, 1); // CỘT 1: MaDoAn
         DoUong da = dao.findByID(ma);
         if (da != null) {
-            txtName.setText(da.getTenDoUong());
+           
             txtIdDU.setText(da.getMaDoUong());
+             txtName.setText(da.getTenDoUong());
             txtDonGia.setText(String.valueOf(da.getDonGia()));
             txtSoLuong.setText(String.valueOf(da.getSoLuong()));
         }
@@ -446,8 +450,9 @@ public void delete() {
 
     @Override
     public void clear() {
-            txtName.setText("");
             txtIdDU.setText("");
+            txtName.setText("");
+            
             txtDonGia.setText("");
             txtSoLuong.setText("");
             
@@ -455,8 +460,9 @@ public void delete() {
 
     @Override
     public void setEditable(boolean editable) {
+         txtIdDU.setEditable(editable);
         txtName.setEditable(editable);
-        txtIdDU.setEditable(editable);
+       
         txtDonGia.setEditable(editable);
         txtSoLuong.setEditable(editable);
 

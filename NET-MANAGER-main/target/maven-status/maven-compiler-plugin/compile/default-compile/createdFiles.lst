@@ -18,6 +18,7 @@ ui\manager\QuanLyNhanVienJDialog$10.class
 controller\OrderController.class
 ui\DoiMatKhauJDialog$1.class
 ui\WelcomeJDialog$2$1.class
+ui\manager\QuanLyThucDonJDialog$3.class
 controller\DanhSachMayController.class
 ui\DangNhapJDialog$3$1.class
 controller\DoiMatKhauController.class
@@ -57,6 +58,7 @@ ui\manager\DanhSachDoAnJDialog$8$1.class
 ui\manager\DanhSachDoUongJDialog$4.class
 ui\manager\QuanLyThongKeJDialog$1.class
 ui\manager\QuanLyNhanVienJDialog$5.class
+ui\manager\QuanLyThucDonJDialog$3$1.class
 controller\QuanLyNhanVienController.class
 ui\manager\ThanhToanJDialog$1.class
 ui\manager\QuanLyNhanVienJDialog$13.class
@@ -122,7 +124,7 @@ controller\ThucDonController.class
 ui\manager\QuanLyNhanVienJDialog$11.class
 daoImpl\HoaDonDAOImpl.class
 ui\manager\DanhSachDoAnJDialog$1.class
-ui\manager\QuanLyThucDonJDialog$1$1.class
+ui\manager\QuanLyThucDonJDialog$2.class
 ui\manager\QuanLyThongKeJDialog.class
 ui\manager\QuanLyNhanVienJDialog$2.class
 entity\Users.class
