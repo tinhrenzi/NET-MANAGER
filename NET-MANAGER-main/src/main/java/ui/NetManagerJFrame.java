@@ -90,24 +90,24 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnOrder.setBackground(new java.awt.Color(204, 204, 204));
-        btnOrder.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\8665027_basket_shopping_icon.png")); // NOI18N
+        btnOrder.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\8665027_basket_shopping_icon.png")); // NOI18N
         btnOrder.setText("Order");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrderActionPerformed(evt);
             }
         });
-        getContentPane().add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 160, -1));
+        getContentPane().add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 160, -1));
 
         btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
-        btnMoMay.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\8678667_shut_down_button_icon.png")); // NOI18N
+        btnMoMay.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMoMay.setText("Mở máy");
         btnMoMay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMoMayActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMoMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 160, -1));
+        getContentPane().add(btnMoMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 160, -1));
 
         btnLogOut.setBackground(new java.awt.Color(204, 204, 204));
         btnLogOut.setForeground(new java.awt.Color(255, 0, 0));
@@ -120,14 +120,14 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, 130, 40));
 
         btnThanhToan.setBackground(new java.awt.Color(204, 204, 204));
-        btnThanhToan.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\211635_card_icon.png")); // NOI18N
+        btnThanhToan.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\211635_card_icon.png")); // NOI18N
         btnThanhToan.setText("Thanh toán");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThanhToanActionPerformed(evt);
             }
         });
-        getContentPane().add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 163, -1));
+        getContentPane().add(btnThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 163, -1));
 
         menuHeThong.setBackground(new java.awt.Color(66, 116, 176));
         menuHeThong.setPreferredSize(new java.awt.Dimension(140, 410));
@@ -224,7 +224,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1010, 10));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\menu.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\menu.png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -234,7 +234,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\ChatGPT Image 22_27_18 16 thg 7, 2025.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\ChatGPT Image 22_27_18 16 thg 7, 2025.png")); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
 
         pack();
