@@ -1,69 +1,69 @@
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\ConntrollDoAn.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\crudController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DangNhapController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DanhSachMayController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DoiMatKhauController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DoUongController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\GiaoDienChinhController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\HoaDonChiTietController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\HoaDonController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\MayTinhController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\MoMayController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\OrderController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\QuanLyNhanVienController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\QuanLyThongKeController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\QuanLyThucDonController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\ThanhToanController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\ThongKeDoanhThuController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\ThucDonController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\WelcomeController.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\crudDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\DoAnDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\DoUongDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\HoaDonChiTietDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\HoaDonDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\MayTinhDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\orderDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\QuanLyThongKeDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\ThongKeDoanhThuDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\UsersDAO.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\DoAnDAOImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\DoUongDAOImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\HoaDonChiTietDAOImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\HoaDonDAOImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\MayTinhDAOImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\OrderDAOImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\QuanLyThongKeDaoImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\ThongKeDoanhThuDAOImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\UserDAOImpl.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\DoAn.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\DoUong.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\HoaDon.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\HoaDonChiTiet.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\MayTinh.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\Order.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\ThongKeDoanhThu.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\Users.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\DangNhapJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\DoiMatKhauJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\GiaoDienChinhJFrame.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\DanhSachDoAnJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\DanhSachDoUongJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\DanhSachMayJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\MoMayJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyNhanVienJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyThongKeJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyThucDonJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\ThanhToanJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\ThucDonJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\NetManagerJFrame.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\QuenMatKhauJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\WelcomeJDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\TimeRange.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XAuth.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XDate.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XDialog.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XIcon.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XJdbc.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XQuery.java
-C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XStr.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\ConntrollDoAn.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\crudController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DangNhapController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DanhSachMayController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DoiMatKhauController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\DoUongController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\GiaoDienChinhController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\HoaDonChiTietController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\HoaDonController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\MayTinhController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\MoMayController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\OrderController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\QuanLyNhanVienController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\QuanLyThongKeController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\QuanLyThucDonController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\ThanhToanController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\ThongKeDoanhThuController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\ThucDonController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\controller\WelcomeController.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\crudDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\DoAnDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\DoUongDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\HoaDonChiTietDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\HoaDonDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\MayTinhDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\orderDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\QuanLyThongKeDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\ThongKeDoanhThuDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\UsersDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\DoAnDAOImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\DoUongDAOImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\HoaDonChiTietDAOImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\HoaDonDAOImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\MayTinhDAOImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\OrderDAOImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\QuanLyThongKeDaoImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\ThongKeDoanhThuDAOImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\daoImpl\UserDAOImpl.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\DoAn.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\DoUong.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\HoaDon.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\HoaDonChiTiet.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\MayTinh.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\Order.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\ThongKeDoanhThu.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\Users.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\DangNhapJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\DoiMatKhauJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\GiaoDienChinhJFrame.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\DanhSachDoAnJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\DanhSachDoUongJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\DanhSachMayJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\MoMayJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyNhanVienJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyThongKeJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\QuanLyThucDonJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\ThanhToanJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\manager\ThucDonJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\NetManagerJFrame.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\QuenMatKhauJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\ui\WelcomeJDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\TimeRange.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XAuth.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XDate.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XDialog.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XIcon.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XJdbc.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XQuery.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\util\XStr.java

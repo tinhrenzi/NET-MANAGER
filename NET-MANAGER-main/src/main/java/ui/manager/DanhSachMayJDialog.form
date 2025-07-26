@@ -26,14 +26,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pnlDanhSach" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pnlDanhSach" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="pnlDanhSach" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,56 +51,78 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="btnMay1" alignment="1" min="-2" pref="136" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnMay11" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnMay6" alignment="1" min="-2" pref="136" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="btnMay21" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnMay22" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="btnMay16" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnMay17" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="btnMay1" pref="136" max="32767" attributes="0"/>
+                                      <Component id="btnMay6" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="46" pref="46" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btnMay7" max="32767" attributes="0"/>
+                                      <Component id="btnMay2" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnMay11" min="-2" pref="136" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                  <Component id="btnMay12" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Component id="btnMay16" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnMay21" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnMay13" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMay18" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMay8" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnMay3" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="btnMay23" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="49" pref="49" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnMay12" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnMay17" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnMay22" max="32767" attributes="0"/>
-                      <Component id="btnMay7" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnMay2" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnMay8" min="-2" pref="136" max="-2" attributes="0"/>
-                              <Component id="btnMay3" min="-2" pref="136" max="-2" attributes="0"/>
-                              <Component id="btnMay13" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnMay23" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnMay19" max="32767" attributes="0"/>
-                              <Component id="btnMay24" max="32767" attributes="0"/>
-                              <Component id="btnMay14" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnMay9" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnMay4" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btnMay14" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="47" max="32767" attributes="0"/>
+                          <Component id="btnMay15" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="btnMay18" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="btnMay4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnMay5" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnMay24" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnMay25" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnMay19" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnMay20" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnMay9" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnMay10" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnMay10" max="32767" attributes="0"/>
-                      <Component id="btnMay15" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnMay20" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnMay25" max="32767" attributes="0"/>
-                      <Component id="btnMay5" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -111,14 +138,18 @@
                       <Component id="btnMay5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnMay6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMay7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMay8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMay9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMay10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnMay8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnMay9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnMay10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnMay6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnMay7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnMay11" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMay12" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -126,15 +157,15 @@
                       <Component id="btnMay14" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMay15" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnMay16" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMay17" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMay19" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMay18" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnMay19" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMay20" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnMay21" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMay22" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -142,7 +173,7 @@
                       <Component id="btnMay24" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMay25" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -154,10 +185,10 @@
               <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\img\185023_imac_computer_icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="M&#xe1;y 1"/>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[130, 71]"/>
-            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMay1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnMay2">
           <Properties>
@@ -287,7 +318,7 @@
             <Property name="text" type="java.lang.String" value="M&#xe1;y 17"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnMay19">
+        <Component class="javax.swing.JButton" name="btnMay18">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\img\185023_imac_computer_icon.png"/>
@@ -295,7 +326,7 @@
             <Property name="text" type="java.lang.String" value="M&#xe1;y 18"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnMay18">
+        <Component class="javax.swing.JButton" name="btnMay19">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\img\185023_imac_computer_icon.png"/>

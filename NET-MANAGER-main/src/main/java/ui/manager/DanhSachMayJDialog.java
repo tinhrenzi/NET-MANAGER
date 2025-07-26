@@ -12,9 +12,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +26,7 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
 
     /**
      * Creates new form DanhSachMayJDialog
+     *
      * @param parent
      * @param modal
      */
@@ -60,8 +63,8 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
         btnMay15 = new javax.swing.JButton();
         btnMay16 = new javax.swing.JButton();
         btnMay17 = new javax.swing.JButton();
-        btnMay19 = new javax.swing.JButton();
         btnMay18 = new javax.swing.JButton();
+        btnMay19 = new javax.swing.JButton();
         btnMay20 = new javax.swing.JButton();
         btnMay21 = new javax.swing.JButton();
         btnMay22 = new javax.swing.JButton();
@@ -78,7 +81,11 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
 
         btnMay1.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay1.setText("Máy 1");
-        btnMay1.setPreferredSize(new java.awt.Dimension(130, 71));
+        btnMay1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay1ActionPerformed(evt);
+            }
+        });
 
         btnMay2.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay2.setText("Máy 2");
@@ -128,11 +135,11 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
         btnMay17.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay17.setText("Máy 17");
 
-        btnMay19.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
-        btnMay19.setText("Máy 18");
-
         btnMay18.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
-        btnMay18.setText("Máy 19");
+        btnMay18.setText("Máy 18");
+
+        btnMay19.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
+        btnMay19.setText("Máy 19");
 
         btnMay20.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay20.setText("Máy 20");
@@ -158,99 +165,120 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDanhSachLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnMay1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMay11)
-                            .addComponent(btnMay6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlDanhSachLayout.createSequentialGroup()
+                        .addComponent(btnMay21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay22))
+                    .addGroup(pnlDanhSachLayout.createSequentialGroup()
                         .addComponent(btnMay16)
-                        .addComponent(btnMay21)))
-                .addGap(49, 49, 49)
-                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMay12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMay17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMay22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMay7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMay2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(43, 43, 43)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay17))
+                    .addGroup(pnlDanhSachLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnlDanhSachLayout.createSequentialGroup()
+                                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnMay1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                                    .addComponent(btnMay6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(46, 46, 46)
+                                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnMay7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnMay2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(pnlDanhSachLayout.createSequentialGroup()
+                                .addComponent(btnMay11, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46)
+                                .addComponent(btnMay12)))))
+                .addGap(47, 47, 47)
+                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnMay13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnMay23))
+                .addGap(45, 45, 45)
                 .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDanhSachLayout.createSequentialGroup()
-                        .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMay8, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMay3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMay13)
-                            .addComponent(btnMay23))
-                        .addGap(43, 43, 43)
-                        .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnMay19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMay24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMay14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMay9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMay4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnMay18))
-                .addGap(50, 50, 50)
-                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMay10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMay15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMay20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMay25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMay5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(btnMay14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(btnMay15))
+                    .addGroup(pnlDanhSachLayout.createSequentialGroup()
+                        .addComponent(btnMay4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay5))
+                    .addGroup(pnlDanhSachLayout.createSequentialGroup()
+                        .addComponent(btnMay24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay25))
+                    .addGroup(pnlDanhSachLayout.createSequentialGroup()
+                        .addComponent(btnMay19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay20))
+                    .addGroup(pnlDanhSachLayout.createSequentialGroup()
+                        .addComponent(btnMay9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMay10)))
+                .addContainerGap())
         );
         pnlDanhSachLayout.setVerticalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDanhSachLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMay1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMay1)
                     .addComponent(btnMay2)
                     .addComponent(btnMay3)
                     .addComponent(btnMay4)
                     .addComponent(btnMay5))
                 .addGap(42, 42, 42)
-                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMay6)
-                    .addComponent(btnMay7)
-                    .addComponent(btnMay8)
-                    .addComponent(btnMay9)
-                    .addComponent(btnMay10))
-                .addGap(46, 46, 46)
+                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnMay8)
+                        .addComponent(btnMay9)
+                        .addComponent(btnMay10))
+                    .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnMay6)
+                        .addComponent(btnMay7)))
+                .addGap(44, 44, 44)
                 .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMay11)
                     .addComponent(btnMay12)
                     .addComponent(btnMay13)
                     .addComponent(btnMay14)
                     .addComponent(btnMay15))
-                .addGap(48, 48, 48)
+                .addGap(50, 50, 50)
                 .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMay16)
                     .addComponent(btnMay17)
-                    .addComponent(btnMay19)
                     .addComponent(btnMay18)
+                    .addComponent(btnMay19)
                     .addComponent(btnMay20))
-                .addGap(50, 50, 50)
+                .addGap(48, 48, 48)
                 .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMay21)
                     .addComponent(btnMay22)
                     .addComponent(btnMay23)
                     .addComponent(btnMay24)
                     .addComponent(btnMay25))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlDanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlDanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(pnlDanhSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -260,6 +288,11 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
         // TODO add your handling code here:
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnMay1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay1ActionPerformed
+        // TODO add your handling code here:    
+
+    }//GEN-LAST:event_btnMay1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,8 +364,7 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
     private javax.swing.JButton btnMay9;
     private javax.swing.JPanel pnlDanhSach;
     // End of variables declaration//GEN-END:variables
-
-    @Override
+@Override
     public void open() {
         setLocationRelativeTo(null);
         this.loadComputer();
@@ -342,49 +374,50 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
     public void showComputerJDialog(String maMayTinh) {
         MayTinhDAO dao = new MayTinhDAOImpl();
         MayTinh mayTinh = dao.findByID(maMayTinh);
-        MoMayJDialog dialog = new MoMayJDialog((Frame) this.getOwner(), true);
-        dialog.setForm(mayTinh);
-        dialog.setVisible(true);
+
+        if (mayTinh != null) {
+            MoMayJDialog dialog = new MoMayJDialog(this, true, mayTinh);
+            dialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Máy tính không tồn tại!");
+        }
     }
 
     private void loadComputer() {
         MayTinhDAO dao = new MayTinhDAOImpl();
         List<MayTinh> mt = dao.findAll();
         pnlDanhSach.removeAll();
-        mt.forEach(mayTinh -> pnlDanhSach.add(this.createButton(mayTinh)));
+        mt.forEach(mayTinh -> {
+            JButton btnComputer = createButton(mayTinh);
+            pnlDanhSach.add(btnComputer);
+        });
+        pnlDanhSach.revalidate();
+        pnlDanhSach.repaint();
     }
 
     private JButton createButton(MayTinh mayTinh) {
-        JButton btnComputer = new JButton();
+        JButton btnComputer = new JButton(mayTinh.getTenMay());
 
-        // Thiết lập text tên máy
-        btnComputer.setText(mayTinh.getTenMay()); // ví dụ "Máy 1"
-
-        // Gắn icon 
-        ImageIcon icon = new ImageIcon(getClass().getResource(
-                "file:/H:/XUONG/SUM2025/NET-MANAGER/NET-MANAGER-main/src/main/java/img/185023_imac_computer_icon.png"));
-        btnComputer.setIcon(icon);
-
-        // Kích thước
-        btnComputer.setPreferredSize(new Dimension(100, 100));
-
-        // Màu theo trạng thái
-        String status = mayTinh.getTrangThai(); // "ON", "OFF", "MAINTAIN"
-        switch (status) {
-            case "ON" ->
+        // Xử lý màu theo trạng thái máy
+        String trangThai = mayTinh.getTrangThai();
+        switch (trangThai) {
+            case "Đang hoạt động":
+                btnComputer.setBackground(Color.RED);
+                break;
+            case "Ngừng hoạt động":
                 btnComputer.setBackground(Color.GREEN);
-            case "OFF" ->
+                break;
+            case "Bảo trì":
+                btnComputer.setBackground(Color.YELLOW);
+                break;
+            default:
                 btnComputer.setBackground(Color.LIGHT_GRAY);
-            case "MAINTAIN" ->
-                btnComputer.setBackground(Color.ORANGE);
+                break;
         }
 
-        // Sự kiện khi bấm
-        btnComputer.addActionListener((ActionEvent e) -> {
-            showComputerJDialog(mayTinh.getMaMayTinh());
-        });
+        // Gán sự kiện khi click
+        btnComputer.addActionListener(e -> showComputerJDialog(mayTinh.getMaMayTinh()));
 
         return btnComputer;
     }
-
 }

@@ -8,9 +8,9 @@ import controller.MoMayController;
 import dao.MayTinhDAO;
 import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static java.awt.image.ImageObserver.ABORT;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,8 +30,17 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     /**
      * Creates new form MoMayJDialog
+     *
+     * @param parent
+     * @param modal
      */
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(null);
+    }
+
+    public MoMayJDialog(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -62,7 +71,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         txtTenMay = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        Title = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lblThoiGianThuc = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -127,8 +136,8 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
         jLabel8.setText("Trạng thái");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("Mở máy");
+        Title.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        Title.setText("Máy");
 
         jLabel2.setText("Thời gian chơi");
 
@@ -179,18 +188,18 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblThoiGianChoi, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jSeparator1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(309, 309, 309)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(9, 9, 9)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,13 +314,13 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Title;
     private javax.swing.JButton btnBaoTri;
     private javax.swing.JButton btnMoMay;
     private javax.swing.JButton btnTatMay;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
@@ -337,6 +346,17 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         this.startThoiGianThuc();
     }
 
+    public MoMayJDialog(Dialog owner, boolean modal, MayTinh mayTinh) {
+        super(owner, modal);
+        initComponents();             // Tạo UI
+        setForm(mayTinh);             // Đổ dữ liệu máy vào form
+        startThoiGianThuc();          // Chạy đồng hồ thời gian thực
+        if ("Đang hoạt động".equals(mayTinh.getTrangThai())) {
+            startDongHo();            // Nếu đang hoạt động thì chạy đồng hồ chơi
+        }
+        setTitle("Máy " + mayTinh.getTenMay());  // Tiêu đề động
+    }
+
     @Override
     public void setForm(MayTinh entity) {
         txtMaMay.setText(entity.getMaMayTinh());
@@ -344,9 +364,14 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         txtViTri.setText(entity.getViTri());
         buttonGroup1.clearSelection();
 
-        String trangThaistr = entity.getTrangThai();
-        if (trangThaistr.equals(ABORT)) {
-
+        String trangThai = entity.getTrangThai();
+        switch (trangThai) {
+            case "Đang hoạt động" ->
+                rdoHoatDong.setSelected(true);
+            case "Ngừng hoạt động" ->
+                rdoNgungHoatDong.setSelected(true);
+            case "Bảo trì" ->
+                rdoBaoTri.setSelected(true);
         }
     }
 
@@ -471,7 +496,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             rdoHoatDong.setSelected(false);
             rdoNgungHoatDong.setSelected(true);
             rdoBaoTri.setSelected(false);
-            
+
             XDialog.alert("Tắt máy thành công!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -494,13 +519,13 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             if (timerThoiGianChoi != null && timerThoiGianChoi.isRunning()) {
                 timerThoiGianChoi.stop();
             }
-            
+
             clear();
-            
+
             rdoHoatDong.setSelected(false);
             rdoNgungHoatDong.setSelected(false);
             rdoBaoTri.setSelected(true);
-            
+
             XDialog.alert("Đưa vào bảo trì thành công!");
         } catch (Exception e) {
             e.printStackTrace();
