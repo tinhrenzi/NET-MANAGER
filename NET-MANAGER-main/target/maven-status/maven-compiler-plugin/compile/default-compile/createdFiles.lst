@@ -74,6 +74,7 @@ ui\NetManagerJFrame$4.class
 ui\manager\ThanhToanJDialog$5.class
 ui\manager\DanhSachDoAnJDialog$8.class
 daoImpl\ThongKeDoanhThuDAOImpl.class
+ui\manager\MoMayJDialog$11.class
 ui\manager\DanhSachDoAnJDialog$5.class
 ui\manager\DanhSachMayJDialog$5.class
 ui\manager\DanhSachMayJDialog$2.class
@@ -81,6 +82,7 @@ ui\manager\QuanLyNhanVienJDialog$4.class
 daoImpl\HoaDonDAOImpl.class
 ui\manager\DanhSachMayJDialog$4.class
 ui\manager\ThanhToanJDialog$10.class
+ui\manager\MoMayJDialog$10.class
 ui\manager\QuanLyNhanVienJDialog$2.class
 entity\Users.class
 ui\manager\ThanhToanJDialog$4.class
@@ -91,6 +93,7 @@ controller\ThanhToanController.class
 ui\manager\DanhSachMayJDialog$3.class
 ui\NetManagerJFrame$6.class
 dao\HoaDonDAO.class
+ui\manager\MoMayJDialog$8$1.class
 ui\manager\DanhSachDoAnJDialog$7.class
 ui\manager\DanhSachMayJDialog$11.class
 ui\NetManagerJFrame.class

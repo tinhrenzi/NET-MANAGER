@@ -8,13 +8,16 @@ import controller.MoMayController;
 import dao.MayTinhDAO;
 import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
+import entity.Order;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
@@ -142,6 +145,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         jLabel2.setText("Thời gian chơi");
 
         btnThanhToan.setText("Thanh toán");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -271,6 +279,20 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         // TODO add your handling code here:
     }//GEN-LAST:event_txtViTriActionPerformed
 
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+// Dừng đồng hồ thời gian chơi nếu đang chạy
+        if (timerThoiGianChoi != null && timerThoiGianChoi.isRunning()) {
+            timerThoiGianChoi.stop();
+        }
+
+        // Mở giao diện ThanhToanJDialog mà không cần parent
+        ThanhToanJDialog thanhToanDialog = new ThanhToanJDialog(null, true); // Sử dụng null làm parent
+        thanhToanDialog.setVisible(true);
+
+        // (Tùy chọn) Đóng MoMayJDialog sau khi chuyển
+        // this.dispose(); // Bỏ comment nếu muốn đóng dialog hiện tại
+    }//GEN-LAST:event_btnThanhToanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,6 +335,16 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         });
     }
 
+    private void init() {
+        btnThanhToan = new javax.swing.JButton();
+        btnThanhToan.setText("Thanh toán");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnThanhToanActionPerformed(e);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
     private javax.swing.JButton btnBaoTri;
@@ -547,39 +579,39 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             }
         });
         timerThoiGianThuc.start(); // luôn chạy khi form khởi động
-        
+
     }
 
 // Chạy thời gian chơi    
-public void startDongHo() {
-    // Dừng timerThoiGianThuc nếu nó đang chạy
-    if (timerThoiGianThuc != null && timerThoiGianThuc.isRunning()) {
-        timerThoiGianThuc.stop();
-    }
-
-    // Lấy thời gian bắt đầu và hiển thị
-    startTimeMillis = System.currentTimeMillis(); // thời gian bắt đầu tính bằng mili giây
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-    lblThoiGianThuc.setText(sdf.format(new Date(startTimeMillis)));
-
-    // Bắt đầu đồng hồ đếm giờ chơi
-    timerThoiGianChoi = new Timer(1000, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            long now = System.currentTimeMillis(); // Lấy thời gian hiện tại
-            long playedMillis = now - startTimeMillis;
-
-            long seconds = (playedMillis / 1000) % 60; // Đổi từ mili giây sang giây và lấy từ 0-59 giây/phút
-            long minutes = (playedMillis / 1000 / 60) % 60; // Đổi từ mili giây sang phút và lấy từ 0-59 phút/giờ
-            long hours = (playedMillis / 1000 / 60 / 60);
-
-            String thoiGianChoi = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-            lblThoiGianChoi.setText(thoiGianChoi);
+    public void startDongHo() {
+        // Dừng timerThoiGianThuc nếu nó đang chạy
+        if (timerThoiGianThuc != null && timerThoiGianThuc.isRunning()) {
+            timerThoiGianThuc.stop();
         }
-    });
 
-    timerThoiGianChoi.start(); // Khởi động timerThoiGianChoi
-}
+        // Lấy thời gian bắt đầu và hiển thị
+        startTimeMillis = System.currentTimeMillis(); // thời gian bắt đầu tính bằng mili giây
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        lblThoiGianThuc.setText(sdf.format(new Date(startTimeMillis)));
+
+        // Bắt đầu đồng hồ đếm giờ chơi
+        timerThoiGianChoi = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                long now = System.currentTimeMillis(); // Lấy thời gian hiện tại
+                long playedMillis = now - startTimeMillis;
+
+                long seconds = (playedMillis / 1000) % 60; // Đổi từ mili giây sang giây và lấy từ 0-59 giây/phút
+                long minutes = (playedMillis / 1000 / 60) % 60; // Đổi từ mili giây sang phút và lấy từ 0-59 phút/giờ
+                long hours = (playedMillis / 1000 / 60 / 60);
+
+                String thoiGianChoi = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                lblThoiGianChoi.setText(thoiGianChoi);
+            }
+        });
+
+        timerThoiGianChoi.start(); // Khởi động timerThoiGianChoi
+    }
 
 // khong dung den
     @Override
