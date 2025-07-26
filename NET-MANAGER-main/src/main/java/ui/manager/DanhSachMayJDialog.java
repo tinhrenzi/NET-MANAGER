@@ -79,6 +79,8 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
             }
         });
 
+        pnlDanhSach.setToolTipText("Danh Sach May");
+
         btnMay1.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay1.setText("Máy 1");
         btnMay1.addActionListener(new java.awt.event.ActionListener() {

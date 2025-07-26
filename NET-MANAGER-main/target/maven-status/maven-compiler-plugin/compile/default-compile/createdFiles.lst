@@ -93,7 +93,6 @@ controller\ThanhToanController.class
 ui\manager\DanhSachMayJDialog$3.class
 ui\NetManagerJFrame$6.class
 dao\HoaDonDAO.class
-ui\manager\MoMayJDialog$8$1.class
 ui\manager\DanhSachDoAnJDialog$7.class
 ui\manager\DanhSachMayJDialog$11.class
 ui\NetManagerJFrame.class
@@ -125,6 +124,7 @@ ui\manager\QuanLyNhanVienJDialog$12.class
 ui\manager\DanhSachMayJDialog$13.class
 dao\crudDAO.class
 ui\manager\ThucDonJDialog.class
+ui\manager\MoMayJDialog$9$1.class
 daoImpl\UserDAOImpl.class
 ui\manager\DanhSachDoAnJDialog$8$1.class
 ui\manager\QuanLyThongKeJDialog$1.class

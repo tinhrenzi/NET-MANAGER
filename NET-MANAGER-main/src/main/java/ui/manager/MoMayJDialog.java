@@ -43,11 +43,18 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         setLocationRelativeTo(null);
     }
 
-    public MoMayJDialog(javax.swing.JDialog parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setLocationRelativeTo(null);
+        public MoMayJDialog(Dialog owner, boolean modal, MayTinh mayTinh) {
+        super(owner, modal);
+        initComponents();             // Tạo UI
+        setForm(mayTinh);             // Đổ dữ liệu máy vào form
+        startThoiGianThuc();          // Chạy đồng hồ thời gian thực
+        if ("Đang hoạt động".equals(mayTinh.getTrangThai())) {
+            startDongHo();            // Nếu đang hoạt động thì chạy đồng hồ chơi
+        }
+        setTitle(Title.getName()+ mayTinh.getTenMay());  // Tiêu đề động
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,6 +89,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         btnThanhToan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Mo May");
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -141,6 +149,16 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
         Title.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Title.setText("Máy");
+        Title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        Title.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                TitleAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jLabel2.setText("Thời gian chơi");
 
@@ -280,18 +298,16 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }//GEN-LAST:event_txtViTriActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-// Dừng đồng hồ thời gian chơi nếu đang chạy
-        if (timerThoiGianChoi != null && timerThoiGianChoi.isRunning()) {
-            timerThoiGianChoi.stop();
-        }
 
-        // Mở giao diện ThanhToanJDialog mà không cần parent
+        // Mở giao diện ThanhToanJDialog
         ThanhToanJDialog thanhToanDialog = new ThanhToanJDialog(null, true); // Sử dụng null làm parent
         thanhToanDialog.setVisible(true);
-
-        // (Tùy chọn) Đóng MoMayJDialog sau khi chuyển
-        // this.dispose(); // Bỏ comment nếu muốn đóng dialog hiện tại
+        
     }//GEN-LAST:event_btnThanhToanActionPerformed
+
+    private void TitleAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_TitleAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TitleAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -335,16 +351,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         });
     }
 
-    private void init() {
-        btnThanhToan = new javax.swing.JButton();
-        btnThanhToan.setText("Thanh toán");
-        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnThanhToanActionPerformed(e);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
     private javax.swing.JButton btnBaoTri;
@@ -378,16 +384,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         this.startThoiGianThuc();
     }
 
-    public MoMayJDialog(Dialog owner, boolean modal, MayTinh mayTinh) {
-        super(owner, modal);
-        initComponents();             // Tạo UI
-        setForm(mayTinh);             // Đổ dữ liệu máy vào form
-        startThoiGianThuc();          // Chạy đồng hồ thời gian thực
-        if ("Đang hoạt động".equals(mayTinh.getTrangThai())) {
-            startDongHo();            // Nếu đang hoạt động thì chạy đồng hồ chơi
-        }
-        setTitle("Máy " + mayTinh.getTenMay());  // Tiêu đề động
-    }
 
     @Override
     public void setForm(MayTinh entity) {
