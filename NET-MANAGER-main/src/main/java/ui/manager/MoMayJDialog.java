@@ -457,15 +457,15 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         if (mt == null) {
             return;
         }
-        /**
-         * Nếu form bị lỗi khi nhập thì sẽ ngừng và không thực hiện tiếp
-         */
 
         mt.setTrangThai("Đang hoạt động"); // cập nhật trạng thái sang "Đang hoạt động"
         try {
             dao.update(mt); // cập nhật vào database
             fillToTable();  // đổ lại bảng
             clear();        // xóa form
+            rdoHoatDong.setSelected(true);
+            rdoNgungHoatDong.setSelected(false);
+            rdoBaoTri.setSelected(false);
             startDongHo();
             XDialog.alert("Mở máy thành công");
         } catch (Exception e) {
@@ -547,37 +547,39 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             }
         });
         timerThoiGianThuc.start(); // luôn chạy khi form khởi động
+        
     }
 
 // Chạy thời gian chơi    
-    public void startDongHo() {
-        // Hiển thị giờ bắt đầu (set 1 lần)
-        if (timerThoiGianThuc.isRunning()) {
-            timerThoiGianThuc.stop();
-        }
-        startTimeMillis = System.currentTimeMillis(); // thời gian bắt đầu tính bằng mili giây
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        lblThoiGianThuc.setText(sdf.format(new Date(startTimeMillis)));
-
-        // Bắt đầu đồng hồ đếm giờ chơi
-        timerThoiGianChoi = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                long now = System.currentTimeMillis(); // Lấy thời gian hiện tại
-                long playedMillis = now - startTimeMillis;
-
-                long seconds = (playedMillis / 1000) % 60; //Đổi từ mili giây sang giây và lấy từ 0-59 giây / phút 
-                long minutes = (playedMillis / 1000 / 60) % 60; //Đổi từ mili giây sang phút và lấy từ 0-59 phút / giờ 
-                long hours = (playedMillis / 1000 / 60 / 60);
-
-                String thoiGianChoi = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-                lblThoiGianChoi.setText(thoiGianChoi);
-
-            }
-        });
-
-        timerThoiGianChoi.start();
+public void startDongHo() {
+    // Dừng timerThoiGianThuc nếu nó đang chạy
+    if (timerThoiGianThuc != null && timerThoiGianThuc.isRunning()) {
+        timerThoiGianThuc.stop();
     }
+
+    // Lấy thời gian bắt đầu và hiển thị
+    startTimeMillis = System.currentTimeMillis(); // thời gian bắt đầu tính bằng mili giây
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+    lblThoiGianThuc.setText(sdf.format(new Date(startTimeMillis)));
+
+    // Bắt đầu đồng hồ đếm giờ chơi
+    timerThoiGianChoi = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            long now = System.currentTimeMillis(); // Lấy thời gian hiện tại
+            long playedMillis = now - startTimeMillis;
+
+            long seconds = (playedMillis / 1000) % 60; // Đổi từ mili giây sang giây và lấy từ 0-59 giây/phút
+            long minutes = (playedMillis / 1000 / 60) % 60; // Đổi từ mili giây sang phút và lấy từ 0-59 phút/giờ
+            long hours = (playedMillis / 1000 / 60 / 60);
+
+            String thoiGianChoi = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            lblThoiGianChoi.setText(thoiGianChoi);
+        }
+    });
+
+    timerThoiGianChoi.start(); // Khởi động timerThoiGianChoi
+}
 
 // khong dung den
     @Override

@@ -89,75 +89,195 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
 
         btnMay2.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay2.setText("Máy 2");
+        btnMay2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay2ActionPerformed(evt);
+            }
+        });
 
         btnMay3.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay3.setText("Máy 3");
+        btnMay3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay3ActionPerformed(evt);
+            }
+        });
 
         btnMay4.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay4.setText("Máy 4");
+        btnMay4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay4ActionPerformed(evt);
+            }
+        });
 
         btnMay5.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay5.setText("Máy 5");
+        btnMay5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay5ActionPerformed(evt);
+            }
+        });
 
         btnMay6.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay6.setText("Máy 6");
+        btnMay6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay6ActionPerformed(evt);
+            }
+        });
 
         btnMay7.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay7.setText("Máy 7");
+        btnMay7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay7ActionPerformed(evt);
+            }
+        });
 
         btnMay8.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay8.setText("Máy 8");
+        btnMay8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay8ActionPerformed(evt);
+            }
+        });
 
         btnMay9.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay9.setText("Máy 9");
+        btnMay9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay9ActionPerformed(evt);
+            }
+        });
 
         btnMay10.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay10.setText("Máy 10");
+        btnMay10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay10ActionPerformed(evt);
+            }
+        });
 
         btnMay11.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay11.setText("Máy 11");
+        btnMay11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay11ActionPerformed(evt);
+            }
+        });
 
         btnMay12.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay12.setText("Máy 12");
+        btnMay12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay12ActionPerformed(evt);
+            }
+        });
 
         btnMay13.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay13.setText("Máy 13");
+        btnMay13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay13ActionPerformed(evt);
+            }
+        });
 
         btnMay14.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay14.setText("Máy 14");
+        btnMay14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay14ActionPerformed(evt);
+            }
+        });
 
         btnMay15.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay15.setText("Máy 15");
+        btnMay15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay15ActionPerformed(evt);
+            }
+        });
 
         btnMay16.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay16.setText("Máy 16");
+        btnMay16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay16ActionPerformed(evt);
+            }
+        });
 
         btnMay17.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay17.setText("Máy 17");
+        btnMay17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay17ActionPerformed(evt);
+            }
+        });
 
         btnMay18.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay18.setText("Máy 18");
+        btnMay18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay18ActionPerformed(evt);
+            }
+        });
 
         btnMay19.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay19.setText("Máy 19");
+        btnMay19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay19ActionPerformed(evt);
+            }
+        });
 
         btnMay20.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay20.setText("Máy 20");
+        btnMay20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay20ActionPerformed(evt);
+            }
+        });
 
         btnMay21.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay21.setText("Máy 21");
+        btnMay21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay21ActionPerformed(evt);
+            }
+        });
 
         btnMay22.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay22.setText("Máy 22");
+        btnMay22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay22ActionPerformed(evt);
+            }
+        });
 
         btnMay23.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay23.setText("Máy 23");
+        btnMay23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay23ActionPerformed(evt);
+            }
+        });
 
         btnMay24.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay24.setText("Máy 24");
+        btnMay24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay24ActionPerformed(evt);
+            }
+        });
 
         btnMay25.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\185023_imac_computer_icon.png")); // NOI18N
         btnMay25.setText("Máy 25");
+        btnMay25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMay25ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlDanhSachLayout = new javax.swing.GroupLayout(pnlDanhSach);
         pnlDanhSach.setLayout(pnlDanhSachLayout);
@@ -291,8 +411,128 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
 
     private void btnMay1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay1ActionPerformed
         // TODO add your handling code here:    
-
+        showComputerJDialog("MT001");
     }//GEN-LAST:event_btnMay1ActionPerformed
+
+    private void btnMay2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay2ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT002");
+    }//GEN-LAST:event_btnMay2ActionPerformed
+
+    private void btnMay3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay3ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT003");
+    }//GEN-LAST:event_btnMay3ActionPerformed
+
+    private void btnMay4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay4ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT004");
+    }//GEN-LAST:event_btnMay4ActionPerformed
+
+    private void btnMay5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay5ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT005");
+    }//GEN-LAST:event_btnMay5ActionPerformed
+
+    private void btnMay6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay6ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT006");
+    }//GEN-LAST:event_btnMay6ActionPerformed
+
+    private void btnMay7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay7ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT007");
+    }//GEN-LAST:event_btnMay7ActionPerformed
+
+    private void btnMay8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay8ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT008");
+    }//GEN-LAST:event_btnMay8ActionPerformed
+
+    private void btnMay9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay9ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT009");
+    }//GEN-LAST:event_btnMay9ActionPerformed
+
+    private void btnMay10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay10ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT010");
+    }//GEN-LAST:event_btnMay10ActionPerformed
+
+    private void btnMay11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay11ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT011");
+    }//GEN-LAST:event_btnMay11ActionPerformed
+
+    private void btnMay12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay12ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT012");
+    }//GEN-LAST:event_btnMay12ActionPerformed
+
+    private void btnMay13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay13ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT013");
+    }//GEN-LAST:event_btnMay13ActionPerformed
+
+    private void btnMay14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay14ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT014");
+    }//GEN-LAST:event_btnMay14ActionPerformed
+
+    private void btnMay15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay15ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT015");
+    }//GEN-LAST:event_btnMay15ActionPerformed
+
+    private void btnMay16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay16ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT016");
+    }//GEN-LAST:event_btnMay16ActionPerformed
+
+    private void btnMay17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay17ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT017");
+    }//GEN-LAST:event_btnMay17ActionPerformed
+
+    private void btnMay18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay18ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT018");
+    }//GEN-LAST:event_btnMay18ActionPerformed
+
+    private void btnMay19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay19ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT019");
+    }//GEN-LAST:event_btnMay19ActionPerformed
+
+    private void btnMay20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay20ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT020");
+    }//GEN-LAST:event_btnMay20ActionPerformed
+
+    private void btnMay21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay21ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT021");
+    }//GEN-LAST:event_btnMay21ActionPerformed
+
+    private void btnMay22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay22ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT022");
+    }//GEN-LAST:event_btnMay22ActionPerformed
+
+    private void btnMay23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay23ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT023");
+    }//GEN-LAST:event_btnMay23ActionPerformed
+
+    private void btnMay24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay24ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT024");
+    }//GEN-LAST:event_btnMay24ActionPerformed
+
+    private void btnMay25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMay25ActionPerformed
+        // TODO add your handling code here:
+        showComputerJDialog("MT025");
+    }//GEN-LAST:event_btnMay25ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,37 +627,48 @@ public class DanhSachMayJDialog extends javax.swing.JDialog implements DanhSachM
         MayTinhDAO dao = new MayTinhDAOImpl();
         List<MayTinh> mt = dao.findAll();
         pnlDanhSach.removeAll();
-        mt.forEach(mayTinh -> {
-            JButton btnComputer = createButton(mayTinh);
-            pnlDanhSach.add(btnComputer);
-        });
+
+        // Map buttons to MayTinh objects
+        JButton[] buttons = {btnMay1, btnMay2, btnMay3, btnMay4, btnMay5, btnMay6, btnMay7, btnMay8, btnMay9, btnMay10,
+            btnMay11, btnMay12, btnMay13, btnMay14, btnMay15, btnMay16, btnMay17, btnMay18, btnMay19, btnMay20,
+            btnMay21, btnMay22, btnMay23, btnMay24, btnMay25};
+
+        for (int i = 0; i < Math.min(buttons.length, mt.size()); i++) {
+            MayTinh mayTinh = mt.get(i);
+            JButton button = buttons[i];
+            button.setText(mayTinh.getTenMay());
+
+            // Xử lý màu theo trạng thái máy
+            String trangThai = mayTinh.getTrangThai();
+            switch (trangThai) {
+                case "Đang hoạt động":
+                    button.setBackground(Color.RED);
+                    break;
+                case "Ngừng hoạt động":
+                    button.setBackground(Color.GREEN);
+                    break;
+                case "Bảo trì":
+                    button.setBackground(Color.YELLOW);
+                    break;
+                default:
+                    button.setBackground(Color.LIGHT_GRAY);
+                    break;
+            }
+
+            // Gán sự kiện khi click
+            final String maMayTinh = mayTinh.getMaMayTinh();
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showComputerJDialog(maMayTinh);
+                }
+            });
+
+            pnlDanhSach.add(button);
+        }
+
         pnlDanhSach.revalidate();
         pnlDanhSach.repaint();
     }
 
-    private JButton createButton(MayTinh mayTinh) {
-        JButton btnComputer = new JButton(mayTinh.getTenMay());
-
-        // Xử lý màu theo trạng thái máy
-        String trangThai = mayTinh.getTrangThai();
-        switch (trangThai) {
-            case "Đang hoạt động":
-                btnComputer.setBackground(Color.RED);
-                break;
-            case "Ngừng hoạt động":
-                btnComputer.setBackground(Color.GREEN);
-                break;
-            case "Bảo trì":
-                btnComputer.setBackground(Color.YELLOW);
-                break;
-            default:
-                btnComputer.setBackground(Color.LIGHT_GRAY);
-                break;
-        }
-
-        // Gán sự kiện khi click
-        btnComputer.addActionListener(e -> showComputerJDialog(mayTinh.getMaMayTinh()));
-
-        return btnComputer;
-    }
 }
