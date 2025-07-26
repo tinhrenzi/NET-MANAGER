@@ -66,7 +66,7 @@ public interface GiaoDienChinhController {
     }
 
     default void showMoMay(JFrame jFrame) {
-        this.showDialog(new MoMayJDialog(jFrame, true));
+        this.showDialog(new DanhSachMayJDialog(jFrame, true));
     }
 
 }
