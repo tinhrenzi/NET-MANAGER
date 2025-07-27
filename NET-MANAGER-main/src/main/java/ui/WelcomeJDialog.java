@@ -46,7 +46,7 @@ public class WelcomeJDialog extends javax.swing.JDialog implements WelcomeContro
         getContentPane().add(ProgressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 1385, 32));
         getContentPane().add(lblPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1062, 658, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\1.1.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\DUANXUONG\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\1.1.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1530, 680));
 
         pack();

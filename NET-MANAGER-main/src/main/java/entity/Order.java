@@ -6,92 +6,104 @@ package entity;
 
 
 public class Order {
-    private String maDa;
-    private String tenDA;
-    private float giaDA;
-    private String trangThaiDA;
+    private String id;
+    private String MaDoAn;
+    private String TenDoAn;
+    private Float DonGiaDoAn;
+    private int soLuongDoAn;
 
-    private String maDU;
-    private String tenDU;
-    private float giaDU;
-    private String trangThaiDu;
+    private String MaDoUong;
+    private String tenDoUong;
+    private Float donGiaDoUong;
+    private int soLuongDoUong;
 
     public Order() {}
 
-    public Order(String maDa, String tenDA, float giaDA, String trangThaiDA,
-                 String maDU, String tenDU, float giaDU, String trangThaiDu) {
-        this.maDa = maDa;
-        this.tenDA = tenDA;
-        this.giaDA = giaDA;
-        this.trangThaiDA = trangThaiDA;
-        this.maDU = maDU;
-        this.tenDU = tenDU;
-        this.giaDU = giaDU;
-        this.trangThaiDu = trangThaiDu;
+    public Order(String id, String MaDoAn, String TenDoAn, Float DonGiaDoAn, int soLuongDoAn, String MaDoUong, String tenDoUong, Float donGiaDoUong, int soLuongDoUong) {
+        this.id = id;
+        this.MaDoAn = MaDoAn;
+        this.TenDoAn = TenDoAn;
+        this.DonGiaDoAn = DonGiaDoAn;
+        this.soLuongDoAn = soLuongDoAn;
+        this.MaDoUong = MaDoUong;
+        this.tenDoUong = tenDoUong;
+        this.donGiaDoUong = donGiaDoUong;
+        this.soLuongDoUong = soLuongDoUong;
     }
 
-    public String getMaDa() {
-        return maDa;
+    public String getId() {
+        return id;
     }
 
-    public void setMaDa(String maDa) {
-        this.maDa = maDa;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getTenDA() {
-        return tenDA;
+    public String getMaDoAn() {
+        return MaDoAn;
     }
 
-    public void setTenDA(String tenDA) {
-        this.tenDA = tenDA;
+    public void setMaDoAn(String MaDoAn) {
+        this.MaDoAn = MaDoAn;
     }
 
-    public float getGiaDA() {
-        return giaDA;
+    public String getTenDoAn() {
+        return TenDoAn;
     }
 
-    public void setGiaDA(float giaDA) {
-        this.giaDA = giaDA;
+    public void setTenDoAn(String TenDoAn) {
+        this.TenDoAn = TenDoAn;
     }
 
-    public String getTrangThaiDA() {
-        return trangThaiDA;
+    public Float getDonGiaDoAn() {
+        return DonGiaDoAn;
     }
 
-    public void setTrangThaiDA(String trangThaiDA) {
-        this.trangThaiDA = trangThaiDA;
+    public void setDonGiaDoAn(Float DonGiaDoAn) {
+        this.DonGiaDoAn = DonGiaDoAn;
     }
 
-    public String getMaDU() {
-        return maDU;
+    public int getSoLuongDoAn() {
+        return soLuongDoAn;
     }
 
-    public void setMaDU(String maDU) {
-        this.maDU = maDU;
+    public void setSoLuongDoAn(int soLuongDoAn) {
+        this.soLuongDoAn = soLuongDoAn;
     }
 
-    public String getTenDU() {
-        return tenDU;
+    public String getMaDoUong() {
+        return MaDoUong;
     }
 
-    public void setTenDU(String tenDU) {
-        this.tenDU = tenDU;
+    public void setMaDoUong(String MaDoUong) {
+        this.MaDoUong = MaDoUong;
     }
 
-    public float getGiaDU() {
-        return giaDU;
+    public String getTenDoUong() {
+        return tenDoUong;
     }
 
-    public void setGiaDU(float giaDU) {
-        this.giaDU = giaDU;
+    public void setTenDoUong(String tenDoUong) {
+        this.tenDoUong = tenDoUong;
     }
 
-    public String getTrangThaiDu() {
-        return trangThaiDu;
+    public Float getDonGiaDoUong() {
+        return donGiaDoUong;
     }
 
-    public void setTrangThaiDu(String trangThaiDu) {
-        this.trangThaiDu = trangThaiDu;
+    public void setDonGiaDoUong(Float donGiaDoUong) {
+        this.donGiaDoUong = donGiaDoUong;
     }
+
+    public int getSoLuongDoUong() {
+        return soLuongDoUong;
+    }
+
+    public void setSoLuongDoUong(int soLuongDoUong) {
+        this.soLuongDoUong = soLuongDoUong;
+    }
+    
+    
+    
 }
 
