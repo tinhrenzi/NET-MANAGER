@@ -62,7 +62,9 @@ ui\NetManagerJFrame$7.class
 ui\manager\DanhSachDoUongJDialog.class
 ui\manager\ThanhToanJDialog$11.class
 ui\manager\MoMayJDialog$1.class
+ui\manager\ThucDonJDialog$2.class
 ui\manager\DanhSachMayJDialog$12.class
+ui\manager\ThucDonJDialog$3$1.class
 controller\QuanLyThucDonController.class
 ui\manager\ThanhToanJDialog$2.class
 ui\manager\QuanLyNhanVienJDialog$1.class
@@ -119,6 +121,7 @@ controller\crudController.class
 util\XAuth.class
 ui\DangNhapJDialog$2.class
 ui\manager\ThanhToanJDialog$8.class
+ui\manager\ThucDonJDialog$3.class
 ui\manager\QuanLyNhanVienJDialog$12.class
 ui\manager\DanhSachMayJDialog$13.class
 dao\crudDAO.class

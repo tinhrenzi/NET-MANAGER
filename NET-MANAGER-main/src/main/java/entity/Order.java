@@ -10,25 +10,31 @@ public class Order {
     private String MaDoAn;
     private String TenDoAn;
     private Float DonGiaDoAn;
-    private int soLuongDoAn;
+
 
     private String MaDoUong;
     private String tenDoUong;
     private Float donGiaDoUong;
-    private int soLuongDoUong;
+
 
     public Order() {}
 
-    public Order(String id, String MaDoAn, String TenDoAn, Float DonGiaDoAn, int soLuongDoAn, String MaDoUong, String tenDoUong, Float donGiaDoUong, int soLuongDoUong) {
+    public Order(String MaDoAn, String TenDoAn, Float DonGiaDoAn) {
+        this.MaDoAn = MaDoAn;
+        this.TenDoAn = TenDoAn;
+        this.DonGiaDoAn = DonGiaDoAn;
+    }
+
+    public Order(String id, String MaDoAn, String TenDoAn, Float DonGiaDoAn, String MaDoUong, String tenDoUong, Float donGiaDoUong ) {
         this.id = id;
         this.MaDoAn = MaDoAn;
         this.TenDoAn = TenDoAn;
         this.DonGiaDoAn = DonGiaDoAn;
-        this.soLuongDoAn = soLuongDoAn;
+
         this.MaDoUong = MaDoUong;
         this.tenDoUong = tenDoUong;
         this.donGiaDoUong = donGiaDoUong;
-        this.soLuongDoUong = soLuongDoUong;
+
     }
 
     public String getId() {
@@ -62,15 +68,6 @@ public class Order {
     public void setDonGiaDoAn(Float DonGiaDoAn) {
         this.DonGiaDoAn = DonGiaDoAn;
     }
-
-    public int getSoLuongDoAn() {
-        return soLuongDoAn;
-    }
-
-    public void setSoLuongDoAn(int soLuongDoAn) {
-        this.soLuongDoAn = soLuongDoAn;
-    }
-
     public String getMaDoUong() {
         return MaDoUong;
     }
@@ -93,17 +90,6 @@ public class Order {
 
     public void setDonGiaDoUong(Float donGiaDoUong) {
         this.donGiaDoUong = donGiaDoUong;
-    }
-
-    public int getSoLuongDoUong() {
-        return soLuongDoUong;
-    }
-
-    public void setSoLuongDoUong(int soLuongDoUong) {
-        this.soLuongDoUong = soLuongDoUong;
-    }
-    
-    
-    
+    }  
 }
 

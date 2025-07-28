@@ -643,16 +643,8 @@ public Users getForm() {
         users.setSoDienThoai(txtPhone.getText());
         users.setNamSinh(Integer.parseInt(txtNamSinh.getText()));
         users.setNgayTaoUser(dacDateCre.getDate());
-    /*String ngayTaoText = txtDateCre.getText().trim();
-    if (!ngayTaoText.isEmpty()) {
-        users.setNgayTaoUser(sdf.parse(ngayTaoText));
-    } else {
-        users.setNgayTaoUser(new java.util.Date());
-    }*/
     } catch (Exception ex) {
-        //Logger.getLogger(QuanLyNhanVienJDialog.class.getName()).log(Level.SEVERE, null, ex);
         ex.printStackTrace();
-        //JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ. Vui lòng nhập dd/MM/yyyy");
         return null;
     }
 
@@ -664,7 +656,6 @@ public Users getForm() {
     public void fillToTable() {
         DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
         model.setRowCount(0);
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         items = dao.findAll();
         items.forEach(item -> {
              String Vaitro = switch (item.getVaiTro()){
@@ -682,7 +673,6 @@ public Users getForm() {
                 item.getEmail(),
                 item.getSoDienThoai(),
                 item.getNgayTaoUser(),
-                //sdf.format(item.getNgayTaoUser()),
                 false               
             };
             model.addRow(rowData);

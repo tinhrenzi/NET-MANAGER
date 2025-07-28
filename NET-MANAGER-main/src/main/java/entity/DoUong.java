@@ -13,6 +13,12 @@ public class DoUong {
     public DoUong() {
     }
 
+    public DoUong(String maDoUong, String tenDoUong, float donGia) {
+        this.maDoUong = maDoUong;
+        this.tenDoUong = tenDoUong;
+        this.donGia = donGia;
+    }
+
     public DoUong(String maDoUong, String tenDoUong, float donGia, int soLuong) {
         this.maDoUong = maDoUong;
         this.tenDoUong = tenDoUong;

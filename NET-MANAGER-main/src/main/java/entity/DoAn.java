@@ -12,6 +12,12 @@ public class DoAn {
 
     public DoAn() {}
 
+    public DoAn(String maDoAn, String tenDoAn, float donGia) {
+        this.maDoAn = maDoAn;
+        this.tenDoAn = tenDoAn;
+        this.donGia = donGia;
+    }
+
     public DoAn(String maDoAn, String tenDoAn, float donGia, int soLuong) {
         this.maDoAn = maDoAn;
         this.tenDoAn = tenDoAn;

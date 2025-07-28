@@ -4,6 +4,8 @@
  */
 package dao;
 
+import entity.DoAn;
+import entity.DoUong;
 import entity.Order;
 import java.awt.Menu;
 import java.util.List;
@@ -12,9 +14,8 @@ import java.util.List;
  *
  * @author VINH
  */
-public interface orderDAO extends crudDAO<Order, String>{// Khóa chính là kiểu Nvarchar nên để String
-    List<Order> getAllOrders();
-    void insertOrder(Order order);
-    void deleteOrder(String id);
-    void updateOrder(Order order);
+public interface orderDAO {
+    List<DoAn> getAllDoAn();
+    List<DoUong> getAllNuocUong();
+    void themMon(String MaMay, Order mon);
 }
