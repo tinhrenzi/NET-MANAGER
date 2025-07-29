@@ -94,13 +94,13 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã Máy", "Ngày Lập", "Mã Khách Hàng", "Tên Khách Hàng", "Tổng Tiền ", "Giá"
+                "Mã Máy", "Ngày Lập", "Mã Khách Hàng", "Tên Khách Hàng", "Tổng Tiền ", "Giá"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -192,13 +192,13 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "STT", "Mã Khách Hàng", "Tên Khách Hàng", "Ngày Thu ", "Số Tiền"
+                "Mã Khách Hàng", "Tên Khách Hàng", "Ngày Thu ", "Số Tiền"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -278,7 +278,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -302,8 +302,8 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();

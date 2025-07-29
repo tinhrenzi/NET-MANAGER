@@ -4,61 +4,62 @@
  */
 package entity;
 
+import java.sql.*;
+
 public class MayTinh {
-    private String maMayTinh;
-    private String tenMay;
-    private String trangThai;
-    private String viTri;
-    private int thoiGian;
+    private String Id;
+    private String Name;
+    private Timestamp StrasTime;
+    private Timestamp NowTime;
+    private String Status;
 
     public MayTinh() {}
 
-    public MayTinh(String maMayTinh, String tenMay, String trangThai, String viTri, int thoiGian) {
-        this.maMayTinh = maMayTinh;
-        this.tenMay = tenMay;
-        this.trangThai = trangThai;
-        this.viTri = viTri;
-        this.thoiGian = thoiGian;
+    public MayTinh(String Id, String Name, Timestamp StrasTime, Timestamp NowTime, String Status) {
+        this.Id = Id;
+        this.Name = Name;
+        this.StrasTime = StrasTime;
+        this.NowTime = NowTime;
+        this.Status = Status;
     }
 
-    public String getMaMayTinh() {
-        return maMayTinh;
+    public String getId() {
+        return Id;
     }
 
-    public void setMaMayTinh(String maMayTinh) {
-        this.maMayTinh = maMayTinh;
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
-    public String getTenMay() {
-        return tenMay;
+    public String getName() {
+        return Name;
     }
 
-    public void setTenMay(String tenMay) {
-        this.tenMay = tenMay;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
-    public String getTrangThai() {
-        return trangThai;
+    public Timestamp getStrasTime() {
+        return StrasTime;
     }
 
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
+    public void setStrasTime(Timestamp StrasTime) {
+        this.StrasTime = StrasTime;
     }
 
-    public String getViTri() {
-        return viTri;
+    public Timestamp getNowTime() {
+        return NowTime;
     }
 
-    public void setViTri(String viTri) {
-        this.viTri = viTri;
+    public void setNowTime(Timestamp NowTime) {
+        this.NowTime = NowTime;
     }
 
-    public int getThoiGian() {
-        return thoiGian;
+    public String getStatus() {
+        return Status;
     }
 
-    public void setThoiGian(int thoiGian) {
-        this.thoiGian = thoiGian;
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
-
 }

@@ -6,80 +6,78 @@ package daoImpl;
 
 import dao.MayTinhDAO;
 import entity.MayTinh;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.sql.*;
+import java.util.*;
 import util.XJdbc;
 import util.XQuery;
 
 import java.util.List;
 
 public class MayTinhDAOImpl implements MayTinhDAO {
-
-    private final String INSERT_SQL = "INSERT INTO MayTinh (MaMayTinh, TenMay, TrangThai, ViTri, ThoiGian) VALUES (?,?, ?, ?, ?)";
-    private final String UPDATE_SQL = "UPDATE MayTinh SET TenMay=?, TrangThai=?, ViTri=?, ThoiGian=? WHERE MaMayTinh=?";
-    private final String DELETE_SQL = "DELETE FROM MayTinh WHERE MaMayTinh=?";
-    private final String findAll = "SELECT * FROM MayTinh";
-    private final String findById = "SELECT * FROM MayTinh WHERE MaMayTinh=?";
-
-    @Override
-    public MayTinh create(MayTinh mt) {
-        Object[] args = {
-            mt.getMaMayTinh(),
-            mt.getTenMay(),
-            mt.getTrangThai(),
-            mt.getViTri(),
-            mt.getThoiGian()
-        };
-        XJdbc.executeUpdate(INSERT_SQL, args);
-        return mt;
+ @Override
+    public void insert(MayTinh mt) {
+        String sql = "INSERT INTO MayTinh (Id, Name, NowTime, StartTime, Status) VALUES (?, ?, ?, ?, ?)";
+        XJdbc.executeUpdate(sql, mt.getId(), mt.getName(), mt.getNowTime(), mt.getStrasTime(), mt.getStatus());
     }
 
     @Override
     public void update(MayTinh mt) {
-        Object[] args = {
-            mt.getTenMay(),
-            mt.getTrangThai(),
-            mt.getViTri(),
-            mt.getThoiGian(),
-            mt.getMaMayTinh()
-        };
-        XJdbc.executeUpdate(UPDATE_SQL, args);
+        String sql = "UPDATE MayTinh SET Name=?, NowTime=?, StartTime=?, Status=? WHERE Id=?";
+        XJdbc.executeUpdate(sql, mt.getName(), mt.getNowTime(), mt.getStrasTime(), mt.getStatus(), mt.getId());
     }
 
     @Override
-    public void deleteByID(String id) {
-        XJdbc.executeUpdate(DELETE_SQL, id);
+    public void delete(String id) {
+        String sql = "DELETE FROM MayTinh WHERE Id=?";
+        XJdbc.executeUpdate(sql, id);
     }
 
     @Override
-    public List<MayTinh> findAll() {
-       String findAll = "SELECT * FROM MayTinh";
-          List<MayTinh> list = new ArrayList<>();
-    try (Connection conn = XJdbc.openConnection();
-         PreparedStatement ps = conn.prepareStatement(findAll);  // ✅ sửa ở đây
-         ResultSet rs = ps.executeQuery()) {
+    public MayTinh selectById(String id) {
+        String sql = "SELECT * FROM MayTinh WHERE Id=?";
+        List<MayTinh> list = selectBySql(sql, id);
+        return list.isEmpty() ? null : list.get(0);
+    }
 
-        while (rs.next()) {
-            MayTinh mt = new MayTinh();
-            mt.setMaMayTinh(rs.getString("MaMayTinh"));
-            mt.setTenMay(rs.getString("TenMay"));
-            mt.setTrangThai(rs.getString("TrangThai"));
-            mt.setViTri(rs.getString("ViTri"));
-            mt.setThoiGian(rs.getInt("ThoiGian"));  // cột này là int, đúng
-            list.add(mt);
+    @Override
+    public List<MayTinh> selectAll() {
+        String sql = "SELECT * FROM MayTinh";
+        return selectBySql(sql);
+    }
+
+    @Override
+    public void moMay(String id) {
+        String sql = "UPDATE MayTinh SET Status=N'Đang hoạt động', StartTime=?, NowTime=? WHERE Id=?";
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        XJdbc.executeUpdate(sql, now, now, id);
+    }
+
+    @Override
+    public void tatMay(String id) {
+        String sql = "UPDATE MayTinh SET Status=N'Tắt', NowTime=?, StartTime=NULL WHERE Id=?";
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        XJdbc.executeUpdate(sql, now, id);
+    }
+
+    private List<MayTinh> selectBySql(String sql, Object... args) {
+        List<MayTinh> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                MayTinh mt = new MayTinh(
+                    rs.getString("Id"),
+                    rs.getString("Name"),
+                    rs.getTimestamp("NowTime"),
+                    rs.getTimestamp("StartTime"),
+                    rs.getString("Status")
+                );
+                list.add(mt);
+            }
+            rs.getStatement().getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return list;
-    }
-
-    @Override
-    public MayTinh findByID(String id) {
-        return XQuery.getSingleBean(MayTinh.class, findById, id);
+        return list;
     }
 }
 
