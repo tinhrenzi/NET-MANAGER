@@ -13,14 +13,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author FPT
  */
-public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhConntroll{
+public class QuanLyMayTinhJDialog extends javax.swing.JDialog implements QuanLyMayTinhConntroll{
 
     /**
-     * Creates new form QuanLyMayTinh
+     * Creates new form QuanLyMayTinhJDialog
      */
     dao.MayTinhDAO dao= new daoImpl.MayTinhDAOImpl();
      List<MayTinh> list = dao.selectAll();
-    public QuanLyMayTinh(java.awt.Frame parent, boolean modal) {
+    public QuanLyMayTinhJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
           fillToTable();
@@ -123,21 +123,23 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyMayTinhJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyMayTinhJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyMayTinhJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyMayTinhJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                QuanLyMayTinh dialog = new QuanLyMayTinh(new javax.swing.JFrame(), true);
+                QuanLyMayTinhJDialog dialog = new QuanLyMayTinhJDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

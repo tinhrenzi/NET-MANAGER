@@ -114,6 +114,11 @@ public class ThucDonJDialog extends javax.swing.JDialog implements OrderControll
         jScrollPane1.setViewportView(tblTongMonAn);
 
         jButton1.setText("Thêm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Mã máy");
 
@@ -191,6 +196,38 @@ public class ThucDonJDialog extends javax.swing.JDialog implements OrderControll
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here
+        int rowDoAn = tblDoAn.getSelectedRow();
+    int rowDoUong = tblDoUong.getSelectedRow();
+
+    DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
+
+    if (rowDoAn == -1 && rowDoUong == -1) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 dòng ở bảng Đồ Ăn hoặc Đồ Uống.");
+        return;
+    }
+
+    // Thêm từ bảng Đồ Ăn
+    if (rowDoAn != -1) {
+        String ma = tblDoAn.getValueAt(rowDoAn, 0).toString();
+        String ten = tblDoAn.getValueAt(rowDoAn, 1).toString();
+        String gia = tblDoAn.getValueAt(rowDoAn, 2).toString();
+
+        modelTong.addRow(new Object[]{ma, ten, gia});
+    }
+
+    // Thêm từ bảng Đồ Uống
+    if (rowDoUong != -1) {
+        String ma = tblDoUong.getValueAt(rowDoUong, 0).toString();
+        String ten = tblDoUong.getValueAt(rowDoUong, 1).toString();
+        String gia = tblDoUong.getValueAt(rowDoUong, 2).toString();
+
+        modelTong.addRow(new Object[]{ma, ten, gia});
+
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

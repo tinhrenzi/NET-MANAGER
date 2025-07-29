@@ -24,9 +24,7 @@ ui\manager\QuanLyThucDonJDialog$3.class
 controller\DanhSachMayController.class
 ui\DangNhapJDialog$3$1.class
 controller\DoiMatKhauController.class
-ui\manager\QuanLyMayTInhg$2.class
 ui\NetManagerJFrame$8.class
-ui\manager\QuanLyMayTInhg.class
 daoImpl\MayTinhDAOImpl.class
 controller\ThongKeDoanhThuController.class
 dao\orderDAO.class
@@ -69,7 +67,6 @@ ui\manager\DanhSachDoUongJDialog$8$1.class
 ui\manager\ThanhToanJDialog$7.class
 dao\HoaDonChiTietDAO.class
 entity\MayTinh.class
-ui\manager\QuanLyMayTInhg$2$1.class
 ui\QuenMatKhauJDialog.class
 controller\HoaDonController.class
 daoImpl\DoUongDAOImpl.class
@@ -92,7 +89,6 @@ daoImpl\QuanLyThongKeDaoImpl.class
 ui\NetManagerJFrame$9.class
 ui\manager\QuanLyNhanVienJDialog$14$1.class
 controller\QuanLyThongKeController.class
-ui\manager\QuanLyMayTInhg$1.class
 util\XIcon.class
 ui\NetManagerJFrame$15.class
 ui\manager\QuanLyNhanVienJDialog$14.class
@@ -108,7 +104,6 @@ ui\manager\ThanhToanJDialog$11.class
 ui\manager\MoMayJDialog$1.class
 ui\manager\ThucDonJDialog$2.class
 ui\DangNhapJDialog$1.class
-ui\manager\ThucDonJDialog$3$1.class
 ui\NetManagerJFrame$1.class
 controller\QuanLyThucDonController.class
 ui\manager\DanhSachDoUongJDialog$3.class
