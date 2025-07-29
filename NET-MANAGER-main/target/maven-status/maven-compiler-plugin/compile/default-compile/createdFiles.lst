@@ -15,11 +15,13 @@ ui\DangNhapJDialog.class
 ui\NetManagerJFrame$11.class
 ui\DoiMatKhauJDialog$4.class
 ui\manager\QuanLyNhanVienJDialog$10.class
+ui\manager\MoMayJDialog$10$1.class
 ui\manager\ThanhToanJDialog$9.class
 controller\OrderController.class
 ui\DoiMatKhauJDialog$1.class
 ui\manager\ThanhToanJDialog$6.class
 ui\WelcomeJDialog$2$1.class
+ui\manager\MoMayJDialog$12.class
 ui\manager\QuanLyThucDonJDialog$3.class
 controller\DanhSachMayController.class
 ui\DangNhapJDialog$3$1.class
@@ -51,7 +53,6 @@ controller\ConntrollDoAn.class
 ui\manager\MoMayJDialog$7.class
 ui\manager\ThucDonJDialog.class
 entity\Order.class
-ui\manager\MoMayJDialog$9$1.class
 ui\QuenMatKhauJDialog$1.class
 ui\manager\DanhSachDoAnJDialog$4.class
 daoImpl\UserDAOImpl.class
@@ -73,6 +74,7 @@ controller\HoaDonController.class
 daoImpl\DoUongDAOImpl.class
 dao\DoUongDAO.class
 daoImpl\DoAnDAOImpl.class
+ui\manager\ThucDonJDialog$4.class
 ui\NetManagerJFrame$3.class
 controller\MoMayController.class
 daoImpl\HoaDonChiTietDAOImpl.class
@@ -124,6 +126,7 @@ ui\DoiMatKhauJDialog$2.class
 ui\WelcomeJDialog$2.class
 ui\manager\DanhSachDoAnJDialog$8.class
 daoImpl\ThongKeDoanhThuDAOImpl.class
+ui\manager\MoMayJDialog$11.class
 ui\manager\DanhSachDoAnJDialog$5.class
 ui\manager\QuanLyMayTinhJDialog$2.class
 ui\manager\QuanLyNhanVienJDialog$4.class
@@ -153,6 +156,7 @@ ui\GiaoDienChinhJFrame$3.class
 dao\MayTinhDAO.class
 ui\manager\MoMayJDialog$4.class
 ui\manager\QuanLyNhanVienJDialog$8.class
+ui\manager\ThucDonJDialog$4$1.class
 ui\NetManagerJFrame$5.class
 controller\ThanhToanController.class
 controller\GiaoDienChinhController.class

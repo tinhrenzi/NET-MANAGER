@@ -4,40 +4,40 @@
  */
 package ui.manager;
 
-import controller.OpenMayController;
+import controller.MoMayController;
 import dao.MayTinhDAO;
 import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.*;
+import util.XDialog;
 
 /**
  *
  * @author VINH
  */
-public class MoMayJDialog extends javax.swing.JDialog {
+public class MoMayJDialog extends javax.swing.JDialog implements MoMayController {
+
     /**
      * Creates new form MoMayJDialog
      *
      * @param parent
      * @param modal
      */
-    Timer timer;
-    DefaultTableModel model;
-    MayTinhDAO dao = new MayTinhDAOImpl();
-    List<MayTinh> list = new ArrayList<>();
-    OpenMayController controller = new OpenMayController();
+
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,9 +53,7 @@ public class MoMayJDialog extends javax.swing.JDialog {
         btnMoMay = new javax.swing.JButton();
         btnBaoTri = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         Title = new javax.swing.JLabel();
@@ -64,10 +62,13 @@ public class MoMayJDialog extends javax.swing.JDialog {
         btnThanhToan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMayTinh = new javax.swing.JTable();
-        txtStatus = new javax.swing.JTextField();
-        txtStart = new javax.swing.JTextField();
-        txtNow = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        btnOrder = new javax.swing.JButton();
+        lblTimeNow = new javax.swing.JLabel();
+        lblTimePlay = new javax.swing.JLabel();
+        lblMaMay = new javax.swing.JLabel();
+        lblTenMay = new javax.swing.JLabel();
+        lblTrangThai = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mo May");
@@ -151,49 +152,70 @@ public class MoMayJDialog extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblMayTinh);
 
+        btnOrder.setText("Order");
+        btnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderActionPerformed(evt);
+            }
+        });
+
+        lblTimeNow.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        lblTimePlay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        lblMaMay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblMaMay.setForeground(new java.awt.Color(102, 153, 255));
+
+        lblTenMay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTenMay.setForeground(new java.awt.Color(102, 153, 255));
+
+        lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTrangThai.setForeground(new java.awt.Color(102, 153, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator2)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(309, 309, 309)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                    .addComponent(txtName)
-                    .addComponent(txtStatus))
-                .addGap(75, 75, 75)
+                    .addComponent(lblMaMay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTenMay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtStart, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNow, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblTimePlay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblTimeNow, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnThanhToan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnMoMay, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTatMay, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBaoTri)))
-                        .addGap(0, 6, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addComponent(jSeparator1)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(309, 309, 309)
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jSeparator2)
+                                .addComponent(btnTatMay, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBaoTri)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnOrder)))
+                .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,28 +223,31 @@ public class MoMayJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel10))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTimeNow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblMaMay, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTimePlay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTenMay, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThanhToan)
+                        .addComponent(btnMoMay)
+                        .addComponent(btnTatMay)
+                        .addComponent(btnBaoTri)
+                        .addComponent(btnOrder))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnThanhToan)
-                            .addComponent(btnMoMay)
-                            .addComponent(btnTatMay)
-                            .addComponent(btnBaoTri))))
+                        .addGap(3, 3, 3)
+                        .addComponent(lblTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -235,7 +260,7 @@ public class MoMayJDialog extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         fillTable();
-        startAutoUpdate();
+        startTime();
     }//GEN-LAST:event_formWindowOpened
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -244,57 +269,27 @@ public class MoMayJDialog extends javax.swing.JDialog {
 
     private void btnBaoTriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaoTriActionPerformed
         // TODO add your handling code here:
+        baoTri();
     }//GEN-LAST:event_btnBaoTriActionPerformed
 
     private void btnTatMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatMayActionPerformed
-    String id = txtId.getText().trim();
+//        String id = txtId.getText().trim();
 
-    controller.closeMachine(id);
-    JOptionPane.showMessageDialog(this, "Máy " + id + " đã tắt.");
-    fillTable();
+        tatMay();
     }//GEN-LAST:event_btnTatMayActionPerformed
 
     private void btnMoMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoMayActionPerformed
-        // TODO add your handling code here:
-    String id = txtId.getText().trim();
+//        // TODO add your handling code here:
 
-    controller.openMachine(id);
-    JOptionPane.showMessageDialog(this, "Máy " + id + " đã được mở!");
-    fillTable(); // Load lại bản
+        moMay();
     }//GEN-LAST:event_btnMoMayActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-int row = tblMayTinh.getSelectedRow();
-    if (row == -1) {
-        JOptionPane.showMessageDialog(this, "Chọn máy để thanh toán!");
-        return;
-    }
 
-    String id = tblMayTinh.getValueAt(row, 0).toString();
-    MayTinh mt = controller.findById(id);
-
-    if (mt.getStrasTime() == null) {
-        JOptionPane.showMessageDialog(this, "Máy chưa được mở!");
-        return;
-    }
-
-    Timestamp now = new Timestamp(System.currentTimeMillis());
-    long tien = tinhTien(mt.getStrasTime(), now);
-
-    // Xác nhận
-    int confirm = JOptionPane.showConfirmDialog(this,
-        "Tổng tiền máy " + id + " là: " + tien + "đ\nBạn có muốn thanh toán không?",
-        "Xác nhận", JOptionPane.YES_NO_OPTION);
-
-    if (confirm == JOptionPane.YES_OPTION) {
-        controller.closeMachine(id); // cập nhật trạng thái
-        JOptionPane.showMessageDialog(this, "Đã thanh toán thành công.");
-        fillTable(); // cập nhật bảng
-    }
-        /*// Mở giao diện ThanhToanJDialog
+        // Mở giao diện ThanhToanJDialog
         ThanhToanJDialog thanhToanDialog = new ThanhToanJDialog(null, true); // Sử dụng null làm parent
         thanhToanDialog.setVisible(true);
-        */
+
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void TitleAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_TitleAncestorAdded
@@ -302,12 +297,18 @@ int row = tblMayTinh.getSelectedRow();
     }//GEN-LAST:event_TitleAncestorAdded
 
     private void tblMayTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMayTinhMouseClicked
-        // TODO add your handling code here:
-    int row = tblMayTinh.getSelectedRow();
-            if (row >= 0) {
-                loadToForm(row);
-            }
+//         TODO add your handling code here:
+        int row = tblMayTinh.getSelectedRow();
+        if (row >= 0) {
+            loadToForm(row);
+        }
     }//GEN-LAST:event_tblMayTinhMouseClicked
+
+    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
+        // TODO add your handling code here:
+        ThucDonJDialog thucDonJDialog = new ThucDonJDialog(null, true);
+        thucDonJDialog.setVisible(true);
+    }//GEN-LAST:event_btnOrderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,6 +356,7 @@ int row = tblMayTinh.getSelectedRow();
     private javax.swing.JLabel Title;
     private javax.swing.JButton btnBaoTri;
     private javax.swing.JButton btnMoMay;
+    private javax.swing.JButton btnOrder;
     private javax.swing.JButton btnTatMay;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -367,22 +369,131 @@ int row = tblMayTinh.getSelectedRow();
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblMaMay;
+    private javax.swing.JLabel lblTenMay;
+    private javax.swing.JLabel lblTimeNow;
+    private javax.swing.JLabel lblTimePlay;
+    private javax.swing.JLabel lblTrangThai;
     private javax.swing.JTable tblMayTinh;
-    private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtNow;
-    private javax.swing.JTextField txtStart;
-    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
-public void fillTable() {
-    model = (DefaultTableModel) tblMayTinh.getModel();
-    model.setRowCount(0); // clear bảng
 
-    List<MayTinh> list = controller.findAll();
-    Timestamp now = new Timestamp(System.currentTimeMillis());
+    Timer timerStart;
+    Timer timerPlay;
+    DefaultTableModel model;
+    MayTinhDAO dao = new MayTinhDAOImpl();
 
-    for (MayTinh mt : list) {
-        String usedTime = "";
+    @Override
+    public void moMay() {
+        MayTinh entity = dao.selectById(lblMaMay.getText());
+        if (entity == null) {
+            return;
+        }
+
+        entity.setStatus("Hoạt động");
+        entity.setStrasTime(new Timestamp(System.currentTimeMillis())); // set thời gian bắt đầu
+
+        try {
+            dao.update(entity);
+
+            if (timerStart != null && timerStart.isRunning()) {
+                timerStart.stop();
+            }
+
+            lblTrangThai.setText(entity.getStatus());
+            lblTimePlay.setText("00:00:00"); // reset trước khi chạy lại
+            fillTable();
+            playTime(); // bắt đầu tính thời gian chơi
+
+            XDialog.alert("Mở máy thành công!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            XDialog.alert("Lỗi mở máy: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void tatMay() {
+        MayTinh entity = dao.selectById(lblMaMay.getText());
+        entity.setStatus("Ngừng hoạt động");
+
+        try {
+            dao.update(entity);
+
+            if (timerPlay != null && timerPlay.isRunning()) {
+                timerPlay.stop();
+            }
+
+            lblTimePlay.setText("00:00:00"); // reset khi tắt
+            lblTrangThai.setText(entity.getStatus());
+            fillTable();
+            XDialog.alert("Máy đã ngừng hoạt động!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            XDialog.alert("Lỗi không tắt được máy: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void baoTri() {
+        MayTinh entity = dao.selectById(lblMaMay.getText());
+        entity.setStatus("Bảo trì");
+
+        try {
+            dao.update(entity);
+
+            if (timerPlay != null && timerPlay.isRunning()) {
+                timerPlay.stop();
+            }
+
+            lblTimePlay.setText("00:00:00"); // reset khi bảo trì
+            lblTrangThai.setText(entity.getStatus());
+            fillTable();
+            XDialog.alert("Đưa vào bảo trì thành công!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            XDialog.alert("Lỗi bảo trì máy: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void fillTable() {
+
+        model = (DefaultTableModel) tblMayTinh.getModel();
+        model.setRowCount(0); // clear bảng
+
+        List<MayTinh> list = dao.selectAll();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+        for (MayTinh mt : list) {
+            String usedTime = "00:00:00";
+            if (mt.getStrasTime() != null) {
+                long diff = now.getTime() - mt.getStrasTime().getTime();
+                long seconds = diff / 1000 % 60;
+                long minutes = diff / (1000 * 60) % 60;
+                long hours = diff / (1000 * 60 * 60);
+
+                usedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            } else {
+                usedTime = "00:00:00";
+            }
+
+            model.addRow(new Object[]{
+                mt.getId(),
+                mt.getName(),
+                mt.getStatus(),
+                mt.getStrasTime(),
+                mt.getNowTime(),
+                usedTime
+            });
+        }
+    }
+
+    public void loadToForm(int row) {
+        String id = tblMayTinh.getValueAt(row, 0).toString();
+        MayTinh mt = dao.selectById(id);
+        List<MayTinh> list = dao.selectAll();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        String usedTime;
         if (mt.getStrasTime() != null) {
             long diff = now.getTime() - mt.getStrasTime().getTime();
             long seconds = diff / 1000 % 60;
@@ -393,46 +504,61 @@ public void fillTable() {
         } else {
             usedTime = "00:00:00";
         }
-
-        model.addRow(new Object[]{
-            mt.getId(),
-            mt.getName(),
-            mt.getStatus(),
-            mt.getStrasTime(),
-            mt.getNowTime(),
-            usedTime
-        });
-    }   
-}
-    public void loadToForm(int row) {
-        String id = tblMayTinh.getValueAt(row, 0).toString();
-        MayTinh mt = controller.findById(id);
-
         if (mt != null) {
-            txtId.setText(mt.getId());
-            txtName.setText(mt.getName());
-            txtStatus.setText(mt.getStatus());
-            txtStart.setText(String.valueOf(mt.getStrasTime()));
-            txtNow.setText(String.valueOf(mt.getNowTime()));
+            lblMaMay.setText(mt.getId());
+            lblTenMay.setText(mt.getName());
+            lblTrangThai.setText(mt.getStatus());
+            lblTimeNow.setText(String.valueOf(mt.getNowTime()));
+            lblTimePlay.setText(usedTime);
             Title.setText(mt.getName());
         }
-    }
-    public long tinhTien(Timestamp startTime, Timestamp nowTime) {
-        if (startTime == null || nowTime == null) return 0;
-        long duration = (nowTime.getTime() - startTime.getTime()) / 1000; // số giây
-        double donGiaMoiGiay = 5000.0 / 3600; // giá 5000/giờ
-        return Math.round(duration * donGiaMoiGiay); // tiền làm tròn
+        if ("Hoạt động".equalsIgnoreCase(mt.getStatus())) {
+            playTime();
+        } else {
+            if (timerPlay != null && timerPlay.isRunning()) {
+                timerPlay.stop();
+            }
+        }
+
     }
 
-
-    public void startAutoUpdate() {
-        timer = new Timer(1000, new ActionListener() {
+    public void startTime() {
+        timerStart = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                lblTimeNow.setText(sdf.format(new Date()));
                 fillTable();
             }
         });
-        timer.start();
+        timerStart.start();
+    }
+
+    public void playTime() {
+        if (timerPlay != null && timerPlay.isRunning()) {
+            timerPlay.stop();
+        }
+
+        MayTinh mt = dao.selectById(lblMaMay.getText());
+        if (mt == null || mt.getStrasTime() == null) {
+            return;
+        }
+
+        Timestamp play = mt.getStrasTime();
+
+        timerPlay = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                long diff = System.currentTimeMillis() - play.getTime();
+                long seconds = diff / 1000 % 60;
+                long minutes = diff / (1000 * 60) % 60;
+                long hours = diff / (1000 * 60 * 60);
+
+                String usedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                lblTimePlay.setText(usedTime);
+            }
+        });
+        timerPlay.start();
     }
 
 }

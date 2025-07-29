@@ -14,7 +14,7 @@ import java.util.List;
  * @author NITRO 5
  */
 public class OpenMayController {
-      private MayTinhDAO dao = new MayTinhDAOImpl();
+    private MayTinhDAO dao = new MayTinhDAOImpl();
 
     public void openMachine(String id) {
         dao.moMay(id);

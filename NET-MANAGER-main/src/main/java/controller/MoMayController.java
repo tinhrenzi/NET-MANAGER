@@ -4,16 +4,15 @@
  */
 package controller;
 
-import entity.MayTinh;
 
 /**
  *
  * @author VINH
  */
-public interface MoMayController extends crudController<MayTinh> {
-
-    void open();
-
-    void close();
+public interface MoMayController{
+    void moMay();
+    void tatMay();
+    void baoTri();
+    void fillTable();
 
 }
