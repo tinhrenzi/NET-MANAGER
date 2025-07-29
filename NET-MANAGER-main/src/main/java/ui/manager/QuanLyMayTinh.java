@@ -6,8 +6,13 @@ package ui.manager;
 
 import controller.QuanLyMayTinhConntroll;
 import entity.MayTinh;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.XDialog;
 
 /**
  *
@@ -37,14 +42,35 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        btn_Them4 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
         QLYMT_table = new javax.swing.JTable();
-        btn_Exit = new javax.swing.JButton();
+        btn_Them5 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        btn_Exit1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txt_MaMayTinh = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txt_TenMayTinh = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txt_TGHT = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txt_TGBA = new javax.swing.JTextField();
+        txt_TrangThai = new javax.swing.JTextField();
+        btn_Them2 = new javax.swing.JButton();
+        btn_Them3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("Quan Ly May Tinh");
+
+        btn_Them4.setText("Làm Mới");
+        btn_Them4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Them4ActionPerformed(evt);
+            }
+        });
 
         QLYMT_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -55,15 +81,76 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 {null, null, null, null, null}
             },
             new String [] {
-                "Mã Máy Tính ", "Tên Máy Tính ", "Trang Thái ", "Vị Trí ", "Thoi Gian"
+                "Mã Máy Tính ", "Tên Máy Tính ", "Thời gian hiện tại", "Thời gian bắt đầu", "Trang Thái"
             }
         ));
-        jScrollPane1.setViewportView(QLYMT_table);
+        QLYMT_table.setName(""); // NOI18N
+        QLYMT_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                QLYMT_tableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(QLYMT_table);
 
-        btn_Exit.setText("Exit");
-        btn_Exit.addActionListener(new java.awt.event.ActionListener() {
+        btn_Them5.setText("Thêm");
+        btn_Them5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ExitActionPerformed(evt);
+                btn_Them5ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Mã Máy Tính ");
+
+        btn_Exit1.setText("Thoát");
+        btn_Exit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Exit1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Tên Máy Tính ");
+
+        txt_MaMayTinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_MaMayTinhActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Thời gian hiện tại");
+
+        jLabel6.setText("Thời gian bắt đầu\t");
+
+        txt_TGHT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_TGHTActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Trang Thai");
+
+        txt_TGBA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_TGBAActionPerformed(evt);
+            }
+        });
+
+        txt_TrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_TrangThaiActionPerformed(evt);
+            }
+        });
+
+        btn_Them2.setText("Xóa");
+        btn_Them2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Them2ActionPerformed(evt);
+            }
+        });
+
+        btn_Them3.setText("Cập Nhật");
+        btn_Them3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Them3ActionPerformed(evt);
             }
         });
 
@@ -71,40 +158,145 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btn_Exit)
-                                .addGap(124, 124, 124))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(160, 160, 160)))))
-                .addGap(39, 39, 39))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(179, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txt_TenMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_MaMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_TGHT, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_TGBA, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btn_Them3, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                        .addComponent(btn_Them2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Them5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Them4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Exit1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(btn_Exit)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(69, 69, 69)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btn_Them5)
+                                .addComponent(txt_MaMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(124, 124, 124)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txt_TenMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_Them2)
+                                        .addComponent(jLabel4))
+                                    .addGap(35, 35, 35)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txt_TGHT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5)))
+                                .addComponent(btn_Them3))))
+                    .addGap(29, 29, 29)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_TGBA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_Them4)
+                        .addComponent(jLabel6))
+                    .addGap(26, 26, 26)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txt_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_Exit1))
+                    .addContainerGap(429, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExitActionPerformed
+    private void btn_Them4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them4ActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Them4ActionPerformed
 
-    }//GEN-LAST:event_btn_ExitActionPerformed
+    private void QLYMT_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLYMT_tableMouseClicked
+        // TODO add your handling code here:
+         QLYMT_table.getSelectionModel().addListSelectionListener(e -> {
+    int index = QLYMT_table.getSelectedRow();
+    if (index >= 0 && index < list.size()) {
+        setForm(list.get(index));
+    }
+});
+    }//GEN-LAST:event_QLYMT_tableMouseClicked
+
+    private void btn_Them5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them5ActionPerformed
+        // TODO add your handling code here:
+        MayTinh mt = getForm(); // Lấy dữ liệu từ form
+
+        if (mt != null) {
+            try {
+                dao.insert(mt); // Gọi DAO để thêm vào CSDL
+                fillToTable();  // Cập nhật lại JTable
+                JOptionPane.showMessageDialog(this, "Thêm máy tính thành công!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi thêm máy tính: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btn_Them5ActionPerformed
+
+    private void btn_Exit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Exit1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Exit1ActionPerformed
+
+    private void txt_MaMayTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_MaMayTinhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_MaMayTinhActionPerformed
+
+    private void txt_TGHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TGHTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_TGHTActionPerformed
+
+    private void txt_TGBAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TGBAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_TGBAActionPerformed
+
+    private void txt_TrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TrangThaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_TrangThaiActionPerformed
+
+    private void btn_Them2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them2ActionPerformed
+        // TODO add your handling code here:
+        this.delete();
+    }//GEN-LAST:event_btn_Them2ActionPerformed
+
+    private void btn_Them3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them3ActionPerformed
+        // TODO add your handling code here:
+        this.update();
+    }//GEN-LAST:event_btn_Them3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,70 +343,164 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable QLYMT_table;
-    private javax.swing.JButton btn_Exit;
+    private javax.swing.JButton btn_Exit1;
+    private javax.swing.JButton btn_Them2;
+    private javax.swing.JButton btn_Them3;
+    private javax.swing.JButton btn_Them4;
+    private javax.swing.JButton btn_Them5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField txt_MaMayTinh;
+    private javax.swing.JTextField txt_TGBA;
+    private javax.swing.JTextField txt_TGHT;
+    private javax.swing.JTextField txt_TenMayTinh;
+    private javax.swing.JTextField txt_TrangThai;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void open() {
-       fillToTable();
+public void open() {
+    fillToTable();
+}
+
+@Override
+public void setForm(MayTinh mt) {
+    txt_MaMayTinh.setText(mt.getId());
+    txt_TenMayTinh.setText(mt.getName());
+
+    // Hiển thị Timestamp dưới dạng yyyy-MM-dd HH:mm:ss
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    if (mt.getStrasTime() != null) {
+        txt_TGBA.setText(sdf.format(mt.getStrasTime()));
+    } else {
+        txt_TGBA.setText("");
     }
 
-    @Override
-    public void setForm(MayTinh entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    if (mt.getNowTime() != null) {
+        txt_TGHT.setText(sdf.format(mt.getNowTime()));
+    } else {
+        txt_TGHT.setText("");
     }
 
-    @Override
-    public MayTinh getForm() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    txt_TrangThai.setText(mt.getStatus());
+}
 
-    @Override
-    public void fillToTable() {
-       DefaultTableModel model = (DefaultTableModel) QLYMT_table.getModel();
-        model.setRowCount(0); // Xóa dữ liệu cũ
-        List<MayTinh> list = dao.selectAll();
+@Override
+public MayTinh getForm() {
+    String id = txt_MaMayTinh.getText().trim();
+    String name = txt_TenMayTinh.getText().trim();
+    String strasTimeStr = txt_TGBA.getText().trim();
+    String nowTimeStr = txt_TGHT.getText().trim();
+    String status = txt_TrangThai.getText().trim();
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    sdf.setLenient(false); // Bắt lỗi định dạng sai
+
+    Timestamp strasTime = null;
+    Timestamp nowTime = null;
+
+    try {
+        if (!strasTimeStr.isEmpty()) {
+            java.util.Date strasTimeDate = sdf.parse(strasTimeStr);
+            strasTime = new Timestamp(strasTimeDate.getTime());
+        }
+
+        if (!nowTimeStr.isEmpty()) {
+            java.util.Date nowTimeDate = sdf.parse(nowTimeStr);
+            nowTime = new Timestamp(nowTimeDate.getTime());
+        }
+
+        return new MayTinh(id, name, strasTime, nowTime, status);
+    } catch (ParseException e) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng: yyyy-MM-dd HH:mm:ss");
+        return null;
+    }
+}
+
+@Override
+public void fillToTable() {
+    DefaultTableModel model = (DefaultTableModel) QLYMT_table.getModel();
+    model.setRowCount(0); // Xóa dữ liệu cũ
+    List<MayTinh> list = dao.selectAll();
     for (MayTinh mt : list) {
         model.addRow(new Object[]{
             mt.getId(),
             mt.getName(),
-            mt.getStatus(),
             mt.getStrasTime(),
-            mt.getNowTime()
+            mt.getNowTime(),
+            mt.getStatus()
         });
     }
-    
-    }
+}
 
-    @Override
-    public void edit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+@Override
+public void edit() {
+    int selectedRow = QLYMT_table.getSelectedRow();
+    if (selectedRow >= 0) {
+        String id = (String) QLYMT_table.getValueAt(selectedRow, 0);
+        MayTinh mt = dao.selectById(id);
+        if (mt != null) {
+            setForm(mt);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa");
     }
+}
 
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+@Override
+public void create() {
+    MayTinh mt = getForm();
+    if (mt != null) {
+        dao.insert(mt);
+        fillToTable();
+        clearForm();
     }
+}
 
-    @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+@Override
+public void update() {
+    if (XDialog.confirm("Bạn có muốn cập nhật không?")) {
+        MayTinh mt = getForm();
+        if (mt != null) {
+            dao.update(mt);
+            fillToTable();
+            clearForm();
+        }
     }
+}
 
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+@Override
+public void delete() {
+    if (XDialog.confirm("Bạn chắc chắn muốn xóa?")) {
+        String id = txt_MaMayTinh.getText();
+        dao.delete(id);
+        fillToTable();
+        clearForm();
     }
+}
 
-    @Override
-    public void clear() {
-         DefaultTableModel model = (DefaultTableModel) QLYMT_table.getModel();
-        model.setRowCount(0); // Xóa sạch dữ liệu trên bảng
-    }
-    @Override
-    public void setEditable(boolean editable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+@Override
+public void clear() {
+    fillToTable(); // Hiển thị lại dữ liệu
+    clearForm();   // Xóa form nhập liệu
+}
+
+public void clearForm() {
+    txt_MaMayTinh.setText("");
+    txt_TenMayTinh.setText("");
+    txt_TGBA.setText("");
+    txt_TGHT.setText("");
+    txt_TrangThai.setText("");
+}
+
+@Override
+public void setEditable(boolean editable) {
+    throw new UnsupportedOperationException("Not supported yet.");
+}
+
 }
