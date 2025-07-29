@@ -19,7 +19,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
      * Creates new form QuanLyMayTinh
      */
     dao.MayTinhDAO dao= new daoImpl.MayTinhDAOImpl();
-     List<MayTinh> list = dao.findAll();
+     List<MayTinh> list = dao.selectAll();
     public QuanLyMayTinh(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -175,14 +175,14 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     public void fillToTable() {
        DefaultTableModel model = (DefaultTableModel) QLYMT_table.getModel();
         model.setRowCount(0); // Xóa dữ liệu cũ
-        List<MayTinh> list = dao.findAll();
+         List<MayTinh> list = dao.selectAll();
     for (MayTinh mt : list) {
         model.addRow(new Object[]{
-            mt.getMaMayTinh(),
-            mt.getTenMay(),
-            mt.getTrangThai(),
-            mt.getViTri(),
-            mt.getThoiGian()
+            mt.getId(),
+            mt.getName(),
+            mt.getNowTime(),
+            mt.getStrasTime(),
+            mt.getStatus(),
         });
     }
     
