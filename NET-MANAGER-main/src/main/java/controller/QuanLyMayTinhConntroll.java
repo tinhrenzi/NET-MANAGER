@@ -6,7 +6,6 @@ package controller;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import ui.manager.QuanLyMayTinhJDialog;
 import entity.MayTinh;
 
 /** 

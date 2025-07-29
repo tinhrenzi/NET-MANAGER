@@ -1,39 +1,31 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package ui.manager;
 
-import javax.swing.JFrame;
 import controller.QuanLyMayTinhConntroll;
-import entity.DoAn;
 import entity.MayTinh;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import daoImpl.MayTinhDAOImpl;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author FPT
  */
-public class QuanLyMayTinhJDialog extends javax.swing.JFrame implements QuanLyMayTinhConntroll{
+public class QuanLyMayTInhg extends javax.swing.JDialog implements QuanLyMayTinhConntroll{
 
     /**
-     * Creates new form QuanLyMayTinhJDialog
+     * Creates new form QuanLyMayTInhg
      */
-    
-     dao.MayTinhDAO dao= new daoImpl.MayTinhDAOImpl();
+    dao.MayTinhDAO dao= new daoImpl.MayTinhDAOImpl();
      List<MayTinh> list = dao.findAll();
-    public QuanLyMayTinhJDialog(JFrame jFrame, boolean b) {
-        
-          initComponents();
-          this.open();
+    public QuanLyMayTInhg(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
           fillToTable();
-          this.list = dao.findAll();
+          open();
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,12 +41,7 @@ public class QuanLyMayTinhJDialog extends javax.swing.JFrame implements QuanLyMa
         QLYMT_table = new javax.swing.JTable();
         btn_Exit = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("Quan Ly May Tinh");
@@ -85,28 +72,29 @@ public class QuanLyMayTinhJDialog extends javax.swing.JFrame implements QuanLyMa
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btn_Exit)
-                .addGap(130, 130, 130))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(166, 166, 166))
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(256, 256, 256)
+                        .addComponent(btn_Exit)
+                        .addGap(124, 124, 124))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(160, 160, 160)))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(btn_Exit)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         pack();
@@ -114,12 +102,8 @@ public class QuanLyMayTinhJDialog extends javax.swing.JFrame implements QuanLyMa
 
     private void btn_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExitActionPerformed
         // TODO add your handling code here:
-       
-    }//GEN-LAST:event_btn_ExitActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        this.open();        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowOpened
+    }//GEN-LAST:event_btn_ExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,20 +122,20 @@ public class QuanLyMayTinhJDialog extends javax.swing.JFrame implements QuanLyMa
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinhJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyMayTInhg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinhJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyMayTInhg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinhJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyMayTInhg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinhJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyMayTInhg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                QuanLyMayTinhJDialog dialog = new QuanLyMayTinhJDialog(new javax.swing.JFrame(), true);
+                QuanLyMayTInhg dialog = new QuanLyMayTInhg(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -172,9 +156,7 @@ public class QuanLyMayTinhJDialog extends javax.swing.JFrame implements QuanLyMa
 
     @Override
     public void open() {
-        this.setLocationRelativeTo(null);//
-        this.fillToTable();
-        this.clear();
+       fillToTable();
     }
 
     @Override
@@ -190,8 +172,8 @@ public class QuanLyMayTinhJDialog extends javax.swing.JFrame implements QuanLyMa
     @Override
     public void fillToTable() {
        DefaultTableModel model = (DefaultTableModel) QLYMT_table.getModel();
-    model.setRowCount(0); // Xóa dữ liệu cũ
-    List<MayTinh> list = dao.findAll();
+        model.setRowCount(0); // Xóa dữ liệu cũ
+        List<MayTinh> list = dao.findAll();
     for (MayTinh mt : list) {
         model.addRow(new Object[]{
             mt.getMaMayTinh(),
@@ -226,10 +208,9 @@ public class QuanLyMayTinhJDialog extends javax.swing.JFrame implements QuanLyMa
 
     @Override
     public void clear() {
-        DefaultTableModel model = (DefaultTableModel) QLYMT_table.getModel();
+         DefaultTableModel model = (DefaultTableModel) QLYMT_table.getModel();
         model.setRowCount(0); // Xóa sạch dữ liệu trên bảng
     }
-
     @Override
     public void setEditable(boolean editable) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

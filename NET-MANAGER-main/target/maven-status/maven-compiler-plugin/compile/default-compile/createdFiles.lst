@@ -13,7 +13,9 @@ ui\WelcomeJDialog$2$1.class
 ui\manager\QuanLyThucDonJDialog$3.class
 controller\DanhSachMayController.class
 ui\DangNhapJDialog$3$1.class
+ui\manager\QuanLyMayTInhg$2.class
 ui\NetManagerJFrame$8.class
+ui\manager\QuanLyMayTInhg.class
 daoImpl\MayTinhDAOImpl.class
 controller\ThongKeDoanhThuController.class
 dao\orderDAO.class
@@ -41,6 +43,7 @@ controller\QuanLyNhanVienController.class
 ui\manager\ThanhToanJDialog$1.class
 ui\manager\ThanhToanJDialog$7.class
 entity\MayTinh.class
+ui\manager\QuanLyMayTInhg$2$1.class
 controller\HoaDonController.class
 dao\DoUongDAO.class
 ui\NetManagerJFrame$3.class
@@ -54,6 +57,7 @@ ui\manager\MoMayJDialog$8.class
 ui\NetManagerJFrame$9.class
 controller\QuanLyThongKeController.class
 ui\manager\DanhSachMayJDialog$28.class
+ui\manager\QuanLyMayTInhg$1.class
 util\XIcon.class
 ui\NetManagerJFrame$15.class
 ui\manager\QuanLyNhanVienJDialog$14.class
@@ -88,7 +92,6 @@ ui\manager\QuanLyNhanVienJDialog$2.class
 controller\QuanLyMayTinhConntroll.class
 entity\Users.class
 ui\manager\ThanhToanJDialog$4.class
-ui\manager\QuanLyMayTinhJDialog.class
 util\XStr.class
 ui\manager\DanhSachDoUongJDialog$7.class
 ui\NetManagerJFrame$5.class
@@ -98,7 +101,6 @@ ui\NetManagerJFrame$6.class
 dao\HoaDonDAO.class
 ui\manager\DanhSachDoAnJDialog$7.class
 ui\manager\DanhSachMayJDialog$11.class
-ui\manager\QuanLyMayTinhJDialog$3$1.class
 ui\NetManagerJFrame.class
 entity\DoUong.class
 entity\HoaDonChiTiet.class
@@ -116,7 +118,6 @@ ui\DangNhapJDialog.class
 ui\NetManagerJFrame$11.class
 ui\manager\ThanhToanJDialog$9.class
 ui\DoiMatKhauJDialog$1.class
-ui\manager\QuanLyMayTinhJDialog$3.class
 controller\DoiMatKhauController.class
 ui\manager\DanhSachMayJDialog$19.class
 ui\GiaoDienChinhJFrame$2.class
@@ -175,10 +176,8 @@ ui\manager\DanhSachMayJDialog$27$1.class
 ui\manager\ThanhToanJDialog.class
 ui\DoiMatKhauJDialog$2.class
 ui\WelcomeJDialog$2.class
-ui\manager\QuanLyMayTinhJDialog$2.class
 controller\ThucDonController.class
 ui\manager\QuanLyNhanVienJDialog$11.class
-ui\manager\QuanLyMayTinhJDialog$1.class
 ui\manager\DanhSachDoAnJDialog$1.class
 ui\manager\QuanLyThucDonJDialog$2.class
 ui\manager\DanhSachMayJDialog$23.class
