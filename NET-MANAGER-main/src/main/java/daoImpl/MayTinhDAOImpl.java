@@ -6,6 +6,10 @@ package daoImpl;
 
 import dao.MayTinhDAO;
 import entity.MayTinh;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import util.XJdbc;
 import util.XQuery;
 
@@ -51,7 +55,26 @@ public class MayTinhDAOImpl implements MayTinhDAO {
 
     @Override
     public List<MayTinh> findAll() {
-        return XQuery.getBeanList(MayTinh.class, findAll);
+       String findAll = "SELECT * FROM MayTinh";
+          List<MayTinh> list = new ArrayList<>();
+    try (Connection conn = XJdbc.openConnection();
+         PreparedStatement ps = conn.prepareStatement(findAll);  // ✅ sửa ở đây
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            MayTinh mt = new MayTinh();
+            mt.setMaMayTinh(rs.getString("MaMayTinh"));
+            mt.setTenMay(rs.getString("TenMay"));
+            mt.setTrangThai(rs.getString("TrangThai"));
+            mt.setViTri(rs.getString("ViTri"));
+            mt.setThoiGian(rs.getInt("ThoiGian"));  // cột này là int, đúng
+            list.add(mt);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return list;
     }
 
     @Override
