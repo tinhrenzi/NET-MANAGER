@@ -49,8 +49,6 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="btnInhoadon" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnthanhtoan" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnhuy" min="-2" max="-2" attributes="0"/>
@@ -139,7 +137,6 @@
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnInhoadon" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnthanhtoan" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnhuy" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btntinhtienlai" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -412,14 +409,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
-        </Component>
-        <Component class="javax.swing.JButton" name="btnInhoadon">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="In Ho&#x301;a &#x110;&#x1a1;n"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInhoadonActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnthanhtoan">
           <Properties>

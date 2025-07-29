@@ -1,14 +1,11 @@
 package daoImpl;
 
 import dao.orderDAO;
-import entity.DoAn;
-import entity.DoUong;
-import entity.Order;
-
+import entity.OrderManager;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import util.XJdbc;
+import util.XQuery;
 
 public class OrderDAOImpl implements orderDAO {
     private final Connection conn;
@@ -16,62 +13,47 @@ public class OrderDAOImpl implements orderDAO {
     public OrderDAOImpl() {
         conn = XJdbc.openConnection();
     }
-
-    @Override
-    public List<DoAn> getAllDoAn() {
-    List<DoAn> list = new ArrayList<>();   
-    String DoAn ="select MaDoAn,TenDoAn,DonGia from DoAn";
-        try(Connection conn = XJdbc.openConnection();
-        Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery(DoAn)) {
-          while (rs.next()) {                
-                DoAn da = new DoAn(
-                  rs.getString(1),
-                  rs.getString(2),
-                  rs.getFloat(3)
-                );
-              list.add(da);
-            }
-        } catch (Exception e) {
-        }
-        return list;
+    private final String INSERT_SQL = "insert into OrderManager(Id,Name,DonGia) values(?,?,?)";
+    private final String UPDATE_SQL = "UPDATE OrderManager SET Name=?, DonGia=? WHERE Id=?";
+    private final String DELETE_SQL = "DELETE FROM OrderManager WHERE Id=?";
+    private final String SELECT_ALL_SQL = "Select Id,Name,DonGia from OrderManager";
+    private final String SELECT_BY_ID_SQL = "SELECT * FROM OrderManager WHERE Id=?";
+    private final String findByUsername = "SELECT * FROM OrderManager WHERE Name=?";
     
+    @Override
+    public OrderManager create(OrderManager entity) {
+        Object[] args = {
+            entity.getId(),
+            entity.getName(),
+            entity.getDonGia()
+        };
+        XJdbc.executeUpdate(INSERT_SQL, args);
+        return entity; 
     }
 
     @Override
-    public List<DoUong> getAllNuocUong() {
-    List<DoUong> list = new ArrayList<>();
-    String DoUong ="select MaDoUong,TenDoUong,DonGia from DoUong";
-        try(Connection conn = XJdbc.openConnection();
-        Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery(DoUong)) {
-          while (rs.next()) {                
-                DoUong du = new DoUong(
-                  rs.getString(1),
-                  rs.getString(2),
-                  rs.getFloat(3)
-                );
-              list.add(du);
-
-            }
-        } catch (Exception e) {
-        }
-        return list;
+    public void update(OrderManager entity) {
+        Object[] args = {
+            entity.getName(),
+            entity.getDonGia(),
+            entity.getId(),
+        };
+        XJdbc.executeUpdate(INSERT_SQL, args);
     }
 
     @Override
-    public void themMon(String MaMay, Order mon) {
-        try {
-            String sql = "insert into OrderNet(MaMay,MaMon,TenMon,Gia) values (?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, MaMay);
-            ps.setString(2, mon.getMaDoAn());
-            ps.setString(3, mon.getTenDoAn());
-            ps.setFloat(4, mon.getDonGiaDoAn());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void deleteByID(String id) {
+    XJdbc.executeUpdate(DELETE_SQL, id);
         }
-    }    
+
+    @Override
+    public List<OrderManager> findAll() {
+        return XQuery.getBeanList(OrderManager.class, SELECT_ALL_SQL);    
+    }
+
+    @Override
+    public OrderManager findByID(String id) {
+        return XQuery.getSingleBean(OrderManager.class, SELECT_BY_ID_SQL, id);    
+    }
 }
 

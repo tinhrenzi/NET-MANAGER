@@ -4,7 +4,7 @@
  */
 package ui.manager;
 
-import entity.Order;
+import entity.OrderManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -81,7 +81,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         txttienkhachdua = new javax.swing.JTextField();
         tienthoilai = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        btnInhoadon = new javax.swing.JButton();
         btnthanhtoan = new javax.swing.JButton();
         btnhuy = new javax.swing.JButton();
         btntinhtienlai = new javax.swing.JButton();
@@ -235,13 +234,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             }
         });
 
-        btnInhoadon.setText("In Hóa Đơn");
-        btnInhoadon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInhoadonActionPerformed(evt);
-            }
-        });
-
         btnthanhtoan.setText("Thanh Toán");
         btnthanhtoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,8 +267,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnInhoadon)
-                        .addGap(18, 18, 18)
                         .addComponent(btnthanhtoan)
                         .addGap(18, 18, 18)
                         .addComponent(btnhuy)
@@ -346,7 +336,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInhoadon)
                     .addComponent(btnthanhtoan)
                     .addComponent(btnhuy)
                     .addComponent(btntinhtienlai))
@@ -400,25 +389,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     private void tienthoilaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tienthoilaiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tienthoilaiActionPerformed
-
-    private void btnInhoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInhoadonActionPerformed
-        // TODO add your handling code he                                         
-    String hoaDon = "========= HÓA ĐƠN THANH TOÁN =========\n";
-    hoaDon += "Giờ vào       : " + txtgiovao.getText() + "\n";
-    hoaDon += "Giờ ra        : " + txtgioira.getText() + "\n";
-    hoaDon += "Tổng thời gian: " + labtongthoigian.getText() + " giờ\n";
-    hoaDon += "---------------------------------------\n";
-    hoaDon += "Tổng tiền     : " + txttongtien.getText() + " VNĐ\n";
-    hoaDon += "Khách đưa     : " + txttienkhachdua.getText() + " VNĐ\n";
-    hoaDon += "Tiền trả lại  : " + tienthoilai.getText() + " VNĐ\n";
-    hoaDon += "---------------------------------------\n";
-    hoaDon += "Trạng thái    : Đã thanh toán\n";
-    hoaDon += "=======================================";
-    
-    labtrangthaihoadon.setText("Trạng thái: Đã thanh toán");
-
-    JOptionPane.showMessageDialog(this, hoaDon, "HÓA ĐƠN", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnInhoadonActionPerformed
 
     private void btnthanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthanhtoanActionPerformed
         // TODO add your handling code here:
@@ -573,7 +543,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnInhoadon;
     private javax.swing.JButton btnhuy;
     private javax.swing.JButton btnthanhtoan;
     private javax.swing.JButton btntinhtienlai;

@@ -8,7 +8,7 @@ import controller.QuanLyThongKeController;
 import dao.QuanLyThongKeDAO;
 import daoImpl.QuanLyThongKeDaoImpl;
 import entity.HoaDonChiTiet;
-import entity.Order;
+import entity.OrderManager;
 import entity.ThongKeDoanhThu;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -418,7 +418,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public List<Order> getLichSuSuDung(Date tuNgay, Date denNgay, String maMay, String tenKhachHang) {
+    public List<OrderManager> getLichSuSuDung(Date tuNgay, Date denNgay, String maMay, String tenKhachHang) {
         
         
         

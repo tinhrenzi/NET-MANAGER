@@ -15,8 +15,8 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     }
 
     @Override
-    public List<Order> getLichSuSuDung(Date tuNgay, Date denNgay, String maMay, String tenKhachHang) {
-        List<Order> list = new ArrayList<>();
+    public List<OrderManager> getLichSuSuDung(Date tuNgay, Date denNgay, String maMay, String tenKhachHang) {
+        List<OrderManager> list = new ArrayList<>();
         String sql = "SELECT * FROM LichSu ls "
                    + "JOIN NguoiDung nd ON ls.IdUser = nd.IdUser "
                    + "WHERE ls.ThoiGianBD BETWEEN ? AND ? "
@@ -33,7 +33,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Order ls = new Order();
+                OrderManager ls = new OrderManager();
                 // TODO: set dữ liệu từ rs -> ls
                 list.add(ls);
             }

@@ -5,7 +5,7 @@ import java.util.List;
 import entity.*;
 
 public interface QuanLyThongKeController {
-    List<Order> getLichSuSuDung(Date tuNgay, Date denNgay, String maMay, String tenKhachHang);
+    List<OrderManager> getLichSuSuDung(Date tuNgay, Date denNgay, String maMay, String tenKhachHang);
     List<ThongKeDoanhThu> getDoanhThu(Date tuNgay, Date denNgay);
     List<HoaDonChiTiet> getLichSuBanHang(Date tuNgay, Date denNgay);
     

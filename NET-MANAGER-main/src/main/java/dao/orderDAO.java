@@ -4,18 +4,12 @@
  */
 package dao;
 
-import entity.DoAn;
-import entity.DoUong;
-import entity.Order;
-import java.awt.Menu;
-import java.util.List;
+import entity.OrderManager;
 
 /**
  *
  * @author VINH
  */
-public interface orderDAO {
-    List<DoAn> getAllDoAn();
-    List<DoUong> getAllNuocUong();
-    void themMon(String MaMay, Order mon);
+public interface orderDAO extends crudDAO<OrderManager, String>{
+
 }

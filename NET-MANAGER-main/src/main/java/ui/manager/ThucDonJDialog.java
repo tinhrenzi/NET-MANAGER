@@ -9,7 +9,7 @@ import dao.orderDAO;
 import daoImpl.OrderDAOImpl;
 import entity.DoAn;
 import entity.DoUong;
-import entity.Order;
+import entity.OrderManager;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -328,7 +328,7 @@ DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
     fillDo();
     }
     public void fillDa(){
-            DefaultTableModel model = (DefaultTableModel) tblDoAn.getModel();
+         /*   DefaultTableModel model = (DefaultTableModel) tblDoAn.getModel();
             model.setRowCount(0);
             itemsDa = dao.getAllDoAn();
             itemsDa.forEach(item -> {
@@ -339,10 +339,10 @@ DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
                     false               
                 };
                 model.addRow(rowData);
-            });
+            });*/
     }
         public void fillDo(){
-            DefaultTableModel model = (DefaultTableModel) tblDoUong.getModel();
+            /*DefaultTableModel model = (DefaultTableModel) tblDoUong.getModel();
             model.setRowCount(0);
             itemsDo = dao.getAllNuocUong();
             itemsDo.forEach(item -> {
@@ -353,7 +353,7 @@ DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
                     false               
                 };
                 model.addRow(rowData);
-            });
+            });*/
     }
     @Override
     public void open() {
@@ -361,12 +361,12 @@ DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
     }
 
     @Override
-    public void setForm(Order entity) {
+    public void setForm(OrderManager entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Order getForm() {
+    public OrderManager getForm() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

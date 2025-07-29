@@ -4,12 +4,12 @@
  */
 package controller;
 
-import entity.Order;
+import entity.OrderManager;
 
 /**
  *
  * @author NITRO 5
  */
-public interface OrderController extends crudController<Order>{ // Kế thừa crudController để thực hiện các chức năng bên trong
+public interface OrderController extends crudController<OrderManager>{ // Kế thừa crudController để thực hiện các chức năng bên trong
     
 }
