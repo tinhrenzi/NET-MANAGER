@@ -191,10 +191,48 @@ public class ThucDonJDialog extends javax.swing.JDialog implements OrderControll
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblTongMonAn.getSelectedRow();
+    if (selectedRow != -1) {
+        DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+        model.removeRow(selectedRow);
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần hủy.");
+    }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
+    int rowCount = modelTong.getRowCount();
 
+    // Lặp qua các dòng để lấy dữ liệu
+    for (int i = 0; i < rowCount; i++) {
+        Object maMonObj = modelTong.getValueAt(i, 0);
+        Object tenMonObj = modelTong.getValueAt(i, 1);
+        Object giaObj = modelTong.getValueAt(i, 2);
+
+        // Kiểm tra null trước khi chuyển đổi dữ liệu
+        if (maMonObj == null || tenMonObj == null || giaObj == null) {
+            JOptionPane.showMessageDialog(this, 
+                "Dữ liệu bị thiếu ở dòng " + (i + 1) + ". Vui lòng kiểm tra lại!");
+            return;
+        }
+
+        try {
+            String maMon = maMonObj.toString();
+            String tenMon = tenMonObj.toString();
+            double gia = Double.parseDouble(giaObj.toString());
+
+            // Ví dụ: xử lý thêm vào bảng khác
+            DefaultTableModel modelDaChon = (DefaultTableModel) tblTongMonAn.getModel();
+            modelDaChon.addRow(new Object[]{maMon, tenMon, gia});
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, 
+                "Giá không hợp lệ ở dòng " + (i + 1));
+        }
+    }
+
+    JOptionPane.showMessageDialog(this, "Thêm thành công!");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

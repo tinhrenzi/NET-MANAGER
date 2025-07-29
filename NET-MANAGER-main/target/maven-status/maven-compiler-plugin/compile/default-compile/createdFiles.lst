@@ -38,6 +38,7 @@ ui\DangNhapJDialog$2.class
 ui\manager\ThanhToanJDialog$8.class
 ui\manager\ThucDonJDialog$3.class
 util\XJdbc.class
+ui\manager\QuanLyMayTinhJDialog$2$1.class
 ui\manager\QuanLyNhanVienJDialog$12.class
 controller\DoUongController.class
 dao\ThongKeDoanhThuDAO.class
@@ -124,11 +125,13 @@ ui\WelcomeJDialog$2.class
 ui\manager\DanhSachDoAnJDialog$8.class
 daoImpl\ThongKeDoanhThuDAOImpl.class
 ui\manager\DanhSachDoAnJDialog$5.class
+ui\manager\QuanLyMayTinhJDialog$2.class
 ui\manager\QuanLyNhanVienJDialog$4.class
 controller\ThucDonController.class
 ui\manager\QuanLyNhanVienJDialog$11.class
 daoImpl\HoaDonDAOImpl.class
 controller\OpenMayController.class
+ui\manager\QuanLyMayTinhJDialog$1.class
 ui\manager\DanhSachDoAnJDialog$1.class
 ui\manager\QuanLyThucDonJDialog$2.class
 ui\manager\ThanhToanJDialog$10.class
@@ -140,6 +143,7 @@ entity\Users.class
 entity\DoAn.class
 ui\manager\QuanLyThucDonJDialog.class
 ui\manager\ThanhToanJDialog$4.class
+ui\manager\QuanLyMayTinhJDialog.class
 ui\manager\QuanLyThongKeJDialog$1$1.class
 util\XStr.class
 controller\WelcomeController.class
