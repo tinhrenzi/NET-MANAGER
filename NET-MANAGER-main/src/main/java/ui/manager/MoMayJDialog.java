@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.*;
 import util.XDialog;
@@ -25,17 +24,28 @@ import util.XDialog;
  */
 public class MoMayJDialog extends javax.swing.JDialog implements MoMayController {
 
+    Timer timerStart;
+    Timer timerPlay;
+    DefaultTableModel model;
+    MayTinhDAO dao = new MayTinhDAOImpl();
+
     /**
      * Creates new form MoMayJDialog
      *
      * @param parent
      * @param modal
      */
-
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        init();
+    }
+
+    private void init() {
+        model = (DefaultTableModel) tblMayTinh.getModel();
+        startTime();
+        fillTable();
     }
 
     /**
@@ -113,7 +123,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         jLabel8.setText("Trạng thái");
 
         Title.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Title.setText("Máy");
         Title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Title.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -298,9 +307,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     private void tblMayTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMayTinhMouseClicked
 //         TODO add your handling code here:
         int row = tblMayTinh.getSelectedRow();
-        if (row >= 0) {
-            loadToForm(row);
-        }
+        loadToForm(row);
     }//GEN-LAST:event_tblMayTinhMouseClicked
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
@@ -375,34 +382,41 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     private javax.swing.JLabel lblTrangThai;
     private javax.swing.JTable tblMayTinh;
     // End of variables declaration//GEN-END:variables
-
-    Timer timerStart;
-    Timer timerPlay;
-    DefaultTableModel model;
-    MayTinhDAO dao = new MayTinhDAOImpl();
-
+// mở máy
     @Override
     public void moMay() {
-        MayTinh entity = dao.selectById(lblMaMay.getText());
+        String id = lblMaMay.getText();
+        MayTinh entity = dao.selectById(id);
         if (entity == null) {
+            XDialog.alert("Máy không tồn tại!");
+            return;
+        }
+
+        if ("Hoạt động".equalsIgnoreCase(entity.getStatus())) {
+            XDialog.alert("Máy đã đang trong trạng thái hoạt động!");
+            return;
+        }
+        if ("Bảo trì".equalsIgnoreCase(entity.getStatus())) {
+            XDialog.alert("Máy đang trong trạng thái bảo trì, không thể mở!");
             return;
         }
 
         entity.setStatus("Hoạt động");
-        entity.setStrasTime(new Timestamp(System.currentTimeMillis())); // set thời gian bắt đầu
+        entity.setStartTime(new Timestamp(System.currentTimeMillis()));
 
         try {
             dao.update(entity);
-
-            if (timerStart != null && timerStart.isRunning()) {
-                timerStart.stop();
+            // Verify the update by re-fetching
+            entity = dao.selectById(id); // Re-fetch to ensure strasTime is saved
+            if (entity.getStartTime() == null) {
+                XDialog.alert("Lỗi: Không thể lưu thời gian bắt đầu!");
+                return;
             }
-
+            stopTimers();
             lblTrangThai.setText(entity.getStatus());
-            lblTimePlay.setText("00:00:00"); // reset trước khi chạy lại
+            lblTimePlay.setText("00:00:00");
             fillTable();
-            playTime(); // bắt đầu tính thời gian chơi
-
+            playTime();
             XDialog.alert("Mở máy thành công!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -412,17 +426,29 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     @Override
     public void tatMay() {
-        MayTinh entity = dao.selectById(lblMaMay.getText());
+        String id = lblMaMay.getText();
+        MayTinh entity = dao.selectById(id);
+        if (entity == null) {
+            XDialog.alert("Máy không tồn tại!");
+            return;
+        }
+
+        if ("Ngừng hoạt động".equalsIgnoreCase(entity.getStatus())) {
+            XDialog.alert("Máy đã đang trong trạng thái ngừng hoạt động!");
+            return;
+        }
+        if ("Bảo trì".equalsIgnoreCase(entity.getStatus())) {
+            XDialog.alert("Máy đang trong trạng thái bảo trì, không thể tắt!");
+            return;
+        }
+
         entity.setStatus("Ngừng hoạt động");
+        entity.getStartTime(); // reset thời gian khi ngừng hoạt động
 
         try {
             dao.update(entity);
-
-            if (timerPlay != null && timerPlay.isRunning()) {
-                timerPlay.stop();
-            }
-
-            lblTimePlay.setText("00:00:00"); // reset khi tắt
+            stopTimers();
+            lblTimePlay.setText("00:00:00");
             lblTrangThai.setText(entity.getStatus());
             fillTable();
             XDialog.alert("Máy đã ngừng hoạt động!");
@@ -434,17 +460,29 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     @Override
     public void baoTri() {
-        MayTinh entity = dao.selectById(lblMaMay.getText());
+        String id = lblMaMay.getText();
+        MayTinh entity = dao.selectById(id);
+        if (entity == null) {
+            XDialog.alert("Máy không tồn tại!");
+            return;
+        }
+
+        if ("Bảo trì".equalsIgnoreCase(entity.getStatus())) {
+            XDialog.alert("Máy đã đang trong trạng thái bảo trì!");
+            return;
+        }
+        if ("Hoạt động".equalsIgnoreCase(entity.getStatus())) {
+            XDialog.alert("Máy đang hoạt động, không thể đưa vào bảo trì!");
+            return;
+        }
+
         entity.setStatus("Bảo trì");
+        entity.setStartTime(null); // Reset thời gian khi bảo trì
 
         try {
             dao.update(entity);
-
-            if (timerPlay != null && timerPlay.isRunning()) {
-                timerPlay.stop();
-            }
-
-            lblTimePlay.setText("00:00:00"); // reset khi bảo trì
+            stopTimers();
+            lblTimePlay.setText("00:00:00");
             lblTrangThai.setText(entity.getStatus());
             fillTable();
             XDialog.alert("Đưa vào bảo trì thành công!");
@@ -456,108 +494,93 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     @Override
     public void fillTable() {
-
-        model = (DefaultTableModel) tblMayTinh.getModel();
-        model.setRowCount(0); // clear bảng
-
+        model.setRowCount(0);
         List<MayTinh> list = dao.selectAll();
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         for (MayTinh mt : list) {
             String usedTime = "00:00:00";
-            if (mt.getStrasTime() != null) {
-                long diff = now.getTime() - mt.getStrasTime().getTime();
+            String startTimeStr = mt.getStartTime() != null ? mt.getStartTime().toString() : "";
+            if ("Hoạt động".equalsIgnoreCase(mt.getStatus()) && mt.getStartTime() != null) {
+                long diff = now.getTime() - mt.getStartTime().getTime();
                 long seconds = diff / 1000 % 60;
                 long minutes = diff / (1000 * 60) % 60;
                 long hours = diff / (1000 * 60 * 60);
-
                 usedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-            } else {
-                usedTime = "00:00:00";
             }
-
             model.addRow(new Object[]{
                 mt.getId(),
                 mt.getName(),
                 mt.getStatus(),
-                mt.getStrasTime(),
-                mt.getNowTime(),
+                startTimeStr, // Ensure start time is displayed
+                now.toString(),
                 usedTime
             });
         }
     }
 
-    public void loadToForm(int row) {
-        String id = tblMayTinh.getValueAt(row, 0).toString();
-        MayTinh mt = dao.selectById(id);
-        List<MayTinh> list = dao.selectAll();
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        String usedTime;
-        if (mt.getStrasTime() != null) {
-            long diff = now.getTime() - mt.getStrasTime().getTime();
-            long seconds = diff / 1000 % 60;
-            long minutes = diff / (1000 * 60) % 60;
-            long hours = diff / (1000 * 60 * 60);
-
-            usedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        } else {
-            usedTime = "00:00:00";
-        }
-        if (mt != null) {
-            lblMaMay.setText(mt.getId());
-            lblTenMay.setText(mt.getName());
-            lblTrangThai.setText(mt.getStatus());
-            lblTimeNow.setText(String.valueOf(mt.getNowTime()));
-            lblTimePlay.setText(usedTime);
-            Title.setText(mt.getName());
-        }
-        if ("Hoạt động".equalsIgnoreCase(mt.getStatus())) {
-            playTime();
-        } else {
-            if (timerPlay != null && timerPlay.isRunning()) {
-                timerPlay.stop();
-            }
-        }
-
-    }
-
-    public void startTime() {
-        timerStart = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                lblTimeNow.setText(sdf.format(new Date()));
-                fillTable();
-            }
-        });
-        timerStart.start();
-    }
-
     public void playTime() {
-        if (timerPlay != null && timerPlay.isRunning()) {
-            timerPlay.stop();
-        }
-
-        MayTinh mt = dao.selectById(lblMaMay.getText());
-        if (mt == null || mt.getStrasTime() == null) {
+        stopTimers();
+        String id = lblMaMay.getText();
+        MayTinh mt = dao.selectById(id);
+        if (mt == null || mt.getStartTime() == null) {
+            XDialog.alert("Lỗi: Không tìm thấy thời gian bắt đầu!");
             return;
         }
 
-        Timestamp play = mt.getStrasTime();
-
-        timerPlay = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                long diff = System.currentTimeMillis() - play.getTime();
-                long seconds = diff / 1000 % 60;
-                long minutes = diff / (1000 * 60) % 60;
-                long hours = diff / (1000 * 60 * 60);
-
-                String usedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-                lblTimePlay.setText(usedTime);
-            }
+        timerPlay = new Timer(1000, e -> {
+            long diff = System.currentTimeMillis() - mt.getStartTime().getTime();
+            long seconds = diff / 1000 % 60;
+            long minutes = diff / (1000 * 60) % 60;
+            long hours = diff / (1000 * 60 * 60);
+            lblTimePlay.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+            fillTable();
         });
         timerPlay.start();
     }
 
+    public void loadToForm(int row) {
+        if (row < 0 || row >= model.getRowCount()) {
+            return;
+        }
+
+        String id = model.getValueAt(row, 0).toString();
+        MayTinh mt = dao.selectById(id);
+        if (mt == null) {
+            return;
+        }
+
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        String usedTime = model.getValueAt(row, 5).toString();
+
+        lblMaMay.setText(mt.getId());
+        lblTenMay.setText(mt.getName());
+        lblTrangThai.setText(mt.getStatus());
+        lblTimeNow.setText(new SimpleDateFormat("HH:mm:ss").format(now));
+        lblTimePlay.setText(usedTime);
+        Title.setText(mt.getName());
+
+        if ("Hoạt động".equalsIgnoreCase(mt.getStatus()) && mt.getStartTime()!= null) {
+            playTime();
+        } else {
+            stopTimers();
+        }
+    }
+
+    public void startTime() {
+        timerStart = new Timer(1000, e -> {
+            lblTimeNow.setText(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            fillTable();
+        });
+        timerStart.start();
+    }
+
+    private void stopTimers() {
+        if (timerStart != null && timerStart.isRunning()) {
+            timerStart.stop();
+        }
+        if (timerPlay != null && timerPlay.isRunning()) {
+            timerPlay.stop();
+        }
+    }
 }
