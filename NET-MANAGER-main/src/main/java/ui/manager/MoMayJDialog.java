@@ -357,6 +357,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
