@@ -9,6 +9,7 @@ import entity.MayTinh;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -56,9 +57,9 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         txt_TGHT = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txt_TGBA = new javax.swing.JTextField();
-        txt_TrangThai = new javax.swing.JTextField();
         btn_Them2 = new javax.swing.JButton();
         btn_Them3 = new javax.swing.JButton();
+        Cbo_TrangThai = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -134,12 +135,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             }
         });
 
-        txt_TrangThai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_TrangThaiActionPerformed(evt);
-            }
-        });
-
         btn_Them2.setText("Xóa");
         btn_Them2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,6 +149,8 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             }
         });
 
+        Cbo_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt Động ", "Ngừng Hoạt Đông", "Bảo Trì " }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,19 +158,24 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(155, 155, 155)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(179, Short.MAX_VALUE))
+                        .addGap(175, 175, 175)
+                        .addComponent(Cbo_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(75, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGap(18, 18, 18)
@@ -181,11 +183,10 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                         .addComponent(txt_TenMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txt_MaMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txt_TGHT, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_TGBA, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                        .addComponent(txt_TGBA, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btn_Them3, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                        .addComponent(btn_Them3, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                         .addComponent(btn_Them2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_Them5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_Them4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -197,8 +198,13 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(128, 128, 128)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addComponent(Cbo_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -217,9 +223,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                                         .addComponent(btn_Them2)
                                         .addComponent(jLabel4))
                                     .addGap(35, 35, 35)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txt_TGHT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel5)))
+                                    .addComponent(txt_TGHT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(btn_Them3))))
                     .addGap(29, 29, 29)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -228,29 +232,13 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                         .addComponent(jLabel6))
                     .addGap(26, 26, 26)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txt_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7)
                         .addComponent(btn_Exit1))
                     .addContainerGap(429, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_Them4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Them4ActionPerformed
-
-    private void QLYMT_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLYMT_tableMouseClicked
-        // TODO add your handling code here:
-         QLYMT_table.getSelectionModel().addListSelectionListener(e -> {
-    int index = QLYMT_table.getSelectedRow();
-    if (index >= 0 && index < list.size()) {
-        setForm(list.get(index));
-    }
-});
-    }//GEN-LAST:event_QLYMT_tableMouseClicked
 
     private void btn_Them5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them5ActionPerformed
         // TODO add your handling code here:
@@ -268,35 +256,47 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         }
     }//GEN-LAST:event_btn_Them5ActionPerformed
 
-    private void btn_Exit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Exit1ActionPerformed
+    private void txt_TGBAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TGBAActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Exit1ActionPerformed
+    }//GEN-LAST:event_txt_TGBAActionPerformed
 
-    private void txt_MaMayTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_MaMayTinhActionPerformed
+    private void QLYMT_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLYMT_tableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_MaMayTinhActionPerformed
+        int row = QLYMT_table.getSelectedRow();
+    if (row >= 0) {
+        String id = QLYMT_table.getValueAt(row, 0).toString();
+        MayTinh mt = dao.selectById(id);
+        if (mt != null) {
+            setForm(mt);
+        }
+    }
+    }//GEN-LAST:event_QLYMT_tableMouseClicked
 
     private void txt_TGHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TGHTActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TGHTActionPerformed
 
-    private void txt_TGBAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TGBAActionPerformed
+    private void btn_Them4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_TGBAActionPerformed
+    }//GEN-LAST:event_btn_Them4ActionPerformed
 
-    private void txt_TrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TrangThaiActionPerformed
+    private void txt_MaMayTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_MaMayTinhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_TrangThaiActionPerformed
-
-    private void btn_Them2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them2ActionPerformed
-        // TODO add your handling code here:
-        this.delete();
-    }//GEN-LAST:event_btn_Them2ActionPerformed
+    }//GEN-LAST:event_txt_MaMayTinhActionPerformed
 
     private void btn_Them3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them3ActionPerformed
         // TODO add your handling code here:
         this.update();
     }//GEN-LAST:event_btn_Them3ActionPerformed
+
+    private void btn_Exit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Exit1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Exit1ActionPerformed
+
+    private void btn_Them2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them2ActionPerformed
+        // TODO add your handling code here:
+        this.delete();
+    }//GEN-LAST:event_btn_Them2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,6 +342,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Cbo_TrangThai;
     private javax.swing.JTable QLYMT_table;
     private javax.swing.JButton btn_Exit1;
     private javax.swing.JButton btn_Them2;
@@ -359,7 +360,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private javax.swing.JTextField txt_TGBA;
     private javax.swing.JTextField txt_TGHT;
     private javax.swing.JTextField txt_TenMayTinh;
-    private javax.swing.JTextField txt_TrangThai;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -372,7 +372,6 @@ public void setForm(MayTinh mt) {
     txt_MaMayTinh.setText(mt.getId());
     txt_TenMayTinh.setText(mt.getName());
 
-    // Hiển thị Timestamp dưới dạng yyyy-MM-dd HH:mm:ss
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     if (mt.getStrasTime() != null) {
@@ -387,8 +386,13 @@ public void setForm(MayTinh mt) {
         txt_TGHT.setText("");
     }
 
-    txt_TrangThai.setText(mt.getStatus());
+    if (mt.getStatus() != null) {
+        Cbo_TrangThai.setSelectedItem(mt.getStatus().trim());
+    } else {
+        Cbo_TrangThai.setSelectedIndex(0); // Mặc định "Hoạt Động"
+    }
 }
+
 
 @Override
 public MayTinh getForm() {
@@ -396,10 +400,10 @@ public MayTinh getForm() {
     String name = txt_TenMayTinh.getText().trim();
     String strasTimeStr = txt_TGBA.getText().trim();
     String nowTimeStr = txt_TGHT.getText().trim();
-    String status = txt_TrangThai.getText().trim();
+    String status = (String) Cbo_TrangThai.getSelectedItem();
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    sdf.setLenient(false); // Bắt lỗi định dạng sai
+    sdf.setLenient(false);
 
     Timestamp strasTime = null;
     Timestamp nowTime = null;
@@ -421,6 +425,9 @@ public MayTinh getForm() {
         return null;
     }
 }
+
+
+
 
 @Override
 public void fillToTable() {
@@ -495,12 +502,14 @@ public void clearForm() {
     txt_TenMayTinh.setText("");
     txt_TGBA.setText("");
     txt_TGHT.setText("");
-    txt_TrangThai.setText("");
+   Cbo_TrangThai.setSelectedIndex(0);
 }
 
 @Override
 public void setEditable(boolean editable) {
     throw new UnsupportedOperationException("Not supported yet.");
 }
+
+
 
 }
