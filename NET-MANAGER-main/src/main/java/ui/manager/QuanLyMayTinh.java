@@ -5,13 +5,19 @@
 package ui.manager;
 
 import controller.QuanLyMayTinhConntroll;
+import dao.MayTinhDAO;
+import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
 
@@ -19,18 +25,19 @@ import util.XDialog;
  *
  * @author FPT
  */
-public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhConntroll{
+public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhConntroll {
 
     /**
      * Creates new form QuanLyMayTinh
      */
-    dao.MayTinhDAO dao= new daoImpl.MayTinhDAOImpl();
-     List<MayTinh> list = dao.selectAll();
+    MayTinhDAO dao = new MayTinhDAOImpl();
+    List<MayTinh> list = dao.selectAll();
+
     public QuanLyMayTinh(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-          fillToTable();
-          open();
+        fillToTable();
+        open();
     }
 
     /**
@@ -43,37 +50,42 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btn_Them4 = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        QLYMT_table = new javax.swing.JTable();
-        btn_Them5 = new javax.swing.JButton();
+        tblQLMT = new javax.swing.JTable();
+        btnThem = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        btn_Exit1 = new javax.swing.JButton();
+        btnThoat = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txt_MaMayTinh = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txt_TenMayTinh = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txt_TGHT = new javax.swing.JTextField();
+        txtTimeNow = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txt_TGBA = new javax.swing.JTextField();
-        btn_Them2 = new javax.swing.JButton();
-        btn_Them3 = new javax.swing.JButton();
-        Cbo_TrangThai = new javax.swing.JComboBox<>();
+        txtTimeStart = new javax.swing.JTextField();
+        btnXoa = new javax.swing.JButton();
+        btnCapNhat = new javax.swing.JButton();
+        cboTrangThai = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setText("Quan Ly May Tinh");
 
-        btn_Them4.setText("Làm Mới");
-        btn_Them4.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setText("Làm Mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Them4ActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
 
-        QLYMT_table.setModel(new javax.swing.table.DefaultTableModel(
+        tblQLMT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -82,38 +94,38 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 {null, null, null, null, null}
             },
             new String [] {
-                "Mã Máy Tính ", "Tên Máy Tính ", "Thời gian hiện tại", "Thời gian bắt đầu", "Trang Thái"
+                "Mã máy", "Tên máy", "Thời gian hiện tại", "Thời gian bắt đầu", " Trạng thái"
             }
         ));
-        QLYMT_table.setName(""); // NOI18N
-        QLYMT_table.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblQLMT.setName(""); // NOI18N
+        tblQLMT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                QLYMT_tableMouseClicked(evt);
+                tblQLMTMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(QLYMT_table);
+        jScrollPane2.setViewportView(tblQLMT);
 
-        btn_Them5.setText("Thêm");
-        btn_Them5.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Them5ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Mã Máy Tính ");
 
-        btn_Exit1.setText("Thoát");
-        btn_Exit1.addActionListener(new java.awt.event.ActionListener() {
+        btnThoat.setText("Thoát");
+        btnThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Exit1ActionPerformed(evt);
+                btnThoatActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Tên Máy Tính ");
 
-        txt_MaMayTinh.addActionListener(new java.awt.event.ActionListener() {
+        txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_MaMayTinhActionPerformed(evt);
+                txtIdActionPerformed(evt);
             }
         });
 
@@ -121,35 +133,35 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
         jLabel6.setText("Thời gian bắt đầu\t");
 
-        txt_TGHT.addActionListener(new java.awt.event.ActionListener() {
+        txtTimeNow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_TGHTActionPerformed(evt);
+                txtTimeNowActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("Trang Thai");
+        jLabel7.setText("Trạng thái");
 
-        txt_TGBA.addActionListener(new java.awt.event.ActionListener() {
+        txtTimeStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_TGBAActionPerformed(evt);
+                txtTimeStartActionPerformed(evt);
             }
         });
 
-        btn_Them2.setText("Xóa");
-        btn_Them2.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Them2ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
-        btn_Them3.setText("Cập Nhật");
-        btn_Them3.addActionListener(new java.awt.event.ActionListener() {
+        btnCapNhat.setText("Cập Nhật");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Them3ActionPerformed(evt);
+                btnCapNhatActionPerformed(evt);
             }
         });
 
-        Cbo_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt Động ", "Ngừng Hoạt Đông", "Bảo Trì " }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt Động ", "Ngừng Hoạt Đông", "Bảo Trì " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,19 +169,40 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(155, 155, 155)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(175, 175, 175)
+                                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTimeNow, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(116, 116, 116)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(39, 39, 39))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(Cbo_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                        .addGap(571, 571, 571)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -180,123 +213,115 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGap(18, 18, 18)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txt_TenMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_MaMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_TGHT, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_TGBA, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btn_Them3, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                        .addComponent(btn_Them2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_Them5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_Them4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_Exit1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap()))
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(251, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(128, 128, 128)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addComponent(Cbo_TrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTimeNow, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
+                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(124, 124, 124)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(92, 92, 92))
+                        .addGroup(layout.createSequentialGroup()
                             .addGap(69, 69, 69)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btn_Them5)
-                                .addComponent(txt_MaMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(124, 124, 124)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txt_TenMayTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btn_Them2)
-                                        .addComponent(jLabel4))
-                                    .addGap(35, 35, 35)
-                                    .addComponent(txt_TGHT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(btn_Them3))))
-                    .addGap(29, 29, 29)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(29, 29, 29)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_TGBA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_Them4)
+                        .addComponent(txtTimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6))
-                    .addGap(26, 26, 26)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7)
-                        .addComponent(btn_Exit1))
-                    .addContainerGap(429, Short.MAX_VALUE)))
+                    .addGap(27, 27, 27)
+                    .addComponent(jLabel7)
+                    .addContainerGap(445, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_Them5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them5ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        MayTinh mt = getForm(); // Lấy dữ liệu từ form
+        create();
+    }//GEN-LAST:event_btnThemActionPerformed
 
-        if (mt != null) {
-            try {
-                dao.insert(mt); // Gọi DAO để thêm vào CSDL
-                fillToTable();  // Cập nhật lại JTable
-                JOptionPane.showMessageDialog(this, "Thêm máy tính thành công!");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Lỗi khi thêm máy tính: " + e.getMessage());
-                e.printStackTrace();
+    private void txtTimeStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeStartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimeStartActionPerformed
+
+    private void tblQLMTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLMTMouseClicked
+        // TODO add your handling code here:
+        int row = tblQLMT.getSelectedRow();
+        if (row >= 0) {
+            String id = tblQLMT.getValueAt(row, 0).toString();
+            MayTinh mt = dao.selectById(id);
+            if (mt != null) {
+                setForm(mt);
             }
         }
-    }//GEN-LAST:event_btn_Them5ActionPerformed
+    }//GEN-LAST:event_tblQLMTMouseClicked
 
-    private void txt_TGBAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TGBAActionPerformed
+    private void txtTimeNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeNowActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_TGBAActionPerformed
+    }//GEN-LAST:event_txtTimeNowActionPerformed
 
-    private void QLYMT_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLYMT_tableMouseClicked
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        int row = QLYMT_table.getSelectedRow();
-    if (row >= 0) {
-        String id = QLYMT_table.getValueAt(row, 0).toString();
-        MayTinh mt = dao.selectById(id);
-        if (mt != null) {
-            setForm(mt);
-        }
-    }
-    }//GEN-LAST:event_QLYMT_tableMouseClicked
+        clear();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
 
-    private void txt_TGHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TGHTActionPerformed
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_TGHTActionPerformed
+    }//GEN-LAST:event_txtIdActionPerformed
 
-    private void btn_Them4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Them4ActionPerformed
-
-    private void txt_MaMayTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_MaMayTinhActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_MaMayTinhActionPerformed
-
-    private void btn_Them3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them3ActionPerformed
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         // TODO add your handling code here:
         this.update();
-    }//GEN-LAST:event_btn_Them3ActionPerformed
+    }//GEN-LAST:event_btnCapNhatActionPerformed
 
-    private void btn_Exit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Exit1ActionPerformed
+    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Exit1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnThoatActionPerformed
 
-    private void btn_Them2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Them2ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         this.delete();
-    }//GEN-LAST:event_btn_Them2ActionPerformed
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -342,13 +367,12 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> Cbo_TrangThai;
-    private javax.swing.JTable QLYMT_table;
-    private javax.swing.JButton btn_Exit1;
-    private javax.swing.JButton btn_Them2;
-    private javax.swing.JButton btn_Them3;
-    private javax.swing.JButton btn_Them4;
-    private javax.swing.JButton btn_Them5;
+    private javax.swing.JButton btnCapNhat;
+    private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThoat;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -356,160 +380,211 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField txt_MaMayTinh;
-    private javax.swing.JTextField txt_TGBA;
-    private javax.swing.JTextField txt_TGHT;
-    private javax.swing.JTextField txt_TenMayTinh;
+    private javax.swing.JTable tblQLMT;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtTimeNow;
+    private javax.swing.JTextField txtTimeStart;
     // End of variables declaration//GEN-END:variables
 
     @Override
-public void open() {
-    fillToTable();
-}
-
-@Override
-public void setForm(MayTinh mt) {
-    txt_MaMayTinh.setText(mt.getId());
-    txt_TenMayTinh.setText(mt.getName());
-
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    if (mt.getStrasTime() != null) {
-        txt_TGBA.setText(sdf.format(mt.getStrasTime()));
-    } else {
-        txt_TGBA.setText("");
+    public void open() {
+        setLocationRelativeTo(null);
+        fillToTable();
+        setupPlaceholders();
     }
 
-    if (mt.getNowTime() != null) {
-        txt_TGHT.setText(sdf.format(mt.getNowTime()));
-    } else {
-        txt_TGHT.setText("");
-    }
+    @Override
+    public void setForm(MayTinh mt) {
+        txtId.setText(mt.getId());
+        txtName.setText(mt.getName());
 
-    if (mt.getStatus() != null) {
-        Cbo_TrangThai.setSelectedItem(mt.getStatus().trim());
-    } else {
-        Cbo_TrangThai.setSelectedIndex(0); // Mặc định "Hoạt Động"
-    }
-}
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-
-@Override
-public MayTinh getForm() {
-    String id = txt_MaMayTinh.getText().trim();
-    String name = txt_TenMayTinh.getText().trim();
-    String strasTimeStr = txt_TGBA.getText().trim();
-    String nowTimeStr = txt_TGHT.getText().trim();
-    String status = (String) Cbo_TrangThai.getSelectedItem();
-
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    sdf.setLenient(false);
-
-    Timestamp strasTime = null;
-    Timestamp nowTime = null;
-
-    try {
-        if (!strasTimeStr.isEmpty()) {
-            java.util.Date strasTimeDate = sdf.parse(strasTimeStr);
-            strasTime = new Timestamp(strasTimeDate.getTime());
+        if (mt.getStartTime() != null) {
+            txtTimeStart.setText(sdf.format(mt.getStartTime()));
+        } else {
+            txtTimeStart.setText("");
         }
 
-        if (!nowTimeStr.isEmpty()) {
-            java.util.Date nowTimeDate = sdf.parse(nowTimeStr);
-            nowTime = new Timestamp(nowTimeDate.getTime());
+        if (mt.getNowTime() != null) {
+            txtTimeNow.setText(sdf.format(mt.getNowTime()));
+        } else {
+            txtTimeNow.setText("");
         }
 
-        return new MayTinh(id, name, strasTime, nowTime, status);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng: yyyy-MM-dd HH:mm:ss");
-        return null;
+        if (mt.getStatus() != null) {
+            cboTrangThai.setSelectedItem(mt.getStatus().trim());
+        } else {
+            cboTrangThai.setSelectedIndex(0); // Mặc định "Hoạt Động"
+        }
     }
-}
 
+    @Override
+    public MayTinh getForm() {
+        String id = txtId.getText().trim();
+        String name = txtName.getText().trim();
+        String status = (String) cboTrangThai.getSelectedItem();
 
+        // Validate mã máy
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã máy không được để trống");
+            return null;
+        }
 
+        if (!id.toUpperCase().startsWith("M")) {
+            JOptionPane.showMessageDialog(this, "Mã máy phải bắt đầu bằng chữ 'M'");
+            return null;
+        }
 
-@Override
-public void fillToTable() {
-    DefaultTableModel model = (DefaultTableModel) QLYMT_table.getModel();
-    model.setRowCount(0); // Xóa dữ liệu cũ
-    List<MayTinh> list = dao.selectAll();
-    for (MayTinh mt : list) {
-        model.addRow(new Object[]{
-            mt.getId(),
-            mt.getName(),
-            mt.getStrasTime(),
-            mt.getNowTime(),
-            mt.getStatus()
+        // Validate tên
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên máy không được để trống");
+            return null;
+        }
+
+        if (!name.matches("^Máy\\s\\d+$")) {
+            JOptionPane.showMessageDialog(this, "Tên máy phải có định dạng: Máy [số]");
+            return null;
+        }
+
+        // Không kiểm tra thời gian nữa truyền null
+        return new MayTinh(id, name, null, null, status);
+    }
+
+    @Override
+    public void fillToTable() {
+        DefaultTableModel model = (DefaultTableModel) tblQLMT.getModel();
+        model.setRowCount(0); // Xóa dữ liệu cũ
+        List<MayTinh> list = dao.selectAll();
+        for (MayTinh mt : list) {
+            model.addRow(new Object[]{
+                mt.getId(),
+                mt.getName(),
+                mt.getNowTime(),
+                mt.getStartTime(),
+                mt.getStatus()
+            });
+        }
+    }
+
+    @Override
+    public void edit() {
+        int selectedRow = tblQLMT.getSelectedRow();
+        if (selectedRow >= 0) {
+            String id = (String) tblQLMT.getValueAt(selectedRow, 0);
+            MayTinh mt = dao.selectById(id);
+            if (mt != null) {
+                setForm(mt);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa");
+        }
+    }
+
+    @Override
+    public void create() {
+        MayTinh mt = this.getForm();
+        if (mt == null) {
+            return;
+        }
+        dao.insert(mt);
+        this.fillToTable();
+    }
+
+    @Override
+    public void update() {
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật lại không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            MayTinh mt = getForm();
+            if (mt != null) {
+                try {
+                    dao.update(mt);
+                    fillToTable();
+                    clearForm();
+                    JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi cập nhật!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại! Dữ liệu không hợp lệ.");
+            }
+        }
+    }
+
+    @Override
+    public void delete() {
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            String id = txtId.getText().trim();
+
+            if (id.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn hoặc nhập mã máy cần xóa.");
+                return;
+            }
+
+            try {
+                dao.delete(id);
+                fillToTable();
+                clearForm();
+                JOptionPane.showMessageDialog(this, "Xóa thành công!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Xóa thất bại! Đã xảy ra lỗi.");
+            }
+        }
+    }
+
+    @Override
+    public void clear() {
+        fillToTable(); // Hiển thị lại dữ liệu
+        clearForm();   // Xóa form nhập liệu
+    }
+
+    public void clearForm() {
+        txtId.setText("");
+        txtName.setText("");
+        txtTimeNow.setText("");
+        txtTimeStart.setText("");
+        cboTrangThai.setSelectedIndex(0);
+    }
+
+    // Placeholder định dạng ngày
+    private void setupPlaceholders() {
+        setPlaceholder(txtTimeNow, "Có thể để trống");
+        setPlaceholder(txtTimeStart, "Có thể để trống");
+    }
+
+    private void setPlaceholder(JTextField textField, String placeholder) {
+        textField.setText(placeholder);
+        textField.setForeground(Color.GRAY);
+
+        textField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField.getText().equals(placeholder)) {
+                    textField.setText("");
+                    textField.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setText(placeholder);
+                    textField.setForeground(Color.GRAY);
+                }
+            }
         });
     }
-}
 
-@Override
-public void edit() {
-    int selectedRow = QLYMT_table.getSelectedRow();
-    if (selectedRow >= 0) {
-        String id = (String) QLYMT_table.getValueAt(selectedRow, 0);
-        MayTinh mt = dao.selectById(id);
-        if (mt != null) {
-            setForm(mt);
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa");
+    // không dùng đến
+    @Override
+    public void setEditable(boolean editable) {
+
     }
-}
-
-@Override
-public void create() {
-    MayTinh mt = getForm();
-    if (mt != null) {
-        dao.insert(mt);
-        fillToTable();
-        clearForm();
-    }
-}
-
-@Override
-public void update() {
-    if (XDialog.confirm("Bạn có muốn cập nhật không?")) {
-        MayTinh mt = getForm();
-        if (mt != null) {
-            dao.update(mt);
-            fillToTable();
-            clearForm();
-        }
-    }
-}
-
-@Override
-public void delete() {
-    if (XDialog.confirm("Bạn chắc chắn muốn xóa?")) {
-        String id = txt_MaMayTinh.getText();
-        dao.delete(id);
-        fillToTable();
-        clearForm();
-    }
-}
-
-@Override
-public void clear() {
-    fillToTable(); // Hiển thị lại dữ liệu
-    clearForm();   // Xóa form nhập liệu
-}
-
-public void clearForm() {
-    txt_MaMayTinh.setText("");
-    txt_TenMayTinh.setText("");
-    txt_TGBA.setText("");
-    txt_TGHT.setText("");
-   Cbo_TrangThai.setSelectedIndex(0);
-}
-
-@Override
-public void setEditable(boolean editable) {
-    throw new UnsupportedOperationException("Not supported yet.");
-}
-
-
 
 }

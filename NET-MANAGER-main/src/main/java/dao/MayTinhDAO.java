@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author VINH
  */
-public interface MayTinhDAO{// Khóa chính là kiểu Nvarchar nên để String
+public interface MayTinhDAO{
     void insert(MayTinh mt);
     void update(MayTinh mt);
     void delete(String id);

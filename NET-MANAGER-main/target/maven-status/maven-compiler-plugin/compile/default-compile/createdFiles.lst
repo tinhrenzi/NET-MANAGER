@@ -9,7 +9,6 @@ ui\manager\QuanLyNhanVienJDialog$10.class
 controller\OrderController.class
 ui\manager\ThanhToanJDialog$6.class
 ui\WelcomeJDialog$2$1.class
-ui\manager\MoMayJDialog$12.class
 ui\manager\QuanLyThucDonJDialog$3.class
 controller\DanhSachMayController.class
 ui\manager\QuanLyThucDonJDialog$9$1.class
@@ -21,7 +20,6 @@ dao\orderDAO.class
 ui\NetManagerJFrame$14.class
 ui\GiaoDienChinhJFrame.class
 util\XJdbc.class
-ui\manager\QuanLyMayTinhJDialog$2$1.class
 controller\DoUongController.class
 dao\ThongKeDoanhThuDAO.class
 ui\NetManagerJFrame$13.class
@@ -59,7 +57,6 @@ daoImpl\OrderDAOImpl.class
 ui\NetManagerJFrame$4.class
 ui\manager\ThanhToanJDialog$5.class
 daoImpl\ThongKeDoanhThuDAOImpl.class
-ui\manager\MoMayJDialog$11.class
 ui\manager\QuanLyThucDonJDialog$7.class
 ui\manager\QuanLyNhanVienJDialog$4.class
 daoImpl\HoaDonDAOImpl.class
@@ -70,7 +67,6 @@ ui\manager\MoMayJDialog$10.class
 ui\manager\QuanLyNhanVienJDialog$2.class
 entity\Users.class
 ui\manager\ThanhToanJDialog$4.class
-ui\manager\QuanLyMayTinhJDialog.class
 util\XStr.class
 ui\NetManagerJFrame$5.class
 controller\ThanhToanController.class
@@ -82,7 +78,6 @@ ui\NetManagerJFrame.class
 entity\DoUong.class
 entity\HoaDonChiTiet.class
 ui\manager\MoMayJDialog$5.class
-ui\manager\QuanLyMayTinh$10$1.class
 controller\DangNhapController.class
 ui\manager\ThanhToanJDialog$3.class
 ui\DoiMatKhauJDialog$4$1.class
@@ -94,6 +89,7 @@ ui\manager\ThanhToanJDialog$9.class
 ui\DoiMatKhauJDialog$1.class
 ui\manager\QuanLyMayTinh$8.class
 controller\DoiMatKhauController.class
+ui\manager\QuanLyMayTinh$12.class
 ui\GiaoDienChinhJFrame$2.class
 controller\crudController.class
 util\XAuth.class
@@ -142,10 +138,8 @@ ui\manager\ThanhToanJDialog.class
 ui\DoiMatKhauJDialog$2.class
 ui\WelcomeJDialog$2.class
 ui\manager\QuanLyMayTinh$4.class
-ui\manager\QuanLyMayTinhJDialog$2.class
 controller\ThucDonController.class
 ui\manager\QuanLyNhanVienJDialog$11.class
-ui\manager\QuanLyMayTinhJDialog$1.class
 ui\manager\QuanLyThucDonJDialog$2.class
 ui\manager\QuanLyThongKeJDialog.class
 entity\DoAn.class

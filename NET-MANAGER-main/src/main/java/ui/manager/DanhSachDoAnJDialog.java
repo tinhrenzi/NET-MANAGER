@@ -3,14 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package ui.manager;
+
 import util.XJdbc;
-import  util.XQuery;
+import util.XQuery;
 import dao.DoAnDAO;
-import  java.sql.*;
+import java.sql.*;
 import java.util.List;
 import entity.DoAn;
 import daoImpl.DoAnDAOImpl;
-import  controller.ConntrollDoAn;
+import controller.ConntrollDoAn;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
@@ -19,14 +20,14 @@ import util.XDialog;
  *
  * @author Admin
  */
-public class DanhSachDoAnJDialog extends javax.swing.JDialog implements ConntrollDoAn{
+public class DanhSachDoAnJDialog extends javax.swing.JDialog implements ConntrollDoAn {
 
     /**
      * Creates new form DanhSachDoAnJDialog
      */
-   private DoAnDAO dao=new DoAnDAOImpl();
-    List<DoAn>list=List.of();
-    
+    private DoAnDAO dao = new DoAnDAOImpl();
+    List<DoAn> list = List.of();
+
     public DanhSachDoAnJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -229,7 +230,7 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-       this.update();
+        this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeteleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeteleActionPerformed
@@ -243,13 +244,13 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
 
     private void btn_thstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thstActionPerformed
         // TODO add your handling code here:
-       int result=JOptionPane.showConfirmDialog(this, 
+        int result = JOptionPane.showConfirmDialog(this,
                 "bạn có chắc muốn thoát không",
                 "xác nhận thoát ",
                 JOptionPane.YES_NO_OPTION
         );
         if (result == JOptionPane.YES_OPTION) {
-             System.exit(0);
+            System.exit(0);
         }
     }//GEN-LAST:event_btn_thstActionPerformed
 
@@ -305,13 +306,13 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
             }
         });
     }
-    public void fillTXT( int row){
+
+    public void fillTXT(int row) {
         DoAn doan = new DoAn();
-    txtIdDA.setText(tblDA.getValueAt(row, 0).toString());
-    txtName.setText(tblDA.getValueAt(row, 1).toString());
-    txtDonGia.setText(tblDA.getValueAt(row, 2).toString());
-    txtSoLuong.setText(tblDA.getValueAt(row, 3).toString());
-     
+        txtIdDA.setText(tblDA.getValueAt(row, 0).toString());
+        txtName.setText(tblDA.getValueAt(row, 1).toString());
+        txtDonGia.setText(tblDA.getValueAt(row, 2).toString());
+        txtSoLuong.setText(tblDA.getValueAt(row, 3).toString());
 
     }
 
@@ -337,7 +338,7 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
     private javax.swing.JTextField txtSoLuong;
     // End of variables declaration//GEN-END:variables
 
-         @Override
+    @Override
     public void open() {// lấy 
         this.setLocationRelativeTo(null);//
         this.fillToTable();
@@ -346,86 +347,82 @@ public class DanhSachDoAnJDialog extends javax.swing.JDialog implements Conntrol
 
     @Override
     public void setForm(DoAn entity) {
-    System.out.println(" DonGia: " + entity.getDonGia());
-    txtIdDA.setText(entity.getMaDoAn());
-    txtName.setText(entity.getTenDoAn());
-    txtDonGia.setText(String.valueOf(entity.getDonGia()));
-    txtSoLuong.setText(String.valueOf(entity.getSoLuong()));
-    
+        System.out.println(" DonGia: " + entity.getDonGia());
+        txtIdDA.setText(entity.getMaDoAn());
+        txtName.setText(entity.getTenDoAn());
+        txtDonGia.setText(String.valueOf(entity.getDonGia()));
+        txtSoLuong.setText(String.valueOf(entity.getSoLuong()));
+
     }
 
-   @Override
-public DoAn getForm() {
-    String ma = txtIdDA.getText().trim();
-    String ten = txtName.getText().trim();
-    String giaStr = txtDonGia.getText().trim();
-    String soLuongStr = txtSoLuong.getText().trim();
-    try {
-        float gia = Float.parseFloat(giaStr);
-        if (gia <= 0) {
-            JOptionPane.showMessageDialog(this, "Đơn giá phải lớn hơn 0!");
+    @Override
+    public DoAn getForm() {
+        String ma = txtIdDA.getText().trim();
+        String ten = txtName.getText().trim();
+        String giaStr = txtDonGia.getText().trim();
+        String soLuongStr = txtSoLuong.getText().trim();
+        try {
+            float gia = Float.parseFloat(giaStr);
+            if (gia <= 0) {
+                JOptionPane.showMessageDialog(this, "Đơn giá phải lớn hơn 0!");
+                return null;
+            }
+
+            int soLuong = Integer.parseInt(soLuongStr);
+            if (soLuong < 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng không được âm!");
+                return null;
+            }
+
+            return new DoAn(ma, ten, gia, soLuong);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Đơn giá và số lượng phải là số hợp lệ!");
             return null;
         }
-
-        int soLuong = Integer.parseInt(soLuongStr);
-        if (soLuong < 0) {
-            JOptionPane.showMessageDialog(this, "Số lượng không được âm!");
-            return null;
-        }
-
-        return new DoAn(ma, ten, gia, soLuong);
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Đơn giá và số lượng phải là số hợp lệ!");
-        return null;
     }
-}
-
 
     @Override
     public void fillToTable() {
-         DefaultTableModel model = (DefaultTableModel) tblDA.getModel();
-          model.setRowCount(0); // Clear dữ liệu cũ
+        DefaultTableModel model = (DefaultTableModel) tblDA.getModel();
+        model.setRowCount(0); // Clear dữ liệu cũ
 
-    for (DoAn da : dao.findAll()) {
-        Object[] row = {
-            
-            da.getMaDoAn(),
-            da.getTenDoAn(),
-            da.getDonGia(),
-            da.getSoLuong(),
-        };
-        model.addRow(row);
-    }
+        for (DoAn da : dao.findAll()) {
+            Object[] row = {
+                da.getMaDoAn(),
+                da.getTenDoAn(),
+                da.getDonGia(),
+                da.getSoLuong(),};
+            model.addRow(row);
+        }
     }
 
     public void edit() {
-    int row = tblDA.getSelectedRow();
-    if (row >= 0) {
-        String ma = (String) tblDA.getValueAt(row, 1); // CỘT 1: MaDoAn
-        DoAn da = dao.findByID(ma);
-        if (da != null) {
-            txtIdDA.setText(da.getMaDoAn());
-            txtName.setText(da.getTenDoAn());
-            txtDonGia.setText(String.valueOf(da.getDonGia()));
-            txtSoLuong.setText(String.valueOf(da.getSoLuong()));
+        int row = tblDA.getSelectedRow();
+        if (row >= 0) {
+            String ma = (String) tblDA.getValueAt(row, 1); // CỘT 1: MaDoAn
+            DoAn da = dao.findByID(ma);
+            if (da != null) {
+                txtIdDA.setText(da.getMaDoAn());
+                txtName.setText(da.getTenDoAn());
+                txtDonGia.setText(String.valueOf(da.getDonGia()));
+                txtSoLuong.setText(String.valueOf(da.getSoLuong()));
+            }
         }
     }
-}
-
 
     @Override
     public void create() {
-         DoAn da = getForm();
-            dao.create(da);
-            fillToTable();
-            clear();
+        DoAn da = getForm();
+        dao.create(da);
+        fillToTable();
+        clear();
     }
 
     @Override
     public void update() {
         if (XDialog.confirm("sua thanh cong")) {
-            DoAn da =  getForm();
+            DoAn da = getForm();
             dao.update(da);
             fillToTable();
             clear();
@@ -433,23 +430,22 @@ public DoAn getForm() {
     }
 
     @Override
-public void delete() {
+    public void delete() {
         if (XDialog.confirm("ban co muon xoa kg")) {
             String id = txtIdDA.getText();
             dao.deleteByID(id);
             fillToTable();
             clear();
         }
-}
+    }
 
     @Override
     public void clear() {
-            txtIdDA.setText("");
-            txtName.setText("");
-            txtDonGia.setText("");
-            txtSoLuong.setText("");
-            
-            
+        txtIdDA.setText("");
+        txtName.setText("");
+        txtDonGia.setText("");
+        txtSoLuong.setText("");
+
     }
 
     @Override

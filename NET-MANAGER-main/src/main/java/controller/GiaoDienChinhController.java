@@ -59,6 +59,7 @@ public interface GiaoDienChinhController {
     }
 
     default void showQLmay(JFrame jFrame) {
+        this.showDialog(new QuanLyMayTinh(jFrame, true));
     }
 
     default void showThanhtoan(JFrame jFrame) {

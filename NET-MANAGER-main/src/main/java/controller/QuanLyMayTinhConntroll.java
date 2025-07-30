@@ -4,8 +4,6 @@
  */
 package controller;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import entity.MayTinh;
 
 /** 

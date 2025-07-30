@@ -9,7 +9,6 @@ import entity.MayTinh;
 import java.sql.*;
 import java.util.*;
 import util.XJdbc;
-import util.XQuery;
 
 import java.util.List;
 
@@ -17,13 +16,13 @@ public class MayTinhDAOImpl implements MayTinhDAO {
  @Override
     public void insert(MayTinh mt) {
         String sql = "INSERT INTO MayTinh (Id, Name, NowTime, StartTime, Status) VALUES (?, ?, ?, ?, ?)";
-        XJdbc.executeUpdate(sql, mt.getId(), mt.getName(), mt.getNowTime(), mt.getStrasTime(), mt.getStatus());
+        XJdbc.executeUpdate(sql, mt.getId(), mt.getName(), mt.getNowTime(), mt.getStartTime(), mt.getStatus());
     }
 
     @Override
     public void update(MayTinh mt) {
         String sql = "UPDATE MayTinh SET Name=?, NowTime=?, StartTime=?, Status=? WHERE Id=?";
-        XJdbc.executeUpdate(sql, mt.getName(), mt.getNowTime(), mt.getStrasTime(), mt.getStatus(), mt.getId());
+        XJdbc.executeUpdate(sql, mt.getName(), mt.getNowTime(), mt.getStartTime(), mt.getStatus(), mt.getId());
     }
 
     @Override
@@ -67,8 +66,8 @@ public class MayTinhDAOImpl implements MayTinhDAO {
                 MayTinh mt = new MayTinh(
                     rs.getString("Id"),
                     rs.getString("Name"),
+                        rs.getTimestamp("StartTime"),
                     rs.getTimestamp("NowTime"),
-                    rs.getTimestamp("StartTime"),
                     rs.getString("Status")
                 );
                 list.add(mt);
