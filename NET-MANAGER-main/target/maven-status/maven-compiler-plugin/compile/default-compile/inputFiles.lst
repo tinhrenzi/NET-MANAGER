@@ -26,6 +26,7 @@ H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\DoUongDAO.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\HoaDonChiTietDAO.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\HoaDonDAO.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\MayTinhDAO.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\OrderChiTietDAO.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\orderDAO.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\QuanLyThongKeDAO.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\dao\ThongKeDoanhThuDAO.java
@@ -45,6 +46,7 @@ H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\HoaDon.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\HoaDonChiTiet.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\MayTinh.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\Order.java
+H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\OrderChiTiet.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\OrderManager.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\ThongKeDoanhThu.java
 H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\entity\Users.java
