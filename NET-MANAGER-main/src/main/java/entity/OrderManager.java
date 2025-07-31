@@ -6,41 +6,41 @@ package entity;
 
 
 public class OrderManager {
-    private String Id;
-    private String Name;
-    private float DonGia;
+      private String id;
+    private String name;
+    private float donGia;
+
     public OrderManager() {}
 
-    public OrderManager(String Id, String Name, float DonGia) {
-        this.Id = Id;
-        this.Name = Name;
-        this.DonGia = DonGia;
+    public OrderManager(String id, String name, float donGia) {
+        this.id = id;
+        this.name = name;
+        this.donGia = donGia;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(String Id) {
-        this.Id = Id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getDonGia() {
-        return DonGia;
+        return donGia;
     }
 
-    public void setDonGia(float DonGiaDoAn) {
-        this.DonGia = DonGiaDoAn;
+    public void setDonGia(float donGia) {
+        this.donGia = donGia;
     }
-
     
 }
 

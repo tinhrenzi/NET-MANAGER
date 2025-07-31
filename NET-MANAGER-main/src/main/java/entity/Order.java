@@ -6,90 +6,81 @@ package entity;
 
 
 public class Order {
-    private String id;
-    private String MaDoAn;
-    private String TenDoAn;
-    private Float DonGiaDoAn;
+      private String maMay;
+    private String tenMay;
+    private String maMon;
+    private String tenMon;
+    private float gia;
+    private int soLuong;
+    private float tongTien;
 
-
-    private String MaDoUong;
-    private String tenDoUong;
-    private Float donGiaDoUong;
-
-
-    public Order() {}
-
-    public Order(String MaDoAn, String TenDoAn, Float DonGiaDoAn) {
-        this.MaDoAn = MaDoAn;
-        this.TenDoAn = TenDoAn;
-        this.DonGiaDoAn = DonGiaDoAn;
+    public Order() {
     }
 
-    public Order(String id, String MaDoAn, String TenDoAn, Float DonGiaDoAn, String MaDoUong, String tenDoUong, Float donGiaDoUong ) {
-        this.id = id;
-        this.MaDoAn = MaDoAn;
-        this.TenDoAn = TenDoAn;
-        this.DonGiaDoAn = DonGiaDoAn;
-
-        this.MaDoUong = MaDoUong;
-        this.tenDoUong = tenDoUong;
-        this.donGiaDoUong = donGiaDoUong;
-
+    public Order(String maMay, String tenMay, String maMon, String tenMon, float gia, int soLuong, float tongTien) {
+    this.maMay = maMay;
+    this.tenMay = tenMay;
+    this.maMon = maMon;
+    this.tenMon = tenMon;
+    this.gia = gia;
+    this.soLuong = soLuong;
+    this.tongTien = tongTien;
     }
 
-    public String getId() {
-        return id;
+    public String getMaMay() {
+        return maMay;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMaMay(String maMay) {
+        this.maMay = maMay;
     }
 
-    public String getMaDoAn() {
-        return MaDoAn;
+    public String getTenMay() {
+        return tenMay;
     }
 
-    public void setMaDoAn(String MaDoAn) {
-        this.MaDoAn = MaDoAn;
+    public void setTenMay(String tenMay) {
+        this.tenMay = tenMay;
     }
 
-    public String getTenDoAn() {
-        return TenDoAn;
+    public String getMaMon() {
+        return maMon;
     }
 
-    public void setTenDoAn(String TenDoAn) {
-        this.TenDoAn = TenDoAn;
+    public void setMaMon(String maMon) {
+        this.maMon = maMon;
     }
 
-    public Float getDonGiaDoAn() {
-        return DonGiaDoAn;
+    public String getTenMon() {
+        return tenMon;
     }
 
-    public void setDonGiaDoAn(Float DonGiaDoAn) {
-        this.DonGiaDoAn = DonGiaDoAn;
-    }
-    public String getMaDoUong() {
-        return MaDoUong;
+    public void setTenMon(String tenMon) {
+        this.tenMon = tenMon;
     }
 
-    public void setMaDoUong(String MaDoUong) {
-        this.MaDoUong = MaDoUong;
+    public float getGia() {
+        return gia;
     }
 
-    public String getTenDoUong() {
-        return tenDoUong;
+    public void setGia(float gia) {
+        this.gia = gia;
+    }
+    public int getSoLuong() {
+    return soLuong;
     }
 
-    public void setTenDoUong(String tenDoUong) {
-        this.tenDoUong = tenDoUong;
+    public void setSoLuong(int soLuong) {
+    this.soLuong = soLuong;
+    }
+    public float getTongTien() {
+        return tongTien;
     }
 
-    public Float getDonGiaDoUong() {
-        return donGiaDoUong;
+    public void setTongTien(float tongTien) {
+        this.tongTien = tongTien;
     }
 
-    public void setDonGiaDoUong(Float donGiaDoUong) {
-        this.donGiaDoUong = donGiaDoUong;
-    }  
+   
 }
 

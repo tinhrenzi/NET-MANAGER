@@ -4,22 +4,22 @@
  */
 package controller;
 
-import dao.orderDAO;
-import daoImpl.OrderDAOImpl;
+import daoImpl.OrderManagerDAOImpl;
 import entity.DoAn;
 import entity.DoUong;
 import entity.OrderManager;
 import java.util.List;
+import dao.orderManagerDAO;
 
 /**
  *
  * @author VINH
  */
 public class ThucDonController {
-    private orderDAO menuDAO;
+    private orderManagerDAO menuDAO;
 
     public ThucDonController() {
-        menuDAO = new OrderDAOImpl();
+        menuDAO = new OrderManagerDAOImpl();
     }
 }
 

@@ -4,28 +4,29 @@
  */
 package ui.manager;
 
-import controller.OrderController;
-import dao.orderDAO;
-import daoImpl.OrderDAOImpl;
-import entity.DoAn;
-import entity.DoUong;
+import daoImpl.OrderManagerDAOImpl;
 import entity.OrderManager;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import dao.orderManagerDAO;
+import controller.OrderManagerController;
+import dao.OrderDAO;
+import daoImpl.OrderDAOImpl;
+import entity.Order;
 
 /**
- *
+ 
  * @author Admin
  */
-public class ThucDonJDialog extends javax.swing.JDialog implements OrderController{
+public class ThucDonJDialog extends javax.swing.JDialog implements OrderManagerController{
 
     /**
      * Creates new form ThucDonJDialog
      */
-    orderDAO dao = new OrderDAOImpl();
-    List<DoAn> itemsDa = List.of();
-    List<DoUong> itemsDo = List.of();
+    private orderManagerDAO dao = new OrderManagerDAOImpl();
+    private OrderDAO orderDao = new OrderDAOImpl();
+    
 
     public ThucDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -43,51 +44,41 @@ public class ThucDonJDialog extends javax.swing.JDialog implements OrderControll
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnAdd = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
-        txtIdMay = new javax.swing.JTextField();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tblDoAn = new javax.swing.JTable();
+        btn_mua = new javax.swing.JButton();
+        btn_huy = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblDoUong = new javax.swing.JTable();
+        tblOrderManager = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTongMonAn = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btn_them = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        txt_Tenmay = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txt_TongTien = new javax.swing.JTextField();
+        txt_IDMáy = new javax.swing.JTextField();
+        btn_Clear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Thực Đơn");
 
-        btnAdd.setText("Mua");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btn_mua.setText("Mua");
+        btn_mua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btn_muaActionPerformed(evt);
             }
         });
 
-        btnCancel.setText("Hủy mua");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+        btn_huy.setText("Hủy mua");
+        btn_huy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                btn_huyActionPerformed(evt);
             }
         });
 
-        tblDoAn.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Mã Đồ ăn", "Tên Đồ Ăn", "Đơn Giá"
-            }
-        ));
-        jScrollPane5.setViewportView(tblDoAn);
-
-        tblDoUong.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrderManager.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -98,63 +89,82 @@ public class ThucDonJDialog extends javax.swing.JDialog implements OrderControll
                 "Mã Đồ Uống ", "Tên Đồ Uống ", "Đơn Giá"
             }
         ));
-        jScrollPane2.setViewportView(tblDoUong);
+        jScrollPane2.setViewportView(tblOrderManager);
 
         tblTongMonAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Mã món", "Tên món", "Giá"
+                "Mã món", "Tên món", "Giá", "Số Lượng"
             }
         ));
+        tblTongMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTongMonAnMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblTongMonAn);
 
-        jButton1.setText("Thêm");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_them.setText("Thêm");
+        btn_them.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_themActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Mã máy");
+
+        jLabel3.setText("Tên máy");
+
+        jLabel4.setText("Tổng tiền");
+
+        btn_Clear.setText("Làm mới");
+        btn_Clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtIdMay, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(114, 114, 114))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_mua, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_them)
+                    .addComponent(txt_Tenmay)
+                    .addComponent(txt_TongTien)
+                    .addComponent(txt_IDMáy, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addComponent(btn_huy, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Clear))
+                .addGap(338, 338, 338))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane2, jScrollPane5});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnCancel, jButton1});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_huy, btn_mua, btn_them});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,109 +173,100 @@ public class ThucDonJDialog extends javax.swing.JDialog implements OrderControll
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txt_Tenmay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(txt_IDMáy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIdMay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnAdd)
+                            .addComponent(jLabel4)
+                            .addComponent(txt_TongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btn_mua)
+                        .addGap(20, 20, 20)
+                        .addComponent(btn_them)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancel)))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_huy)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_Clear))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane2, jScrollPane5});
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnCancel, jButton1});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_huy, btn_mua, btn_them});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
+    private void btn_huyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_huyActionPerformed
         int selectedRow = tblTongMonAn.getSelectedRow();
     if (selectedRow != -1) {
         DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
         model.removeRow(selectedRow);
+        updateTongTien();
+        JOptionPane.showMessageDialog(this, "Đã hủy món thành công.");
     } else {
         JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần hủy.");
     }
-    }//GEN-LAST:event_btnCancelActionPerformed
+    }//GEN-LAST:event_btn_huyActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
-    int rowCount = modelTong.getRowCount();
+    private void btn_muaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_muaActionPerformed
+        this.create();
+    }//GEN-LAST:event_btn_muaActionPerformed
 
-    // Lặp qua các dòng để lấy dữ liệu
-    for (int i = 0; i < rowCount; i++) {
-        Object maMonObj = modelTong.getValueAt(i, 0);
-        Object tenMonObj = modelTong.getValueAt(i, 1);
-        Object giaObj = modelTong.getValueAt(i, 2);
-
-        // Kiểm tra null trước khi chuyển đổi dữ liệu
-        if (maMonObj == null || tenMonObj == null || giaObj == null) {
-            JOptionPane.showMessageDialog(this, 
-                "Dữ liệu bị thiếu ở dòng " + (i + 1) + ". Vui lòng kiểm tra lại!");
-            return;
-        }
-
-        try {
-            String maMon = maMonObj.toString();
-            String tenMon = tenMonObj.toString();
-            double gia = Double.parseDouble(giaObj.toString());
-
-            // Ví dụ: xử lý thêm vào bảng khác
-            DefaultTableModel modelDaChon = (DefaultTableModel) tblTongMonAn.getModel();
-            modelDaChon.addRow(new Object[]{maMon, tenMon, gia});
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, 
-                "Giá không hợp lệ ở dòng " + (i + 1));
-        }
-    }
-
-    JOptionPane.showMessageDialog(this, "Thêm thành công!");
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here
-        int rowDoAn = tblDoAn.getSelectedRow();
-    int rowDoUong = tblDoUong.getSelectedRow();
-
-    DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
-
-    if (rowDoAn == -1 && rowDoUong == -1) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 dòng ở bảng Đồ Ăn hoặc Đồ Uống.");
+    private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
+          int selectedRow = tblOrderManager.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn món trong bảng OrderManager.");
         return;
     }
 
-    // Thêm từ bảng Đồ Ăn
-    if (rowDoAn != -1) {
-        String ma = tblDoAn.getValueAt(rowDoAn, 0).toString();
-        String ten = tblDoAn.getValueAt(rowDoAn, 1).toString();
-        String gia = tblDoAn.getValueAt(rowDoAn, 2).toString();
+    String ma = tblOrderManager.getValueAt(selectedRow, 0).toString();
+    String ten = tblOrderManager.getValueAt(selectedRow, 1).toString();
+    float gia = Float.parseFloat(tblOrderManager.getValueAt(selectedRow, 2).toString());
 
-        modelTong.addRow(new Object[]{ma, ten, gia});
+    DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+    boolean found = false;
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        if (model.getValueAt(i, 0).toString().equals(ma)) {
+            int currentQty = Integer.parseInt(model.getValueAt(i, 3).toString());
+            model.setValueAt(currentQty + 1, i, 3);  // tăng số lượng
+            found = true;
+            break;
+        }
     }
 
-    // Thêm từ bảng Đồ Uống
-    if (rowDoUong != -1) {
-        String ma = tblDoUong.getValueAt(rowDoUong, 0).toString();
-        String ten = tblDoUong.getValueAt(rowDoUong, 1).toString();
-        String gia = tblDoUong.getValueAt(rowDoUong, 2).toString();
-
-        modelTong.addRow(new Object[]{ma, ten, gia});
-
+    if (!found) {
+        model.addRow(new Object[]{ma, ten, gia, 1});  // thêm mới với số lượng = 1
     }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    updateTongTien(); // cập nhật tổng tiền sau khi thêm
+    }//GEN-LAST:event_btn_themActionPerformed
+
+    private void tblTongMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTongMonAnMouseClicked
+        int selectedRow = tblTongMonAn.getSelectedRow();
+    if (selectedRow != -1) {
+        String maMon = tblTongMonAn.getValueAt(selectedRow, 0).toString();
+        String tenMon = tblTongMonAn.getValueAt(selectedRow, 1).toString();
+        String giaStr = tblTongMonAn.getValueAt(selectedRow, 2).toString();
+    }// TODO add your handling code here:
+     updateTongTien();
+    }//GEN-LAST:event_tblTongMonAnMouseClicked
+
+    private void btn_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearActionPerformed
+        this.clear();        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,56 +311,65 @@ DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_Clear;
+    private javax.swing.JButton btn_huy;
+    private javax.swing.JButton btn_mua;
+    private javax.swing.JButton btn_them;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable tblDoAn;
-    private javax.swing.JTable tblDoUong;
+    private javax.swing.JTable tblOrderManager;
     private javax.swing.JTable tblTongMonAn;
-    private javax.swing.JTextField txtIdMay;
+    private javax.swing.JTextField txt_IDMáy;
+    private javax.swing.JTextField txt_Tenmay;
+    private javax.swing.JTextField txt_TongTien;
     // End of variables declaration//GEN-END:variables
     public void init(){
-    fillDa();
-    fillDo();
+        //fillTableTongMonAn();
+    fillToTable();
     }
-    public void fillDa(){
-         /*   DefaultTableModel model = (DefaultTableModel) tblDoAn.getModel();
-            model.setRowCount(0);
-            itemsDa = dao.getAllDoAn();
-            itemsDa.forEach(item -> {
-                Object[] rowData = {
-                    item.getMaDoAn(),
-                    item.getTenDoAn(),
-                    item.getDonGia(),
-                    false               
-                };
-                model.addRow(rowData);
-            });*/
+/*public void fillTableTongMonAn() {
+    DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+    model.setRowCount(0); // Xóa dữ liệu cũ
+
+    List<Order> list = orderDao.findAll(); // Lấy danh sách từ bảng OrderNet
+    for (Order item : list) {
+        Object[] row = {
+    item.getMaMon(),
+    item.getTenMon(),
+    item.getGia(),
+    item.getSoLuong()
+};
+        model.addRow(row);
     }
-        public void fillDo(){
-            /*DefaultTableModel model = (DefaultTableModel) tblDoUong.getModel();
-            model.setRowCount(0);
-            itemsDo = dao.getAllNuocUong();
-            itemsDo.forEach(item -> {
-                Object[] rowData = {
-                    item.getMaDoUong(),
-                    item.getTenDoUong(),
-                    item.getDonGia(),
-                    false               
-                };
-                model.addRow(rowData);
-            });*/
-    }
+
+    updateTongTien(); // Cập nhật tổng tiền
+}*/
+      
+        
     @Override
     public void open() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+private void updateTongTien() {
+    DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+    double tongTien = 0;
 
+    for (int i = 0; i < model.getRowCount(); i++) {
+    Object giaObj = model.getValueAt(i, 2);
+    Object soLuongObj = model.getValueAt(i, 3);
+
+    if (giaObj != null && soLuongObj != null) {
+        float gia = Float.parseFloat(giaObj.toString());
+        int soLuong = Integer.parseInt(soLuongObj.toString());
+        tongTien += gia * soLuong;
+    }
+}
+    txt_TongTien.setText(String.valueOf(tongTien));
+}
     @Override
     public void setForm(OrderManager entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -372,7 +382,17 @@ DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
 
     @Override
     public void fillToTable() {
-
+        DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
+    model.setRowCount(0);
+    List<OrderManager> items = dao.findAll();
+    for (OrderManager item : items) {
+        Object[] rowData = {
+            item.getId(),
+            item.getName(),
+            item.getDonGia()
+        };
+        model.addRow(rowData);
+    }
     }
 
     @Override
@@ -382,7 +402,41 @@ DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
 
     @Override
     public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String maMay = txt_IDMáy.getText().trim();
+    String tenMay = txt_Tenmay.getText().trim();
+    String tongTienStr = txt_TongTien.getText().trim();
+
+    if (maMay.isEmpty() || tenMay.isEmpty() || tongTienStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin máy và tổng tiền.");
+        return;
+    }
+
+    try {
+        float tongTien = Float.parseFloat(tongTienStr);
+
+        DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+        if (model.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Không có món nào để mua.");
+            return;
+        }
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+        String maMon = model.getValueAt(i, 0).toString();
+        String tenMon = model.getValueAt(i, 1).toString();
+        float gia = Float.parseFloat(model.getValueAt(i, 2).toString());
+        int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
+
+        Order order = new Order(maMay, tenMay, maMon, tenMon, gia, soLuong, tongTien);
+        orderDao.insert(order);
+        }
+
+        JOptionPane.showMessageDialog(this, "Mua thành công!");
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Tổng tiền hoặc giá món không hợp lệ.");
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Lỗi khi mua: " + e.getMessage());
+    }
     }
 
     @Override
@@ -397,7 +451,12 @@ DefaultTableModel modelTong = (DefaultTableModel) tblTongMonAn.getModel();
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    txt_IDMáy.setText("");
+    txt_Tenmay.setText("");
+    txt_TongTien.setText("");
+
+    DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+    model.setRowCount(0);
     }
 
     @Override

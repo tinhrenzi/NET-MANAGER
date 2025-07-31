@@ -5,12 +5,13 @@ ui\manager\ThanhToanJDialog$6.class
 ui\manager\QuanLyThucDonJDialog$3.class
 controller\DanhSachMayController.class
 ui\manager\QuanLyThucDonJDialog$9$1.class
+ui\manager\ThucDonJDialog$6.class
 ui\manager\QuanLyMayTinh$11$1.class
 controller\DoUongController.class
 ui\manager\MoMayJDialog.class
 ui\manager\MoMayJDialog$3.class
-controller\ConntrollDoAn.class
 ui\manager\MoMayJDialog$7.class
+ui\manager\ThucDonJDialog$6$1.class
 ui\manager\ThanhToanJDialog$1.class
 ui\manager\ThanhToanJDialog$7.class
 util\XQuery.class
@@ -19,6 +20,7 @@ ui\manager\MoMayJDialog$8.class
 ui\manager\QuanLyMayTinh$10.class
 util\XIcon.class
 ui\manager\QuanLyNhanVienJDialog$14.class
+daoImpl\OrderManagerDAOImpl.class
 ui\manager\MoMayJDialog$1.class
 ui\manager\ThucDonJDialog$2.class
 ui\manager\ThanhToanJDialog$2.class
@@ -34,6 +36,7 @@ ui\manager\ThanhToanJDialog$4.class
 util\XStr.class
 dao\OrderChiTietDAO.class
 ui\manager\QuanLyThucDonJDialog$8.class
+controller\OrderManagerController.class
 entity\DoUong.class
 ui\manager\MoMayJDialog$5.class
 controller\DangNhapController.class
@@ -61,10 +64,12 @@ ui\manager\QuanLyThucDonJDialog$5.class
 entity\OrderChiTiet.class
 ui\manager\QuanLyMayTinh$9.class
 util\TimeRange.class
+dao\orderManagerDAO.class
 ui\manager\QuanLyNhanVienJDialog$14$1.class
 ui\manager\QuanLyThucDonJDialog$4.class
 ui\manager\QuanLyMayTinh$7.class
 ui\manager\QuanLyNhanVienJDialog$7.class
+ui\manager\ThucDonJDialog$5.class
 ui\manager\QuanLyNhanVienJDialog.class
 util\XDialog.class
 ui\manager\MoMayJDialog$6.class
@@ -81,7 +86,6 @@ ui\manager\QuanLyThongKeJDialog$1$1.class
 controller\WelcomeController.class
 ui\manager\MoMayJDialog$4.class
 ui\manager\QuanLyNhanVienJDialog$8.class
-ui\manager\ThucDonJDialog$4$1.class
 util\XDate.class
 ui\manager\QuanLyMayTinh$6.class
 ui\manager\QuanLyNhanVienJDialog$9.class

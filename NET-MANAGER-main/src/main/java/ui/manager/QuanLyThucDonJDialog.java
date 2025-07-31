@@ -4,24 +4,24 @@
  */
 package ui.manager;
 
-import controller.OrderController;
-import dao.orderDAO;
-import daoImpl.OrderDAOImpl;
+import daoImpl.OrderManagerDAOImpl;
 import entity.OrderManager;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
+import dao.orderManagerDAO;
+import controller.OrderManagerController;
 
 /**
  *
  * @author Admin
  */
-public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderController{
+public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderManagerController{
 
     /**
      * Creates new form QuanLyThucDonJDialog
      */
-    orderDAO dao = new OrderDAOImpl();
+    orderManagerDAO dao = new OrderManagerDAOImpl();
     List<OrderManager> items = List.of(); 
     public QuanLyThucDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
