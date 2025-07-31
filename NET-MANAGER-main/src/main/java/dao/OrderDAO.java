@@ -15,5 +15,4 @@ public interface OrderDAO {
     Order insert(Order order);
     List<Order> findAll();
     List<Order> findByMay(String maMay);
-    
 }
