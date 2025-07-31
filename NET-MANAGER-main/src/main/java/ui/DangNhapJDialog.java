@@ -208,7 +208,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         XDialog.alert("Sai tên đăng nhập!");
     } else if (!password.equals(user.getMatKhau())) {
         XDialog.alert("Sai mật khẩu đăng nhập!");
-    } else if (!user.isEnable()) {
+    } else if (!user.isTrangThai()) {
         XDialog.alert("Tài khoản của bạn đang tạm dừng!");
     } else {
         XAuth.user = user;

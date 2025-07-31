@@ -9,25 +9,25 @@ import java.util.List;
 
 public class UserDAOImpl implements UsersDAO {
 
-    private final String INSERT_SQL = "INSERT INTO NguoiDung (IdUser, TenDangNhap, MatKhau, VaiTro, Enable, NamSinh, Email, SoDienThoai, NgayTaoUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final String UPDATE_SQL = "UPDATE NguoiDung SET TenDangNhap=?, MatKhau=?, VaiTro=?, Enable=?, NamSinh=?, Email=?, SoDienThoai=?, NgayTaoUser=? WHERE IdUser=?";
-    private final String DELETE_SQL = "DELETE FROM NguoiDung WHERE IdUser=?";
-    private final String SELECT_ALL_SQL = "SELECT * FROM NguoiDung";
-    private final String SELECT_BY_ID_SQL = "SELECT * FROM NguoiDung WHERE IdUser=?";
-    private final String findByUsername = "SELECT * FROM NguoiDung WHERE TenDangNhap=?";
+    private final String INSERT_SQL = "INSERT INTO Admin (Id, Ten, MatKhau, VaiTro, TrangThai, NamSinh, Email, SoDienThoai, NgayTao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String UPDATE_SQL = "UPDATE Admin SET Ten=?, MatKhau=?, VaiTro=?, TrangThai=?, NamSinh=?, Email=?, SoDienThoai=?, NgayTao=? WHERE Id=?";
+    private final String DELETE_SQL = "DELETE FROM Admin WHERE Id=?";
+    private final String SELECT_ALL_SQL = "select * from Admin";
+    private final String SELECT_BY_ID_SQL = "SELECT * FROM Admin WHERE Id=?";
+    private final String findByUsername = "SELECT * FROM Admin WHERE Ten=?";
 
     @Override
     public Users create(Users user) {
         Object[] args = {
-            user.getIdUser(),
-            user.getTenDangNhap(),
+            user.getId(),
+            user.getTen(),
             user.getMatKhau(),
             user.getVaiTro(),
-            user.isEnable(),
+            user.isTrangThai(),
             user.getNamSinh(),
             user.getEmail(),
             user.getSoDienThoai(),
-            new java.sql.Date(user.getNgayTaoUser().getTime())
+            new java.sql.Date(user.getNgayTao().getTime())
         };
         XJdbc.executeUpdate(INSERT_SQL, args);
         return user;
@@ -36,15 +36,15 @@ public class UserDAOImpl implements UsersDAO {
     @Override
     public void update(Users user) {
         Object[] args = {
-            user.getTenDangNhap(),
+            user.getTen(),
             user.getMatKhau(),
             user.getVaiTro(),
-            user.isEnable(),
+            user.isTrangThai(),
             user.getNamSinh(),
             user.getEmail(),
             user.getSoDienThoai(),
-            new java.sql.Date(user.getNgayTaoUser().getTime()),
-            user.getIdUser()
+            new java.sql.Date(user.getNgayTao().getTime()),
+            user.getId()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);
     }
@@ -72,7 +72,7 @@ public class UserDAOImpl implements UsersDAO {
     // ✅ Thêm hàm cập nhật mật khẩu theo tên đăng nhập:
     @Override
     public void updatePassword(String username, String newPassword) {
-        String sql = "UPDATE NguoiDung SET MatKhau = ? WHERE TenDangNhap = ?";
+        String sql = "UPDATE Admin SET MatKhau = ? WHERE Ten = ?";
         XJdbc.executeUpdate(sql, newPassword, username);
     }
 }

@@ -7,57 +7,57 @@ package entity;
 import java.util.Date;
 
 public class Users {
-    private String idUser;
-    private String tenDangNhap;
-    private String matKhau;
-    private int vaiTro;
-    private boolean enable;
-    private int namSinh;
-    private String email;
-    private String soDienThoai;
-    private Date ngayTaoUser;
+    private String Id;
+    private String Ten;
+    private String MatKhau;
+    private int VaiTro;
+    private boolean TrangThai;
+    private int NamSinh;
+    private String Email;
+    private String SoDienThoai;
+    private Date NgayTao;
 
     public Users() {}
 
-    public Users(String idUser, String tenDangNhap, String matKhau, int vaiTro, boolean enable, int namSinh, String email, String soDienThoai, Date ngayTaoUser) {
-        this.idUser = idUser;
-        this.tenDangNhap = tenDangNhap;
-        this.matKhau = matKhau;
-        this.vaiTro = vaiTro;
-        this.enable = enable;
-        this.namSinh = namSinh;
-        this.email = email;
-        this.soDienThoai = soDienThoai;
-        this.ngayTaoUser = ngayTaoUser;
+    public Users(String Id, String Ten, String MatKhau, int VaiTro, boolean TrangThai, int NamSinh, String Email, String SoDienThoai, Date NgayTao) {
+        this.Id = Id;
+        this.Ten = Ten;
+        this.MatKhau = MatKhau;
+        this.VaiTro = VaiTro;
+        this.TrangThai = TrangThai;
+        this.NamSinh = NamSinh;
+        this.Email = Email;
+        this.SoDienThoai = SoDienThoai;
+        this.NgayTao = NgayTao;
     }
 
 
     
 
-    public String getIdUser() { return idUser; }
-    public void setIdUser(String idUser) { this.idUser = idUser; }
+    public String getId() { return Id; }
+    public void setId(String Id) { this.Id = Id; }
 
-    public String getTenDangNhap() { return tenDangNhap; }
-    public void setTenDangNhap(String tenDangNhap) { this.tenDangNhap = tenDangNhap; }
+    public String getTen() { return Ten; }
+    public void setTen(String Ten) { this.Ten = Ten; }
 
-    public String getMatKhau() { return matKhau; }
-    public void setMatKhau(String matKhau) { this.matKhau = matKhau; }
+    public String getMatKhau() { return MatKhau; }
+    public void setMatKhau(String MatKhau) { this.MatKhau = MatKhau; }
 
-    public int getVaiTro() { return vaiTro; }
-    public void setVaiTro(int vaiTro) { this.vaiTro = vaiTro; }
+    public int getVaiTro() { return VaiTro; }
+    public void setVaiTro(int VaiTro) { this.VaiTro = VaiTro; }
 
-    public boolean isEnable() { return enable; }
-    public void setEnable(boolean enable) { this.enable = enable; }
+    public boolean isTrangThai() { return TrangThai; }
+    public void setTrangThai(boolean TrangThai) { this.TrangThai = TrangThai; }
 
-    public int getNamSinh() { return namSinh; }
-    public void setNamSinh(int namSinh) { this.namSinh = namSinh; }
+    public int getNamSinh() { return NamSinh; }
+    public void setNamSinh(int NamSinh) { this.NamSinh = NamSinh; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getEmail() { return Email; }
+    public void setEmail(String Email) { this.Email = Email; }
 
-    public String getSoDienThoai() { return soDienThoai; }
-    public void setSoDienThoai(String soDienThoai) { this.soDienThoai = soDienThoai; }
+    public String getSoDienThoai() { return SoDienThoai; }
+    public void setSoDienThoai(String SoDienThoai) { this.SoDienThoai = SoDienThoai; }
 
-    public Date getNgayTaoUser() { return ngayTaoUser; }
-    public void setNgayTaoUser(Date ngayTaoUser) { this.ngayTaoUser = ngayTaoUser; }
+    public Date getNgayTao() { return NgayTao; }
+    public void setNgayTao(Date NgayTao) { this.NgayTao = NgayTao; }
 }

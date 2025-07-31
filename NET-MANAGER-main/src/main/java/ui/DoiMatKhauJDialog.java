@@ -255,7 +255,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
 
     if (!newpass.equals(confirm)) {
         XDialog.alert("Xác nhận mật khẩu không đúng!");
-    } else if (!username.equals(XAuth.user.getTenDangNhap())) {
+    } else if (!username.equals(XAuth.user.getTen())) {
         XDialog.alert("Sai tên đăng nhập!");
     } else if (!password.equals(XAuth.user.getMatKhau())) {
         XDialog.alert("Sai mật khẩu!");

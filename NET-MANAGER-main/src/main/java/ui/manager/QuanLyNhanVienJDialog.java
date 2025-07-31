@@ -322,7 +322,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên ĐN", "Mật khẩu", "Vai trò", "Trạng thái", "Năm sinh", "Email", "Số điện thại", "Ngày tạo"
+                "Id", "Tên", "Mật khẩu", "Vai trò", "Trạng thái", "Năm sinh", "Email", "Số điện thại", "Ngày tạo"
             }
         ));
         tblUsermager.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -615,16 +615,16 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public void setForm(Users entity) {
-        txtId.setText(entity.getIdUser());
-        txtName.setText(entity.getTenDangNhap());
+        txtId.setText(entity.getId());
+        txtName.setText(entity.getTen());
         txtPass.setText(entity.getMatKhau());
         txtEmail.setText(entity.getEmail());
         cboVaitro.setSelectedItem(entity.getVaiTro()+1);
         txtPhone.setText(entity.getSoDienThoai());
         txtNamSinh.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
-        dacDateCre.setDate(entity.getNgayTaoUser());
-        rdo1.setSelected(entity.isEnable());
-        rdo2.setSelected(!entity.isEnable());
+        dacDateCre.setDate(entity.getNgayTao());
+        rdo1.setSelected(entity.isTrangThai());
+        rdo2.setSelected(!entity.isTrangThai());
 
     }
 
@@ -634,15 +634,15 @@ public Users getForm() {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     try {
-        users.setIdUser(txtId.getText());
-        users.setTenDangNhap(txtName.getText());
+        users.setId(txtId.getText());
+        users.setTen(txtName.getText());
         users.setMatKhau(txtPass.getText());
         users.setVaiTro(cboVaitro.getSelectedIndex()+1);
-        users.setEnable(rdo1.isSelected());
+        users.setTrangThai(rdo1.isSelected());
         users.setEmail(txtEmail.getText());
         users.setSoDienThoai(txtPhone.getText());
         users.setNamSinh(Integer.parseInt(txtNamSinh.getText()));
-        users.setNgayTaoUser(dacDateCre.getDate());
+        users.setNgayTao(dacDateCre.getDate());
     } catch (Exception ex) {
         ex.printStackTrace();
         return null;
@@ -664,15 +664,15 @@ public Users getForm() {
             default ->"ko ro";  
             };
             Object[] rowData = {
-                item.getIdUser(),
-                item.getTenDangNhap(),
+                item.getId(),
+                item.getTen(),
                 item.getMatKhau(),
                 Vaitro,
-                item.isEnable() ? "Hoạt động" : "Không hoạt động",
+                item.isTrangThai()? "Hoạt động" : "Không hoạt động",
                 item.getNamSinh(),
                 item.getEmail(),
                 item.getSoDienThoai(),
-                item.getNgayTaoUser(),
+                item.getNgayTao(),
                 false               
             };
             model.addRow(rowData);
@@ -743,16 +743,16 @@ public Users getForm() {
                 case 2 -> "Nhân viên";
             default ->"ko ro";  
             };
-            if (i.getIdUser().toLowerCase().contains(ten.toLowerCase())) {
-                model.addRow(new Object[]{i.getIdUser(),
-                    i.getTenDangNhap(),
+            if (i.getId().toLowerCase().contains(ten.toLowerCase())) {
+                model.addRow(new Object[]{i.getId(),
+                    i.getTen(),
                     i.getMatKhau(),
                     Vaitro,
-                    i.isEnable() ? "Hoạt động":"Không hoạt động",
+                    i.isTrangThai()? "Hoạt động":"Không hoạt động",
                     i.getNamSinh(),
                     i.getEmail(),
                     i.getSoDienThoai(),
-                    i.getNgayTaoUser()});
+                    i.getNgayTao()});
             }
         }
     }
