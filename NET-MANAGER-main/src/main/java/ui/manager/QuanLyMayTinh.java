@@ -57,12 +57,8 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtTimeNow = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtTimeStart = new javax.swing.JTextField();
         btnXoa = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
         cboTrangThai = new javax.swing.JComboBox<>();
@@ -122,23 +118,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             }
         });
 
-        jLabel5.setText("Thời gian hiện tại");
-
-        jLabel6.setText("Thời gian bắt đầu\t");
-
-        txtTimeNow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimeNowActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("Trạng thái");
-
-        txtTimeStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimeStartActionPerformed(evt);
-            }
-        });
 
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -182,16 +162,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(273, 273, 273)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(txtTimeNow, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120)
-                .addComponent(txtTimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
@@ -228,15 +198,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                         .addGap(10, 10, 10)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTimeNow, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(82, 82, 82)
                 .addComponent(jLabel7)
                 .addGap(4, 4, 4)
                 .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,10 +220,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         create();
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void txtTimeStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeStartActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimeStartActionPerformed
-
     private void tblQLMTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLMTMouseClicked
         // TODO add your handling code here:
         int index = tblQLMT.getSelectedRow();
@@ -269,10 +227,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         fillTXT(index);
     }
     }//GEN-LAST:event_tblQLMTMouseClicked
-
-    private void txtTimeNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeNowActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimeNowActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
@@ -353,14 +307,11 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     // Lấy giá trị từng cột an toàn (tránh null)
     Object id = tblQLMT.getValueAt(row, 0);
     Object name = tblQLMT.getValueAt(row, 1);
-    Object nowTime = tblQLMT.getValueAt(row, 2);
-    Object startTime = tblQLMT.getValueAt(row, 3);
     Object status = tblQLMT.getValueAt(row, 4);
 
     txtId.setText(id != null ? id.toString() : "");
     txtName.setText(name != null ? name.toString() : "");
-    txtTimeNow.setText(nowTime != null ? nowTime.toString() : "");
-    txtTimeStart.setText(startTime != null ? startTime.toString() : "");
+
 
     if (status != null) {
         String trangThai = status.toString().trim();
@@ -391,45 +342,26 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tblQLMT;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtTimeNow;
-    private javax.swing.JTextField txtTimeStart;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void open() {
         setLocationRelativeTo(null);
         fillToTable();
-        setupPlaceholders();
     }
 
     @Override
     public void setForm(MayTinh mt) {
         txtId.setText(mt.getId());
         txtName.setText(mt.getName());
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        if (mt.getStartTime() != null) {
-            txtTimeStart.setText(sdf.format(mt.getStartTime()));
-        } else {
-            txtTimeStart.setText("");
-        }
-
-        if (mt.getNowTime() != null) {
-            txtTimeNow.setText(sdf.format(mt.getNowTime()));
-        } else {
-            txtTimeNow.setText("");
-        }
-
-        if (mt.getStatus() != null) {
+       if (mt.getStatus() != null) {
             cboTrangThai.setSelectedItem(mt.getStatus().trim());
         } else {
             cboTrangThai.setSelectedIndex(0); // Mặc định "Hoạt Động"
@@ -465,7 +397,8 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         }
 
         // Không kiểm tra thời gian nữa truyền null
-        return new MayTinh(id, name, null, null, status);
+        return null;
+
     }
 
     @Override
@@ -476,9 +409,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         for (MayTinh mt : list) {
             model.addRow(new Object[]{
                 mt.getId(),
-                mt.getName(),
-                mt.getNowTime(),
-                mt.getStartTime(),
+                mt.getName(),        
                 mt.getStatus()
             });
         }
@@ -563,15 +494,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     public void clearForm() {
         txtId.setText("");
         txtName.setText("");
-        txtTimeNow.setText("");
-        txtTimeStart.setText("");
         cboTrangThai.setSelectedIndex(0);
-    }
-
-    // Placeholder định dạng ngày
-    private void setupPlaceholders() {
-        setPlaceholder(txtTimeNow, "Có thể để trống");
-        setPlaceholder(txtTimeStart, "Có thể để trống");
     }
 
     private void setPlaceholder(JTextField textField, String placeholder) {

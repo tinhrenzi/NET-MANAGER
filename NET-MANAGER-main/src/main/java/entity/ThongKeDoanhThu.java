@@ -7,7 +7,7 @@ package entity;
 import java.util.Date;
 
 public class ThongKeDoanhThu {
-    private String Id;
+    private int Id;
     private String MaThanhToan;
     private String MaMenu;
     private Date NgayChoi;
@@ -15,7 +15,7 @@ public class ThongKeDoanhThu {
     private double TongTienMay;
     public ThongKeDoanhThu(){}
 
-    public ThongKeDoanhThu(String Id, String MaThanhToan, String MaMenu, Date NgayChoi, double TongTienMon, double TongTienMay) {
+    public ThongKeDoanhThu(int Id, String MaThanhToan, String MaMenu, Date NgayChoi, double TongTienMon, double TongTienMay) {
         this.Id = Id;
         this.MaThanhToan = MaThanhToan;
         this.MaMenu = MaMenu;
@@ -24,11 +24,11 @@ public class ThongKeDoanhThu {
         this.TongTienMay = TongTienMay;
     }
 
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(String Id) {
+    public void setId(int Id) {
         this.Id = Id;
     }
 
