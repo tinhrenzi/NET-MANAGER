@@ -8,18 +8,8 @@ import controller.QuanLyMayTinhConntroll;
 import dao.MayTinhDAO;
 import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
-import java.awt.Color;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import util.XDialog;
 
 /**
  *
@@ -36,8 +26,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     public QuanLyMayTinh(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        fillToTable();
-        open();
+        this.open();
     }
 
     /**
@@ -83,14 +72,14 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
         tblQLMT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Mã máy", "Tên máy", "Thời gian hiện tại", "Thời gian bắt đầu", " Trạng thái"
+                "Mã máy", "Tên máy", "Trạng thái"
             }
         ));
         tblQLMT.setName(""); // NOI18N
@@ -298,23 +287,18 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             }
         });
     }
-        public void fillTXT(int row) {
+    public void fillTXT(int row) {
     if (row < 0 || row >= tblQLMT.getRowCount()) {
         System.out.println("Chỉ số dòng không hợp lệ: " + row);
         return;
     }
-
-    // Lấy giá trị từng cột an toàn (tránh null)
-    Object id = tblQLMT.getValueAt(row, 0);
-    Object name = tblQLMT.getValueAt(row, 1);
-    Object status = tblQLMT.getValueAt(row, 4);
-
-    txtId.setText(id != null ? id.toString() : "");
-    txtName.setText(name != null ? name.toString() : "");
-
-
-    if (status != null) {
-        String trangThai = status.toString().trim();
+    Object Id = tblQLMT.getValueAt(row, 0);
+    Object TenMay = tblQLMT.getValueAt(row, 1);
+    Object TrangThai = tblQLMT.getValueAt(row, 2);
+    txtId.setText(Id != null ? Id.toString() : "");
+    txtName.setText(TenMay != null ? TenMay.toString() : "");
+    if (TrangThai != null) {
+        String trangThai = TrangThai.toString().trim();
         if (trangThai.equalsIgnoreCase("Hoạt động")) {
             cboTrangThai.setSelectedIndex(0);
         } else if (trangThai.equalsIgnoreCase("Ngừng hoạt động")) {
@@ -359,10 +343,9 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     @Override
     public void setForm(MayTinh mt) {
         txtId.setText(mt.getId());
-        txtName.setText(mt.getName());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-       if (mt.getStatus() != null) {
-            cboTrangThai.setSelectedItem(mt.getStatus().trim());
+        txtName.setText(mt.getTenMay());
+       if (mt.getTrangThai()!= null) {
+            cboTrangThai.setSelectedItem(mt.getTrangThai().trim());
         } else {
             cboTrangThai.setSelectedIndex(0); // Mặc định "Hoạt Động"
         }
@@ -370,157 +353,67 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     @Override
     public MayTinh getForm() {
-        String id = txtId.getText().trim();
-        String name = txtName.getText().trim();
-        String status = (String) cboTrangThai.getSelectedItem();
-
-        // Validate mã máy
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Mã máy không được để trống");
-            return null;
+        MayTinh entity = new MayTinh();
+        try {
+        entity.setId(txtId.getText());
+        entity.setTenMay(txtName.getText()); 
+        entity.setTrangThai((String) cboTrangThai.getSelectedItem());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        if (!id.toUpperCase().startsWith("M")) {
-            JOptionPane.showMessageDialog(this, "Mã máy phải bắt đầu bằng chữ 'M'");
-            return null;
-        }
-
-        // Validate tên
-        if (name.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Tên máy không được để trống");
-            return null;
-        }
-
-        if (!name.matches("^Máy\\s\\d+$")) {
-            JOptionPane.showMessageDialog(this, "Tên máy phải có định dạng: Máy [số]");
-            return null;
-        }
-
-        // Không kiểm tra thời gian nữa truyền null
-        return null;
+        return entity;
 
     }
 
     @Override
     public void fillToTable() {
         DefaultTableModel model = (DefaultTableModel) tblQLMT.getModel();
-        model.setRowCount(0); // Xóa dữ liệu cũ
-        list = dao.selectAll();
-        for (MayTinh mt : list) {
-            model.addRow(new Object[]{
-                mt.getId(),
-                mt.getName(),        
-                mt.getStatus()
-            });
-        }
-    }
+        model.setRowCount(0);
+        list = dao.findAll();
+        list.forEach(item -> {
+            Object[] rowData = {
+                item.getId(),
+                item.getTenMay(),
+                item.getTrangThai(),
+                false               
+            };
+            model.addRow(rowData);
+    });
+  }
 
     @Override
-    public void edit() {
-        int selectedRow = tblQLMT.getSelectedRow();
-        if (selectedRow >= 0) {
-            String id = (String) tblQLMT.getValueAt(selectedRow, 0);
-            MayTinh mt = dao.selectById(id);
-            if (mt != null) {
-                setForm(mt);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa");
-        }
-    }
+    public void edit() {}
 
     @Override
     public void create() {
         MayTinh mt = this.getForm();
-        if (mt == null) {
-            return;
-        }
-        dao.insert(mt);
+        dao.create(mt);
         this.fillToTable();
     }
 
     @Override
     public void update() {
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật lại không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            MayTinh mt = getForm();
-            if (mt != null) {
-                try {
-                    dao.update(mt);
-                    fillToTable();
-                    clearForm();
-                    JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi cập nhật!");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Cập nhật thất bại! Dữ liệu không hợp lệ.");
-            }
-        }
+        MayTinh mt = this.getForm();
+        dao.update(mt);
+        this.fillToTable();
+        clear();
     }
 
     @Override
     public void delete() {
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            String id = txtId.getText().trim();
-
-            if (id.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn hoặc nhập mã máy cần xóa.");
-                return;
-            }
-
-            try {
-                dao.delete(id);
-                fillToTable();
-                clearForm();
-                JOptionPane.showMessageDialog(this, "Xóa thành công!");
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Xóa thất bại! Đã xảy ra lỗi.");
-            }
-        }
+        String id = txtId.getText();
+        dao.deleteByID(id);
+        fillToTable();
+        clear();
     }
 
     @Override
     public void clear() {
-        fillToTable(); // Hiển thị lại dữ liệu
-        clearForm();   // Xóa form nhập liệu
-    }
-
-    public void clearForm() {
         txtId.setText("");
         txtName.setText("");
         cboTrangThai.setSelectedIndex(0);
+        fillToTable();
     }
-
-    private void setPlaceholder(JTextField textField, String placeholder) {
-        textField.setText(placeholder);
-        textField.setForeground(Color.GRAY);
-
-        textField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textField.getText().equals(placeholder)) {
-                    textField.setText("");
-                    textField.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (textField.getText().isEmpty()) {
-                    textField.setText(placeholder);
-                    textField.setForeground(Color.GRAY);
-                }
-            }
-        });
-    }
-
-    // không dùng đến
     @Override
     public void setEditable(boolean editable) {
 

@@ -11,16 +11,5 @@ import java.util.List;
  *
  * @author VINH
  */
-public interface MayTinhDAO{
-    void insert(MayTinh mt);
-    void update(MayTinh mt);
-    void delete(String id);
-    MayTinh selectById(String id);
-    List<MayTinh> selectAll();
-
-    // Mở máy = cập nhật trạng thái và thời gian bắt đầu
-    void moMay(String id);
-
-    // Tắt máy = reset trạng thái + thời gian
-    void tatMay(String id);
+public interface MayTinhDAO extends crudDAO<MayTinh, String>{
 }

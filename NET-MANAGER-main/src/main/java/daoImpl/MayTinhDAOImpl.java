@@ -6,75 +6,52 @@ package daoImpl;
 
 import dao.MayTinhDAO;
 import entity.MayTinh;
-import java.sql.*;
-import java.util.*;
 import util.XJdbc;
 
 import java.util.List;
+import util.XQuery;
 
 public class MayTinhDAOImpl implements MayTinhDAO {
- @Override
-    public void insert(MayTinh mt) {
-        String sql = "INSERT INTO MayTinh (Id, Name, NowTime, StartTime, Status) VALUES (?, ?, ?, ?, ?)";
-        XJdbc.executeUpdate(sql, mt.getId(), mt.getName(), mt.getStatus());
+    private final String Sql_Cre = "insert into MayTinh(Id,TenMay,TrangThai) values (?,?,?);";
+    private final String Sql_Up = "Update MayTinh set TenMay =?, TrangThai=? where Id=?";
+    private final String Sql_De ="Delete from MayTinh where Id=?";
+    private final String Sql_All= "select Id,TenMay,TrangThai from MayTinh";
+
+    @Override
+    public MayTinh create(MayTinh entity) {
+        Object[] args = {
+            entity.getId(),
+            entity.getTenMay(),
+            entity.getTrangThai()
+        };
+        XJdbc.executeUpdate(Sql_Cre, args);
+        return entity;
     }
 
     @Override
-    public void update(MayTinh mt) {
-        String sql = "UPDATE MayTinh SET Name=?, NowTime=?, StartTime=?, Status=? WHERE Id=?";
-        XJdbc.executeUpdate(sql, mt.getName(),  mt.getStatus(), mt.getId());
+    public void update(MayTinh entity) {
+        Object[] args = {           
+            entity.getTenMay(),
+            entity.getTrangThai(),
+            entity.getId(),
+        };
+        XJdbc.executeUpdate(Sql_Up, args);
     }
 
     @Override
-    public void delete(String id) {
-        String sql = "DELETE FROM MayTinh WHERE Id=?";
-        XJdbc.executeUpdate(sql, id);
+    public void deleteByID(String id) {
+    XJdbc.executeQuery(Sql_De, id);
     }
 
     @Override
-    public MayTinh selectById(String id) {
-        String sql = "SELECT * FROM MayTinh WHERE Id=?";
-        List<MayTinh> list = selectBySql(sql, id);
-        return list.isEmpty() ? null : list.get(0);
+    public List<MayTinh> findAll() {
+    return XQuery.getBeanList(MayTinh.class, Sql_All);
     }
 
     @Override
-    public List<MayTinh> selectAll() {
-        String sql = "SELECT * FROM MayTinh";
-        return selectBySql(sql);
+    public MayTinh findByID(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public void moMay(String id) {
-        String sql = "UPDATE MayTinh SET Status=N'Đang hoạt động', StartTime=?, NowTime=? WHERE Id=?";
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        XJdbc.executeUpdate(sql, now, now, id);
-    }
-
-    @Override
-    public void tatMay(String id) {
-        String sql = "UPDATE MayTinh SET Status=N'Tắt', NowTime=?, StartTime=NULL WHERE Id=?";
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        XJdbc.executeUpdate(sql, now, id);
-    }
-
-    private List<MayTinh> selectBySql(String sql, Object... args) {
-        List<MayTinh> list = new ArrayList<>();
-        try {
-            ResultSet rs = XJdbc.executeQuery(sql, args);
-            while (rs.next()) {
-                MayTinh mt = new MayTinh(
-                    rs.getString("Id"),
-                    rs.getString("Name"),
-                    rs.getString("Status")
-                );
-                list.add(mt);
-            }
-            rs.getStatement().getConnection().close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
+    
 }
 

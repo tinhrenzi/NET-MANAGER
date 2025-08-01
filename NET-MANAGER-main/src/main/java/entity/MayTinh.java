@@ -8,15 +8,15 @@ import java.sql.*;
 
 public class MayTinh {
     private String Id;
-    private String Name;
-    private String Status;
+    private String TenMay;
+    private String TrangThai;
 
     public MayTinh() {}
 
-    public MayTinh(String Id, String Name,String Status) {
+    public MayTinh(String Id, String TenMay, String TrangThai) {
         this.Id = Id;
-        this.Name = Name;
-        this.Status = Status;
+        this.TenMay = TenMay;
+        this.TrangThai = TrangThai;
     }
 
     public String getId() {
@@ -27,18 +27,21 @@ public class MayTinh {
         this.Id = Id;
     }
 
-    public String getName() {
-        return Name;
+    public String getTenMay() {
+        return TenMay;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
-    }
-    public String getStatus() {
-        return Status;
+    public void setTenMay(String TenMay) {
+        this.TenMay = TenMay;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public String getTrangThai() {
+        return TrangThai;
     }
+
+    public void setTrangThai(String TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+
+   
 }
