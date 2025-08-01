@@ -14,5 +14,5 @@ import java.util.List;
 public interface OrderDAO {
     Order insert(Order order);
     List<Order> findAll();
-    List<Order> findByMay(String maMay);aaaa
+    List<Order> findByMay(String maMay);
 }
