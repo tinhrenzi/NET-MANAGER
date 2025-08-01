@@ -2,16 +2,13 @@ package daoImpl;
 
 import dao.OrderDAO;
 import entity.Order;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 import util.XJdbc;
 import util.XQuery;
 
 public class OrderDAOImpl implements OrderDAO {
 
-    private final String INSERT_SQL = "INSERT INTO OrderNet(MaMay, TenMay, MaMon, TenMon, Gia, SoLuong, TongTien) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private final String INSERT_SQL = "INSERT INTO Menu(Id, MaMay, MaMon, TenMon,GiaTien, SoLuong, TongTien) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String SELECT_ALL_SQL = "SELECT * FROM OrderNet";
     private final String SELECT_BY_MAY = "SELECT * FROM OrderNet WHERE MaMay = ?";
 

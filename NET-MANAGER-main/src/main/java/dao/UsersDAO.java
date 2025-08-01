@@ -4,13 +4,13 @@
  */
 package dao;
 
-import entity.Users;
+import entity.Admin;
 
 /**
  *
  * @author VINH
  */
-public interface UsersDAO extends crudDAO<Users, String>{// Khóa chính là kiểu Nvarchar nên để String
-    Users findByUsername (String username);
+public interface UsersDAO extends crudDAO<Admin, String>{// Khóa chính là kiểu Nvarchar nên để String
+    Admin findByUsername (String username);
     void updatePassword(String username, String newPassword);
 }

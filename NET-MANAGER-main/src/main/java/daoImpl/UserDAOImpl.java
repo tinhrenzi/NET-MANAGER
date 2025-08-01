@@ -1,7 +1,7 @@
 package daoImpl;
 
 import dao.UsersDAO;
-import entity.Users;
+import entity.Admin;
 import util.XJdbc;
 import util.XQuery;
 
@@ -17,7 +17,7 @@ public class UserDAOImpl implements UsersDAO {
     private final String findByUsername = "SELECT * FROM Admin WHERE Ten=?";
 
     @Override
-    public Users create(Users user) {
+    public Admin create(Admin user) {
         Object[] args = {
             user.getId(),
             user.getTen(),
@@ -34,7 +34,7 @@ public class UserDAOImpl implements UsersDAO {
     }
 
     @Override
-    public void update(Users user) {
+    public void update(Admin user) {
         Object[] args = {
             user.getTen(),
             user.getMatKhau(),
@@ -55,18 +55,18 @@ public class UserDAOImpl implements UsersDAO {
     }
 
     @Override
-    public List<Users> findAll() {
-        return XQuery.getBeanList(Users.class, SELECT_ALL_SQL);
+    public List<Admin> findAll() {
+        return XQuery.getBeanList(Admin.class, SELECT_ALL_SQL);
     }
 
     @Override
-    public Users findByID(String idUser) {
-        return XQuery.getSingleBean(Users.class, SELECT_BY_ID_SQL, idUser);
+    public Admin findByID(String idUser) {
+        return XQuery.getSingleBean(Admin.class, SELECT_BY_ID_SQL, idUser);
     }
 
     @Override
-    public Users findByUsername(String username) {
-        return XQuery.getSingleBean(Users.class, findByUsername, username);
+    public Admin findByUsername(String username) {
+        return XQuery.getSingleBean(Admin.class, findByUsername, username);
     }
 
     // ✅ Thêm hàm cập nhật mật khẩu theo tên đăng nhập:

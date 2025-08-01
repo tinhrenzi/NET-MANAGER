@@ -7,7 +7,7 @@ package ui.manager;
 import controller.QuanLyNhanVienController;
 import dao.UsersDAO;
 import daoImpl.UserDAOImpl;
-import entity.Users;
+import entity.Admin;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +25,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
      * Creates new form QuanLyNhanVienJDialog
      */
     UsersDAO dao = new UserDAOImpl();
-    List<Users> items = List.of();
+    List<Admin> items = List.of();
 
     public QuanLyNhanVienJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -551,7 +551,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }
 
     public void fillTXT( int row){
-        Users user = new Users();
+        Admin user = new Admin();
     txtId.setText(tblUsermager.getValueAt(row, 0).toString());
     txtName.setText(tblUsermager.getValueAt(row, 1).toString());
     txtPass.setText(tblUsermager.getValueAt(row, 2).toString());
@@ -614,7 +614,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }
 
     @Override
-    public void setForm(Users entity) {
+    public void setForm(Admin entity) {
         txtId.setText(entity.getId());
         txtName.setText(entity.getTen());
         txtPass.setText(entity.getMatKhau());
@@ -629,8 +629,8 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }
 
 @Override
-public Users getForm() {
-    Users users = new Users();
+public Admin getForm() {
+    Admin users = new Admin();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     try {
@@ -691,7 +691,7 @@ public Users getForm() {
 
     @Override
     public void create() {
-        Users user = this.getForm();
+        Admin user = this.getForm();
         dao.create(user);
         this.fillToTable();
         this.clear();
@@ -699,7 +699,7 @@ public Users getForm() {
 
     @Override
     public void update() {
-        Users user = this.getForm();
+        Admin user = this.getForm();
         dao.update(user);
         this.fillToTable();
     }
@@ -737,7 +737,7 @@ public Users getForm() {
         String ten = txtFindbyid.getText();
         DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
         model.setRowCount(0);
-        for (Users i : items) {
+        for (Admin i : items) {
             String Vaitro = switch (i.getVaiTro()){
             case 1 -> "Quản lý";
                 case 2 -> "Nhân viên";

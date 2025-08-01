@@ -7,59 +7,69 @@ package entity;
 import java.util.Date;
 
 public class ThongKeDoanhThu {
-    private String idUser;
-    private String maHoaDon;
-    private Date ngayThongKe;
-    private float tongTien;
-    private String ghiChu;
+    private String Id;
+    private String MaThanhToan;
+    private String MaMenu;
+    private Date NgayChoi;
+    private double TongTienMon;
+    private double TongTienMay;
+    public ThongKeDoanhThu(){}
 
-    public ThongKeDoanhThu() {}
-
-    public ThongKeDoanhThu(String idUser, String maHoaDon, Date ngayThongKe, float tongTien, String ghiChu) {
-        this.idUser = idUser;
-        this.maHoaDon = maHoaDon;
-        this.ngayThongKe = ngayThongKe;
-        this.tongTien = tongTien;
-        this.ghiChu = ghiChu;
+    public ThongKeDoanhThu(String Id, String MaThanhToan, String MaMenu, Date NgayChoi, double TongTienMon, double TongTienMay) {
+        this.Id = Id;
+        this.MaThanhToan = MaThanhToan;
+        this.MaMenu = MaMenu;
+        this.NgayChoi = NgayChoi;
+        this.TongTienMon = TongTienMon;
+        this.TongTienMay = TongTienMay;
     }
 
-    public String getIdUser() {
-        return idUser;
+    public String getId() {
+        return Id;
     }
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
-    public String getMaHoaDon() {
-        return maHoaDon;
+    public String getMaThanhToan() {
+        return MaThanhToan;
     }
 
-    public void setMaHoaDon(String maHoaDon) {
-        this.maHoaDon = maHoaDon;
+    public void setMaThanhToan(String MaThanhToan) {
+        this.MaThanhToan = MaThanhToan;
     }
 
-    public Date getNgayThongKe() {
-        return ngayThongKe;
+    public String getMaMenu() {
+        return MaMenu;
     }
 
-    public void setNgayThongKe(Date ngayThongKe) {
-        this.ngayThongKe = ngayThongKe;
+    public void setMaMenu(String MaMenu) {
+        this.MaMenu = MaMenu;
     }
 
-    public float getTongTien() {
-        return tongTien;
+    public Date getNgayChoi() {
+        return NgayChoi;
     }
 
-    public void setTongTien(float tongTien) {
-        this.tongTien = tongTien;
+    public void setNgayChoi(Date NgayChoi) {
+        this.NgayChoi = NgayChoi;
     }
 
-    public String getGhiChu() {
-        return ghiChu;
+    public double getTongTienMon() {
+        return TongTienMon;
     }
 
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+    public void setTongTienMon(double TongTienMon) {
+        this.TongTienMon = TongTienMon;
     }
+
+    public double getTongTienMay() {
+        return TongTienMay;
+    }
+
+    public void setTongTienMay(double TongTienMay) {
+        this.TongTienMay = TongTienMay;
+    }
+    
 }

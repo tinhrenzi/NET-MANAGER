@@ -5,14 +5,14 @@
  */
 package util;
 
-import entity.Users;
+import entity.Admin;
 
 /**
  *
  * @author Baoau
  */
 public class XAuth {
-    public static Users user = null; // ban đầu null
+    public static Admin user = null; // ban đầu null
 
     public static boolean isLogin() {
         return user != null;

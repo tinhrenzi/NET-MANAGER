@@ -4,12 +4,12 @@
  */
 package controller;
 
-import entity.Users;
+import entity.Admin;
 
 /**
  *
  * @author VINH
  */
-public interface QuanLyNhanVienController extends crudController<Users>{
+public interface QuanLyNhanVienController extends crudController<Admin>{
     
 }

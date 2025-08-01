@@ -1,59 +1,36 @@
 package daoImpl;
 
 import dao.QuanLyThongKeDAO;
-import entity.*;
-import java.sql.*;
+import entity.SuDungMay;
+import entity.ThongKeDoanhThu;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import util.XJdbc;
+
 
 public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
-    private Connection conn;
+    private Connection conn = XJdbc.openConnection();
 
-    public QuanLyThongKeDaoImpl(Connection conn) {
-        this.conn = conn;
-    }
-
-    @Override
-    public List<OrderManager> getLichSuSuDung(Date tuNgay, Date denNgay, String maMay, String tenKhachHang) {
-        List<OrderManager> list = new ArrayList<>();
-        String sql = "SELECT * FROM LichSu ls "
-                   + "JOIN NguoiDung nd ON ls.IdUser = nd.IdUser "
-                   + "WHERE ls.ThoiGianBD BETWEEN ? AND ? "
-                   + "AND (? = '' OR ls.MaMayTinh = ?) "
-                   + "AND (? = '' OR nd.TenDangNhap LIKE ?)";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setTimestamp(1, new Timestamp(tuNgay.getTime()));
-            ps.setTimestamp(2, new Timestamp(denNgay.getTime()));
-            ps.setString(3, maMay);
-            ps.setString(4, maMay);
-            ps.setString(5, tenKhachHang);
-            ps.setString(6, "%" + tenKhachHang + "%");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                OrderManager ls = new OrderManager();
-                // TODO: set dữ liệu từ rs -> ls
-                list.add(ls);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    @Override
-    public List<ThongKeDoanhThu> getDoanhThu(Date tuNgay, Date denNgay) {
+    public QuanLyThongKeDaoImpl() {}
+@Override
+    public List<ThongKeDoanhThu > thongKeTheoNgay(java.sql.Date ngay) {
         List<ThongKeDoanhThu> list = new ArrayList<>();
-        String sql = "SELECT * FROM ThongKeDoanhThu WHERE NgayThongKe BETWEEN ? AND ?";
+        String sql = "SELECT * FROM ThongKe WHERE NgayChoi = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setDate(1, new java.sql.Date(tuNgay.getTime()));
-            ps.setDate(2, new java.sql.Date(denNgay.getTime()));
+            ps.setDate(1, ngay);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ThongKeDoanhThu tk = new ThongKeDoanhThu();
-                // TODO: set dữ liệu từ rs -> tk
+                tk.setId(rs.getString("Id"));
+                tk.setMaThanhToan(rs.getString("MaThanhToan"));
+                tk.setMaMenu(rs.getString("MaMenu"));
+                tk.setNgayChoi(rs.getDate("NgayChoi"));
+                tk.setTongTienMon(rs.getDouble("TongTienMon"));
+                tk.setTongTienMay(rs.getDouble("TongTienMay"));
                 list.add(tk);
             }
         } catch (Exception e) {
@@ -63,60 +40,59 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     }
 
     @Override
-    public List<HoaDonChiTiet> getLichSuBanHang(Date tuNgay, Date denNgay) {
-        List<HoaDonChiTiet> list = new ArrayList<>();
-        String sql = "SELECT c.* FROM HoaDonChiTiet c "
-                   + "JOIN HoaDon h ON c.MaHoaDon = h.MaHoaDon "
-                   + "WHERE h.NgayLap BETWEEN ? AND ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setTimestamp(1, new Timestamp(tuNgay.getTime()));
-            ps.setTimestamp(2, new Timestamp(denNgay.getTime()));
+    public List<ThongKeDoanhThu> getAll() {
+        List<ThongKeDoanhThu> list = new ArrayList<>();
+        String sqldoa = "SELECT * FROM ThongKe";
+        try (PreparedStatement ps = conn.prepareStatement(sqldoa)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                HoaDonChiTiet c = new HoaDonChiTiet();
-                // TODO: set dữ liệu từ rs -> c
-                list.add(c);
+                ThongKeDoanhThu tk = new ThongKeDoanhThu();
+                tk.setId(rs.getString("Id"));
+                tk.setMaThanhToan(rs.getString("MaThanhToan"));
+                tk.setMaMenu(rs.getString("MaMenu"));
+                tk.setNgayChoi(rs.getDate("NgayChoi"));
+                tk.setTongTienMon(rs.getDouble("TongTienMon"));
+                tk.setTongTienMay(rs.getDouble("TongTienMay"));
+                list.add(tk);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-
     @Override
-    public double getTongDoanhThu(Date tuNgay, Date denNgay) {
-        double total = 0;
-        String sql = "SELECT SUM(TongTien) FROM ThongKeDoanhThu WHERE NgayThongKe BETWEEN ? AND ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setDate(1, new java.sql.Date(tuNgay.getTime()));
-            ps.setDate(2, new java.sql.Date(denNgay.getTime()));
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                total = rs.getDouble(1);
-            }
+    public List<SuDungMay> getLichSuMay(java.sql.Date ngay) {
+        List<SuDungMay> list = new ArrayList<>();
+        String sql = "SELECT sm.MaMay,"
+                + " sm.NgayChoi,"
+                + " sm.GioBatDau,"
+                + " sm.GioKetThuc,"
+                + " DATEDIFF(MINUTE, sm.GioBatDau, sm.GioKetThuc) / 60.0 AS GioChoi,"
+                + " tt.GiaTienTheoGio,(DATEDIFF(MINUTE, sm.GioBatDau, sm.GioKetThuc) / 60.0) * tt.GiaTienTheoGio AS TongTien FROM SDMAY sm "
+                + "JOIN ThanhToan tt ON sm.MaMay = tt.MaMay WHERE sm.NgayChoi = ? AND sm.GioBatDau IS NOT NULL AND sm.GioKetThuc IS NOT NULL";
+
+        try (Connection con = XJdbc.openConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setDate(1, ngay);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            SuDungMay dto = new SuDungMay();
+            dto.setMaMay(rs.getString("MaMay"));
+            dto.setNgaySuDung(rs.getDate("NgayChoi"));
+            dto.setGioBatDau(rs.getTime("GioBatDau"));
+            dto.setGioKetThuc(rs.getTime("GioKetThuc"));
+            dto.setThoiGianChoi(rs.getFloat("GioChoi"));
+            dto.setGiaTienTheoGio(rs.getFloat("GiaTienTheoGio"));
+            dto.setTongTien(rs.getFloat("TongTien"));
+            list.add(dto);
+        }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return total;
+
+        return list;
     }
 
-    @Override
-    public int getTongGioSuDung(Date tuNgay, Date denNgay, String maMay) {
-        int total = 0;
-        String sql = "SELECT SUM(TongThoiGian) FROM LichSu "
-                   + "WHERE ThoiGianBD BETWEEN ? AND ? AND (? = '' OR MaMayTinh = ?)";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setTimestamp(1, new Timestamp(tuNgay.getTime()));
-            ps.setTimestamp(2, new Timestamp(denNgay.getTime()));
-            ps.setString(3, maMay);
-            ps.setString(4, maMay);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                total = rs.getInt(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return total;
-    }
+
 }

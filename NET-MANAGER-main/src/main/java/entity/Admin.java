@@ -6,7 +6,7 @@ package entity;
 
 import java.util.Date;
 
-public class Users {
+public class Admin {
     private String Id;
     private String Ten;
     private String MatKhau;
@@ -17,9 +17,9 @@ public class Users {
     private String SoDienThoai;
     private Date NgayTao;
 
-    public Users() {}
+    public Admin() {}
 
-    public Users(String Id, String Ten, String MatKhau, int VaiTro, boolean TrangThai, int NamSinh, String Email, String SoDienThoai, Date NgayTao) {
+    public Admin(String Id, String Ten, String MatKhau, int VaiTro, boolean TrangThai, int NamSinh, String Email, String SoDienThoai, Date NgayTao) {
         this.Id = Id;
         this.Ten = Ten;
         this.MatKhau = MatKhau;

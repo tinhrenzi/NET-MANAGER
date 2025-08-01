@@ -7,7 +7,7 @@ package ui;
 import controller.DangNhapController;
 import dao.UsersDAO;
 import daoImpl.UserDAOImpl;
-import entity.Users;
+import entity.Admin;
 import java.awt.Frame;
 import util.XAuth;
 import util.XDialog;
@@ -202,7 +202,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     public void login() {
     String username = txtNameAccount.getText();
     String password = pwdPassWord.getText();
-    Users user = dao.findByUsername(username);
+    Admin user = dao.findByUsername(username);
 
     if (user == null) {
         XDialog.alert("Sai tên đăng nhập!");

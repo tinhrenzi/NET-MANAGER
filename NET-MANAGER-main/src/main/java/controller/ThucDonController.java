@@ -5,8 +5,6 @@
 package controller;
 
 import daoImpl.OrderManagerDAOImpl;
-import entity.DoAn;
-import entity.DoUong;
 import entity.OrderManager;
 import java.util.List;
 import dao.orderManagerDAO;
