@@ -312,8 +312,8 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         // TODO add your handling code here:
-        ThucDonJDialog thucDonJDialog = new ThucDonJDialog(null, true);
-        thucDonJDialog.setVisible(true);
+        //ThucDonJDialog thucDonJDialog = new ThucDonJDialog(null, true);
+       // thucDonJDialog.setVisible(true);
     }//GEN-LAST:event_btnOrderActionPerformed
 
     /**
@@ -386,7 +386,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 // mở máy
     @Override
     public void moMay() {
-        String id = lblMaMay.getText();
+       /* String id = lblMaMay.getText();
         MayTinh entity = dao.selectById(id);
         if (entity == null) {
             XDialog.alert("Máy không tồn tại!");
@@ -422,12 +422,12 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         } catch (Exception e) {
             e.printStackTrace();
             XDialog.alert("Lỗi mở máy: " + e.getMessage());
-        }
+        }*/
     }
 
     @Override
     public void tatMay() {
-        String id = lblMaMay.getText();
+       /* String id = lblMaMay.getText();
         MayTinh entity = dao.selectById(id);
         if (entity == null) {
             XDialog.alert("Máy không tồn tại!");
@@ -457,11 +457,12 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             e.printStackTrace();
             XDialog.alert("Lỗi không tắt được máy: " + e.getMessage());
         }
+*/
     }
 
     @Override
     public void baoTri() {
-        String id = lblMaMay.getText();
+       /* String id = lblMaMay.getText();
         MayTinh entity = dao.selectById(id);
         if (entity == null) {
             XDialog.alert("Máy không tồn tại!");
@@ -490,12 +491,12 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         } catch (Exception e) {
             e.printStackTrace();
             XDialog.alert("Lỗi bảo trì máy: " + e.getMessage());
-        }
+        }*/
     }
 
     @Override
     public void fillTable() {
-        model.setRowCount(0);
+        /*model.setRowCount(0);
         List<MayTinh> list = dao.selectAll();
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
@@ -517,11 +518,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 now.toString(),
                 usedTime
             });
-        }
+        }*/
     }
 
     public void playTime() {
-        stopTimers();
+       /* stopTimers();
         String id = lblMaMay.getText();
         MayTinh mt = dao.selectById(id);
         if (mt == null || mt.getStartTime() == null) {
@@ -535,13 +536,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             long minutes = diff / (1000 * 60) % 60;
             long hours = diff / (1000 * 60 * 60);
             lblTimePlay.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-            fillTable();
-        });
-        timerPlay.start();
+            fillTable();*/
     }
 
     public void loadToForm(int row) {
-        if (row < 0 || row >= model.getRowCount()) {
+      /*  if (row < 0 || row >= model.getRowCount()) {
             return;
         }
 
@@ -565,23 +564,23 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             playTime();
         } else {
             stopTimers();
-        }
+        }*/
     }
 
     public void startTime() {
-        timerStart = new Timer(1000, e -> {
+       /* timerStart = new Timer(1000, e -> {
             lblTimeNow.setText(new SimpleDateFormat("HH:mm:ss").format(new Date()));
             fillTable();
         });
-        timerStart.start();
+        timerStart.start();*/
     }
 
     private void stopTimers() {
-        if (timerStart != null && timerStart.isRunning()) {
+       /* if (timerStart != null && timerStart.isRunning()) {
             timerStart.stop();
         }
         if (timerPlay != null && timerPlay.isRunning()) {
             timerPlay.stop();
-        }
+        }*/
     }
 }

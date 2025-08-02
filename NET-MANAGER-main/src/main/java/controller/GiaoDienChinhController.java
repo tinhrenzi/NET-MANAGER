@@ -47,7 +47,7 @@ public interface GiaoDienChinhController {
     }
 
     default void showDichVu(JFrame jFrame) {
-        this.showDialog(new ThucDonJDialog(jFrame, true));
+        //this.showDialog(new ThucDonJDialog(jFrame, true));
     }
 
     default void showQLOrder(JFrame jFrame) {

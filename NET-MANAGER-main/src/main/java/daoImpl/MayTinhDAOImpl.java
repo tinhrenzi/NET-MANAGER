@@ -38,10 +38,11 @@ public class MayTinhDAOImpl implements MayTinhDAO {
         XJdbc.executeUpdate(Sql_Up, args);
     }
 
-    @Override
-    public void deleteByID(String id) {
-    XJdbc.executeQuery(Sql_De, id);
-    }
+   @Override
+public void deleteByID(String id) {
+    XJdbc.executeUpdate(Sql_De, id);  // 
+}
+
 
     @Override
     public List<MayTinh> findAll() {

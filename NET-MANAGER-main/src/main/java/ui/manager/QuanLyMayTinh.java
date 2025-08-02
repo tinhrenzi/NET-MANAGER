@@ -10,6 +10,7 @@ import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import util.XDialog;
 
 /**
  *
@@ -401,10 +402,12 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     @Override
     public void delete() {
-        String id = txtId.getText();
+        if (XDialog.confirm("Bạn chắc chắn muốn xóa?")) {
+         String id = txtId.getText();
         dao.deleteByID(id);
         fillToTable();
         clear();
+        }
     }
 
     @Override
