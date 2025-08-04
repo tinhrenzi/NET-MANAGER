@@ -321,20 +321,43 @@ public class MoMayJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        int selectedRow = tblMayTinh.getSelectedRow();
-        if (selectedRow >= 0) {
-            String maMay = tblMayTinh.getValueAt(selectedRow, 0).toString();
-            String ngayVao = tblMayTinh.getValueAt(selectedRow, 3).toString();
-            String ngayNghi = tblMayTinh.getValueAt(selectedRow, 4).toString();
-            String gioVao = tblMayTinh.getValueAt(selectedRow, 5).toString();
-            String gioNghi = tblMayTinh.getValueAt(selectedRow, 6).toString();
-            float giaTheoh = (Float) tblMayTinh.getValueAt(selectedRow, 7);
-            //String ngayVao =tblMayTinh.getValueAt(ERROR, WIDTH).toString();
+  int selectedRow = tblMayTinh.getSelectedRow();
+    if (selectedRow >= 0) {
+        Object valMaMay = tblMayTinh.getValueAt(selectedRow, 0);
+        Object valNgayVao = tblMayTinh.getValueAt(selectedRow, 3);
+        Object valNgayNghi = tblMayTinh.getValueAt(selectedRow, 4);
+        Object valGioVao = tblMayTinh.getValueAt(selectedRow, 5);
+        Object valGioNghi = tblMayTinh.getValueAt(selectedRow, 6);
+        Object valGiaTheoGio = tblMayTinh.getValueAt(selectedRow, 7);
 
-            // Mở form thanh toán và truyền dữ liệu
-            ThanhToanJDialog dialog = new ThanhToanJDialog(null, true, maMay, ngayVao, ngayNghi, gioVao, gioNghi, giaTheoh);
-            dialog.setVisible(true);
+        if (valMaMay == null || valNgayVao == null || valNgayNghi == null
+                || valGioVao == null || valGioNghi == null || valGiaTheoGio == null) {
+            JOptionPane.showMessageDialog(this, "Dữ liệu không đầy đủ. Vui lòng kiểm tra lại.");
+            return;
         }
+
+        String maMay = valMaMay.toString();
+        String ngayVao = valNgayVao.toString();
+        String ngayNghi = valNgayNghi.toString();
+        String gioVao = valGioVao.toString();
+        String gioNghi = valGioNghi.toString();
+
+        float giaTheoh;
+        try {
+            giaTheoh = (valGiaTheoGio instanceof Number)
+                ? ((Number) valGiaTheoGio).floatValue()
+                : Float.parseFloat(valGiaTheoGio.toString());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Giá theo giờ không hợp lệ.");
+            return;
+        }
+
+        // Mở form thanh toán và truyền dữ liệu
+        ThanhToanJDialog dialog = new ThanhToanJDialog(null, true, maMay, ngayVao, ngayNghi, gioVao, gioNghi, giaTheoh);
+        dialog.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng trong bảng.");
+    }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     /**
