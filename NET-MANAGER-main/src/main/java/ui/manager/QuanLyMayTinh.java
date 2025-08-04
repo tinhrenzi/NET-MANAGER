@@ -125,7 +125,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             }
         });
 
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hoạt động", "Rảnh", "Bảo trì" }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt động", "Ngưng hoạt động", "Bảo trì" }));
         cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTrangThaiActionPerformed(evt);
@@ -313,9 +313,9 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         txtName.setText(TenMay != null ? TenMay.toString() : "");
         if (TrangThai != null) {
             String trangThai = TrangThai.toString().trim();
-            if (trangThai.equalsIgnoreCase("Đang sử dụng")) {
+            if (trangThai.equalsIgnoreCase("Hoạt động")) {
                 cboTrangThai.setSelectedIndex(0);
-            } else if (trangThai.equalsIgnoreCase("Rảnh")) {
+            } else if (trangThai.equalsIgnoreCase("Ngưng hoạt động")) {
                 cboTrangThai.setSelectedIndex(1);
             } else if (trangThai.equalsIgnoreCase("Bảo trì")) {
                 cboTrangThai.setSelectedIndex(2);

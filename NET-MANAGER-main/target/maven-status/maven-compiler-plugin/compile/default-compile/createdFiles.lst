@@ -4,7 +4,6 @@ ui\manager\QuanLyNhanVienJDialog$3.class
 ui\manager\QuanLyNhanVienJDialog$10.class
 daoImpl\MonAnDAOImpl.class
 ui\manager\QuanLyThucDonJDialog$3.class
-controller\DanhSachMayController.class
 ui\manager\QuanLyThucDonJDialog$9$1.class
 entity\MonAn.class
 ui\manager\MenuJDialog$1.class
