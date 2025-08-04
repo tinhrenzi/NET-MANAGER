@@ -6,10 +6,9 @@ package controller;
 
 /**
  *
- * @author NITRO 5
- * @param <Entity>
+ * @author VINH
  */
-public interface crudController<Entity> {
+public interface CrudController<Entity> {
     void open(); // Xử lý mở cửa sổ
     void setForm(Entity entity); // Hiển thị thực thể lên form
     Entity getForm(); // Tạo thực thể từ dữ liệu form

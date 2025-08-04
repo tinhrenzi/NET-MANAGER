@@ -12,7 +12,7 @@ import java.util.List;
  * @param <T>
  * @param <ID>
  */
-public interface crudDAO<T, ID> {
+public interface CrudDAO<T, ID> {
     T create (T entity);
     void update(T entity);
     void deleteByID(ID id);
