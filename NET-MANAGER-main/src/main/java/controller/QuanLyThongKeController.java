@@ -3,7 +3,7 @@ import java.util.List;
 import entity.*;
 
 public interface QuanLyThongKeController{
-        List<ThongKeDoanhThu> FillBangDoanhThu();
-        List<SuDungMay> FillBangSDMay();
-            List<Order> FillBangMonAn();
+    List<ThongKeDoanhThu> getFillThonKe();
+        List<SuDungMay> getFillSDMay();
+            List<Menu> getFillMenu();
 }

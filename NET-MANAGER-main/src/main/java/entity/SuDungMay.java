@@ -5,72 +5,93 @@
 package entity;
 
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author NITRO 5
  */
 public class SuDungMay {
-    private String Id;
-    private String maMay;
-    private Date ngaySuDung;
-    private Time gioBatDau;
-    private Time gioKetThuc;
+    private int Id;
+    private int maMay;
+    private String TenMay;
+    private String TrangThai;
+    private Date NgayChoi;
+    private Date NgayKetThuc;
+    private Time GioBatDau;
+    private Time GioKetThuc;
     private float thoiGianChoi;
-    private float giaTienTheoGio;
-    private float tongTien;
+    private float GiaTheoGio;
+    private double TongTien;
     public SuDungMay(){}
 
-    public SuDungMay(String Id, String maMay, Date ngaySuDung, Time gioBatDau, Time gioKetThuc, float thoiGianChoi, float giaTienTheoGio, float tongTien) {
+    public SuDungMay(int Id, int maMay, String TenMay, String TrangThai, Date NgayChoi, Date NgayKetThuc, Time GioBatDau, Time GioKetThuc, float thoiGianChoi, float GiaTheoGio, double TongTien) {
         this.Id = Id;
         this.maMay = maMay;
-        this.ngaySuDung = ngaySuDung;
-        this.gioBatDau = gioBatDau;
-        this.gioKetThuc = gioKetThuc;
+        this.TenMay = TenMay;
+        this.TrangThai = TrangThai;
+        this.NgayChoi = NgayChoi;
+        this.NgayKetThuc = NgayKetThuc;
+        this.GioBatDau = GioBatDau;
+        this.GioKetThuc = GioKetThuc;
         this.thoiGianChoi = thoiGianChoi;
-        this.giaTienTheoGio = giaTienTheoGio;
-        this.tongTien = tongTien;
+        this.GiaTheoGio = GiaTheoGio;
+        this.TongTien = TongTien;
     }
-
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(String Id) {
+    public void setId(int Id) {
         this.Id = Id;
     }
 
-    public String getMaMay() {
+    public String getTenMay() {
+        return TenMay;
+    }
+
+    public void setTenMay(String TenMay) {
+        this.TenMay = TenMay;
+    }
+
+    public int getMaMay() {
         return maMay;
     }
 
-    public void setMaMay(String maMay) {
+    public void setMaMay(int maMay) {
         this.maMay = maMay;
     }
 
-    public Date getNgaySuDung() {
-        return ngaySuDung;
+    public String getTrangThai() {
+        return TrangThai;
     }
 
-    public void setNgaySuDung(Date ngaySuDung) {
-        this.ngaySuDung = ngaySuDung;
+    public void setTrangThai(String TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+
+    public Date getNgayChoi() {
+        return NgayChoi;
+    }
+
+    public void setNgayChoi(Date NgayChoi) {
+        this.NgayChoi = NgayChoi;
     }
 
     public Time getGioBatDau() {
-        return gioBatDau;
+        return GioBatDau;
     }
 
-    public void setGioBatDau(Time gioBatDau) {
-        this.gioBatDau = gioBatDau;
+    public void setGioBatDau(Time GioBatDau) {
+        this.GioBatDau = GioBatDau;
     }
 
     public Time getGioKetThuc() {
-        return gioKetThuc;
+        return GioKetThuc;
     }
 
-    public void setGioKetThuc(Time gioKetThuc) {
-        this.gioKetThuc = gioKetThuc;
+    public void setGioKetThuc(Time GioKetThuc) {
+        this.GioKetThuc = GioKetThuc;
     }
 
     public float getThoiGianChoi() {
@@ -81,22 +102,29 @@ public class SuDungMay {
         this.thoiGianChoi = thoiGianChoi;
     }
 
-
-
-    public float getGiaTienTheoGio() {
-        return giaTienTheoGio;
+    public float getGiaTheoGio() {
+        return GiaTheoGio;
     }
 
-    public void setGiaTienTheoGio(float giaTienTheoGio) {
-        this.giaTienTheoGio = giaTienTheoGio;
+    public void setGiaTheoGio(float GiaTheoGio) {
+        this.GiaTheoGio = GiaTheoGio;
     }
 
-    public float getTongTien() {
-        return tongTien;
+    public double getTongTien() {
+        return TongTien;
     }
 
-    public void setTongTien(float tongTien) {
-        this.tongTien = tongTien;
+    public void setTongTien(double TongTien) {
+        this.TongTien = TongTien;
+    }
+
+    public Date getNgayKetThuc() {
+        return NgayKetThuc;
+    }
+
+    public void setNgayKetThuc(Date NgayKetThuc) {
+        this.NgayKetThuc = NgayKetThuc;
     }
     
 }
+

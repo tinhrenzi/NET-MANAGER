@@ -4,25 +4,25 @@
  */
 package ui.manager;
 
-import daoImpl.OrderManagerDAOImpl;
-import entity.OrderManager;
+import daoImpl.MonAnDAOImpl;
+import entity.MonAn;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
-import dao.orderManagerDAO;
-import controller.OrderManagerController;
+import dao.MonAnDAO;
+import controller.MonAnController;
 
 /**
  *
  * @author Admin
  */
-public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderManagerController{
+public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnController{
 
     /**
      * Creates new form QuanLyThucDonJDialog
      */
-    orderManagerDAO dao = new OrderManagerDAOImpl();
-    List<OrderManager> items = List.of(); 
+    MonAnDAO dao = new MonAnDAOImpl();
+    List<MonAn> items = List.of(); 
     public QuanLyThucDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -357,19 +357,17 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderMa
     }
 
     @Override
-    public void setForm(OrderManager entity) {
-        txtId.setText(entity.getId());
-        txtName.setText(entity.getName());
-        txtGia.setText(String.valueOf(entity.getDonGia()));
+    public void setForm(MonAn entity) {
+        txtName.setText(entity.getTenMon());
+        txtGia.setText(String.valueOf(entity.getGiaTien()));
         }
 
     @Override
-    public OrderManager getForm() {
-    OrderManager Od = new OrderManager();   
+    public MonAn getForm() {
+    MonAn Od = new MonAn();   
         try {
-         Od.setId(txtId.getText());
-         Od.setName(txtName.getText());
-         Od.setDonGia(Float.parseFloat(txtGia.getText()));
+         Od.setTenMon(txtName.getText());
+         Od.setGiaTien(Float.parseFloat(txtGia.getText()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -379,11 +377,6 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderMa
         String id = txtId.getText().trim();
         String name = txtName.getText().trim();
         String giaText = txtGia.getText().trim();
-
-        if (id.isEmpty() || name.isEmpty() || giaText.isEmpty()) {
-            XDialog.alert( "Không được để trống ID, Tên, hoặc Đơn giá.");
-            return false;
-        }
 
         try {
             float gia = Float.parseFloat(giaText);
@@ -407,8 +400,8 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderMa
         items.forEach(item -> {
             Object[] rowData = {
                 item.getId(),
-                item.getName(),
-                item.getDonGia()
+                item.getTenMon(),
+                item.getGiaTien()
             };
             model.addRow(rowData);
         });
@@ -423,7 +416,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderMa
     @Override
     public void create() {
         if (!validateForm()) return;
-        OrderManager Od = this.getForm();
+        MonAn Od = this.getForm();
         dao.create(Od);
         this.fillToTable();
         this.clear();
@@ -432,7 +425,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderMa
     @Override
     public void update() {
         if (!validateForm()) return;
-        OrderManager Od = this.getForm();
+        MonAn Od = this.getForm();
         dao.update(Od);
         this.fillToTable();
     }
@@ -460,15 +453,15 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements OrderMa
     }
     public void finbyid() {
       String id = txtFinid.getText().trim();
-      OrderManager od = dao.findByID(id);
+      MonAn od = dao.findByID(id);
       DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
       model.setRowCount(0);
 
       if (od != null) {
           Object[] row = {
               od.getId(),
-              od.getName(),
-              od.getDonGia()
+              od.getTenMon(),
+              od.getGiaTien()
           };
           model.addRow(row);
       }

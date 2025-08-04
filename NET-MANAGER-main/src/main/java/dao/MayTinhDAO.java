@@ -11,5 +11,10 @@ import java.util.List;
  *
  * @author VINH
  */
-public interface MayTinhDAO extends crudDAO<MayTinh, String>{
+public interface MayTinhDAO extends CrudDAO<MayTinh, String>{
+    void capNhatTrangThai(String maMay, String trangThai);
+    String layTrangThai(String maMay);
+    List<String> getTatCaMaMay();
+    public void capNhatTrangThai(int maMay, String trangThai);
+
 }

@@ -1,13 +1,13 @@
 package daoImpl;
 
-import dao.UsersDAO;
 import entity.Admin;
 import util.XJdbc;
 import util.XQuery;
 
 import java.util.List;
+import dao.AdminDAO;
 
-public class UserDAOImpl implements UsersDAO {
+public class AdminDAOImpl implements AdminDAO {
 
     private final String INSERT_SQL = "INSERT INTO Admin (Id, Ten, MatKhau, VaiTro, TrangThai, NamSinh, Email, SoDienThoai, NgayTao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String UPDATE_SQL = "UPDATE Admin SET Ten=?, MatKhau=?, VaiTro=?, TrangThai=?, NamSinh=?, Email=?, SoDienThoai=?, NgayTao=? WHERE Id=?";

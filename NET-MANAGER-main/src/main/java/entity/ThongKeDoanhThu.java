@@ -8,20 +8,22 @@ import java.util.Date;
 
 public class ThongKeDoanhThu {
     private int Id;
-    private String MaThanhToan;
-    private String MaMenu;
+    private Date NgayBT;
+    private Date DenNgay;
     private Date NgayChoi;
     private double TongTienMon;
     private double TongTienMay;
+    private double TongDoanhThu;
     public ThongKeDoanhThu(){}
 
-    public ThongKeDoanhThu(int Id, String MaThanhToan, String MaMenu, Date NgayChoi, double TongTienMon, double TongTienMay) {
+    public ThongKeDoanhThu(int Id, Date NgayBT, Date DenNgay, Date NgayChoi, double TongTienMon, double TongTienMay, double TongDoanhThu) {
         this.Id = Id;
-        this.MaThanhToan = MaThanhToan;
-        this.MaMenu = MaMenu;
+        this.NgayBT = NgayBT;
+        this.DenNgay = DenNgay;
         this.NgayChoi = NgayChoi;
         this.TongTienMon = TongTienMon;
         this.TongTienMay = TongTienMay;
+        this.TongDoanhThu = TongDoanhThu;
     }
 
     public int getId() {
@@ -32,20 +34,20 @@ public class ThongKeDoanhThu {
         this.Id = Id;
     }
 
-    public String getMaThanhToan() {
-        return MaThanhToan;
+    public Date getNgayBT() {
+        return NgayBT;
     }
 
-    public void setMaThanhToan(String MaThanhToan) {
-        this.MaThanhToan = MaThanhToan;
+    public void setNgayBT(Date NgayBT) {
+        this.NgayBT = NgayBT;
     }
 
-    public String getMaMenu() {
-        return MaMenu;
+    public Date getDenNgay() {
+        return DenNgay;
     }
 
-    public void setMaMenu(String MaMenu) {
-        this.MaMenu = MaMenu;
+    public void setDenNgay(Date DenNgay) {
+        this.DenNgay = DenNgay;
     }
 
     public Date getNgayChoi() {
@@ -71,5 +73,15 @@ public class ThongKeDoanhThu {
     public void setTongTienMay(double TongTienMay) {
         this.TongTienMay = TongTienMay;
     }
+
+    public double getTongDoanhThu() {
+        return TongDoanhThu;
+    }
+
+    public void setTongDoanhThu(double TongDoanhThu) {
+        this.TongDoanhThu = TongDoanhThu;
+    }
+
+   
     
 }

@@ -5,18 +5,18 @@
 package ui;
 
 import controller.DoiMatKhauController;
-import dao.UsersDAO;
-import daoImpl.UserDAOImpl;
+import daoImpl.AdminDAOImpl;
 import javax.swing.JDialog;
 import util.XAuth;
 import util.XDialog;
+import dao.AdminDAO;
 
 /**
  *
  * @author Admin
  */
 public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhauController{
-    UsersDAO dao = new UserDAOImpl();
+    AdminDAO dao = new AdminDAOImpl();
     /**
      * Creates new form DoiMatKhauJDialog
      */

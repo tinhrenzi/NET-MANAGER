@@ -10,6 +10,6 @@ import entity.Admin;
  *
  * @author VINH
  */
-public interface QuanLyNhanVienController extends crudController<Admin>{
+public interface QuanLyNhanVienController extends CrudController<Admin>{
     
 }

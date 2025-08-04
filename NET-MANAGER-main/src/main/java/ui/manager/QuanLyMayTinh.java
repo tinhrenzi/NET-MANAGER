@@ -10,7 +10,6 @@ import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import util.XDialog;
 
 /**
  *
@@ -53,6 +52,8 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         btnCapNhat = new javax.swing.JButton();
         cboTrangThai = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
+        txtGia = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -73,14 +74,14 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
         tblQLMT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã máy", "Tên máy", "Trạng thái"
+                "Mã máy", "Tên máy", "Giá theo giờ", "Trạng thái"
             }
         ));
         tblQLMT.setName(""); // NOI18N
@@ -124,12 +125,14 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             }
         });
 
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt động ", "Ngừng hoạt động", "Bảo trì" }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hoạt động", "Rảnh", "Bảo trì" }));
         cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTrangThaiActionPerformed(evt);
             }
         });
+
+        jLabel2.setText("Giá theo giờ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,18 +148,9 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 .addGap(440, 440, 440)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(440, 440, 440)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(230, 230, 230)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,6 +161,16 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 .addGap(14, 14, 14)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(254, 254, 254)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                    .addComponent(txtGia)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,17 +193,22 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82)
-                .addComponent(jLabel7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel2))
                 .addGap(4, 4, 4)
-                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -213,14 +222,15 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private void tblQLMTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLMTMouseClicked
         // TODO add your handling code here:
         int index = tblQLMT.getSelectedRow();
-    if (index >= 0) {
-        fillTXT(index);
-    }
+        if (index >= 0) {
+            fillTXT(index);
+        }
     }//GEN-LAST:event_tblQLMTMouseClicked
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
         clear();
+        fillToTable();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
@@ -288,36 +298,36 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             }
         });
     }
+
     public void fillTXT(int row) {
-    if (row < 0 || row >= tblQLMT.getRowCount()) {
-        System.out.println("Chỉ số dòng không hợp lệ: " + row);
-        return;
-    }
-    Object Id = tblQLMT.getValueAt(row, 0);
-    Object TenMay = tblQLMT.getValueAt(row, 1);
-    Object TrangThai = tblQLMT.getValueAt(row, 2);
-    txtId.setText(Id != null ? Id.toString() : "");
-    txtName.setText(TenMay != null ? TenMay.toString() : "");
-    if (TrangThai != null) {
-        String trangThai = TrangThai.toString().trim();
-        if (trangThai.equalsIgnoreCase("Hoạt động")) {
-            cboTrangThai.setSelectedIndex(0);
-        } else if (trangThai.equalsIgnoreCase("Ngừng hoạt động")) {
-            cboTrangThai.setSelectedIndex(1);
-        } else if (trangThai.equalsIgnoreCase("Bảo trì")) {
-            cboTrangThai.setSelectedIndex(2);
+        if (row < 0 || row >= tblQLMT.getRowCount()) {
+            System.out.println("Chỉ số dòng không hợp lệ: " + row);
+            return;
+        }
+        Object Id = tblQLMT.getValueAt(row, 0);
+        Object TenMay = tblQLMT.getValueAt(row, 1);
+        Object TrangThai = tblQLMT.getValueAt(row, 3);
+        Object Gia = tblQLMT.getValueAt(row, 2);
+        txtGia.setText(Gia != null ? Gia.toString() : "");
+        txtId.setText(Id != null ? Id.toString() : "");
+        txtName.setText(TenMay != null ? TenMay.toString() : "");
+        if (TrangThai != null) {
+            String trangThai = TrangThai.toString().trim();
+            if (trangThai.equalsIgnoreCase("Đang sử dụng")) {
+                cboTrangThai.setSelectedIndex(0);
+            } else if (trangThai.equalsIgnoreCase("Rảnh")) {
+                cboTrangThai.setSelectedIndex(1);
+            } else if (trangThai.equalsIgnoreCase("Bảo trì")) {
+                cboTrangThai.setSelectedIndex(2);
+            } else {
+                cboTrangThai.setSelectedIndex(-1);
+            }
         } else {
             cboTrangThai.setSelectedIndex(-1);
         }
-    } else {
-        cboTrangThai.setSelectedIndex(-1);
+
+        // So sánh chuỗi và chọn chỉ mục phù hợp
     }
-
-        
-
-    // So sánh chuỗi và chọn chỉ mục phù hợp
-
-        }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
@@ -325,12 +335,14 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tblQLMT;
+    private javax.swing.JTextField txtGia;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
@@ -343,12 +355,11 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     @Override
     public void setForm(MayTinh mt) {
-        txtId.setText(mt.getId());
         txtName.setText(mt.getTenMay());
-       if (mt.getTrangThai()!= null) {
+        if (mt.getTrangThai() != null) {
             cboTrangThai.setSelectedItem(mt.getTrangThai().trim());
         } else {
-            cboTrangThai.setSelectedIndex(0); // Mặc định "Hoạt Động"
+            cboTrangThai.setSelectedIndex(0);
         }
     }
 
@@ -356,14 +367,15 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     public MayTinh getForm() {
         MayTinh entity = new MayTinh();
         try {
-        entity.setId(txtId.getText());
-        entity.setTenMay(txtName.getText()); 
-        entity.setTrangThai((String) cboTrangThai.getSelectedItem());
+            entity.setTenMay(txtName.getText());
+            String giaStr = txtGia.getText().trim();
+            entity.setGiaTheoGio(Float.parseFloat(giaStr));
+            entity.setTrangThai((String) cboTrangThai.getSelectedItem());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return entity;
-
     }
 
     @Override
@@ -375,15 +387,16 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             Object[] rowData = {
                 item.getId(),
                 item.getTenMay(),
-                item.getTrangThai(),
-                false               
+                item.getGiaTheoGio(),
+                item.getTrangThai()
             };
             model.addRow(rowData);
-    });
-  }
+        });
+    }
 
     @Override
-    public void edit() {}
+    public void edit() {
+    }
 
     @Override
     public void create() {
@@ -394,29 +407,32 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     @Override
     public void update() {
-        MayTinh mt = this.getForm();
-        dao.update(mt);
-        this.fillToTable();
-        clear();
+        try {
+            MayTinh mt = this.getForm();
+            dao.update(mt);
+            this.fillToTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete() {
-        if (XDialog.confirm("Bạn chắc chắn muốn xóa?")) {
-         String id = txtId.getText();
+        String id = txtId.getText();
         dao.deleteByID(id);
         fillToTable();
         clear();
-        }
     }
 
     @Override
     public void clear() {
         txtId.setText("");
         txtName.setText("");
+        txtGia.setText("");
         cboTrangThai.setSelectedIndex(0);
         fillToTable();
     }
+
     @Override
     public void setEditable(boolean editable) {
 

@@ -38,4 +38,5 @@
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>net.manager.NETMANAGER</exec.mainClass>
     </properties>
+    <name>NETMANAGERTest</name>
 </project>

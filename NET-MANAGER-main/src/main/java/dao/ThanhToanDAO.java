@@ -4,12 +4,12 @@
  */
 package dao;
 
-import entity.HoaDonChiTiet;
+import entity.ThanhToan;
 
 /**
  *
  * @author VINH
  */
-public interface HoaDonChiTietDAO extends crudDAO<HoaDonChiTiet, String>{// Khóa chính là kiểu Nvarchar nên để String
-    
+public interface ThanhToanDAO{// Khóa chính là kiểu Nvarchar nên để String
+    boolean insert(ThanhToan tt);
 }

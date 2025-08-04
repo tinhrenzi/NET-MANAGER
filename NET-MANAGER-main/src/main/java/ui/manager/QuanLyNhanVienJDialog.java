@@ -5,8 +5,7 @@
 package ui.manager;
 
 import controller.QuanLyNhanVienController;
-import dao.UsersDAO;
-import daoImpl.UserDAOImpl;
+import daoImpl.AdminDAOImpl;
 import entity.Admin;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +13,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
+import dao.AdminDAO;
 
 /**
  *
@@ -24,7 +24,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     /**
      * Creates new form QuanLyNhanVienJDialog
      */
-    UsersDAO dao = new UserDAOImpl();
+    AdminDAO dao = new AdminDAOImpl();
     List<Admin> items = List.of();
 
     public QuanLyNhanVienJDialog(java.awt.Frame parent, boolean modal) {

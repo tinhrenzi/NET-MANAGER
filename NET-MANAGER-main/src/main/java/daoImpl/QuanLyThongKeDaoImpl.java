@@ -1,8 +1,9 @@
 package daoImpl;
 
-import dao.QuanLyThongKeDAO;
-import entity.Order;
+
+import entity.Menu;
 import entity.SuDungMay;
+import entity.ThanhToan;
 import entity.ThongKeDoanhThu;
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,77 +12,176 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import util.XJdbc;
+import dao.QuanLyThongKeDAO;
 
 
 public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     private Connection conn = XJdbc.openConnection();
 
     public QuanLyThongKeDaoImpl() {}
-@Override
-    public List<ThongKeDoanhThu > thongKeTheoNgay(java.sql.Date ngay) {
-        List<ThongKeDoanhThu> list = new ArrayList<>();
-        String sql = "SELECT * FROM ThongKe WHERE NgayChoi = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setDate(1, ngay);
-            ResultSet rs = ps.executeQuery();
+
+    @Override
+    public List<ThongKeDoanhThu> getAllThonKe() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+        public List<SuDungMay> getAllSDMay() {
+        List<SuDungMay> list = new ArrayList<>();
+        String sql = "SELECT mt.Id AS MaMay, mt.TenMay, " +
+                     "SUM(ISNULL(tt.TongGio, 0)) AS TongThoiGianSuDung, " +
+                     "mt.GiaTheoGio, " +
+                     "CAST(SUM(ISNULL(tt.TongTien, 0)) AS DECIMAL(20, 2)) AS TongTien " +
+                     "FROM ThanhToan tt " +
+                     "JOIN MayTinh mt ON tt.MaMay = mt.Id " +
+                     "GROUP BY mt.Id, mt.TenMay, mt.GiaTheoGio";
+
+
+        try (Connection conn = XJdbc.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
+                ThanhToan tt = new ThanhToan();
+                SuDungMay sdm = new SuDungMay();
+                sdm.setMaMay(rs.getInt("MaMay"));
+                sdm.setTenMay(rs.getString("TenMay"));
+                sdm.setThoiGianChoi(rs.getFloat("TongThoiGianSuDung"));
+                sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
+                sdm.setTongTien(rs.getFloat("TongTien"));
+                list.add(sdm);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
+    @Override
+    public List<Menu> getAllMenu() {
+    List<Menu> list = new ArrayList<>();
+        String sql = 
+         "SELECT m.MaMon, m.TenMon, SUM(m.SoLuong) AS SoLuong, SUM(m.TongTien) AS TongTienMenu " +
+         "FROM Menu m " +
+         "GROUP BY m.MaMon, m.TenMon";
+
+            try (Connection conn = XJdbc.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Menu sdm = new Menu();
+                sdm.setMaMon(rs.getInt("MaMon"));
+                sdm.setTenMon(rs.getString("TenMon"));
+                sdm.setSoLuong(rs.getInt("SoLuong"));
+                sdm.setTongTien(rs.getFloat("TongTienMenu"));
+                list.add(sdm);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+   
+    @Override
+   public List<SuDungMay> getLichSuSuDungMay(Date tuNgay, Date denNgay) {
+    List<SuDungMay> list = new ArrayList<>();
+    String sql = "SELECT mt.Id AS MaMay, mt.TenMay, SUM(tt.TongGio) AS TongThoiGianSuDung, " +
+                 "mt.GiaTheoGio, SUM(tt.TongTien) AS TongTien " +
+                 "FROM ThanhToan tt " +
+                 "JOIN MayTinh mt ON tt.MaMay = mt.Id " +
+                 "WHERE tt.NgayChoi BETWEEN ? AND ? " +
+                 "GROUP BY mt.Id, mt.TenMay, mt.GiaTheoGio";
+
+    try (Connection conn = XJdbc.openConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setDate(1, tuNgay);
+        ps.setDate(2, denNgay);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            SuDungMay sdm = new SuDungMay();
+            sdm.setMaMay(rs.getInt("MaMay"));
+            sdm.setTenMay(rs.getString("TenMay"));
+            sdm.setThoiGianChoi(rs.getFloat("TongThoiGianSuDung"));
+            sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
+            sdm.setTongTien(rs.getFloat("TongTien"));
+            list.add(sdm);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
+
+    @Override
+   public List<Menu> getLichSuMenu(Date tuNgay, Date denNgay) {
+       List<Menu> list = new ArrayList<>();
+       String sql = "SELECT MaMon, TenMon, SUM(SoLuong) AS SoLuong, SUM(TongTien) AS TongTienMenu " +
+                    "FROM Menu " +
+                    "WHERE NgayMua BETWEEN ? AND ? " +
+                    "GROUP BY MaMon, TenMon";
+
+       try (Connection conn = XJdbc.openConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+           ps.setDate(1, tuNgay);
+           ps.setDate(2, denNgay);
+
+           try (ResultSet rs = ps.executeQuery()) {
+               while (rs.next()) {
+                   Menu m = new Menu();
+                   m.setMaMon(rs.getInt("MaMon"));
+                   m.setTenMon(rs.getString("TenMon"));
+                   m.setSoLuong(rs.getInt("SoLuong"));
+                   m.setTongTien(rs.getFloat("TongTienMenu"));
+                   list.add(m);
+               }
+           }
+
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+
+       return list;
+   }
+    @Override
+    public List<ThongKeDoanhThu> getthongKeTheoKhoangNgay(Date tuNgay, Date denNgay) {
+        List<ThongKeDoanhThu> list = new ArrayList<>();
+        String sql = 
+            "SELECT " +
+            "    ISNULL(SUM(tt.TongTien), 0) AS TongTienMay, " +
+            "    ISNULL(SUM(m.TongTien), 0) AS TongTienMenu, " +
+            "    ISNULL(SUM(tt.TongTien), 0) + ISNULL(SUM(m.TongTien), 0) AS TongDoanhThu " +
+            "FROM ThanhToan tt " +
+            "FULL OUTER JOIN Menu m ON CONVERT(DATE, tt.NgayChoi) = CONVERT(DATE, m.NgayMua) " +
+            "WHERE (tt.NgayChoi BETWEEN ? AND ? OR tt.NgayChoi IS NULL) " +
+            "  AND (m.NgayMua BETWEEN ? AND ? OR m.NgayMua IS NULL)";
+
+        try (Connection conn = XJdbc.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setDate(1, tuNgay);
+            ps.setDate(2, denNgay);
+            ps.setDate(3, tuNgay);
+            ps.setDate(4, denNgay);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
                 ThongKeDoanhThu tk = new ThongKeDoanhThu();
-                tk.setId(rs.getInt("Id"));
-                tk.setMaThanhToan(rs.getString("MaThanhToan"));
-                tk.setMaMenu(rs.getString("MaMenu"));
-                tk.setNgayChoi(rs.getDate("NgayChoi"));
-                tk.setTongTienMon(rs.getDouble("TongTienMon"));
-                tk.setTongTienMay(rs.getDouble("TongTienMay"));
+                tk.setTongTienMay(rs.getFloat("TongTienMay"));
+                tk.setTongTienMon(rs.getFloat("TongTienMenu"));
+                tk.setTongDoanhThu(rs.getFloat("TongDoanhThu"));
                 list.add(tk);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
 
-
-    @Override
-    public List<SuDungMay> getLichSuMay(java.sql.Date ngay) {
-        List<SuDungMay> list = new ArrayList<>();
-String sql = "SELECT " +
-            "    sm.MaMay, " +
-            "    sm.NgayChoi, " +
-            "    sm.GioBatDau, " +
-            "    sm.GioKetThuc, " +
-            "    DATEDIFF(MINUTE, sm.GioBatDau, sm.GioKetThuc) / 60.0 AS GioChoi, " +
-            "    tt.GiaTienTheoGio, " +
-            "    (DATEDIFF(MINUTE, sm.GioBatDau, sm.GioKetThuc) / 60.0) * tt.GiaTienTheoGio AS TongTien " +
-            "FROM " +
-            "    SDMAY sm " + // ← DẤU CÁCH Ở CUỐI RẤT QUAN TRỌNG
-            "OUTER APPLY ( " +
-            "    SELECT TOP 1 GiaTienTheoGio " +
-            "    FROM ThanhToan " +
-            "    WHERE MaMay = sm.MaMay " +
-            ") tt " +
-            "WHERE " +
-            "    sm.NgayChoi = ? " +
-            "    AND sm.GioBatDau IS NOT NULL " +
-            "    AND sm.GioKetThuc IS NOT NULL;";
-
-      
-
-        try (Connection con = XJdbc.openConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-        ps.setDate(1, ngay);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            SuDungMay dto = new SuDungMay();
-            dto.setMaMay(rs.getString("MaMay"));
-            dto.setNgaySuDung(rs.getDate("NgayChoi"));
-            dto.setGioBatDau(rs.getTime("GioBatDau"));
-            dto.setGioKetThuc(rs.getTime("GioKetThuc"));
-            dto.setThoiGianChoi(rs.getFloat("GioChoi"));
-            dto.setGiaTienTheoGio(rs.getFloat("GiaTienTheoGio"));
-            dto.setTongTien(rs.getFloat("TongTien"));
-            list.add(dto);
-        }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,102 +189,6 @@ String sql = "SELECT " +
         return list;
     }
 
-    @Override
-    public List<Order> getLichSuBanHang(Date fromDate) {
-        List<Order> list = new ArrayList<>();
-        String sql = "SELECT " +
-                   "ma.Id AS MaMon, " +
-                   "ma.TenMon, " +
-                   "SUM(mn.SoLuong) AS TongSoLuongBan, " +
-                   "SUM(mn.TongTien) AS TongDoanhThu " +
-                   "FROM MonAn ma " +
-                   "JOIN Menu mn ON ma.Id = mn.MaMon " +
-                   "JOIN ThanhToan tt ON tt.MaMenu = mn.Id " +
-                   "WHERE tt.NgayChoi = ? " +
-                   "GROUP BY ma.Id, ma.TenMon";
 
-        try (Connection con = XJdbc.openConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-        ps.setDate(1, fromDate);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Order dto = new Order();
-            dto.setMaMon(rs.getString("MaMon"));
-            dto.setTenMon(rs.getString("TenMon"));
-            dto.setSoLuong(rs.getInt("TongSoLuongBan"));
-            dto.setTongTien(rs.getFloat("TongDoanhThu"));
-            list.add(dto);
-        }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;    
-    }
-    @Override
-    public List<ThongKeDoanhThu> getAll1() {
-        List<ThongKeDoanhThu> list = new ArrayList<>();
-        String sqldoa = "select Id,MaThanhToan,NgayChoi,TongTienMon,TongTienMay from ThongKe";
-        try (PreparedStatement ps = conn.prepareStatement(sqldoa)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ThongKeDoanhThu tk = new ThongKeDoanhThu();
-                tk.setId(rs.getInt("Id"));
-                tk.setMaThanhToan(rs.getString("MaThanhToan"));
-                //tk.setMaMenu(rs.getString("MaMenu"));
-                tk.setNgayChoi(rs.getDate("NgayChoi"));
-                tk.setTongTienMon(rs.getDouble("TongTienMon"));
-                tk.setTongTienMay(rs.getDouble("TongTienMay"));
-                list.add(tk);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    @Override
-    public List<SuDungMay> getAll2() {
-        List<SuDungMay> list = new ArrayList<>();
-        String sqldoa = "Select MaMay,NgayChoi,GioBatDau,GioKetThuc,DATEDIFF(MINUTE, GioBatDau,GioKetThuc) / 60.0 AS GioChoi,GiaTheoGio,(DATEDIFF(MINUTE, GioBatDau, GioKetThuc) / 60.0) * GiaTheoGio AS TongTien FROM SDMAY";
-        try (PreparedStatement ps = conn.prepareStatement(sqldoa)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                SuDungMay sd = new SuDungMay();
-                sd.setMaMay(rs.getString("MaMay"));
-                sd.setNgaySuDung(rs.getDate("NgayChoi"));
-                sd.setGioBatDau(rs.getTime("GioBatDau"));
-                sd.setGioKetThuc(rs.getTime("GioKetThuc"));
-                sd.setThoiGianChoi(rs.getFloat("GioChoi"));
-                sd.setGiaTienTheoGio(rs.getFloat("GiaTheoGio"));
-                sd.setTongTien(rs.getFloat("TongTien"));
-                list.add(sd);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    @Override
-    public List<Order> getAll3() {
-        List<Order> list = new ArrayList<>();
-        String sqldoa = "	Select ma.Id as MaMon ,ma.TenMon,SUM(mn.SoLuong) as SoLuong,SUM(mn.TongTien) as TongTien from MonAn ma join Menu mn on ma.Id = mn.MaMon group by ma.Id ,ma.TenMon ";
-        try (PreparedStatement ps = conn.prepareStatement(sqldoa)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Order od = new Order();
-                od.setMaMon(rs.getString("MaMon"));
-                od.setTenMon(rs.getString("TenMon"));
-                od.setSoLuong(rs.getInt("SoLuong"));
-                od.setTongTien(rs.getFloat("TongTien"));
-                list.add(od);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
 
 }

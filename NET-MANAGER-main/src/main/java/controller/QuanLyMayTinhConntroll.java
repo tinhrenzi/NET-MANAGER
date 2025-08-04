@@ -10,6 +10,6 @@ import entity.MayTinh;
  *
  * @author FPT
  */
-public interface QuanLyMayTinhConntroll extends crudController<MayTinh>{
+public interface QuanLyMayTinhConntroll extends CrudController<MayTinh>{
     
 }

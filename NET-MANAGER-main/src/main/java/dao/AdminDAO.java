@@ -4,12 +4,13 @@
  */
 package dao;
 
-import entity.OrderManager;
+import entity.Admin;
 
 /**
  *
  * @author VINH
  */
-public interface orderDAO extends crudDAO<OrderManager, String>{
-
+public interface AdminDAO extends CrudDAO<Admin, String>{// Khóa chính là kiểu Nvarchar nên để String
+    Admin findByUsername (String username);
+    void updatePassword(String username, String newPassword);
 }

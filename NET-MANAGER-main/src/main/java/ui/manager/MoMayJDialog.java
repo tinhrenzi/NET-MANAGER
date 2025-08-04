@@ -4,30 +4,26 @@
  */
 package ui.manager;
 
-import controller.MoMayController;
 import dao.MayTinhDAO;
+import dao.SDMayDAO;
 import daoImpl.MayTinhDAOImpl;
-import entity.MayTinh;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Timestamp;
+import daoImpl.SDMayDAOImpl;
+import entity.SuDungMay;
+import java.sql.Time;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import javax.swing.Timer;
-import javax.swing.table.*;
-import util.XDialog;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author VINH
  */
-public class MoMayJDialog extends javax.swing.JDialog implements MoMayController {
-
-    Timer timerStart;
-    Timer timerPlay;
-    DefaultTableModel model;
-    MayTinhDAO dao = new MayTinhDAOImpl();
+public class MoMayJDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form MoMayJDialog
@@ -35,17 +31,17 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
      * @param parent
      * @param modal
      */
+    private Timer dongHoTimer;
+    DefaultTableModel model = new DefaultTableModel();
+    SDMayDAO dao = new SDMayDAOImpl();
+    MayTinhDAO dao1 = new MayTinhDAOImpl();
+    List<SuDungMay> items = List.of();
+
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        init();
-    }
-
-    private void init() {
-        model = (DefaultTableModel) tblMayTinh.getModel();
-        startTime();
-        fillTable();
+        Filltable();
     }
 
     /**
@@ -59,26 +55,24 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        btnTatMay = new javax.swing.JButton();
-        btnMoMay = new javax.swing.JButton();
-        btnBaoTri = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        Title = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        btnThanhToan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMayTinh = new javax.swing.JTable();
         jSeparator2 = new javax.swing.JSeparator();
-        btnOrder = new javax.swing.JButton();
-        lblTimeNow = new javax.swing.JLabel();
-        lblTimePlay = new javax.swing.JLabel();
+        btnMo = new javax.swing.JButton();
+        btnTat = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         lblMaMay = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblGioBatDau = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtGioKetThuc = new javax.swing.JTextField();
         lblTenMay = new javax.swing.JLabel();
-        lblTrangThai = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        btnMenu = new javax.swing.JButton();
+        btnThanhToan = new javax.swing.JButton();
+        lblNgayHienTai = new javax.swing.JLabel();
+        jdcChoiDenNgay = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mo May");
@@ -93,65 +87,15 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             }
         });
 
-        btnTatMay.setText("Tắt máy");
-        btnTatMay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTatMayActionPerformed(evt);
-            }
-        });
-
-        btnMoMay.setText("Mở máy");
-        btnMoMay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoMayActionPerformed(evt);
-            }
-        });
-
-        btnBaoTri.setText("Bảo trì");
-        btnBaoTri.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBaoTriActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setText("Thời gian");
-
-        jLabel6.setText("Mã máy");
-
-        jLabel7.setText("Tên máy");
-
-        jLabel8.setText("Trạng thái");
-
-        Title.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        Title.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                TitleAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        jLabel2.setText("Thời gian chơi");
-
-        btnThanhToan.setText("Thanh toán");
-        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThanhToanActionPerformed(evt);
-            }
-        });
-
         tblMayTinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Tên máy", "Trạng thái", "Bắt đầu", "Hiện tại", "Đã dùng"
+                "Mã máy", "Tên máy", "Trạng thái", "Ngày chơi", "Ngày kết thúc", "Giờ bắt đầu", "Giờ kết thúc", "Giá  tiền theo giờ"
             }
         ));
         tblMayTinh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,160 +105,237 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         });
         jScrollPane1.setViewportView(tblMayTinh);
 
-        btnOrder.setText("Order");
-        btnOrder.addActionListener(new java.awt.event.ActionListener() {
+        btnMo.setText("Mở");
+        btnMo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrderActionPerformed(evt);
+                btnMoActionPerformed(evt);
             }
         });
 
-        lblTimeNow.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnTat.setText("Tắt");
+        btnTat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTatActionPerformed(evt);
+            }
+        });
 
-        lblTimePlay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Mã máy");
 
-        lblMaMay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblMaMay.setForeground(new java.awt.Color(102, 153, 255));
+        lblMaMay.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblMaMay.setText("-----");
 
-        lblTenMay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTenMay.setForeground(new java.awt.Color(102, 153, 255));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Giờ bắt đầu");
 
-        lblTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTrangThai.setForeground(new java.awt.Color(102, 153, 255));
+        lblGioBatDau.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Giờ kết thúc");
+
+        lblTenMay.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lblTenMay.setText("Máy");
+
+        btnMenu.setText("Menu");
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+
+        btnThanhToan.setText("Thanh toán");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanActionPerformed(evt);
+            }
+        });
+
+        lblNgayHienTai.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Ngày nghỉ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jSeparator2)
+            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 954, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMaMay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTenMay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                .addGap(434, 434, 434)
+                .addComponent(btnMo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnTat, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 948, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 956, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTenMay, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                    .addComponent(jdcChoiDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblTimePlay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblTimeNow, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btnThanhToan)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnMoMay, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTatMay, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBaoTri)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnOrder)))
-                .addGap(56, 56, 56))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(355, 355, 355)
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(132, 132, 132)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMaMay, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblGioBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(107, 107, 107)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtGioKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblNgayHienTai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel10))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTimeNow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblMaMay, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTimePlay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTenMay, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnThanhToan)
-                        .addComponent(btnMoMay)
-                        .addComponent(btnTatMay)
-                        .addComponent(btnBaoTri)
-                        .addComponent(btnOrder))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(lblTenMay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblNgayHienTai, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblGioBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtGioKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(lblMaMay, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdcChoiDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(btnMo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(btnTat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        fillTable();
-        startTime();
+        DongHo();
+        NgayHienTai();
     }//GEN-LAST:event_formWindowOpened
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseClicked
 
-    private void btnBaoTriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaoTriActionPerformed
-        // TODO add your handling code here:
-        baoTri();
-    }//GEN-LAST:event_btnBaoTriActionPerformed
-
-    private void btnTatMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatMayActionPerformed
-//        String id = txtId.getText().trim();
-
-        tatMay();
-    }//GEN-LAST:event_btnTatMayActionPerformed
-
-    private void btnMoMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoMayActionPerformed
-//        // TODO add your handling code here:
-
-        moMay();
-    }//GEN-LAST:event_btnMoMayActionPerformed
-
-    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-
-        // Mở giao diện ThanhToanJDialog
-        ThanhToanJDialog thanhToanDialog = new ThanhToanJDialog(null, true); // Sử dụng null làm parent
-        thanhToanDialog.setVisible(true);
-
-    }//GEN-LAST:event_btnThanhToanActionPerformed
-
-    private void TitleAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_TitleAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TitleAncestorAdded
-
     private void tblMayTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMayTinhMouseClicked
-//         TODO add your handling code here:
-        int row = tblMayTinh.getSelectedRow();
-        loadToForm(row);
+        int index = tblMayTinh.getSelectedRow();
+        if (index >= 0) {
+            fillonclick(index);
+
+            // Lấy dữ liệu giờ kết thúc từ bảng hoặc form
+            String gioKetThuc = txtGioKetThuc.getText();
+
+            if (gioKetThuc == null || gioKetThuc.trim().isEmpty()) {
+                DongHo();      // Máy đang chạy → bật đồng hồ
+            } else {
+                TatDongHo();   // Máy đã tắt → tắt đồng hồ
+            }
+        }
     }//GEN-LAST:event_tblMayTinhMouseClicked
 
-    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        // TODO add your handling code here:
-        //ThucDonJDialog thucDonJDialog = new ThucDonJDialog(null, true);
-       // thucDonJDialog.setVisible(true);
-    }//GEN-LAST:event_btnOrderActionPerformed
+    private void btnMoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoActionPerformed
+        SuDungMay entity = this.getFrom(); // Gọi getFrom để lấy dữ liệu từ form
+
+        if (entity == null) {
+            return;
+        }
+
+        // Đặt trạng thái là "Hoạt động"
+        entity.setTrangThai("Hoạt động");
+        dao1.capNhatTrangThai(entity.getMaMay(), "Hoạt động");
+
+        // Gọi DAO để mở máy
+        dao.MoMay(entity);
+
+        Filltable(); // cập nhật lại bảng
+        clear();
+    }//GEN-LAST:event_btnMoActionPerformed
+
+    private void btnTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatActionPerformed
+        TatDongHo();
+        SuDungMay entity = this.getFrom(); // Lấy dữ liệu
+        if (entity == null) {
+            return; // nếu lỗi
+        }
+        entity.setTrangThai("Ngừng hoạt động");
+        dao1.capNhatTrangThai(entity.getMaMay(), "Ngừng hoạt động");
+        // cập nhật trạng thái
+        dao.TatMay(entity); // gọi DAO xử lý
+        Filltable(); // load lại bảng
+        clear(); // reset form
+    }//GEN-LAST:event_btnTatActionPerformed
+
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        String maMay = lblMaMay.getText();
+        String tenMay = lblTenMay.getText(); // lblTitle đang hiển thị tên máy
+
+        if (maMay == null || maMay.equals("MT") || maMay.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một máy trước khi mở menu.");
+            return;
+        }
+
+        MenuJDialog menuDialog = new MenuJDialog((java.awt.Frame) this.getParent(), true, maMay, tenMay);
+        menuDialog.setVisible(true);
+    }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+        int selectedRow = tblMayTinh.getSelectedRow();
+        if (selectedRow >= 0) {
+            String maMay = tblMayTinh.getValueAt(selectedRow, 0).toString();
+            String ngayVao = tblMayTinh.getValueAt(selectedRow, 3).toString();
+            String ngayNghi = tblMayTinh.getValueAt(selectedRow, 4).toString();
+            String gioVao = tblMayTinh.getValueAt(selectedRow, 5).toString();
+            String gioNghi = tblMayTinh.getValueAt(selectedRow, 6).toString();
+            float giaTheoh = (Float) tblMayTinh.getValueAt(selectedRow, 7);
+            //String ngayVao =tblMayTinh.getValueAt(ERROR, WIDTH).toString();
+
+            // Mở form thanh toán và truyền dữ liệu
+            ThanhToanJDialog dialog = new ThanhToanJDialog(null, true, maMay, ngayVao, ngayNghi, gioVao, gioNghi, giaTheoh);
+            dialog.setVisible(true);
+        }
+    }//GEN-LAST:event_btnThanhToanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,230 +378,185 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             }
         });
     }
-    
+
+    public void fillonclick(int row) {
+        Object MaMay = tblMayTinh.getValueAt(row, 0);
+        lblTenMay.setText((String) tblMayTinh.getValueAt(row, 1));
+        Object TrangThai = tblMayTinh.getValueAt(row, 2);
+        Object NgayChoi = tblMayTinh.getValueAt(row, 3);
+        Object Bd = tblMayTinh.getValueAt(row, 5);
+        Object Kt = tblMayTinh.getValueAt(row, 6);
+        jdcChoiDenNgay.setDate((java.sql.Date) tblMayTinh.getValueAt(row, 4));
+        lblMaMay.setText(MaMay != null ? MaMay.toString() : "");
+        lblGioBatDau.setText(Bd != null ? Bd.toString() : "");
+        txtGioKetThuc.setText(Kt != null ? Kt.toString() : "");
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Title;
-    private javax.swing.JButton btnBaoTri;
-    private javax.swing.JButton btnMoMay;
-    private javax.swing.JButton btnOrder;
-    private javax.swing.JButton btnTatMay;
+    private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnMo;
+    private javax.swing.JButton btnTat;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private com.toedter.calendar.JDateChooser jdcChoiDenNgay;
+    private javax.swing.JLabel lblGioBatDau;
     private javax.swing.JLabel lblMaMay;
+    private javax.swing.JLabel lblNgayHienTai;
     private javax.swing.JLabel lblTenMay;
-    private javax.swing.JLabel lblTimeNow;
-    private javax.swing.JLabel lblTimePlay;
-    private javax.swing.JLabel lblTrangThai;
     private javax.swing.JTable tblMayTinh;
+    private javax.swing.JTextField txtGioKetThuc;
     // End of variables declaration//GEN-END:variables
-// mở máy
-    @Override
-    public void moMay() {
-       /* String id = lblMaMay.getText();
-        MayTinh entity = dao.selectById(id);
-        if (entity == null) {
-            XDialog.alert("Máy không tồn tại!");
-            return;
-        }
-
-        if ("Hoạt động".equalsIgnoreCase(entity.getStatus())) {
-            XDialog.alert("Máy đã đang trong trạng thái hoạt động!");
-            return;
-        }
-        if ("Bảo trì".equalsIgnoreCase(entity.getStatus())) {
-            XDialog.alert("Máy đang trong trạng thái bảo trì, không thể mở!");
-            return;
-        }
-
-        entity.setStatus("Hoạt động");
-        entity.setStartTime(new Timestamp(System.currentTimeMillis()));
-
-        try {
-            dao.update(entity);
-            // Verify the update by re-fetching
-            entity = dao.selectById(id); // Re-fetch to ensure strasTime is saved
-            if (entity.getStartTime() == null) {
-                XDialog.alert("Lỗi: Không thể lưu thời gian bắt đầu!");
-                return;
-            }
-            stopTimers();
-            lblTrangThai.setText(entity.getStatus());
-            lblTimePlay.setText("00:00:00");
-            fillTable();
-            playTime();
-            XDialog.alert("Mở máy thành công!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            XDialog.alert("Lỗi mở máy: " + e.getMessage());
-        }*/
-    }
-
-    @Override
-    public void tatMay() {
-       /* String id = lblMaMay.getText();
-        MayTinh entity = dao.selectById(id);
-        if (entity == null) {
-            XDialog.alert("Máy không tồn tại!");
-            return;
-        }
-
-        if ("Ngừng hoạt động".equalsIgnoreCase(entity.getStatus())) {
-            XDialog.alert("Máy đã đang trong trạng thái ngừng hoạt động!");
-            return;
-        }
-        if ("Bảo trì".equalsIgnoreCase(entity.getStatus())) {
-            XDialog.alert("Máy đang trong trạng thái bảo trì, không thể tắt!");
-            return;
-        }
-
-        entity.setStatus("Ngừng hoạt động");
-        entity.getStartTime(); // reset thời gian khi ngừng hoạt động
-
-        try {
-            dao.update(entity);
-            stopTimers();
-            lblTimePlay.setText("00:00:00");
-            lblTrangThai.setText(entity.getStatus());
-            fillTable();
-            XDialog.alert("Máy đã ngừng hoạt động!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            XDialog.alert("Lỗi không tắt được máy: " + e.getMessage());
-        }
-*/
-    }
-
-    @Override
-    public void baoTri() {
-       /* String id = lblMaMay.getText();
-        MayTinh entity = dao.selectById(id);
-        if (entity == null) {
-            XDialog.alert("Máy không tồn tại!");
-            return;
-        }
-
-        if ("Bảo trì".equalsIgnoreCase(entity.getStatus())) {
-            XDialog.alert("Máy đã đang trong trạng thái bảo trì!");
-            return;
-        }
-        if ("Hoạt động".equalsIgnoreCase(entity.getStatus())) {
-            XDialog.alert("Máy đang hoạt động, không thể đưa vào bảo trì!");
-            return;
-        }
-
-        entity.setStatus("Bảo trì");
-        entity.setStartTime(null); // Reset thời gian khi bảo trì
-
-        try {
-            dao.update(entity);
-            stopTimers();
-            lblTimePlay.setText("00:00:00");
-            lblTrangThai.setText(entity.getStatus());
-            fillTable();
-            XDialog.alert("Đưa vào bảo trì thành công!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            XDialog.alert("Lỗi bảo trì máy: " + e.getMessage());
-        }*/
-    }
-
-    @Override
-    public void fillTable() {
-        /*model.setRowCount(0);
-        List<MayTinh> list = dao.selectAll();
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-
-        for (MayTinh mt : list) {
-            String usedTime = "00:00:00";
-            String startTimeStr = mt.getStartTime() != null ? mt.getStartTime().toString() : "";
-            if ("Hoạt động".equalsIgnoreCase(mt.getStatus()) && mt.getStartTime() != null) {
-                long diff = now.getTime() - mt.getStartTime().getTime();
-                long seconds = diff / 1000 % 60;
-                long minutes = diff / (1000 * 60) % 60;
-                long hours = diff / (1000 * 60 * 60);
-                usedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-            }
-            model.addRow(new Object[]{
-                mt.getId(),
-                mt.getName(),
-                mt.getStatus(),
-                startTimeStr, // Ensure start time is displayed
-                now.toString(),
-                usedTime
-            });
-        }*/
-    }
-
-    public void playTime() {
-       /* stopTimers();
-        String id = lblMaMay.getText();
-        MayTinh mt = dao.selectById(id);
-        if (mt == null || mt.getStartTime() == null) {
-            XDialog.alert("Lỗi: Không tìm thấy thời gian bắt đầu!");
-            return;
-        }
-
-        timerPlay = new Timer(1000, e -> {
-            long diff = System.currentTimeMillis() - mt.getStartTime().getTime();
-            long seconds = diff / 1000 % 60;
-            long minutes = diff / (1000 * 60) % 60;
-            long hours = diff / (1000 * 60 * 60);
-            lblTimePlay.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-            fillTable();*/
-    }
-
-    public void loadToForm(int row) {
-      /*  if (row < 0 || row >= model.getRowCount()) {
-            return;
-        }
-
-        String id = model.getValueAt(row, 0).toString();
-        MayTinh mt = dao.selectById(id);
-        if (mt == null) {
-            return;
-        }
-
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        String usedTime = model.getValueAt(row, 5).toString();
-
-        lblMaMay.setText(mt.getId());
-        lblTenMay.setText(mt.getName());
-        lblTrangThai.setText(mt.getStatus());
-        lblTimeNow.setText(new SimpleDateFormat("HH:mm:ss").format(now));
-        lblTimePlay.setText(usedTime);
-        Title.setText(mt.getName());
-
-        if ("Hoạt động".equalsIgnoreCase(mt.getStatus()) && mt.getStartTime()!= null) {
-            playTime();
-        } else {
-            stopTimers();
-        }*/
-    }
-
-    public void startTime() {
-       /* timerStart = new Timer(1000, e -> {
-            lblTimeNow.setText(new SimpleDateFormat("HH:mm:ss").format(new Date()));
-            fillTable();
+    public void Filltable() {
+        model = (DefaultTableModel) tblMayTinh.getModel();
+        model.setRowCount(0);
+        DecimalFormat df = new DecimalFormat("#,##0 VNĐ");
+        items = dao.findAll();
+        items.forEach(i -> {
+            Object[] rowdata = {
+                i.getMaMay(),
+                i.getTenMay(),
+                i.getTrangThai(),
+                i.getNgayChoi(),
+                i.getNgayKetThuc(),
+                i.getGioBatDau(),
+                i.getGioKetThuc(),
+                i.getGiaTheoGio(),};
+            model.addRow(rowdata);
         });
-        timerStart.start();*/
     }
 
-    private void stopTimers() {
-       /* if (timerStart != null && timerStart.isRunning()) {
-            timerStart.stop();
+    public void NgayHienTai() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String ngayHienTai = sdf.format(new Date());
+        lblNgayHienTai.setText("Ngày hiện tại: " + ngayHienTai);
+    }
+
+    public void DongHo() {
+        if (dongHoTimer == null || !dongHoTimer.isRunning()) {
+            dongHoTimer = new Timer(1000, e -> {
+                Date now = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                lblGioBatDau.setText(sdf.format(now));
+            });
+            dongHoTimer.start();
         }
-        if (timerPlay != null && timerPlay.isRunning()) {
-            timerPlay.stop();
-        }*/
+    }
+
+    public void TatDongHo() {
+        if (dongHoTimer != null && dongHoTimer.isRunning()) {
+            dongHoTimer.stop();
+        }
+    }
+
+    public void clear() {
+        lblMaMay.setText("MT");
+        lblGioBatDau.setText("");
+        txtGioKetThuc.setText("");
+        DongHo();
+    }
+
+    public SuDungMay getFrom() {
+        try {
+            SuDungMay sdm = new SuDungMay();
+
+            // Lấy mã máy
+            String maMayStr = lblMaMay.getText().trim();
+            if (maMayStr.equals("MT") || maMayStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn một máy.");
+                return null;
+            }
+            sdm.setMaMay(Integer.parseInt(maMayStr));
+
+            // Ngày chơi = ngày hiện tại
+            sdm.setNgayChoi(new java.sql.Date(System.currentTimeMillis()));
+
+            // Giờ bắt đầu
+            String gioBatDauStr = lblGioBatDau.getText().trim();
+            if (gioBatDauStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Giờ bắt đầu không hợp lệ.");
+                return null;
+            }
+            sdm.setGioBatDau(Time.valueOf(gioBatDauStr));
+
+            // Ngày kết thúc (lấy từ DateChooser)
+            Date utilNgayKT = jdcChoiDenNgay.getDate();
+            if (utilNgayKT == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày kết thúc.");
+                return null;
+            }
+            sdm.setNgayKetThuc(new java.sql.Date(utilNgayKT.getTime()));
+
+            // Giờ kết thúc
+            String gioKetThucStr = txtGioKetThuc.getText().trim();
+            if (!gioKetThucStr.isEmpty()) {
+                sdm.setGioKetThuc(Time.valueOf(gioKetThucStr));
+            } else {
+                sdm.setGioKetThuc(null);
+            }
+
+            // Lấy giá theo giờ từ bảng (cột 7)
+            int selectedRow = tblMayTinh.getSelectedRow();
+            if (selectedRow >= 0) {
+                Object giaObj = tblMayTinh.getValueAt(selectedRow, 7);
+                if (giaObj instanceof Number) {
+                    sdm.setGiaTheoGio(((Number) giaObj).floatValue());
+                } else if (giaObj instanceof String) {
+                    sdm.setGiaTheoGio(Float.parseFloat(giaObj.toString()));
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Không xác định được giá theo giờ.");
+                return null;
+            }
+
+            // Tính tổng tiền nếu có giờ kết thúc
+            if (sdm.getGioKetThuc() != null) {
+                LocalDateTime start = LocalDateTime.of(
+                        sdm.getNgayChoi().toLocalDate(),
+                        sdm.getGioBatDau().toLocalTime()
+                );
+
+                LocalDateTime end = LocalDateTime.of(
+                        sdm.getNgayKetThuc().toLocalDate(),
+                        sdm.getGioKetThuc().toLocalTime()
+                );
+
+                long minutes = Duration.between(start, end).toMinutes();
+                float tongTien = (minutes / 60.0f) * sdm.getGiaTheoGio();
+                sdm.setTongTien(tongTien);
+            } else {
+                sdm.setTongTien(0);
+            }
+
+            // Trạng thái mặc định
+            sdm.setTrangThai("Hoạt động");
+
+            return sdm;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu từ form: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void MoMay() {
+        SuDungMay entity = this.getFrom();
+        dao.MoMay(entity);
+        Filltable();
+    }
+
+    public void TatMay() {
+        SuDungMay entity = this.getFrom();
+        dao.TatMay(entity);
+        Filltable();
     }
 }

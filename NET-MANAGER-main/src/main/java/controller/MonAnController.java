@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package dao;
+package controller;
 
-import entity.OrderManager;
+import entity.MonAn;
 
 /**
  *
- * @author VINH
+ * @author NITRO 5
  */
-public interface orderManagerDAO extends crudDAO<OrderManager, String>{
-
+public interface MonAnController extends CrudController<MonAn>{ // Kế thừa CrudController để thực hiện các chức năng bên trong
+    
 }

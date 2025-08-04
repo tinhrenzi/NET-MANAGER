@@ -5,12 +5,12 @@
 package ui;
 
 import controller.DangNhapController;
-import dao.UsersDAO;
-import daoImpl.UserDAOImpl;
+import daoImpl.AdminDAOImpl;
 import entity.Admin;
 import java.awt.Frame;
 import util.XAuth;
 import util.XDialog;
+import dao.AdminDAO;
 
 /**
  *
@@ -21,7 +21,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
     /**
      * Creates new form DangNhapJDialog
      */
-    UsersDAO dao = new UserDAOImpl();
+    AdminDAO dao = new AdminDAOImpl();
     public DangNhapJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

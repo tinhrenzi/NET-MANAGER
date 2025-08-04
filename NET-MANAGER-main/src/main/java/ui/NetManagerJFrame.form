@@ -28,32 +28,13 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnOrder">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
-        </Property>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\img\8665027_basket_shopping_icon.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Order"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="230" y="10" width="160" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JButton" name="btnMoMay">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\img\185023_imac_computer_icon.png"/>
+          <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGERTest\src\main\java\img\IconShutDow.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="M&#x1edf; m&#xe1;y"/>
       </Properties>
@@ -62,7 +43,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="420" y="10" width="160" height="-1"/>
+          <AbsoluteConstraints x="240" y="20" width="160" height="60"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -82,25 +63,6 @@
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="870" y="20" width="130" height="40"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnThanhToan">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
-        </Property>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\img\211635_card_icon.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThanhToanActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="610" y="10" width="163" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -235,7 +197,7 @@
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\img\menu.png"/>
+          <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGERTest\src\main\java\img\IconMenuOp.png"/>
         </Property>
       </Properties>
       <Events>
@@ -256,7 +218,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER-main\src\main\java\img\ChatGPT Image 22_27_18 16 thg 7, 2025.png"/>
+          <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGERTest\src\main\java\img\BackRoundNetManager.png"/>
         </Property>
       </Properties>
       <Constraints>

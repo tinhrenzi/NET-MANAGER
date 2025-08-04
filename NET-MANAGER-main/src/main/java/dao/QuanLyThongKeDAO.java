@@ -1,18 +1,19 @@
 package dao;
 
 
-import entity.Order;
+import entity.Menu;
 import entity.SuDungMay;
 import entity.ThongKeDoanhThu;
 import java.sql.Date;
 import java.util.List;
 
 public interface QuanLyThongKeDAO {
-    List<ThongKeDoanhThu> thongKeTheoNgay(java.sql.Date ngay);
-    List<SuDungMay> getLichSuMay(Date fromDate);
-    List<Order> getLichSuBanHang(Date fromDate);
-    
-    List<ThongKeDoanhThu> getAll1();
-        List<SuDungMay> getAll2();
-            List<Order> getAll3();
+    List<ThongKeDoanhThu> getAllThonKe();
+        List<SuDungMay> getAllSDMay();
+            List<Menu> getAllMenu();
+            
+            List<SuDungMay> getLichSuSuDungMay(java.sql.Date tuNgay,java.sql.Date denNgay);
+            List<Menu>getLichSuMenu(java.sql.Date tuNgay,java.sql.Date denNgay);
+            List<ThongKeDoanhThu> getthongKeTheoKhoangNgay(java.sql.Date tuNgay,java.sql.Date denNgay);
+            
 }
