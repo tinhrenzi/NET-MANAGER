@@ -352,12 +352,30 @@
             <Component class="javax.swing.JTable" name="tblMenu">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
+                  <Table columnCount="3" rowCount="4">
                     <Column editable="true" title="T&#xea;n Mo&#x301;n" type="java.lang.Object"/>
                     <Column editable="true" title="S&#xf4;&#x301; L&#x1b0;&#x1a1;&#x323;ng" type="java.lang.Object"/>
                     <Column editable="true" title="Gia&#x301;" type="java.lang.Object"/>
-                    <Column editable="true" title="Tha&#x300;nh Ti&#xea;&#x300;n" type="java.lang.Object"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>

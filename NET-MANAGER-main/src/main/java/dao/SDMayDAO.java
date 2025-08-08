@@ -16,4 +16,6 @@ import java.util.List;
 public interface SDMayDAO extends CrudDAO<SuDungMay, String>{
     void MoMay(SuDungMay SDM);
     void TatMay(SuDungMay SDM);
+    boolean resetSuDungMay(int maMay);
+    
 }

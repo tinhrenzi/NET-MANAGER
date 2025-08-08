@@ -5,8 +5,10 @@
 package ui.manager;
 
 import dao.MenuDAO;
+import dao.SDMayDAO;
 import dao.ThanhToanDAO;
 import daoImpl.MenuDAOImpl;
+import daoImpl.SDMayDAOImpl;
 import daoImpl.ThanhToanDAOImpl;
 import entity.MayTinh;
 import entity.Menu;
@@ -45,6 +47,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }
     MenuDAO dao1 = new MenuDAOImpl();
     ThanhToanDAO dao = new ThanhToanDAOImpl();
+    SDMayDAO sdMay = new SDMayDAOImpl();
     public ThanhToanJDialog(java.awt.Frame parent, boolean modal, String maMay, String NgayChoi,String NgayNghi,String gioVao,String GioNghi, float giah) {
         super(parent, modal);
         initComponents();
@@ -257,13 +260,13 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Tên Món", "Số Lượng", "Giá", "Thành Tiền"
+                "Tên Món", "Số Lượng", "Giá"
             }
         ));
         jScrollPane1.setViewportView(tblMenu);
@@ -369,9 +372,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-    btnThanhToan.addActionListener(e -> {
     ThanhToan tt = new ThanhToan();
     SuDungMay mt = new SuDungMay();
+
     tt.setMaMay(Integer.parseInt(lblMaMay.getText()));
     LocalDateTime start = LocalDateTime.of(
         LocalDate.parse(lblNgayVao.getText()),
@@ -389,24 +392,25 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     tt.setGiaTheoGio(Double.parseDouble(lblGiaTheoGio.getText()));
     tt.setTienMay(getTienMayFromLabel());
 
-    // Tính tiền menu:
+    // Tính tiền menu (chỉ còn cột giá tiền - index 2)
     double tongTienMenu = 0;
     for (int i = 0; i < tblMenu.getRowCount(); i++) {
-        tongTienMenu += Double.parseDouble(tblMenu.getValueAt(i, 3).toString());
+        double gia = Double.parseDouble(tblMenu.getValueAt(i, 2).toString());
+        int soLuong = 1; // Nếu muốn thêm số lượng, lấy từ nguồn khác hoặc thêm lại cột số lượng
+        tongTienMenu += gia * soLuong;
     }
     tt.setTienMenu(tongTienMenu);
     tt.setTongTien(tt.getTienMay() + tongTienMenu);
 
     // Gọi DAO để lưu
-    
     if (dao.insert(tt)) {
+        dao1.resetMenuByMay(tt.getMaMay());
+        sdMay.resetSuDungMay(tt.getMaMay());
         javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
         this.dispose();
     } else {
         javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
     }
-});
-
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     /**

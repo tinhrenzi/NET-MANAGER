@@ -70,5 +70,18 @@ public class SDMayDAOImpl implements SDMayDAO{
     public SuDungMay findByID(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
+    @Override
+    public boolean resetSuDungMay(int maMay) {
+          String sql = "DELETE FROM Menu WHERE MaMay = ?";
+    try {
+        XJdbc.executeUpdate(sql, maMay);
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+    }
+
+
 }

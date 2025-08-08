@@ -82,7 +82,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MonAnController{
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Thực Đơn");
+        jLabel1.setText("Menu");
 
         tblOrderManager.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -396,23 +396,31 @@ public class MenuJDialog extends javax.swing.JDialog implements MonAnController{
         //fillTableTongMonAn();
     fillToTable();
     }
-/*public void fillTableTongMonAn() {
-    DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
-    model.setRowCount(0); // Xóa dữ liệu cũ
+public void fillTableTongMonAn() {
+      DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+    model.setRowCount(0);
 
-    List<Order> list = orderDao.findAll(); // Lấy danh sách từ bảng OrderNet
-    for (Menu item : list) {
-        Object[] row = {
-    item.getMaMon(),
-    item.getTenMon(),
-    item.getGia(),
-    item.getSoLuong()
-};
-        model.addRow(row);
+    int maMay;
+    try {
+        maMay = Integer.parseInt(lblMaMay.getText().trim());
+    } catch (NumberFormatException ex) {
+        // lblMaMay chưa có giá trị hợp lệ -> không load
+        return;
     }
+    
+    List<Menu> list = orderDao.findByMaMay(maMay);
+    for (Menu item : list) {
+        // Lưu ý: dùng getter tên đúng trong entity Menu
+        model.addRow(new Object[]{
+        item.getMaMon(),
+        item.getTenMon(),
+        item.getGiaTien(),
+        item.getSoLuong(),
 
-    updateTongTien(); // Cập nhật tổng tiền
-}*/
+        });
+    }
+    updateTongTien();
+}
       
         
     @Override
@@ -503,21 +511,15 @@ private void updateTongTien() {
 public void create() {
     int maMay = Integer.parseInt(lblMaMay.getText());
     String tenMay = lblTenMay.getText().trim();
-    String tongTienStr = txt_TongTien.getText().trim();
 
     try {
-        float tongTien = Float.parseFloat(tongTienStr);
-
         DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
         if (model.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Không có món nào để mua.");
             return;
         }
 
-                // Giả sử ngayMua là dạng "yyyy-MM-dd"
-         String ngayMuaStr = lblNgayHienTai.getText();
-         Date ngayMua = Date.valueOf(ngayMuaStr); // java.sql.Date
-
+        java.sql.Date ngayMua = new java.sql.Date(System.currentTimeMillis());
 
         for (int i = 0; i < model.getRowCount(); i++) {
             int maMon = Integer.parseInt(model.getValueAt(i, 0).toString());
@@ -525,14 +527,17 @@ public void create() {
             float gia = Float.parseFloat(model.getValueAt(i, 2).toString());
             int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
 
-            // Tạo đối tượng Menu có thêm ngày mua
-            Menu order = new Menu(maMay, maMon, tenMon, gia,ngayMua, soLuong, tongTien);
-            orderDao.insert(order); // Cần cập nhật lại DAO để nhận thêm NgayMua
+            // TÍNH TIỀN CHỈ CHO MÓN NÀY
+            float tongTienMon = gia * soLuong;
+
+            // Lưu đúng giá trị thành tiền cho món
+            Menu order = new Menu(maMay, maMon, tenMon, gia, ngayMua, soLuong, tongTienMon);
+            orderDao.insert(order);
         }
 
         JOptionPane.showMessageDialog(this, "Mua thành công!");
     } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Tổng tiền hoặc giá món không hợp lệ.");
+        JOptionPane.showMessageDialog(this, "Giá hoặc số lượng không hợp lệ.");
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Lỗi khi mua: " + e.getMessage());

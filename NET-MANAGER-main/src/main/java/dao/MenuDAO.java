@@ -16,4 +16,7 @@ Menu insert(Menu order);
     List<Menu> findAll();
     List<Menu> findByMay(String maMay);
     List<Menu> findById(String MaMenu);
+    boolean resetMenuByMay(int maMay);
+    public void deleteByMaMay(int maMay);
+    List<Menu> findByMaMay(int maMay);
 }
