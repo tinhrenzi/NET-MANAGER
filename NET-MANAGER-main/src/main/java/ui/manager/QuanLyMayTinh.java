@@ -10,6 +10,7 @@ import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import util.XDialog;
 
 /**
  *
@@ -219,9 +220,9 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private void tblQLMTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLMTMouseClicked
         // TODO add your handling code here:
         int index = tblQLMT.getSelectedRow();
-    if (index >= 0) {
-        fillTXT(index);
-    }
+        if (index >= 0) {
+            fillTXT(index);
+        }
     }//GEN-LAST:event_tblQLMTMouseClicked
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
@@ -291,38 +292,36 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             }
         });
     }
+
     public void fillTXT(int row) {
-    if (row < 0 || row >= tblQLMT.getRowCount()) {
-        System.out.println("Chỉ số dòng không hợp lệ: " + row);
-        return;
-    }
-    Object Id = tblQLMT.getValueAt(row, 0);
-    Object TenMay = tblQLMT.getValueAt(row, 1);
-    Object TrangThai = tblQLMT.getValueAt(row, 3);
-    Object Gia = tblQLMT.getValueAt(row, 2);
-    txtGia.setText(Gia != null ? Gia.toString() : "");
-    lblMaMay.setText(Id != null ? Id.toString() : "");
-    txtName.setText(TenMay != null ? TenMay.toString() : "");
-    if (TrangThai != null) {
-        String trangThai = TrangThai.toString().trim();
-        if (trangThai.equalsIgnoreCase("Hoạt động")) {
-            cboTrangThai.setSelectedIndex(0);
-        } else if (trangThai.equalsIgnoreCase("Ngừng hoạt động")) {
-            cboTrangThai.setSelectedIndex(1);
-        } else if (trangThai.equalsIgnoreCase("Bảo trì")) {
-            cboTrangThai.setSelectedIndex(2);
+        if (row < 0 || row >= tblQLMT.getRowCount()) {
+            System.out.println("Chỉ số dòng không hợp lệ: " + row);
+            return;
+        }
+        Object Id = tblQLMT.getValueAt(row, 0);
+        Object TenMay = tblQLMT.getValueAt(row, 1);
+        Object TrangThai = tblQLMT.getValueAt(row, 3);
+        Object Gia = tblQLMT.getValueAt(row, 2);
+        txtGia.setText(Gia != null ? Gia.toString() : "");
+        lblMaMay.setText(Id != null ? Id.toString() : "");
+        txtName.setText(TenMay != null ? TenMay.toString() : "");
+        if (TrangThai != null) {
+            String trangThai = TrangThai.toString().trim();
+            if (trangThai.equalsIgnoreCase("Hoạt động")) {
+                cboTrangThai.setSelectedIndex(0);
+            } else if (trangThai.equalsIgnoreCase("Ngừng hoạt động")) {
+                cboTrangThai.setSelectedIndex(1);
+            } else if (trangThai.equalsIgnoreCase("Bảo trì")) {
+                cboTrangThai.setSelectedIndex(2);
+            } else {
+                cboTrangThai.setSelectedIndex(-1);
+            }
         } else {
             cboTrangThai.setSelectedIndex(-1);
         }
-    } else {
-        cboTrangThai.setSelectedIndex(-1);
+
+        // So sánh chuỗi và chọn chỉ mục phù hợp
     }
-
-        
-
-    // So sánh chuỗi và chọn chỉ mục phù hợp
-
-        }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
@@ -351,7 +350,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     @Override
     public void setForm(MayTinh mt) {
         txtName.setText(mt.getTenMay());
-       if (mt.getTrangThai()!= null) {
+        if (mt.getTrangThai() != null) {
             cboTrangThai.setSelectedItem(mt.getTrangThai().trim());
         } else {
             cboTrangThai.setSelectedIndex(0); // Mặc định "Hoạt Động"
@@ -361,16 +360,17 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     @Override
     public MayTinh getForm() {
         MayTinh entity = new MayTinh();
-        entity.setTenMay(txtName.getText()); 
+        entity.setTenMay(txtName.getText());
         entity.setGiaTheoGio(Integer.parseInt(txtGia.getText()));
         entity.setTrangThai(cboTrangThai.getSelectedItem().toString());
         return entity;
 
     }
-        public MayTinh getFormByUp() {
+
+    public MayTinh getFormByUp() {
         MayTinh entity = new MayTinh();
         entity.setId(Integer.parseInt(lblMaMay.getText()));
-        entity.setTenMay(txtName.getText()); 
+        entity.setTenMay(txtName.getText());
         entity.setGiaTheoGio(Integer.parseInt(txtGia.getText()));
         entity.setTrangThai(cboTrangThai.getSelectedItem().toString());
         return entity;
@@ -388,17 +388,41 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 item.getTenMay(),
                 item.getGiaTheoGio(),
                 item.getTrangThai(),
-                false               
+                false
             };
             model.addRow(rowData);
-    });
-  }
+        });
+    }
 
     @Override
-    public void edit() {}
+    public void edit() {
+    }
 
     @Override
     public void create() {
+        String tenMay = txtName.getText().trim();
+        if (tenMay.isEmpty()) {
+            XDialog.alert("Vui lòng nhập tên máy");
+            return;
+        }
+
+        String giaStr = txtGia.getText().trim();
+        if (giaStr.isEmpty()) {
+            XDialog.alert("Vui lòng nhập giá theo giờ");
+            return;
+        }
+
+        try {
+            double gia = Double.parseDouble(giaStr);
+            if (gia <= 0) {
+                XDialog.alert("Giá theo giờ phải lớn hơn 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            XDialog.alert("Giá theo giờ phải là số hợp lệ");
+            return;
+        }
+
         MayTinh mt = this.getForm();
         dao.create(mt);
         this.fillToTable();
@@ -406,21 +430,57 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     @Override
     public void update() {
+        if (lblMaMay.getText().trim().isEmpty()) {
+            XDialog.alert("Vui lòng chọn máy bạn muốn sửa");
+            return;
+        }
+
+        String tenMay = txtName.getText().trim();
+        if (tenMay.isEmpty()) {
+            XDialog.alert("Vui lòng nhập tên máy");
+            return;
+        }
+
+        String giaStr = txtGia.getText().trim();
+        if (giaStr.isEmpty()) {
+            XDialog.alert("Vui lòng nhập giá theo giờ");
+            return;
+        }
+
         try {
+            double gia = Double.parseDouble(giaStr);
+            if (gia <= 0) {
+                XDialog.alert("Giá theo giờ phải lớn hơn 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            XDialog.alert("Giá theo giờ phải là số hợp lệ");
+            return;
+        }
+
         MayTinh mt = this.getFormByUp();
         dao.update(mt);
         this.fillToTable();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        XDialog.alert("Cập nhật thành công!");
     }
 
     @Override
     public void delete() {
-        String id = lblMaMay.getText();
-        dao.deleteByID(id);
-        fillToTable();
-        clear();
+        String id = lblMaMay.getText().trim();
+
+        if (id.isEmpty()) {
+            XDialog.alert("Vui lòng chọn máy bạn muốn xóa");
+            return;
+        }
+
+        try {
+            dao.deleteByID(id);
+            fillToTable();
+            clear();
+            XDialog.alert("Xóa thành công!");
+        } catch (Exception e) {
+            XDialog.alert("Xóa thất bại! " + e.getMessage());
+        }
     }
 
     @Override
@@ -431,6 +491,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         cboTrangThai.setSelectedIndex(0);
         fillToTable();
     }
+
     @Override
     public void setEditable(boolean editable) {
 

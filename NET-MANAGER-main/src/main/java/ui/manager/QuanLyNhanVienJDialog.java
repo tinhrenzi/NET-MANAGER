@@ -385,85 +385,97 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-    String email = txtEmail.getText().trim();
-    String phone = txtPhone.getText().trim();
-    String pass = txtPass.getText().trim();
-    String year = txtNamSinh.getText().trim();
-    String yearRehex = "^[0-9]{4}$";
-    String passRegex = "^(?=.*[A-Z]).{7,}$";
-    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-    String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
-    if(year.isEmpty()){
-    JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
-    }
-    if(pass.isEmpty()){
-        JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
-        return;
-    }
-    if (email.isEmpty() || phone.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
-        return;
-    }
-    if(!year.matches(yearRehex)){
-    JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
-    return;
-    }
-    if(!pass.matches(passRegex)){
-        JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ");
-        return;
-    }
-    if (!email.matches(emailRegex)) {
-        JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
-        return;
-    }
-    if (!phone.matches(phoneRegex)) {
-        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
-        return;
-    }
-    this.create();   
+        String email = txtEmail.getText().trim();
+        String phone = txtPhone.getText().trim();
+        String pass = txtPass.getText().trim();
+        String year = txtNamSinh.getText().trim();
+        String yearRehex = "^[0-9]{4}$";
+        String passRegex = "^(?=.*[A-Z]).{7,}$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
+        if (year.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
+            return;
+        }
+        if (pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
+            return;
+        }
+        if (email.isEmpty() || phone.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
+            return;
+        }
+        if (!year.matches(yearRehex)) {
+            JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
+            return;
+        }
+        if (!pass.matches(passRegex)) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ");
+            return;
+        }
+        if (!email.matches(emailRegex)) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+            return;
+        }
+        if (!phone.matches(phoneRegex)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
+            return;
+        }
+        this.create();
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-    String email = txtEmail.getText().trim();
-    String phone = txtPhone.getText().trim();
-    String pass = txtPass.getText().trim();
-    String year = txtNamSinh.getText().trim();
-    String yearRehex = "^[0-9]{4}$";
-    String passRegex = "^(?=.*[A-Z]).{7,}$";
-    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-    String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
-    if(year.isEmpty()){
-    JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
-    }
-    if(pass.isEmpty()){
-        JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
-        return;
-    }
-    if (email.isEmpty() || phone.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
-        return;
-    }
-    if(!year.matches(yearRehex)){
-    JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
-    return;
-    }
-    if(!pass.matches(passRegex)){
-        JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ");
-        return;
-    }
-    if (!email.matches(emailRegex)) {
-        JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
-        return;
-    }
-    if (!phone.matches(phoneRegex)) {
-        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
-        return;
-    }
-    if (cboVaitro.getSelectedIndex() != 0) {
-            JOptionPane.showMessageDialog(this, "Quản lý không thể sửa");
+        String email = txtEmail.getText().trim();
+        String phone = txtPhone.getText().trim();
+        String pass = txtPass.getText().trim();
+        String year = txtNamSinh.getText().trim();
+
+        String yearRehex = "^[0-9]{4}$";
+        String passRegex = "^(?=.*[A-Z]).{7,}$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
+        String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
+
+// Kiểm tra rỗng
+        if (year.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
             return;
-    }
-    this.update();
+        }
+        if (pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
+            return;
+        }
+        if (email.isEmpty() || phone.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
+            return;
+        }
+
+// Kiểm tra định dạng
+        if (!year.matches(yearRehex)) {
+            JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
+            return;
+        }
+        if (!pass.matches(passRegex)) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu phải có ít nhất 1 chữ in hoa và từ 7 ký tự trở lên");
+            return;
+        }
+        if (!email.matches(emailRegex)) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ! (Phải là @gmail.com)");
+            return;
+        }
+        if (!phone.matches(phoneRegex)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
+            return;
+        }
+
+// Check vai trò không cho sửa quản lý
+        String vaiTro = cboVaitro.getSelectedItem().toString().trim();
+        if (vaiTro.equalsIgnoreCase("Quản lí")) {
+            JOptionPane.showMessageDialog(this, "Tài khoản Quản lý không thể sửa");
+            return;
+        }
+
+        this.update();
+ 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -497,12 +509,14 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }//GEN-LAST:event_txtPhoneActionPerformed
 
     private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
-       
+
     }//GEN-LAST:event_txtPassActionPerformed
 
     private void txtPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPassMouseClicked
         String pass = txtPass.getText().trim();
-        if(pass.isEmpty()){JOptionPane.showMessageDialog(this, "Phải dài từ 6 kí tự và bắt đầu bằng chữ");}               
+        if (pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Phải dài từ 6 kí tự và bắt đầu bằng chữ");
+        }
     }//GEN-LAST:event_txtPassMouseClicked
 
     private void txtNamSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamSinhActionPerformed
@@ -564,23 +578,23 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         });
     }
 
-    public void fillTXT( int row){
+    public void fillTXT(int row) {
         Admin user = new Admin();
-    txtId.setText(tblUsermager.getValueAt(row, 0).toString());
-    txtName.setText(tblUsermager.getValueAt(row, 1).toString());
-    txtPass.setText(tblUsermager.getValueAt(row, 2).toString());
-    cboVaitro.setSelectedItem(tblUsermager.getValueAt(row, 3).toString());
-     String status = tblUsermager.getValueAt(row, 4).toString();
-    if (status.equalsIgnoreCase("Hoạt động")) {
-        rdo1.setSelected(true);
-    } else {
-        rdo2.setSelected(true);
-    }
+        txtId.setText(tblUsermager.getValueAt(row, 0).toString());
+        txtName.setText(tblUsermager.getValueAt(row, 1).toString());
+        txtPass.setText(tblUsermager.getValueAt(row, 2).toString());
+        cboVaitro.setSelectedItem(tblUsermager.getValueAt(row, 3).toString());
+        String status = tblUsermager.getValueAt(row, 4).toString();
+        if (status.equalsIgnoreCase("Hoạt động")) {
+            rdo1.setSelected(true);
+        } else {
+            rdo2.setSelected(true);
+        }
 
-    txtNamSinh.setText(tblUsermager.getValueAt(row, 5).toString());
-    txtEmail.setText(tblUsermager.getValueAt(row, 6).toString());
-    txtPhone.setText(tblUsermager.getValueAt(row, 7).toString());
-    dacDateCre.setDate((java.sql.Date)tblUsermager.getValueAt(row, 8));
+        txtNamSinh.setText(tblUsermager.getValueAt(row, 5).toString());
+        txtEmail.setText(tblUsermager.getValueAt(row, 6).toString());
+        txtPhone.setText(tblUsermager.getValueAt(row, 7).toString());
+        dacDateCre.setDate((java.sql.Date) tblUsermager.getValueAt(row, 8));
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -633,7 +647,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         txtName.setText(entity.getTen());
         txtPass.setText(entity.getMatKhau());
         txtEmail.setText(entity.getEmail());
-        cboVaitro.setSelectedItem(entity.getVaiTro()+1);
+        cboVaitro.setSelectedItem(entity.getVaiTro() + 1);
         txtPhone.setText(entity.getSoDienThoai());
         txtNamSinh.setText(new SimpleDateFormat("dd/MM/yyyy").format(entity.getNamSinh()));
         dacDateCre.setDate(entity.getNgayTao());
@@ -642,29 +656,28 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     }
 
-@Override
-public Admin getForm() {
-    Admin users = new Admin();
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    @Override
+    public Admin getForm() {
+        Admin users = new Admin();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    try {
-        users.setId(txtId.getText());
-        users.setTen(txtName.getText());
-        users.setMatKhau(txtPass.getText());
-        users.setVaiTro(cboVaitro.getSelectedIndex()+1);
-        users.setTrangThai(rdo1.isSelected());
-        users.setEmail(txtEmail.getText());
-        users.setSoDienThoai(txtPhone.getText());
-        users.setNamSinh(Integer.parseInt(txtNamSinh.getText()));
-        users.setNgayTao(dacDateCre.getDate());
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        return null;
+        try {
+            users.setId(txtId.getText());
+            users.setTen(txtName.getText());
+            users.setMatKhau(txtPass.getText());
+            users.setVaiTro(cboVaitro.getSelectedIndex() + 1);
+            users.setTrangThai(rdo1.isSelected());
+            users.setEmail(txtEmail.getText());
+            users.setSoDienThoai(txtPhone.getText());
+            users.setNamSinh(Integer.parseInt(txtNamSinh.getText()));
+            users.setNgayTao(dacDateCre.getDate());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+        return users;
     }
-
-    return users;
-}
-
 
     @Override
     public void fillToTable() {
@@ -672,22 +685,25 @@ public Admin getForm() {
         model.setRowCount(0);
         items = dao.findAll();
         items.forEach(item -> {
-             String Vaitro = switch (item.getVaiTro()){
-            case 1 -> "Quản lý";
-                case 2 -> "Nhân viên";
-            default ->"ko ro";  
+            String Vaitro = switch (item.getVaiTro()) {
+                case 1 ->
+                    "Quản lý";
+                case 2 ->
+                    "Nhân viên";
+                default ->
+                    "ko ro";
             };
             Object[] rowData = {
                 item.getId(),
                 item.getTen(),
                 item.getMatKhau(),
                 Vaitro,
-                item.isTrangThai()? "Hoạt động" : "Không hoạt động",
+                item.isTrangThai() ? "Hoạt động" : "Không hoạt động",
                 item.getNamSinh(),
                 item.getEmail(),
                 item.getSoDienThoai(),
                 item.getNgayTao(),
-                false               
+                false
             };
             model.addRow(rowData);
         });
@@ -739,7 +755,7 @@ public Admin getForm() {
         txtPass.setText("");
         txtPhone.setText("");
         buttonGroup1.clearSelection();
-        
+
     }
 
     @Override
@@ -752,17 +768,20 @@ public Admin getForm() {
         DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
         model.setRowCount(0);
         for (Admin i : items) {
-            String Vaitro = switch (i.getVaiTro()){
-            case 1 -> "Quản lý";
-                case 2 -> "Nhân viên";
-            default ->"ko ro";  
+            String Vaitro = switch (i.getVaiTro()) {
+                case 1 ->
+                    "Quản lý";
+                case 2 ->
+                    "Nhân viên";
+                default ->
+                    "ko ro";
             };
             if (i.getId().toLowerCase().contains(ten.toLowerCase())) {
                 model.addRow(new Object[]{i.getId(),
                     i.getTen(),
                     i.getMatKhau(),
                     Vaitro,
-                    i.isTrangThai()? "Hoạt động":"Không hoạt động",
+                    i.isTrangThai() ? "Hoạt động" : "Không hoạt động",
                     i.getNamSinh(),
                     i.getEmail(),
                     i.getSoDienThoai(),

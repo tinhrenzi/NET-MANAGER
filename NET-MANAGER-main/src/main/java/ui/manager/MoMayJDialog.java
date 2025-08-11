@@ -31,7 +31,7 @@ import util.XQuery;
  *
  * @author VINH
  */
-public class MoMayJDialog extends javax.swing.JDialog implements MoMayController{
+public class MoMayJDialog extends javax.swing.JDialog implements MoMayController {
 
     /**
      * Creates new form MoMayJDialog
@@ -42,9 +42,10 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     private Timer dongHoTimer;
     DefaultTableModel model = new DefaultTableModel();
     SDMayDAO dao = new SDMayDAOImpl();
-    MayTinhDAO dao1= new MayTinhDAOImpl();
+    MayTinhDAO dao1 = new MayTinhDAOImpl();
     List<SuDungMay> items = List.of();
     List<MayTinh> itemscp = List.of();
+
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -374,28 +375,28 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         if (trangthai.equals("Chưa thanh toán") || trangthai.equals("Trống")) {
             XDialog.alert("Máy đã tắt");
             return;
-        }else if(trangthai.equals("Đã thanh toán")){
-        XDialog.alert("Máy đã thanh toán");
-        return;
+        } else if (trangthai.equals("Đã thanh toán")) {
+            XDialog.alert("Máy đã thanh toán");
+            return;
         }
-            TatMay();
-            Clear();
+        TatMay();
+        Clear();
     }//GEN-LAST:event_btnTatActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-    String trangthai = lblTrangThai.getText().trim();
-    if (trangthai.equals("Đã thanh toán")) {
-    XDialog.alert("Máy đã thanh toán không thể mua tiếp");
-    return;
-    }
-    String maMay = lblMaSd.getText();
-    String tenMay = lblTenMay.getText();
-    if (maMay == null || maMay.equals("MT") || maMay.trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn một máy trước khi mở menu.");
-        return;
-    }
-    MenuJDialog menuDialog = new MenuJDialog((java.awt.Frame) this.getParent(), true, maMay, tenMay);
-    menuDialog.setVisible(true);
+        String trangthai = lblTrangThai.getText().trim();
+        if (trangthai.equals("Đã thanh toán")) {
+            XDialog.alert("Máy đã thanh toán không thể mua tiếp");
+            return;
+        }
+        String maMay = lblMaSd.getText();
+        String tenMay = lblTenMay.getText();
+        if (maMay == null || maMay.equals("MT") || maMay.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một máy trước khi mở menu.");
+            return;
+        }
+        MenuJDialog menuDialog = new MenuJDialog((java.awt.Frame) this.getParent(), true, maMay, tenMay);
+        menuDialog.setVisible(true);
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
@@ -404,21 +405,20 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             return;
         }
         try {
-        int selectedRow = tblSDM.getSelectedRow();
-        if (selectedRow >= 0) {
-            String maMay = tblSDM.getValueAt(selectedRow, 0).toString(); 
-            String tenMay = tblSDM.getValueAt(selectedRow, 1).toString();
-            String ngayVao =tblSDM.getValueAt(selectedRow, 3).toString();
-            String ngayNghi =tblSDM.getValueAt(selectedRow, 4).toString();
-            String gioVao = tblSDM.getValueAt(selectedRow, 5).toString(); 
-            String gioNghi =tblSDM.getValueAt(selectedRow, 6).toString();
-            float giaTheoh = (Float) tblSDM.getValueAt(selectedRow, 7);
-          
+            int selectedRow = tblSDM.getSelectedRow();
+            if (selectedRow >= 0) {
+                String maMay = tblSDM.getValueAt(selectedRow, 0).toString();
+                String tenMay = tblSDM.getValueAt(selectedRow, 1).toString();
+                String ngayVao = tblSDM.getValueAt(selectedRow, 3).toString();
+                String ngayNghi = tblSDM.getValueAt(selectedRow, 4).toString();
+                String gioVao = tblSDM.getValueAt(selectedRow, 5).toString();
+                String gioNghi = tblSDM.getValueAt(selectedRow, 6).toString();
+                float giaTheoh = (Float) tblSDM.getValueAt(selectedRow, 7);
 
-            // Mở form thanh toán và truyền dữ liệu
-            ThanhToanJDialog dialog = new ThanhToanJDialog(null, true, maMay,tenMay, ngayVao, ngayNghi, gioVao, gioNghi, giaTheoh);
-            dialog.setVisible(true);
-        }
+                // Mở form thanh toán và truyền dữ liệu
+                ThanhToanJDialog dialog = new ThanhToanJDialog(null, true, maMay, tenMay, ngayVao, ngayNghi, gioVao, gioNghi, giaTheoh);
+                dialog.setVisible(true);
+            }
         } catch (Exception e) {
             XDialog.alert("Máy đang hoạt động");
         }
@@ -427,12 +427,12 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void tblMayTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMayTinhMouseClicked
-    int index = tblMayTinh.getSelectedRow();
-    filltblMayTinh(index);
+        int index = tblMayTinh.getSelectedRow();
+        filltblMayTinh(index);
     }//GEN-LAST:event_tblMayTinhMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-    Clear();
+        Clear();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -481,23 +481,25 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             }
         });
     }
-    public void filltblMayTinh(int row){
-    String Ten = tblMayTinh.getValueAt(row, 0).toString();
-    String Trang = tblMayTinh.getValueAt(row, 1).toString();    
-    String Gia = tblMayTinh.getValueAt(row, 2).toString();
-    lblTenMay.setText(Ten);
-    lblGiaTheoGio.setText(Gia);
-    lblTrangThai.setText(Trang);
+
+    public void filltblMayTinh(int row) {
+        String Ten = tblMayTinh.getValueAt(row, 0).toString();
+        String Trang = tblMayTinh.getValueAt(row, 1).toString();
+        String Gia = tblMayTinh.getValueAt(row, 2).toString();
+        lblTenMay.setText(Ten);
+        lblGiaTheoGio.setText(Gia);
+        lblTrangThai.setText(Trang);
     }
-    public void filltblSDMAY(int row){
-    String id = tblSDM.getValueAt(row, 0).toString();
-    String Ten = tblSDM.getValueAt(row, 1).toString();
-    String Trang = tblSDM.getValueAt(row, 2).toString();
-    String Gia = tblSDM.getValueAt(row, 7).toString();
-    lblMaSd.setText(id);
-    lblTenMay.setText(Ten);
-    lblGiaTheoGio.setText(Gia);
-    lblTrangThai.setText(Trang);
+
+    public void filltblSDMAY(int row) {
+        String id = tblSDM.getValueAt(row, 0).toString();
+        String Ten = tblSDM.getValueAt(row, 1).toString();
+        String Trang = tblSDM.getValueAt(row, 2).toString();
+        String Gia = tblSDM.getValueAt(row, 7).toString();
+        lblMaSd.setText(id);
+        lblTenMay.setText(Ten);
+        lblGiaTheoGio.setText(Gia);
+        lblTrangThai.setText(Trang);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
@@ -527,96 +529,96 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     // End of variables declaration//GEN-END:variables
     @Override
     public void FilltblMayTinh() {
-    model = (DefaultTableModel) tblMayTinh.getModel();
-    model.setRowCount(0);
-    itemscp = dao.finMayTinh();
-    itemscp.forEach(i ->{
-    Object[] rowdata ={
-    i.getTenMay(),
-    i.getTrangThai(),
-    i.getGiaTheoGio()
-    };
-    model.addRow(rowdata);
-    });
+        model = (DefaultTableModel) tblMayTinh.getModel();
+        model.setRowCount(0);
+        itemscp = dao.finMayTinh();
+        itemscp.forEach(i -> {
+            Object[] rowdata = {
+                i.getTenMay(),
+                i.getTrangThai(),
+                i.getGiaTheoGio()
+            };
+            model.addRow(rowdata);
+        });
     }
 
     @Override
     public void FilltblSDMay() {
-    model = (DefaultTableModel) tblSDM.getModel();
-    model.setRowCount(0);
-    items = dao.findAll();
-    items.forEach(i ->{
-    Object[] rowdata ={
-    i.getId(),
-    i.getTenMay(),
-    i.getTrangThai(),
-    i.getNgayChoi(),
-    i.getNgayKetThuc(),
-    i.getGioBatDau(),
-    i.getGioKetThuc(),
-    i.getGiaTheoGio(),
-    };
-    model.addRow(rowdata);
-    });
+        model = (DefaultTableModel) tblSDM.getModel();
+        model.setRowCount(0);
+        items = dao.findAll();
+        items.forEach(i -> {
+            Object[] rowdata = {
+                i.getId(),
+                i.getTenMay(),
+                i.getTrangThai(),
+                i.getNgayChoi(),
+                i.getNgayKetThuc(),
+                i.getGioBatDau(),
+                i.getGioKetThuc(),
+                i.getGiaTheoGio(),};
+            model.addRow(rowdata);
+        });
     }
 
     @Override
     public SuDungMay getFromOne() {
-    SuDungMay sdm = new SuDungMay();
-    MayTinh mt = new MayTinh();
-    sdm.setGioBatDau(Time.valueOf(lblGioBatDau.getText()));
-    sdm.setGioKetThuc(Time.valueOf(lblGioBatDau.getText()));
-    sdm.setNgayChoi(new java.sql.Date(System.currentTimeMillis()));
-    sdm.setNgayKetThuc(new java.sql.Date(System.currentTimeMillis()));
-    sdm.setGiaTheoGio(Float.parseFloat(lblGiaTheoGio.getText()));
-    return sdm;
+        SuDungMay sdm = new SuDungMay();
+        MayTinh mt = new MayTinh();
+        sdm.setGioBatDau(Time.valueOf(lblGioBatDau.getText()));
+        sdm.setGioKetThuc(Time.valueOf(lblGioBatDau.getText()));
+        sdm.setNgayChoi(new java.sql.Date(System.currentTimeMillis()));
+        sdm.setNgayKetThuc(new java.sql.Date(System.currentTimeMillis()));
+        sdm.setGiaTheoGio(Float.parseFloat(lblGiaTheoGio.getText()));
+        return sdm;
     }
 
     @Override
     public SuDungMay getFromBytoShutdow() {
-    SuDungMay sdm = new SuDungMay();
-    MayTinh mt = new MayTinh();
-    sdm.setId(Integer.parseInt(lblMaSd.getText()));
-    sdm.setGioBatDau(Time.valueOf(lblGioBatDau.getText()));
-    sdm.setGioKetThuc(Time.valueOf(lblGioBatDau.getText()));
-    sdm.setNgayChoi(new java.sql.Date(System.currentTimeMillis()));
-    sdm.setNgayKetThuc(new java.sql.Date(System.currentTimeMillis()));
-    return sdm;
+        SuDungMay sdm = new SuDungMay();
+        MayTinh mt = new MayTinh();
+        sdm.setId(Integer.parseInt(lblMaSd.getText()));
+        sdm.setGioBatDau(Time.valueOf(lblGioBatDau.getText()));
+        sdm.setGioKetThuc(Time.valueOf(lblGioBatDau.getText()));
+        sdm.setNgayChoi(new java.sql.Date(System.currentTimeMillis()));
+        sdm.setNgayKetThuc(new java.sql.Date(System.currentTimeMillis()));
+        return sdm;
     }
 
     @Override
     public MayTinh getFromTwo() {
-    MayTinh mt = new MayTinh();
-    mt.setTenMay(lblTenMay.getText());
-    return mt;
+        MayTinh mt = new MayTinh();
+        mt.setTenMay(lblTenMay.getText());
+        return mt;
     }
 
     @Override
     public void MoMay() {
-    SuDungMay sdm = this.getFromOne();
-    MayTinh mt = this.getFromTwo();
-    dao.MoMay(sdm , mt);
-    FilltblSDMay();
-    FilltblMayTinh();
+        SuDungMay sdm = this.getFromOne();
+        MayTinh mt = this.getFromTwo();
+        dao.MoMay(sdm, mt);
+        FilltblSDMay();
+        FilltblMayTinh();
     }
 
     @Override
     public void TatMay() {
-    SuDungMay sdm = this.getFromBytoShutdow();
-    MayTinh mt = this.getFromTwo();
-    dao.TatMay(sdm,mt);
-    FilltblSDMay();
-    FilltblMayTinh();
+        SuDungMay sdm = this.getFromBytoShutdow();
+        MayTinh mt = this.getFromTwo();
+        dao.TatMay(sdm, mt);
+        FilltblSDMay();
+        FilltblMayTinh();
     }
 
     @Override
     public void Clear() {
-    lblTenMay.setText("...................");
-    lblGioBatDau.setText("");
-    lblGiaTheoGio.setText(".........................");
-    lblTrangThai.setText("...............");
-    DongHo();
+        lblTenMay.setText("...................");
+        lblGioBatDau.setText("");
+        lblGiaTheoGio.setText(".........................");
+        lblTrangThai.setText("...............");
+        DongHo();
     }
+
     @Override
     public void DongHo() {
         if (dongHoTimer == null || !dongHoTimer.isRunning()) {
@@ -628,21 +630,18 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             dongHoTimer.start();
         }
     }
+
     @Override
     public void TatDongHo() {
         if (dongHoTimer != null && dongHoTimer.isRunning()) {
             dongHoTimer.stop();
         }
     }
+
     @Override
-    public void NgayHienTai(){
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String ngayHienTai = sdf.format(new Date());
-    lblNgayHienTai.setText("Ngày hiện tại: " + ngayHienTai);
+    public void NgayHienTai() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String ngayHienTai = sdf.format(new Date());
+        lblNgayHienTai.setText("Ngày hiện tại: " + ngayHienTai);
     }
 }
-
-
-
-
-
