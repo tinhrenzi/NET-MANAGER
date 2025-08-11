@@ -13,8 +13,8 @@ public class MonAnDAOImpl implements MonAnDAO {
     public MonAnDAOImpl() {
         conn = XJdbc.openConnection();
     }
-    private final String INSERT_SQL = "INSERT INTO MonAn(TenMon, GiaTien) VALUES ( ?, ?)";
-    private final String UPDATE_SQL = "UPDATE MonAn SET TenMon = ?, GiaTien = ? WHERE Id = ?";
+    private final String INSERT_SQL = "INSERT INTO MonAn(TenMon, GiaTien, SoLuong,HinhAnh) VALUES ( ?, ?,?,?)";
+    private final String UPDATE_SQL = "UPDATE MonAn SET TenMon = ?, GiaTien = ?,SoLuong =?,HinhAnh =? WHERE Id = ?";
     private final String DELETE_SQL = "DELETE FROM MonAn WHERE Id = ?";
     private final String SELECT_ALL_SQL = "SELECT * FROM MonAn";
     private final String SELECT_BY_ID_SQL = "SELECT * FROM MonAn WHERE Id = ?";
@@ -23,7 +23,9 @@ public class MonAnDAOImpl implements MonAnDAO {
     public MonAn create(MonAn entity) {
         Object[] args = {
             entity.getTenMon(),
-            entity.getGiaTien()
+            entity.getGiaTien(),
+            entity.getSoLuong(),
+            entity.getHinhANh()
         };
         XJdbc.executeUpdate(INSERT_SQL, args);
         return entity;
@@ -35,6 +37,8 @@ public class MonAnDAOImpl implements MonAnDAO {
             Object[] args = {
             entity.getTenMon(),
             entity.getGiaTien(),
+            entity.getSoLuong(),
+            entity.getHinhANh(),
             entity.getId()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);

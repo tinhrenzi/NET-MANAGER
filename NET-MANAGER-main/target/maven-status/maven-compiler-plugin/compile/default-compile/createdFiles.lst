@@ -5,7 +5,6 @@ ui\manager\QuanLyNhanVienJDialog$10.class
 daoImpl\MonAnDAOImpl.class
 ui\manager\QuanLyThucDonJDialog$3.class
 controller\DanhSachMayController.class
-ui\manager\QuanLyThucDonJDialog$9$1.class
 entity\MonAn.class
 ui\manager\MenuJDialog$1.class
 daoImpl\AdminDAOImpl.class
@@ -15,6 +14,7 @@ daoImpl\SDMayDAOImpl.class
 ui\manager\MoMayJDialog$7.class
 ui\manager\MoMayJDialog$11$1.class
 ui\manager\ThanhToanJDialog$1.class
+ui\manager\QuanLyThucDonJDialog$11.class
 util\XQuery.class
 ui\manager\MoMayJDialog$2.class
 ui\manager\MoMayJDialog$8.class
@@ -36,6 +36,7 @@ ui\manager\MoMayJDialog$10.class
 ui\manager\QuanLyNhanVienJDialog$15$1.class
 ui\manager\QuanLyNhanVienJDialog$2.class
 util\XStr.class
+ui\manager\QuanLyThucDonJDialog$11$1.class
 controller\QuanlyThucDonController.class
 ui\manager\MenuJDialog$10$1.class
 ui\manager\QuanLyNhanVienJDialog$15.class

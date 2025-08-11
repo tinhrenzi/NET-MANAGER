@@ -6,16 +6,20 @@ package entity;
 
 
 public class MonAn {
-      private int Id;
+    private int Id;
     private String TenMon;
     private double GiaTien;
+    private int  SoLuong;
+    private String HinhANh;
 
     public MonAn() {}
 
-    public MonAn(int Id, String TenMon, double GiaTien) {
+    public MonAn(int Id, String TenMon, double GiaTien, int SoLuong, String HinhANh) {
         this.Id = Id;
         this.TenMon = TenMon;
         this.GiaTien = GiaTien;
+        this.SoLuong = SoLuong;
+        this.HinhANh = HinhANh;
     }
 
     public int getId() {
@@ -41,10 +45,24 @@ public class MonAn {
     public void setGiaTien(double GiaTien) {
         this.GiaTien = GiaTien;
     }
-    @Override
-    public String toString() {
-        return this.TenMon;
-    }   
+
+    public int getSoLuong() {
+        return SoLuong;
+    }
+
+    public void setSoLuong(int SoLuong) {
+        this.SoLuong = SoLuong;
+    }
+
+    public String getHinhANh() {
+        return HinhANh;
+    }
+
+    public void setHinhANh(String HinhANh) {
+        this.HinhANh = HinhANh;
+    }
+
+    
    
     
 }
