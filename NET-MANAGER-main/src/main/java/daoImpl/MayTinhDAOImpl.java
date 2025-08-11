@@ -17,10 +17,8 @@ import util.XQuery;
 
 public class MayTinhDAOImpl implements MayTinhDAO {
     private final String Sql_Cre = "insert into MayTinh(TenMay,TrangThai,GiaTheoGio) values (?,?,?);";
-    private final String Sql_Up = "Update SDMAY set TenMay = ?,TrangThai =? ,NgayChoi =null ,NgayKetThuc= null ,GioBatDau = null"
-            + " ,GioKetThuc = null ,GiaTheoGio = ? ,TongTien =null where MaMay = ?";
-    private final String Sql_De ="Delete from MayTinh where Id=?";
-    private final String Sql_All= "select * from MayTinh SDMAY";
+    private final String Sql_De = "Delete from MayTinh where Id=?";
+    private final String Sql_All= "select * from MayTinh";
 
     @Override
     public MayTinh create(MayTinh entity) {
@@ -35,20 +33,14 @@ public class MayTinhDAOImpl implements MayTinhDAO {
 
     @Override
     public void update(MayTinh entity) {
-        String sql = "update MayTinh set TrangThai=? where Id= ? ";
-        try (
-            Connection conn = XJdbc.openConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)
-        ) {
-
-            ps.setString(1, entity.getTrangThai());
-
-            ps.setInt(2, entity.getId());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.err.println("Lỗi khi cập nhật máy tính: " + e.getMessage());
-            e.printStackTrace();
-        }
+        String sql = "update MayTinh set TenMay =?,TrangThai=?,GiaTheoGio=? where Id= ? ";
+        Object[] args = {
+        entity.getTenMay(),
+        entity.getTrangThai(),
+        entity.getGiaTheoGio(),
+        entity.getId()
+        };
+        XJdbc.executeUpdate(sql, args);
     }
 
 

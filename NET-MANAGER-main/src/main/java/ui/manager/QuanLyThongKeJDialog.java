@@ -15,7 +15,6 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import dao.QuanLyThongKeDAO;
-import javax.swing.JOptionPane;
 
 
 // Import model & controller
@@ -109,7 +108,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                 {null, null, null, null, null}
             },
             new String [] {
-                "Mã Máy", "Tên máy", "Tổng thời gian SD", "Giá/h", "Tổng tiền"
+                "Tên máy", "Số lần sử dụng", "Tổng TG sử dụng", "Giá/h", "Tổng tiền"
             }
         ));
         jScrollPane1.setViewportView(tblSuDungMay);
@@ -145,10 +144,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                         .addComponent(btnXemSuDungMay, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 45, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,9 +172,8 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jdcTuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dacDenNgayMay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(13, 13, 13)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Lịch Sử Sử Dụng Máy ", jPanel1);
@@ -369,45 +364,33 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }//GEN-LAST:event_btnXemBangThongkeActionPerformed
 
     private void btnXemSuDungMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemSuDungMayActionPerformed
-         if (jdcTuNgay.getDate() == null || dacDenNgayMay.getDate() == null) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc!");
-        return;
-    }
+        Date tuNgay = new java.sql.Date(jdcTuNgay.getDate().getTime());
+        Date denNgay = new java.sql.Date(dacDenNgayMay.getDate().getTime());
 
-    Date tuNgay = new java.sql.Date(jdcTuNgay.getDate().getTime());
-    Date denNgay = new java.sql.Date(dacDenNgayMay.getDate().getTime());
+        List<SuDungMay> list = dao.getLichSuSuDungMay(tuNgay, denNgay);
 
-    List<SuDungMay> list = dao.getLichSuSuDungMay(tuNgay, denNgay);
+        DefaultTableModel model = (DefaultTableModel) tblSuDungMay.getModel();
+        model.setRowCount(0);
 
-    DefaultTableModel model = (DefaultTableModel) tblSuDungMay.getModel();
-    model.setRowCount(0); // Xóa bảng cũ
+        DecimalFormat dfTien = new DecimalFormat("#,###");
+        DecimalFormat dfGio = new DecimalFormat("#.##");
 
-    DecimalFormat dfTien = new DecimalFormat("#,###");
-    DecimalFormat dfGio = new DecimalFormat("#.##");
+        float tongGio = 0, tongTien = 0;
 
-    float tongGio = 0, tongTien = 0;
+        for (SuDungMay sdm : list) {
+            model.addRow(new Object[]{
+                sdm.getTenMay(),
+                sdm.getMaMay(),
+                dfGio.format(sdm.getThoiGianChoi()),
+                dfTien.format(sdm.getGiaTheoGio()) + " VND",
+                dfTien.format(sdm.getTongTien()) + " VND"
+            });
+            tongGio += sdm.getThoiGianChoi();
+            tongTien += sdm.getTongTien();
+        }
 
-    if (list.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Không có dữ liệu sử dụng máy trong khoảng thời gian đã chọn.");
-        txtTongGio.setText("0");
-        txtTongTien.setText("0 VND");
-        return;
-    }
-
-    for (SuDungMay sdm : list) {
-        model.addRow(new Object[]{
-            sdm.getMaMay(),
-            sdm.getTenMay(),
-            dfGio.format(sdm.getThoiGianChoi()),
-            dfTien.format(sdm.getGiaTheoGio()) + " VND",
-            dfTien.format(sdm.getTongTien()) + " VND"
-        });
-        tongGio += sdm.getThoiGianChoi();
-        tongTien += sdm.getTongTien();
-    }
-
-    txtTongGio.setText(dfGio.format(tongGio));
-    txtTongTien.setText(dfTien.format(tongTien) + " VND");
+        txtTongGio.setText(dfGio.format(tongGio));
+        txtTongTien.setText(dfTien.format(tongTien) + " VND");
     }//GEN-LAST:event_btnXemSuDungMayActionPerformed
 
     private void btnMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonAnActionPerformed
@@ -521,32 +504,22 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
     @Override
     public List<SuDungMay> getFillSDMay() {
-           List<SuDungMay> entity = dao.getAllSDMAY_FromTable();
-    model = (DefaultTableModel) tblSuDungMay.getModel();
-    model.setRowCount(0);
+        List<SuDungMay> entity = dao.getAllSDMay();
+        model = (DefaultTableModel) tblSuDungMay.getModel();
+        model.setRowCount(0);
 
-    DecimalFormat df = new DecimalFormat("#,###.## VND");
-    DecimalFormat dfGio = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("#,###.## VND");
 
-    float tongTien = 0, tongGio = 0;
-
-    for (SuDungMay item : entity) {
-        model.addRow(new Object[]{
-            item.getMaMay(),
-            item.getTenMay(),
-            dfGio.format(item.getThoiGianChoi()),
-            df.format(item.getGiaTheoGio()),
-            df.format(item.getTongTien())
-        });
-
-        tongTien += item.getTongTien();
-        tongGio += item.getThoiGianChoi();
-    }
-
-    txtTongTien.setText(df.format(tongTien));
-    txtTongGio.setText(dfGio.format(tongGio));
-
-    return entity;
+        for (SuDungMay item : entity) {
+            model.addRow(new Object[]{
+                item.getTenMay(),
+                item.getMaMay(),
+                String.format("%.2f", item.getThoiGianChoi()),
+                df.format(item.getGiaTheoGio()),
+                df.format(item.getTongTien())
+            });
+        }
+        return entity;
     }
 
     @Override

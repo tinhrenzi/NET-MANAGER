@@ -10,13 +10,14 @@ import java.util.*;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
 import dao.MonAnDAO;
-import controller.MonAnController;
+import controller.MenuController;
+import controller.QuanlyThucDonController;
 
 /**
  *
  * @author Admin
  */
-public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnController{
+public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyThucDonController{
 
     /**
      * Creates new form QuanLyThucDonJDialog
@@ -42,7 +43,6 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtGia = new javax.swing.JTextField();
@@ -57,14 +57,17 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
         jLabel1 = new javax.swing.JLabel();
         btnFindId = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        lblMaMon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("Quản lý thực đơn");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Id");
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Tên");
 
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -79,6 +82,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Đơn giá");
 
         tblOrderManager.setModel(new javax.swing.table.DefaultTableModel(
@@ -127,6 +131,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Tìm kiếm theo id");
 
         btnFindId.setText("Tìm kiếm");
@@ -135,6 +140,9 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
                 btnFindIdActionPerformed(evt);
             }
         });
+
+        lblMaMon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblMaMon.setText("............");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -148,18 +156,22 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(593, 593, 593))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addComponent(txtFinid, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(123, 123, 123)
+                                    .addGap(60, 60, 60)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(lblMaMon, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(149, 149, 149)
                                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                                     .addGap(19, 19, 19)
@@ -171,7 +183,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
                                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                                     .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(0, 36, Short.MAX_VALUE))
+                                                    .addGap(0, 60, Short.MAX_VALUE))
                                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                                     .addGap(0, 0, Short.MAX_VALUE)
                                                     .addComponent(btnCre)
@@ -182,16 +194,14 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
                                             .addGap(18, 18, 18)
                                             .addComponent(btnCle)
                                             .addGap(23, 23, 23))))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(26, 26, 26)
-                                    .addComponent(btnFindId))))))
+                                .addComponent(btnFindId)))))
                 .addGap(0, 8, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtGia, txtId, txtName});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtGia, txtName});
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel3, jLabel4});
 
@@ -200,36 +210,44 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(33, 33, 33)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCre)
-                    .addComponent(btnUp)
-                    .addComponent(btnDe)
-                    .addComponent(btnCle)
-                    .addComponent(txtFinid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFindId))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(29, 29, 29)))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCre)
+                            .addComponent(btnUp)
+                            .addComponent(btnDe)
+                            .addComponent(btnCle)
+                            .addComponent(txtFinid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFindId))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblMaMon, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel3, jLabel4, jLabel5});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel4, jLabel5});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel3, lblMaMon});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -342,10 +360,10 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblMaMon;
     private javax.swing.JTable tblOrderManager;
     private javax.swing.JTextField txtFinid;
     private javax.swing.JTextField txtGia;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
@@ -374,7 +392,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
            return Od;
     }
     private boolean validateForm() {
-        String id = txtId.getText().trim();
+        String id = lblMaMon.getText().trim();
         String name = txtName.getText().trim();
         String giaText = txtGia.getText().trim();
 
@@ -433,7 +451,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
     @Override
     public void delete() {
         if (XDialog.confirm("Ban xac nhan xoa?")) {
-            String id = txtId.getText();
+            String id = lblMaMon.getText();
             dao.deleteByID(id);
             this.fillToTable();
             this.clear();
@@ -442,7 +460,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
 
     @Override
     public void clear() {
-    txtId.setText("");
+    lblMaMon.setText("");
     txtName.setText("");
     txtGia.setText("");
     }
@@ -468,7 +486,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements MonAnCo
     }
 
     public void filltxt(int row){
-    txtId.setText(tblOrderManager.getValueAt(row, 0).toString());
+    lblMaMon.setText(tblOrderManager.getValueAt(row, 0).toString());
     txtName.setText(tblOrderManager.getValueAt(row, 1).toString());
     txtGia.setText(tblOrderManager.getValueAt(row, 2).toString());
     }

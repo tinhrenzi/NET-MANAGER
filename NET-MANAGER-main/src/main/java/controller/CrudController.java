@@ -6,7 +6,8 @@ package controller;
 
 /**
  *
- * @author VINH
+ * @author NITRO 5
+ * @param <Entity>
  */
 public interface CrudController<Entity> {
     void open(); // Xử lý mở cửa sổ

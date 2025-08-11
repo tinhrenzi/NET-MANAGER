@@ -4,6 +4,7 @@
  */
 package dao;
 
+import entity.MayTinh;
 import entity.SuDungMay;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -13,9 +14,9 @@ import java.util.List;
  *
  * @author NITRO 5
  */
-public interface SDMayDAO extends CrudDAO<SuDungMay, String>{
-    void MoMay(SuDungMay SDM);
-    void TatMay(SuDungMay SDM);
-    boolean resetSuDungMay(int maMay);
-    
+public interface SDMayDAO{
+    void MoMay(SuDungMay SDM ,MayTinh mt);
+    void TatMay(SuDungMay SDM,MayTinh mt);
+    List<MayTinh> finMayTinh();
+    List<SuDungMay> findAll();
 }

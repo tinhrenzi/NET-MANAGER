@@ -12,11 +12,9 @@ import java.util.List;
  * @author VINH
  */
 public interface MenuDAO {
-Menu insert(Menu order);
-    List<Menu> findAll();
+    void UpSoluong(Menu entity);
+    Menu Mua(Menu order);
     List<Menu> findByMay(String maMay);
     List<Menu> findById(String MaMenu);
-    boolean resetMenuByMay(int maMay);
-    public void deleteByMaMay(int maMay);
-    List<Menu> findByMaMay(int maMay);
+    List<Menu> FindByIdSD(int MaSDMay);
 }

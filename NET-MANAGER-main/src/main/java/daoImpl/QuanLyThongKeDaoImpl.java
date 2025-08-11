@@ -26,27 +26,27 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     }
 
     @Override
-        public List<SuDungMay> getAllSDMay() {
+    public List<SuDungMay> getAllSDMay() {
         List<SuDungMay> list = new ArrayList<>();
-        String sql = "SELECT mt.Id AS MaMay, mt.TenMay, " +
-                     "SUM(ISNULL(tt.TongGio, 0)) AS TongThoiGianSuDung, " +
-                     "mt.GiaTheoGio, " +
-                     "CAST(SUM(ISNULL(tt.TongTien, 0)) AS DECIMAL(20, 2)) AS TongTien " +
-                     "FROM ThanhToan tt " +
-                     "JOIN MayTinh mt ON tt.MaMay = mt.Id " +
-                     "GROUP BY mt.Id, mt.TenMay, mt.GiaTheoGio";
-
+        String sql = "SELECT " +
+                     "    sdm.TenMay, " +
+                     "    COUNT(sdm.Id) AS SoLanSuDung, " +
+                     "    SUM(DATEDIFF(SECOND, sdm.GioBatDau, sdm.GioKetThuc) / 3600.0) AS TongGioSuDung, " +
+                     "    sdm.GiaTheoGio, " +
+                     "    SUM(ISNULL(sdm.TongTien, 0)) AS TongTien " +
+                     "FROM SDMAY sdm " +
+                     "GROUP BY sdm.TenMay, sdm.GiaTheoGio " +
+                     "ORDER BY sdm.TenMay";
 
         try (Connection conn = XJdbc.openConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                ThanhToan tt = new ThanhToan();
                 SuDungMay sdm = new SuDungMay();
-                sdm.setMaMay(rs.getInt("MaMay"));
                 sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setThoiGianChoi(rs.getFloat("TongThoiGianSuDung"));
+                sdm.setMaMay(rs.getInt("SoLanSuDung"));
+                sdm.setThoiGianChoi(rs.getFloat("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                 sdm.setTongTien(rs.getFloat("TongTien"));
                 list.add(sdm);
@@ -58,6 +58,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
         return list;
     }
+
 
 
     @Override
@@ -91,10 +92,20 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     @Override
    public List<SuDungMay> getLichSuSuDungMay(Date tuNgay, Date denNgay) {
     List<SuDungMay> list = new ArrayList<>();
-    String sql = "SELECT MaMay, TenMay, TrangThai, NgayChoi, NgayKetThuc, GioBatDau, GioKetThuc, GiaTheoGio, TongTien " +
-                 "FROM SDMAY " +
-                 "WHERE NgayChoi BETWEEN ? AND ?";
-
+        String sql = """
+            SELECT 
+                sdm.TenMay,
+                COUNT(sdm.Id) AS SoLanSuDung,
+                SUM(
+                    DATEDIFF(SECOND, sdm.GioBatDau, sdm.GioKetThuc) / 3600.0
+                ) AS TongGioSuDung,
+                sdm.GiaTheoGio,
+                SUM(ISNULL(sdm.TongTien, 0)) AS TongTien
+            FROM SDMAY sdm
+            WHERE sdm.NgayChoi BETWEEN ? AND ?
+            GROUP BY sdm.TenMay,sdm.GiaTheoGio
+            ORDER BY sdm.TenMay
+        """;
     try (Connection conn = XJdbc.openConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -104,25 +115,11 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
         while (rs.next()) {
             SuDungMay sdm = new SuDungMay();
-            sdm.setMaMay(rs.getInt("MaMay"));
             sdm.setTenMay(rs.getString("TenMay"));
-            sdm.setTrangThai(rs.getString("TrangThai"));
-            sdm.setNgayChoi(rs.getDate("NgayChoi"));
-            sdm.setNgayKetThuc(rs.getDate("NgayKetThuc"));
-            sdm.setGioBatDau(rs.getTime("GioBatDau"));
-            sdm.setGioKetThuc(rs.getTime("GioKetThuc"));
+            sdm.setMaMay(rs.getInt("SoLanSuDung"));
+            sdm.setThoiGianChoi(rs.getFloat("TongGioSuDung"));
             sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
             sdm.setTongTien(rs.getFloat("TongTien"));
-
-            // Tính thời gian chơi theo giờ
-            if (sdm.getGioBatDau() != null && sdm.getGioKetThuc() != null) {
-                long milliseconds = sdm.getGioKetThuc().getTime() - sdm.getGioBatDau().getTime();
-                float gioChoi = milliseconds / (1000f * 60 * 60);
-                sdm.setThoiGianChoi(gioChoi);
-            } else {
-                sdm.setThoiGianChoi(0);
-            }
-
             list.add(sdm);
         }
     } catch (Exception e) {
@@ -199,43 +196,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
         return list;
     }
-@Override
-public List<SuDungMay> getAllSDMAY_FromTable() {
-    List<SuDungMay> list = new ArrayList<>();
-    String sql = "SELECT * FROM SDMAY";
 
-    try (Connection conn = XJdbc.openConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            SuDungMay sdm = new SuDungMay();
-            sdm.setId(rs.getInt("Id"));
-            sdm.setMaMay(rs.getInt("MaMay"));
-            sdm.setTenMay(rs.getString("TenMay"));
-            sdm.setTrangThai(rs.getString("TrangThai"));
-            sdm.setNgayChoi(rs.getDate("NgayChoi"));
-            sdm.setNgayKetThuc(rs.getDate("NgayKetThuc"));
-            sdm.setGioBatDau(rs.getTime("GioBatDau"));
-            sdm.setGioKetThuc(rs.getTime("GioKetThuc"));
-            sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
-            sdm.setTongTien(rs.getFloat("TongTien"));
-
-            // Tính thời gian chơi nếu có giờ bắt đầu và kết thúc
-            if (sdm.getGioBatDau() != null && sdm.getGioKetThuc() != null) {
-                long millis = sdm.getGioKetThuc().getTime() - sdm.getGioBatDau().getTime();
-                float gio = millis / (1000f * 60 * 60);
-                sdm.setThoiGianChoi(gio);
-            }
-
-            list.add(sdm);
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    return list;
-}
 
 }

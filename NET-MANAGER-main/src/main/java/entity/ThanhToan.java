@@ -8,11 +8,13 @@ package entity;
 import java.time.LocalDateTime;
 
 public class ThanhToan {
-    private int maMay;
+    private int MaSDMay;
+    private String TenMay;
     private LocalDateTime ngayBatDau;
     private LocalDateTime ngayKetThuc;
     private double tongGio;
     private double giaTheoGio;
+    private LocalDateTime NgayThanhToan;
     private double tienMay;
     private double tienMenu;
     private double tongTien;
@@ -20,8 +22,9 @@ public class ThanhToan {
 
     public  ThanhToan(){}
 
-    public ThanhToan(int maMay, LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc, double tongGio, double giaTheoGio, double tienMay, double tienMenu, double tongTien) {
-        this.maMay = maMay;
+    public ThanhToan(int MaSDMay, String TenMay, LocalDateTime ngayBatDau, LocalDateTime ngayKetThuc, double tongGio, double giaTheoGio, double tienMay, double tienMenu, double tongTien) {
+        this.MaSDMay = MaSDMay;
+        this.TenMay = TenMay;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
         this.tongGio = tongGio;
@@ -31,13 +34,19 @@ public class ThanhToan {
         this.tongTien = tongTien;
     }
 
-
-    public int getMaMay() {
-        return maMay;
+    public String getTenMay() {
+        return TenMay;
     }
 
-    public void setMaMay(int maMay) {
-        this.maMay = maMay;
+    public void setTenMay(String TenMay) {
+        this.TenMay = TenMay;
+    }
+    public int getMaSDMay() {
+        return MaSDMay;
+    }
+
+    public void setMaSDMay(int MaSDMay) {
+        this.MaSDMay = MaSDMay;
     }
 
     public LocalDateTime getNgayBatDau() {
@@ -54,6 +63,14 @@ public class ThanhToan {
 
     public void setNgayKetThuc(LocalDateTime ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
+    }
+
+    public LocalDateTime getNgayThanhToan() {
+        return NgayThanhToan;
+    }
+
+    public void setNgayThanhToan(LocalDateTime NgayThanhToan) {
+        this.NgayThanhToan = NgayThanhToan;
     }
 
     public double getTongGio() {

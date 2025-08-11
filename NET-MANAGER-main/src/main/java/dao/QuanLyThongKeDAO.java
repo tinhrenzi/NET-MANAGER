@@ -15,5 +15,5 @@ public interface QuanLyThongKeDAO {
             List<SuDungMay> getLichSuSuDungMay(java.sql.Date tuNgay,java.sql.Date denNgay);
             List<Menu>getLichSuMenu(java.sql.Date tuNgay,java.sql.Date denNgay);
             List<ThongKeDoanhThu> getthongKeTheoKhoangNgay(java.sql.Date tuNgay,java.sql.Date denNgay);
-    public List<SuDungMay> getAllSDMAY_FromTable();        
+            
 }

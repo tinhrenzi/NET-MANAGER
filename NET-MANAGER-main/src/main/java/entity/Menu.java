@@ -8,7 +8,9 @@ import java.sql.Date;
 
 
 public class Menu {
-    private int maMay;
+    int id;
+    int MaSDMay;
+    private String TenMay;
     private int maMon;
     private String tenMon;
     private double giaTien;
@@ -17,11 +19,11 @@ public class Menu {
     private double tongTien;
 
     // Constructors
-    public Menu() {
-    }
+    public Menu() {}
 
-    public Menu(int maMay, int maMon, String tenMon, double giaTien, Date NgayMua, int soLuong, double tongTien) {
-        this.maMay = maMay;
+    public Menu(int MaSDMay, String TenMay, int maMon, String tenMon, double giaTien, Date NgayMua, int soLuong, double tongTien) {
+        this.MaSDMay = MaSDMay;
+        this.TenMay = TenMay;
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.giaTien = giaTien;
@@ -30,19 +32,33 @@ public class Menu {
         this.tongTien = tongTien;
     }
 
-
-
-    // Getters and Setters
- 
-
-
-    public int getMaMay() {
-        return maMay;
+    public int getId() {
+        return id;
     }
 
-    public void setMaMay(int maMay) {
-        this.maMay = maMay;
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public int getMaSDMay() {
+        return MaSDMay;
+    }
+
+    public void setMaSDMay(int MaSDMay) {
+        this.MaSDMay = MaSDMay;
+    }
+
+
+    public String getTenMay() {
+        return TenMay;
+    }
+
+    public void setTenMay(String TenMay) {
+        this.TenMay = TenMay;
+    }
+
+
+
 
     public int getMaMon() {
         return maMon;

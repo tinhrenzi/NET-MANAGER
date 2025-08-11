@@ -4,6 +4,8 @@
  */
 package dao;
 
+import entity.MayTinh;
+import entity.SuDungMay;
 import entity.ThanhToan;
 
 /**
@@ -11,5 +13,6 @@ import entity.ThanhToan;
  * @author VINH
  */
 public interface ThanhToanDAO{// Khóa chính là kiểu Nvarchar nên để String
-    boolean insert(ThanhToan tt);
+    ThanhToan ThanhToan(ThanhToan tt);
+    void TatMay(SuDungMay SDM,MayTinh mt);
 }

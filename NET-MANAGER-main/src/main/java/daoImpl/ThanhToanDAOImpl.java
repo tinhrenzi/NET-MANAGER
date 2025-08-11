@@ -10,32 +10,51 @@ import util.XQuery;
 import java.sql.Date;
 import java.util.List;
 import dao.ThanhToanDAO;
+import entity.MayTinh;
+import entity.SuDungMay;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class ThanhToanDAOImpl implements ThanhToanDAO {
+    
+    @Override
+    public ThanhToan ThanhToan(ThanhToan tt) {
+        String INSERT_SQL = 
+            "INSERT INTO ThanhToan " +
+            "(MaSDMay, NgayChoi, ThoiGianChoi, GiaTienTheoGio, TongGio, TongTienMay, TongTienMon,NgayThanhToan, TongTien) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
 
-@Override
-public boolean insert(ThanhToan tt) {
-    String sql = "INSERT INTO ThanhToan (MaMay, NgayChoi, ThoiGianChoi, GiaTienTheoGio,TongGio, TongTien) " +
-                 "VALUES (?, ?, ?, ?, ?,?)";
-    try (Connection con = XJdbc.openConnection();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, tt.getMaMay());
-        ps.setDate(2, java.sql.Date.valueOf(tt.getNgayBatDau().toLocalDate()));
-        ps.setTimestamp(3, java.sql.Timestamp.valueOf(tt.getNgayKetThuc()));
-        ps.setDouble(4, tt.getGiaTheoGio());
-        ps.setDouble(5, tt.getTongGio());
-        ps.setDouble(6, tt.getTongTien());
+        Object[] args = {
+            tt.getMaSDMay(),
+            java.sql.Date.valueOf(tt.getNgayBatDau().toLocalDate()), // Ngày chơi
+            java.sql.Timestamp.valueOf(tt.getNgayKetThuc()),         // Thời gian kết thúc
+            tt.getGiaTheoGio(),
+            tt.getTongGio(),
+            tt.getTienMay(),
+            tt.getTienMenu(),
+            tt.getNgayThanhToan(),
+            tt.getTongTien()
+        };
 
-        return ps.executeUpdate() > 0; // trả về true nếu insert thành công
-    } catch (Exception e) {
-        e.printStackTrace();
+        XJdbc.executeUpdate(INSERT_SQL, args);
+        return tt;
     }
-    return false;
-}
 
-
-
-   
+    @Override
+    public void TatMay(SuDungMay SDM, MayTinh mt) {
+        
+        String Sql_TatMay = "Update SDMAY set TrangThai =? where Id =?";
+        Object[] i = {
+            "Đã thanh toán",
+            SDM.getId()
+        };
+        XJdbc.executeUpdate(Sql_TatMay, i);
+        
+        String Sql_TrangThai = "Update MayTinh set TrangThai =? where TenMay =?";
+                Object[] j = {
+                "Trống",
+                mt.getTenMay()
+            };
+            XJdbc.executeUpdate(Sql_TrangThai, j);
+    }
 }

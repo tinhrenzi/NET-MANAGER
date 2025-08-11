@@ -207,7 +207,12 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
         jLabel10.setText("Vai trò");
 
-        cboVaitro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lý ", "Nhân viên", " " }));
+        cboVaitro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản lý ", "Nhân viên" }));
+        cboVaitro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboVaitroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -454,6 +459,10 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
         return;
     }
+    if (cboVaitro.getSelectedIndex() != 0) {
+            JOptionPane.showMessageDialog(this, "Quản lý không thể sửa");
+            return;
+    }
     this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -507,6 +516,11 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
+
+    private void cboVaitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboVaitroActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cboVaitroActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,16 +5,15 @@
 package ui.manager;
 
 import dao.MenuDAO;
-import dao.SDMayDAO;
 import dao.ThanhToanDAO;
 import daoImpl.MenuDAOImpl;
-import daoImpl.SDMayDAOImpl;
 import daoImpl.ThanhToanDAOImpl;
 import entity.MayTinh;
 import entity.Menu;
 import entity.SuDungMay;
 import entity.ThanhToan;
 import java.sql.Date;
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -22,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -47,13 +47,14 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }
     MenuDAO dao1 = new MenuDAOImpl();
     ThanhToanDAO dao = new ThanhToanDAOImpl();
-    SDMayDAO sdMay = new SDMayDAOImpl();
-    public ThanhToanJDialog(java.awt.Frame parent, boolean modal, String maMay, String NgayChoi,String NgayNghi,String gioVao,String GioNghi, float giah) {
+    public ThanhToanJDialog(java.awt.Frame parent, boolean modal, String MaSDMay,String TenMay, String NgayChoi,String NgayNghi,String gioVao,String GioNghi, float giah) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
         //fillsdmay
-        lblMaMay.setText(maMay);
+        lblTenMay.setText(TenMay);
+        lblMaMay.setText(MaSDMay);
         lblNgayVao.setText(NgayChoi); 
         lblNgayNgi.setText(NgayNghi);
         lblGioVao.setText(gioVao); 
@@ -71,7 +72,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
         model.setRowCount(0); // Xóa dòng cũ
 
-        List<Menu> list = dao1.findByMay(maMay);
+        List<Menu> list = dao1.findByMay(MaSDMay);
         double tongTienMenu = 0;
         for (Menu mon : list) {
             model.addRow(new Object[]{
@@ -111,8 +112,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         lblNgayVao = new javax.swing.JLabel();
         lblNgayNgi = new javax.swing.JLabel();
-        lblMaMay = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        lblMaMay = new javax.swing.JLabel();
+        lblTenMay = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         pnlMenu = new javax.swing.JPanel();
@@ -165,10 +167,12 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         lblNgayNgi.setText("----");
 
-        lblMaMay.setText("-----");
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Mã Máy :");
+        jLabel5.setText("Tên máy :");
+
+        lblMaMay.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblTenMay.setText("----");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -178,13 +182,13 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblGioVao)
-                            .addComponent(lblMaMay, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(lblMaMay, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -208,25 +212,34 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblGiaTheoGio)))
+                        .addComponent(lblGiaTheoGio))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTenMay)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel11, jLabel15, jLabel2, jLabel3, jLabel4, jLabel6});
 
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblGiaTheoGio, lblGioNghi, lblGioVao, lblNgayNgi, lblNgayVao, lblTongGio, lblTongTien});
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblGiaTheoGio, lblGioNghi, lblGioVao, lblNgayNgi, lblNgayVao, lblTenMay, lblTongGio, lblTongTien});
 
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMaMay))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblGioVao))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTenMay, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lblGioVao)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(lblMaMay)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -260,13 +273,13 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Tên Món", "Số Lượng", "Giá"
+                "Tên Món", "Số Lượng", "Giá", "Thành Tiền"
             }
         ));
         jScrollPane1.setViewportView(tblMenu);
@@ -375,7 +388,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     ThanhToan tt = new ThanhToan();
     SuDungMay mt = new SuDungMay();
 
-    tt.setMaMay(Integer.parseInt(lblMaMay.getText()));
+    tt.setMaSDMay(Integer.parseInt(lblMaMay.getText()));
+
     LocalDateTime start = LocalDateTime.of(
         LocalDate.parse(lblNgayVao.getText()),
         LocalTime.parse(lblGioVao.getText())
@@ -387,29 +401,26 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     tt.setNgayBatDau(start);
     tt.setNgayKetThuc(end);
+    tt.setNgayThanhToan(end);
     mt.setThoiGianChoi(Float.parseFloat(lblTongGio.getText().replace(" giờ", "")));
     tt.setTongGio(Double.parseDouble(lblTongGio.getText().replace(" giờ", "")));
     tt.setGiaTheoGio(Double.parseDouble(lblGiaTheoGio.getText()));
     tt.setTienMay(getTienMayFromLabel());
 
-    // Tính tiền menu (chỉ còn cột giá tiền - index 2)
+    // Tính tiền menu
     double tongTienMenu = 0;
     for (int i = 0; i < tblMenu.getRowCount(); i++) {
-        double gia = Double.parseDouble(tblMenu.getValueAt(i, 2).toString());
-        int soLuong = 1; // Nếu muốn thêm số lượng, lấy từ nguồn khác hoặc thêm lại cột số lượng
-        tongTienMenu += gia * soLuong;
+        tongTienMenu += Double.parseDouble(tblMenu.getValueAt(i, 3).toString());
     }
     tt.setTienMenu(tongTienMenu);
     tt.setTongTien(tt.getTienMay() + tongTienMenu);
 
     // Gọi DAO để lưu
-    if (dao.insert(tt)) {
-        dao1.resetMenuByMay(tt.getMaMay());
-        sdMay.resetSuDungMay(tt.getMaMay());
-        javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
-        this.dispose();
+    if (dao.ThanhToan(tt) != null) {
+        TatMay();
+        JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
     } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
+        JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
     }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
@@ -480,6 +491,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblMaMay;
     private javax.swing.JLabel lblNgayNgi;
     private javax.swing.JLabel lblNgayVao;
+    private javax.swing.JLabel lblTenMay;
     private javax.swing.JLabel lblTongGio;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lblTongTienMayVaMenu;
@@ -507,7 +519,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     return new double[]{hoursPlayed, tongTien};
     }
 
-        private double getTienMayFromLabel() {
+    private double getTienMayFromLabel() {
         String text = lblTongTien.getText();
         if (text == null || text.trim().equals("----")) {
             return 0.0;
@@ -520,6 +532,20 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             return 0.0;
         }
     }
-
-
+    public SuDungMay getFromBytoShutdow() {
+    SuDungMay sdm = new SuDungMay();
+    MayTinh mt = new MayTinh();
+    sdm.setId(Integer.parseInt(lblMaMay.getText()));
+    return sdm;
+    }
+    public MayTinh getFromOne() {
+    MayTinh mt = new MayTinh();
+    mt.setTenMay(lblTenMay.getText());
+    return mt;
+    }
+    public void TatMay() {
+    SuDungMay sdm = this.getFromBytoShutdow();
+    MayTinh mt = this.getFromOne();
+    dao.TatMay(sdm,mt);
+    }
 }

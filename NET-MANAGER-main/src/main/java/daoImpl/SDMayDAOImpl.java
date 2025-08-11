@@ -5,6 +5,7 @@
 package daoImpl;
 
 import dao.SDMayDAO;
+import entity.MayTinh;
 import entity.SuDungMay;
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,70 +19,51 @@ import util.XQuery;
  */
 public class SDMayDAOImpl implements SDMayDAO{
     private Connection conn = XJdbc.openConnection();
-    String Sql_MoMay = "Update SDMAY set TrangThai =?, NgayChoi=? ,NgayKetThuc=? , GioBatDau=? ,GioKetThuc=?,TongTien=?  where MaMay =?";
-    String Sql_TatMay = "Update SDMAY set TrangThai =?, NgayChoi=null, NgayKetThuc = null, GioBatDau=null ,GioKetThuc=null,TongTien =?  where MaMay =?";
-    String Sql_Sle ="SELECT s.MaMay,m.TenMay ,s.TrangThai , s.NgayChoi,s.NgayKetThuc , s.GioBatDau , s.GioKetThuc , s.GiaTheoGio , s.TongTien "
-            + "FROM SDMAY s JOIN MayTinh m ON s.MaMay = m.Id";
     @Override
-    public void MoMay(SuDungMay SDM) {
+    public void MoMay(SuDungMay SDM ,MayTinh mt) {
+        String Sql_MoMay = "insert into SDMAY (TrangThai, NgayChoi,GioBatDau,TenMay,GiaTheoGio)  values (?,?,?,?,?)";
         Object[] args = {
-            SDM.getTrangThai(),
+            "Hoạt động",
             SDM.getNgayChoi(),
-            SDM.getNgayKetThuc(),
             SDM.getGioBatDau(),
-            SDM.getGioKetThuc(),
-            SDM.getTongTien(),
-            SDM.getMaMay()
+            mt.getTenMay(),
+            SDM.getGiaTheoGio()
         };
         XJdbc.executeUpdate(Sql_MoMay, args);
+        String Sql_TrangThai = "Update MayTinh set TrangThai =? where TenMay =?";
+            Object[] i = {
+            "Hoạt động",
+            mt.getTenMay()
+        };
+        XJdbc.executeUpdate(Sql_TrangThai, i);
     }
 
     @Override
-    public void TatMay(SuDungMay SDM) {
+    public void TatMay(SuDungMay SDM ,MayTinh mt) {
+    String Sql_TatMay = "Update SDMAY set TrangThai =?,NgayKetThuc = ?,GioKetThuc=?,TongTien =?  where Id =?";
     Object[] args = {
-        SDM.getTrangThai(),
+        "Chưa thanh toán",
+        SDM.getNgayKetThuc(),
+        SDM.getGioKetThuc(),
         SDM.getTongTien(),
-        SDM.getMaMay()
+        SDM.getId()
     };
     XJdbc.executeUpdate(Sql_TatMay, args);
+    String Sql_TrangThai = "Update MayTinh set TrangThai =? where TenMay =?";
+            Object[] i = {
+            "Trống",
+            mt.getTenMay()
+        };
+        XJdbc.executeUpdate(Sql_TrangThai, i);
     }
-
-    @Override
-    public SuDungMay create(SuDungMay entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void update(SuDungMay entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void deleteByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     @Override
     public List<SuDungMay> findAll() {
+    String Sql_Sle ="SELECT * from SDMAY";
     return XQuery.getBeanList(SuDungMay.class, Sql_Sle);
     }
-
     @Override
-    public SuDungMay findByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean resetSuDungMay(int maMay) {
-          String sql = "DELETE FROM Menu WHERE MaMay = ?";
-    try {
-        XJdbc.executeUpdate(sql, maMay);
-        return true;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false;
-    }
-    }
-
-
+    public List<MayTinh> finMayTinh(){
+    String Sql_MaTinh ="Select TenMay,TrangThai,GiaTheoGio from MayTinh";
+    return XQuery.getBeanList(MayTinh.class ,Sql_MaTinh);
+    }   
 }
