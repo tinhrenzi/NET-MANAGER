@@ -470,6 +470,10 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        if (tblUsermager.getSelectedRow() <= 0) {
+            XDialog.alert("Vui long chon tai khoan ban muon xoa!");
+            return;
+        }
         this.delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -585,6 +589,12 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         txtEmail.setText(tblUsermager.getValueAt(row, 6).toString());
         txtPhone.setText(tblUsermager.getValueAt(row, 7).toString());
         dacDateCre.setDate((java.sql.Date) tblUsermager.getValueAt(row, 8));
+        
+        if (cboVaitro.getSelectedIndex() != 0) {
+            cboVaitro.getSelectedItem();
+        }else{
+            
+        }
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
