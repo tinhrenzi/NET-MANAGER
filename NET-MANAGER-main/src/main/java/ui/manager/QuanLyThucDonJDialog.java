@@ -167,23 +167,21 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
             }
         });
 
-        lblHinhAnh.setText("anh");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(lblHinhAnh)
-                .addGap(73, 73, 73))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         btnHinhANH.setText("Anh");
@@ -699,7 +697,8 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
     }
     }
     }
-    private void openImage(String path) {
+    private void openImage(String path) {//điều chỉnh ảnh
+        
     //chỗ này  nữa
     try {
         File f = new File(path);
@@ -709,11 +708,11 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
         }
         ImageIcon icon = new ImageIcon(path);
         Image img = icon.getImage();
-        Image newImg = img.getScaledInstance(800, 600, Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(800, 800, Image.SCALE_SMOOTH);
         ImageIcon big = new ImageIcon(newImg);
         javax.swing.JLabel lb = new javax.swing.JLabel(big);
         javax.swing.JScrollPane sp = new javax.swing.JScrollPane(lb);
-        sp.setPreferredSize(new java.awt.Dimension(820, 620));
+        sp.setPreferredSize(new java.awt.Dimension(900, 820));
         javax.swing.JOptionPane.showMessageDialog(this, sp, "Xem ảnh lớn", javax.swing.JOptionPane.PLAIN_MESSAGE);
     } catch (Exception e) {
         javax.swing.JOptionPane.showMessageDialog(this, "Không thể mở ảnh: " + e.getMessage());
