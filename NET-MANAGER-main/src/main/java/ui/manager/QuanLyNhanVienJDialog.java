@@ -429,16 +429,13 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         String phone = txtPhone.getText().trim();
         String pass = txtPass.getText().trim();
         String year = txtNamSinh.getText().trim();
-
         String yearRehex = "^[0-9]{4}$";
         String passRegex = "^(?=.*[A-Z]).{7,}$";
         String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
-        String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
 
-// Kiểm tra rỗng
+        String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
         if (year.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
-            return;
         }
         if (pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
@@ -448,34 +445,27 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
             JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
             return;
         }
-
-// Kiểm tra định dạng
         if (!year.matches(yearRehex)) {
             JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
             return;
         }
         if (!pass.matches(passRegex)) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu phải có ít nhất 1 chữ in hoa và từ 7 ký tự trở lên");
+            JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ");
             return;
         }
         if (!email.matches(emailRegex)) {
-            JOptionPane.showMessageDialog(this, "Email không hợp lệ! (Phải là @gmail.com)");
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
             return;
         }
         if (!phone.matches(phoneRegex)) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
             return;
         }
-
-// Check vai trò không cho sửa quản lý
-        String vaiTro = cboVaitro.getSelectedItem().toString().trim();
-        if (vaiTro.equalsIgnoreCase("Quản lí")) {
-            JOptionPane.showMessageDialog(this, "Tài khoản Quản lý không thể sửa");
+        if (cboVaitro.getSelectedIndex() != 0) {
+            JOptionPane.showMessageDialog(this, "Quản lý không thể sửa");
             return;
         }
-
         this.update();
- 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
