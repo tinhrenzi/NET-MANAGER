@@ -45,7 +45,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     MayTinhDAO dao1 = new MayTinhDAOImpl();
     List<SuDungMay> items = List.of();
     List<MayTinh> itemscp = List.of();
-    
+
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -109,7 +109,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã SD", "Tên máy", "Trạng thái", "Ngày chơi", "Ngày kết thúc", "Giờ bắt đầu", "Giờ kết thúc", "Giá  tiền theo giờ"
+                "Mã SD", "Tên máy", "Ngày chơi", "Ngày kết thúc", "Giờ bắt đầu", "Giờ kết thúc", "Giá  tiền theo giờ", "Trạng thái"
             }
         ));
         tblSDM.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -361,11 +361,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }//GEN-LAST:event_tblSDMMouseClicked
 
     private void btnMoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoActionPerformed
-        if (tblMayTinh.getSelectedRow() <= 0) {
+        int selectedRow = tblMayTinh.getSelectedRow();
+        if (selectedRow < 0) {
             XDialog.alert("Vui long chon may ban muon mo");
             return;
         }
-        
         String trangthai = lblTrangThai.getText();
         if (trangthai.equals("Hoạt động")) {
             XDialog.alert("Máy đã hoạt động không thể mở tiếp");
@@ -376,7 +376,8 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }//GEN-LAST:event_btnMoActionPerformed
 
     private void btnTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatActionPerformed
-        if (tblMayTinh.getSelectedRow() <= 0) {
+        int row = tblSDM.getSelectedRow();
+        if (row < 0) {
             XDialog.alert("Vui long chon may ban muon tat");
             return;
         }
@@ -409,16 +410,18 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        if (tblMayTinh.getSelectedRow() <= 0) {
-            XDialog.alert("Vui long chon may ban muon thanh toan");
-            return;
-        }
+
         if (lblTrangThai.getText().equals("Đã thanh toán")) {
             XDialog.alert("Máy đã thanh toán không thể thanh toán tiếp");
             return;
         }
+
         try {
             int selectedRow = tblSDM.getSelectedRow();
+            if (selectedRow < 0) {
+                XDialog.alert("Vui long chon may ban muon thanh toan");
+                return;
+            }
             if (selectedRow >= 0) {
                 String maMay = tblSDM.getValueAt(selectedRow, 0).toString();
                 String tenMay = tblSDM.getValueAt(selectedRow, 1).toString();
@@ -426,7 +429,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 String ngayNghi = tblSDM.getValueAt(selectedRow, 4).toString();
                 String gioVao = tblSDM.getValueAt(selectedRow, 5).toString();
                 String gioNghi = tblSDM.getValueAt(selectedRow, 6).toString();
-                float giaTheoh = (Float) tblSDM.getValueAt(selectedRow, 7);
+                float giaTheoh = (Float) tblSDM.getValueAt(selectedRow, 2);
 
                 // Mở form thanh toán và truyền dữ liệu
                 ThanhToanJDialog dialog = new ThanhToanJDialog(null, true, maMay, tenMay, ngayVao, ngayNghi, gioVao, gioNghi, giaTheoh);
@@ -449,7 +452,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        
+
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     /**
@@ -494,7 +497,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             }
         });
     }
-    
+
     public void filltblMayTinh(int row) {
         String Ten = tblMayTinh.getValueAt(row, 0).toString();
         String Trang = tblMayTinh.getValueAt(row, 1).toString();
@@ -503,17 +506,18 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         lblGiaTheoGio.setText(Gia);
         lblTrangThai.setText(Trang);
     }
-    
+
     public void filltblSDMAY(int row) {
         String id = tblSDM.getValueAt(row, 0).toString();
         String Ten = tblSDM.getValueAt(row, 1).toString();
-        String Trang = tblSDM.getValueAt(row, 2).toString();
-        String Gia = tblSDM.getValueAt(row, 7).toString();
+        String Trang = tblSDM.getValueAt(row, 7).toString();
+        String Gia = tblSDM.getValueAt(row, 2).toString();
         lblMaSd.setText(id);
         lblTenMay.setText(Ten);
         lblGiaTheoGio.setText(Gia);
         lblTrangThai.setText(Trang);
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnMo;
@@ -554,7 +558,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             model.addRow(rowdata);
         });
     }
-    
+
     @Override
     public void FilltblSDMay() {
         model = (DefaultTableModel) tblSDM.getModel();
@@ -564,16 +568,17 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             Object[] rowdata = {
                 i.getId(),
                 i.getTenMay(),
-                i.getTrangThai(),
+                i.getGiaTheoGio(),
                 i.getNgayChoi(),
                 i.getNgayKetThuc(),
                 i.getGioBatDau(),
                 i.getGioKetThuc(),
-                i.getGiaTheoGio(),};
+                i.getTrangThai(),
+            };
             model.addRow(rowdata);
         });
     }
-    
+
     @Override
     public SuDungMay getFromOne() {
         SuDungMay sdm = new SuDungMay();
@@ -585,7 +590,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         sdm.setGiaTheoGio(Float.parseFloat(lblGiaTheoGio.getText()));
         return sdm;
     }
-    
+
     @Override
     public SuDungMay getFromBytoShutdow() {
         SuDungMay sdm = new SuDungMay();
@@ -597,24 +602,24 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         sdm.setNgayKetThuc(new java.sql.Date(System.currentTimeMillis()));
         return sdm;
     }
-    
+
     @Override
     public MayTinh getFromTwo() {
         MayTinh mt = new MayTinh();
         mt.setTenMay(lblTenMay.getText());
         return mt;
     }
-    
+
     @Override
     public void MoMay() {
         SuDungMay sdm = this.getFromOne();
-        
+
         MayTinh mt = this.getFromTwo();
         dao.MoMay(sdm, mt); // insert
         FilltblSDMay();
         FilltblMayTinh();
     }
-    
+
     @Override
     public void TatMay() {
         SuDungMay sdm = this.getFromBytoShutdow();
@@ -623,7 +628,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         FilltblSDMay();
         FilltblMayTinh();
     }
-    
+
     @Override
     public void Clear() {
         lblTenMay.setText("...................");
@@ -632,7 +637,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         lblTrangThai.setText("...............");
         DongHo();
     }
-    
+
     @Override
     public void DongHo() {
         if (dongHoTimer == null || !dongHoTimer.isRunning()) {
@@ -644,14 +649,14 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             dongHoTimer.start();
         }
     }
-    
+
     @Override
     public void TatDongHo() {
         if (dongHoTimer != null && dongHoTimer.isRunning()) {
             dongHoTimer.stop();
         }
     }
-    
+
     @Override
     public void NgayHienTai() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

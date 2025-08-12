@@ -6,7 +6,7 @@ package entity;
 
 
 public class MonAn {
-    private int Id;
+    private String Id;
     private String TenMon;
     private double GiaTien;
     private int  SoLuong;
@@ -14,7 +14,7 @@ public class MonAn {
 
     public MonAn() {}
 
-    public MonAn(int Id, String TenMon, double GiaTien, int SoLuong, String HinhANh) {
+    public MonAn(String Id, String TenMon, double GiaTien, int SoLuong, String HinhANh) {
         this.Id = Id;
         this.TenMon = TenMon;
         this.GiaTien = GiaTien;
@@ -22,11 +22,11 @@ public class MonAn {
         this.HinhANh = HinhANh;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int Id) {
+    public void setId(String Id) {
         this.Id = Id;
     }
 
@@ -62,8 +62,6 @@ public class MonAn {
         this.HinhANh = HinhANh;
     }
 
-    
-   
     
 }
 

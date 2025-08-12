@@ -524,7 +524,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="D&#x1ebf;n ng&#xe0;y"/>
+                <Property name="text" type="java.lang.String" value="&#x110;&#x1ebf;n ng&#xe0;y"/>
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="dacDenNgayThongKe">

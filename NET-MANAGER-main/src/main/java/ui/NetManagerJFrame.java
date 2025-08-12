@@ -27,6 +27,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         setLocationRelativeTo(null);
         this.init();
     }
+    
     void btnopmenu(){
     new Thread(new Runnable() {
         @Override

@@ -7,27 +7,25 @@ package entity;
 import java.sql.*;
 
 public class MayTinh {
-    private int Id;
+    private String Id;
     private String TenMay;
     private String TrangThai;
     private float GiaTheoGio;
 
     public MayTinh() {}
 
-    public MayTinh(int Id, String TenMay, String TrangThai, float GiaTheoGio) {
+    public MayTinh(String Id, String TenMay, String TrangThai, float GiaTheoGio) {
         this.Id = Id;
         this.TenMay = TenMay;
         this.TrangThai = TrangThai;
         this.GiaTheoGio = GiaTheoGio;
     }
 
-
-
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int Id) {
+    public void setId(String Id) {
         this.Id = Id;
     }
 
@@ -55,5 +53,4 @@ public class MayTinh {
         this.GiaTheoGio = GiaTheoGio;
     }
 
-   
 }

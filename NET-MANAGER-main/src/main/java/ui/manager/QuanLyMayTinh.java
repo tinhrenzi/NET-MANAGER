@@ -215,6 +215,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         create();
+        clear();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tblQLMTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLMTMouseClicked
@@ -233,11 +234,25 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         // TODO add your handling code here:
+        if (tblQLMT.getSelectedRow() < 0) {
+            XDialog.alert("Vui lòng chọn máy bạn muốn sửa");
+            return;
+        }
+        String gia = txtGia.getText().trim();
+        if (!gia.matches("\\d+")) { // \\ la dung de dai dien cho cac ki tu dac biet
+            // d tuong duong voi cac so [0 - 9] va + tuong duong voi lap lai nhieu lan
+            XDialog.alert("Vui lòng nhập theo định dạng số nguyên và không có đuôi số thập phân");
+            return;
+        }
         this.update();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        if (tblQLMT.getSelectedRow() < 0) {
+            XDialog.alert("Vui lòng chọn máy bạn muốn xóa");
+            return;
+        }
         this.delete();
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -369,7 +384,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     public MayTinh getFormByUp() {
         MayTinh entity = new MayTinh();
-        entity.setId(Integer.parseInt(lblMaMay.getText()));
+        entity.setId(lblMaMay.getText());
         entity.setTenMay(txtName.getText());
         entity.setGiaTheoGio(Integer.parseInt(txtGia.getText()));
         entity.setTrangThai(cboTrangThai.getSelectedItem().toString());

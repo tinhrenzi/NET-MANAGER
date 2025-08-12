@@ -39,6 +39,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         setLocationRelativeTo(null);
         getFillSDMay();
         getFillMenu();
+        getFillThonKe();
     }
     
     /**
@@ -278,7 +279,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         jLabel10.setText("Tổng doanh thu");
 
-        jLabel9.setText("Dến ngày");
+        jLabel9.setText("Đến ngày");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -499,7 +500,17 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     // End of variables declaration//GEN-END:variables
     @Override
     public List<ThongKeDoanhThu> getFillThonKe() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<ThongKeDoanhThu> list = dao.getAllThonKe();
+        model = (DefaultTableModel) tblDoanhThu.getModel();
+        model.setRowCount(0);
+        for (ThongKeDoanhThu tkd : list) {
+            model.addRow(new Object[]{
+                tkd.getTongTienMay(),
+                tkd.getTongTienMon()
+            });
+        }
+        
+        return list;
     }
 
     @Override

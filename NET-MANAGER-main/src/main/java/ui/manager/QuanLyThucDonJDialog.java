@@ -22,15 +22,15 @@ import javax.swing.JOptionPane;
  *
  * @author Admin
  */
-public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyThucDonController{
+public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyThucDonController {
 
     /**
      * Creates new form QuanLyThucDonJDialog
      */
     MonAnDAO dao = new MonAnDAOImpl();
-    List<MonAn> items = List.of(); 
-    private String duongdananh;
-    
+    List<MonAn> items = List.of();
+    private String DuongDanAnh;
+
     public QuanLyThucDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -326,7 +326,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     private void btnUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpActionPerformed
         // TODO add your handling code here:
-      /*  update();
+        /*  update();
        String idText = lblMaMon.getText().trim();
     if (idText.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Vui lòng chọn món ăn cần cập nhật trước.");
@@ -357,23 +357,23 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
         JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật món ăn: " + e.getMessage());
         e.printStackTrace();
     }*/
-      if (lblMaMon.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn món ăn cần cập nhật trước.");
-        return;
-    }
-    update();
-        
+        if (lblMaMon.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món ăn cần cập nhật trước.");
+            return;
+        }
+        update();
+
     }//GEN-LAST:event_btnUpActionPerformed
 
     private void btnCreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreActionPerformed
         // TODO add your handling code here:
-        
+
         create();
     }//GEN-LAST:event_btnCreActionPerformed
 
     private void btnDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeActionPerformed
         // TODO add your handling code here:
-       this. delete();
+        this.delete();
     }//GEN-LAST:event_btnDeActionPerformed
 
     private void btnCleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleActionPerformed
@@ -390,38 +390,42 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
         // TODO add your handling code here:
         //int index = tblOrderManager.getSelectedRow();
         //filltxt(index);
-         int row = tblOrderManager.rowAtPoint(evt.getPoint());
-    int col = tblOrderManager.columnAtPoint(evt.getPoint());
-    if (row >= 0) {
-        filltxt(row); // vẫn fill text fields
+        int row = tblOrderManager.rowAtPoint(evt.getPoint());
+        int col = tblOrderManager.columnAtPoint(evt.getPoint());
+        if (row >= 0) {
+            filltxt(row); // vẫn fill text fields
 
-        // Lấy giá trị ô ảnh (cột 4)
-        Object val = tblOrderManager.getValueAt(row, 4);
-        if (val != null) {
-            String path = val.toString();
-            // Nếu path không tồn tại, thử thêm tiền tố thư mục ảnh của dự án
-            File f = new File(path);
-            if (!f.exists()) {
-                String alt = "src/images/" + path;
-                if (new File(alt).exists()) path = alt;
+            // Lấy giá trị ô ảnh (cột 4)
+            Object val = tblOrderManager.getValueAt(row, 4);
+            if (val != null) {
+                String path = val.toString();
+                // Nếu path không tồn tại, thử thêm tiền tố thư mục ảnh của dự án
+                File f = new File(path);
+                if (!f.exists()) {
+                    String alt = "src/images/" + path;
+                    if (new File(alt).exists()) {
+                        path = alt;
+                    }
+                }
+                DuongDanAnh = path; // lưu lại đường dẫn hiện tại
+                lblHinhAnh.setIcon(ResizeImage(path));
+            } else {
+                lblHinhAnh.setIcon(null);
             }
-            duongdananh = path; // lưu lại đường dẫn hiện tại
-            lblHinhAnh.setIcon(ResizeImage(path));
-        } else {
-            lblHinhAnh.setIcon(null);
-        }
 
-        // Nếu double-click vào cột ảnh -> mở cửa sổ xem lớn
-        if (evt.getClickCount() == 2 && col == 4) {
-            Object v = tblOrderManager.getValueAt(row, 4);
-            if (v != null) openImage(v.toString());
+            // Nếu double-click vào cột ảnh -> mở cửa sổ xem lớn
+            if (evt.getClickCount() == 2 && col == 4) {
+                Object v = tblOrderManager.getValueAt(row, 4);
+                if (v != null) {
+                    openImage(v.toString());
+                }
+            }
         }
-    }
     }//GEN-LAST:event_tblOrderManagerMouseClicked
 
     private void txtGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtGiaActionPerformed
 
     private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
@@ -430,21 +434,21 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     private void btnHinhANHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHinhANHActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             JFileChooser f = new JFileChooser("C:\\DUANXUONG\\NET-MANAGER");
             f.setDialogTitle("Mở file");
             f.showOpenDialog(null);
             File ftenanh = f.getSelectedFile();
 
-            duongdananh = ftenanh.getAbsolutePath(); // Gán giá trị
+            DuongDanAnh = ftenanh.getAbsolutePath(); // Gán giá trị
 
-                lblHinhAnh.setIcon(ResizeImage(String.valueOf(duongdananh)));
-                System.out.println(duongdananh);
+            lblHinhAnh.setIcon(ResizeImage(String.valueOf(DuongDanAnh)));
+            System.out.println(DuongDanAnh);
         } catch (Exception ex) {
             System.out.println("chưa chọn ảnh");
-            System.out.println(duongdananh);
+            System.out.println(DuongDanAnh);
         }
-    
+
     }//GEN-LAST:event_btnHinhANHActionPerformed
 
     /**
@@ -488,13 +492,14 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
             }
         });
     }
-    public  ImageIcon ResizeImage(String ImagePath){
-     ImageIcon myImage=new ImageIcon(ImagePath);
-     Image img=myImage.getImage();
-     Image newImg=img.getScaledInstance(lblHinhAnh.getWidth(),lblHinhAnh.getHeight(),Image.SCALE_SMOOTH);
-     ImageIcon image= new ImageIcon( newImg);
-     return image;
-}
+
+    public ImageIcon ResizeImage(String ImagePath) {
+        ImageIcon myImage = new ImageIcon(ImagePath);
+        Image img = myImage.getImage();
+        Image newImg = img.getScaledInstance(lblHinhAnh.getWidth(), lblHinhAnh.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCle;
@@ -531,79 +536,79 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     @Override
     public void setForm(MonAn entity) {
-    MonAn Od = new MonAn();
-    Od.setTenMon(txtName.getText().trim());
-    Od.setGiaTien(Float.parseFloat(txtGia.getText().trim()));
-    Od.setSoLuong(Integer.parseInt(txtSoLuong.getText().trim()));
-    //Od.setHinhAnh("C:\\DUANXUONG\\NET-MANAGER");
-    Od.setHinhANh(duongdananh);
-        }
+        MonAn Od = new MonAn();
+        Od.setTenMon(txtName.getText().trim());
+        Od.setGiaTien(Float.parseFloat(txtGia.getText().trim()));
+        Od.setSoLuong(Integer.parseInt(txtSoLuong.getText().trim()));
+        Od.setHinhANh(DuongDanAnh);
+    }
 
     @Override
     public MonAn getForm() {
-    MonAn Od = new MonAn();
-    if (!lblMaMon.getText().trim().isEmpty()) {
-        Od.setId(Integer.parseInt(lblMaMon.getText().trim()));
+        MonAn Od = new MonAn();
+        if (!lblMaMon.getText().trim().isEmpty()) {
+            Od.setId(lblMaMon.getText().trim());
+        }
+        Od.setTenMon(txtName.getText().trim());
+        Od.setGiaTien(Float.parseFloat(txtGia.getText().trim()));
+        Od.setSoLuong(Integer.parseInt(txtSoLuong.getText().trim()));
+        Od.setHinhANh(DuongDanAnh);
+        return Od;
     }
-    Od.setTenMon(txtName.getText().trim());
-    Od.setGiaTien(Float.parseFloat(txtGia.getText().trim()));
-    Od.setSoLuong(Integer.parseInt(txtSoLuong.getText().trim()));
-    Od.setHinhANh(duongdananh);
-    return Od;
-    }
+
     private boolean validateForm() {
-    String name = txtName.getText().trim();
-    String giaText = txtGia.getText().trim();
-    String soLuongText = txtSoLuong.getText().trim();
+        String name = txtName.getText().trim();
+        String giaText = txtGia.getText().trim();
+        String soLuongText = txtSoLuong.getText().trim();
 
-    // Kiểm tra tên món
-    if (name.isEmpty()) {
-        XDialog.alert("Tên món không được để trống.");
-        return false;
-    }
-
-    // Kiểm tra giá
-    try {
-        float gia = Float.parseFloat(giaText);
-        if (gia < 0) {
-            XDialog.alert("Đơn giá không được âm.");
+        // Kiểm tra tên món
+        if (name.isEmpty()) {
+            XDialog.alert("Tên món không được để trống.");
             return false;
         }
-    } catch (NumberFormatException e) {
-        XDialog.alert("Đơn giá phải là số hợp lệ.");
-        return false;
-    }
 
-    // Kiểm tra số lượng
-    try {
-        int soLuong = Integer.parseInt(soLuongText);
-        if (soLuong < 0) {
-            XDialog.alert("Số lượng không được âm.");
+        // Kiểm tra giá
+        try {
+            float gia = Float.parseFloat(giaText);
+            if (gia < 0) {
+                XDialog.alert("Đơn giá không được âm.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            XDialog.alert("Đơn giá phải là số hợp lệ.");
             return false;
         }
-    } catch (NumberFormatException e) {
-        XDialog.alert("Số lượng phải là số nguyên hợp lệ.");
-        return false;
-    }
 
-    return true;
+        // Kiểm tra số lượng
+        try {
+            int soLuong = Integer.parseInt(soLuongText);
+            if (soLuong < 0) {
+                XDialog.alert("Số lượng không được âm.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            XDialog.alert("Số lượng phải là số nguyên hợp lệ.");
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public void fillToTable() {
-         DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
-    model.setRowCount(0);
-    items = dao.findAll();
+        DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
+        model.setRowCount(0);
+        items = dao.findAll();
 
-    for (MonAn item : items) {
-        model.addRow(new Object[]{
-            item.getId(),
-            item.getTenMon(),
-            item.getGiaTien(),
-            item.getSoLuong(),
-            item.getHinhANh()// Có thể là tên file hoặc đường dẫn
-        });
-    }
+        for (MonAn item : items) {
+            model.addRow(new Object[]{
+                item.getId(),
+                item.getTenMon(),
+                item.getGiaTien(),
+                item.getSoLuong(),
+                item.getHinhANh()// Có thể là tên file hoặc đường dẫn
+            });
+        }
     }
 
     @Override
@@ -611,10 +616,11 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     }
 
-
     @Override
     public void create() {
-        if (!validateForm()) return;
+        if (!validateForm()) {
+            return;
+        }
         MonAn Od = this.getForm();
         dao.create(Od);
         this.fillToTable();
@@ -623,11 +629,13 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     @Override
     public void update() {
-        if (!validateForm()) return;
-    MonAn Od = this.getForm();
-    dao.update(Od);
-    JOptionPane.showMessageDialog(this, "Cập nhật món ăn thành công!");
-    this.fillToTable();
+        if (!validateForm()) {
+            return;
+        }
+        MonAn Od = this.getForm();
+        dao.update(Od);
+        JOptionPane.showMessageDialog(this, "Cập nhật món ăn thành công!");
+        this.fillToTable();
     }
 
     @Override
@@ -642,82 +650,89 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     @Override
     public void clear() {
-    lblMaMon.setText("");
-    txtName.setText("");
-    txtGia.setText("");
+        lblMaMon.setText("");
+        txtName.setText("");
+        txtGia.setText("");
+        txtSoLuong.setText("");
+        lblHinhAnh.setIcon(null);
     }
 
     @Override
     public void setEditable(boolean editable) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     public void finbyid() {
-      String id = txtFinid.getText().trim();
-      MonAn od = dao.findByID(id);
-      DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
-      model.setRowCount(0);
+        String id = txtFinid.getText().trim();
+        MonAn od = dao.findByID(id);
+        DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
+        model.setRowCount(0);
 
-      if (od != null) {
-          Object[] row = {
-              od.getId(),
-              od.getTenMon(),
-              od.getGiaTien(),
-              od.getSoLuong(),
-              od.getHinhANh()
-          };
-          model.addRow(row);
-      }
-    }
-
-    public void filltxt(int row){
-    for (int col = 0; col < 4; col++) {
-    Object v0 = tblOrderManager.getValueAt(row, 0);
-    lblMaMon.setText(v0 != null ? v0.toString() : "");
-    Object v1 = tblOrderManager.getValueAt(row, 1);
-    txtName.setText(v1 != null ? v1.toString() : "");
-    Object v2 = tblOrderManager.getValueAt(row, 2);
-    txtGia.setText(v2 != null ? v2.toString() : "");
-    Object v3 = tblOrderManager.getValueAt(row, 3);
-    txtSoLuong.setText(v3 != null ? v3.toString() : "");
-
-    // ảnh (cột 4)
-    Object v4 = tblOrderManager.getValueAt(row, 4);
-    if (v4 != null) {
-        String path = v4.toString();
-        File f = new File(path);
-        if (!f.exists()) {
-            String alt = "src/images/" + path;
-            if (new File(alt).exists()) path = alt;
+        if (od != null) {
+            Object[] row = {
+                od.getId(),
+                od.getTenMon(),
+                od.getGiaTien(),
+                od.getSoLuong(),
+                od.getHinhANh()
+            };
+            model.addRow(row);
         }
-        duongdananh = path;
-        lblHinhAnh.setIcon(ResizeImage(path));
-    } else {
-        lblHinhAnh.setIcon(null);
-        duongdananh = null;
     }
+
+    public void filltxt(int row) {
+        for (int col = 0; col < 4; col++) {
+            Object v0 = tblOrderManager.getValueAt(row, 0);
+            lblMaMon.setText(v0 != null ? v0.toString() : "");
+            Object v1 = tblOrderManager.getValueAt(row, 1);
+            txtName.setText(v1 != null ? v1.toString() : "");
+            Object v2 = tblOrderManager.getValueAt(row, 2);
+            txtGia.setText(v2 != null ? v2.toString() : "");
+            Object v3 = tblOrderManager.getValueAt(row, 3);
+            txtSoLuong.setText(v3 != null ? v3.toString() : "");
+
+            // ảnh (cột 4)
+            Object v4 = tblOrderManager.getValueAt(row, 4);
+            if (v4 != null) {
+                String path = v4.toString();
+                File f = new File(path);
+                if (!f.exists()) {
+                    String alt = "src/images/" + path;
+                    if (new File(alt).exists()) {
+                        path = alt;
+                    }
+                }
+                DuongDanAnh = path;
+                lblHinhAnh.setIcon(ResizeImage(path));
+            } else {
+                lblHinhAnh.setIcon(null);
+                DuongDanAnh = null;
+            }
+        }
     }
-    }
+
     private void openImage(String path) {//điều chỉnh ảnh
-        
-    //chỗ này  nữa
-    try {
-        File f = new File(path);
-        if (!f.exists()) {
-            String alt = "src/images/" + path;
-            if (new File(alt).exists()) path = alt;
-        }
-        ImageIcon icon = new ImageIcon(path);
-        Image img = icon.getImage();
-        Image newImg = img.getScaledInstance(800, 800, Image.SCALE_SMOOTH);
-        ImageIcon big = new ImageIcon(newImg);
-        javax.swing.JLabel lb = new javax.swing.JLabel(big);
-        javax.swing.JScrollPane sp = new javax.swing.JScrollPane(lb);
-        sp.setPreferredSize(new java.awt.Dimension(900, 820));
-        javax.swing.JOptionPane.showMessageDialog(this, sp, "Xem ảnh lớn", javax.swing.JOptionPane.PLAIN_MESSAGE);
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Không thể mở ảnh: " + e.getMessage());
-    }
-}
 
-    
+        //chỗ này  nữa
+        try {
+            File f = new File(path);
+            if (!f.exists()) {
+                String alt = "src/images/" + path;
+                if (new File(alt).exists()) {
+                    path = alt;
+                }
+            }
+            ImageIcon icon = new ImageIcon(path);
+            Image img = icon.getImage();
+            Image newImg = img.getScaledInstance(800, 800, Image.SCALE_SMOOTH);
+            ImageIcon big = new ImageIcon(newImg);
+            javax.swing.JLabel lb = new javax.swing.JLabel(big);
+            javax.swing.JScrollPane sp = new javax.swing.JScrollPane(lb);
+            sp.setPreferredSize(new java.awt.Dimension(900, 820));
+            javax.swing.JOptionPane.showMessageDialog(this, sp, "Xem ảnh lớn", javax.swing.JOptionPane.PLAIN_MESSAGE);
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Không thể mở ảnh: " + e.getMessage());
+        }
+    }
+
 }
