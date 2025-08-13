@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class SuDungMay {
     private int Id;
-    private int maMay;
+    private String maMay;
     private String TenMay;
     private String TrangThai;
     private Date NgayChoi;
@@ -25,7 +25,7 @@ public class SuDungMay {
     private double TongTien;
     public SuDungMay(){}
 
-    public SuDungMay(int Id, int maMay, String TenMay, String TrangThai, Date NgayChoi, Date NgayKetThuc, Time GioBatDau, Time GioKetThuc, float thoiGianChoi, float GiaTheoGio, double TongTien) {
+    public SuDungMay(int Id, String maMay, String TenMay, String TrangThai, Date NgayChoi, Date NgayKetThuc, Time GioBatDau, Time GioKetThuc, float thoiGianChoi, float GiaTheoGio, double TongTien) {
         this.Id = Id;
         this.maMay = maMay;
         this.TenMay = TenMay;
@@ -38,6 +38,7 @@ public class SuDungMay {
         this.GiaTheoGio = GiaTheoGio;
         this.TongTien = TongTien;
     }
+
     public int getId() {
         return Id;
     }
@@ -46,20 +47,20 @@ public class SuDungMay {
         this.Id = Id;
     }
 
+    public String getMaMay() {
+        return maMay;
+    }
+
+    public void setMaMay(String maMay) {
+        this.maMay = maMay;
+    }
+
     public String getTenMay() {
         return TenMay;
     }
 
     public void setTenMay(String TenMay) {
         this.TenMay = TenMay;
-    }
-
-    public int getMaMay() {
-        return maMay;
-    }
-
-    public void setMaMay(int maMay) {
-        this.maMay = maMay;
     }
 
     public String getTrangThai() {
@@ -76,6 +77,14 @@ public class SuDungMay {
 
     public void setNgayChoi(Date NgayChoi) {
         this.NgayChoi = NgayChoi;
+    }
+
+    public Date getNgayKetThuc() {
+        return NgayKetThuc;
+    }
+
+    public void setNgayKetThuc(Date NgayKetThuc) {
+        this.NgayKetThuc = NgayKetThuc;
     }
 
     public Time getGioBatDau() {
@@ -118,13 +127,6 @@ public class SuDungMay {
         this.TongTien = TongTien;
     }
 
-    public Date getNgayKetThuc() {
-        return NgayKetThuc;
-    }
-
-    public void setNgayKetThuc(Date NgayKetThuc) {
-        this.NgayKetThuc = NgayKetThuc;
-    }
     
 }
 

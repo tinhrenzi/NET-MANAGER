@@ -3,6 +3,7 @@ ui\manager\QuanLyMayTinh$8$1.class
 controller\DangNhapController.class
 ui\manager\QuanLyThongKeJDialog$3.class
 ui\manager\ThanhToanJDialog$2$1.class
+dao\CrudDAO.class
 ui\manager\QuanLyNhanVienJDialog$3.class
 dao\MonAnDAO.class
 ui\manager\QuanLyNhanVienJDialog$10.class

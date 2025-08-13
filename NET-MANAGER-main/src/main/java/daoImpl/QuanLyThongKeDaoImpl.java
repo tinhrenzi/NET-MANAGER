@@ -58,7 +58,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
                 sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setMaMay(rs.getInt("SoLanSuDung"));
+                sdm.setMaMay(rs.getString("SoLanSuDung"));
                 sdm.setThoiGianChoi(rs.getFloat("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                 sdm.setTongTien(rs.getFloat("TongTien"));
@@ -84,7 +84,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
             while (rs.next()) {
                 Menu sdm = new Menu();
-                sdm.setMaMon(rs.getInt("MaMon"));
+                sdm.setMaMon(rs.getString("MaMon"));
                 sdm.setTenMon(rs.getString("TenMon"));
                 sdm.setSoLuong(rs.getInt("SoLuong"));
                 sdm.setTongTien(rs.getFloat("TongTienMenu"));
@@ -124,7 +124,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
                 sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setMaMay(rs.getInt("SoLanSuDung"));
+                sdm.setMaMay(rs.getString("SoLanSuDung"));
                 sdm.setThoiGianChoi(rs.getFloat("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                 sdm.setTongTien(rs.getFloat("TongTien"));
@@ -153,7 +153,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Menu m = new Menu();
-                    m.setMaMon(rs.getInt("MaMon"));
+                    m.setMaMon(rs.getString("MaMon"));
                     m.setTenMon(rs.getString("TenMon"));
                     m.setSoLuong(rs.getInt("SoLuong"));
                     m.setTongTien(rs.getFloat("TongTienMenu"));

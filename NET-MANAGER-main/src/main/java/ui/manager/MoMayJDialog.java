@@ -109,7 +109,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã SD", "Tên máy", "Ngày chơi", "Ngày kết thúc", "Giờ bắt đầu", "Giờ kết thúc", "Giá  tiền theo giờ", "Trạng thái"
+                "Mã SD", "Tên máy", "Giá  tiền theo giờ", "Ngày chơi", "Ngày kết thúc", "Giờ bắt đầu", "Giờ kết thúc", "Trạng thái"
             }
         ));
         tblSDM.addMouseListener(new java.awt.event.MouseAdapter() {

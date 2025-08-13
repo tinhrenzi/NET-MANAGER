@@ -19,19 +19,19 @@ import controller.MenuController;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import util.XDialog;
 
 /**
- 
+ *
  * @author Admin
  */
-public class MenuJDialog extends javax.swing.JDialog implements MenuController{
+public class MenuJDialog extends javax.swing.JDialog implements MenuController {
 
     /**
      * Creates new form MenuJDialog
      */
     private MonAnDAO MonAnDao = new MonAnDAOImpl();
-    private MenuDAO  MenuDao = new MenuDAOImpl();
-    
+    private MenuDAO MenuDao = new MenuDAOImpl();
 
     public MenuJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -39,22 +39,19 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController{
         setLocationRelativeTo(null);
     }
     ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    public MenuJDialog(java.awt.Frame parent, boolean modal, String maMay ,String TenMay) {
-    super(parent, modal);
-    initComponents();
-    setLocationRelativeTo(null);
-    fillToTable();           
-    scheduler.schedule(() -> {
-     filltblDaNMua();
-    }, 1, TimeUnit.SECONDS);
-    scheduler.shutdown();
-    lblTenMay.setText(TenMay);
-    lblMaSd.setText(maMay);
-   
 
-    
-   
-}
+    public MenuJDialog(java.awt.Frame parent, boolean modal, String maMay, String TenMay) {
+        super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(null);
+        fillToTable();
+        scheduler.schedule(() -> {
+            filltblDaNMua();
+        }, 1, TimeUnit.SECONDS);
+        scheduler.shutdown();
+        lblTenMay.setText(TenMay);
+        lblMaSd.setText(maMay);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -378,14 +375,14 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController{
 
     private void btn_huyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_huyActionPerformed
         int selectedRow = tblTongMonAn.getSelectedRow();
-    if (selectedRow != -1) {
-        DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
-        model.removeRow(selectedRow);
-        updateTongTien();
-        JOptionPane.showMessageDialog(this, "Đã hủy món thành công.");
-    } else {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần hủy.");
-    }
+        if (selectedRow != -1) {
+            DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+            model.removeRow(selectedRow);
+            updateTongTien();
+            JOptionPane.showMessageDialog(this, "Đã hủy món thành công.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần hủy.");
+        }
     }//GEN-LAST:event_btn_huyActionPerformed
 
     private void btn_muaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_muaActionPerformed
@@ -393,67 +390,61 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController{
     }//GEN-LAST:event_btn_muaActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-          int selectedRow = tblOrderManager.getSelectedRow();
-    if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn món trong bảng OrderManager.");
-        return;
-    }
-
-    String ma = tblOrderManager.getValueAt(selectedRow, 0).toString();
-    String ten = tblOrderManager.getValueAt(selectedRow, 1).toString();
-    float gia = Float.parseFloat(tblOrderManager.getValueAt(selectedRow, 2).toString());
-
-    DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
-    boolean found = false;
-
-    for (int i = 0; i < model.getRowCount(); i++) {
-        if (model.getValueAt(i, 0).toString().equals(ma)) {
-            int currentQty = Integer.parseInt(model.getValueAt(i, 3).toString());
-            model.setValueAt(currentQty + 1, i, 3);  // tăng số lượng
-            found = true;
-            break;
+        int selectedRow = tblOrderManager.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món trong bảng OrderManager.");
+            return;
         }
-    }
 
-    if (!found) {
-        model.addRow(new Object[]{ma, ten, gia, 1});  // thêm mới với số lượng = 1
-    }
+        String ma = tblOrderManager.getValueAt(selectedRow, 0).toString();
+        String ten = tblOrderManager.getValueAt(selectedRow, 1).toString();
+        float gia = Float.parseFloat(tblOrderManager.getValueAt(selectedRow, 2).toString());
 
-    updateTongTien(); // cập nhật tổng tiền sau khi thêm
+        DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+        boolean found = false;
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (model.getValueAt(i, 0).toString().equals(ma)) {
+                int currentQty = Integer.parseInt(model.getValueAt(i, 3).toString());
+                model.setValueAt(currentQty + 1, i, 3);  // tăng số lượng
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            model.addRow(new Object[]{ma, ten, gia, 1});  // thêm mới với số lượng = 1
+        }
+
+        updateTongTien(); // cập nhật tổng tiền sau khi thêm
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void tblTongMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTongMonAnMouseClicked
-    int selectedRow = tblTongMonAn.getSelectedRow();
-    if (selectedRow != -1) {
-        String maMon = tblTongMonAn.getValueAt(selectedRow, 0).toString();
-        String tenMon = tblTongMonAn.getValueAt(selectedRow, 1).toString();
-        String giaStr = tblTongMonAn.getValueAt(selectedRow, 2).toString();
-    }
-     updateTongTien();
+        updateTongTien();
     }//GEN-LAST:event_tblTongMonAnMouseClicked
 
     private void btn_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearActionPerformed
-    this.clear();
-    filltblDaNMua();
+        this.clear();
+        filltblDaNMua();
     }//GEN-LAST:event_btn_ClearActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-    NgayHienTai();
+        NgayHienTai();
     }//GEN-LAST:event_formWindowOpened
 
     private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
-    
+
     }//GEN-LAST:event_txtSoLuongActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-    SuaSoLuong();
+        SuaSoLuong();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tblDaMuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDaMuaMouseClicked
-    int Slt = tblDaMua.getSelectedRow();
-        if (Slt >=0) {
+        int Slt = tblDaMua.getSelectedRow();
+        if (Slt >= 0) {
             String id = tblDaMua.getValueAt(Slt, 0).toString();
-            String GiaTien = tblDaMua.getValueAt(Slt, 2).toString();    
+            String GiaTien = tblDaMua.getValueAt(Slt, 2).toString();
             String Soluong = tblDaMua.getValueAt(Slt, 3).toString();
             String Tong = tblDaMua.getValueAt(Slt, 4).toString();
             txtSoLuong.setText(Soluong);
@@ -537,122 +528,114 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController{
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
 
-
     private void updateTongTien() {
         DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
         double tongTien = 0;
 
         for (int i = 0; i < model.getRowCount(); i++) {
-        Object giaObj = model.getValueAt(i, 2);
-        Object soLuongObj = model.getValueAt(i, 3);
+            Object giaObj = model.getValueAt(i, 2);
+            Object soLuongObj = model.getValueAt(i, 3);
 
-        if (giaObj != null && soLuongObj != null) {
-            float gia = Float.parseFloat(giaObj.toString());
-            int soLuong = Integer.parseInt(soLuongObj.toString());
-            tongTien += gia * soLuong;
+            if (giaObj != null && soLuongObj != null) {
+                float gia = Float.parseFloat(giaObj.toString());
+                int soLuong = Integer.parseInt(soLuongObj.toString());
+                tongTien += gia * soLuong;
+            }
         }
-    }
         txtTongTien.setText(String.valueOf(tongTien));
     }
 
     public void fillToTable() {
-    DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
-    model.setRowCount(0);
-    List<MonAn> items = MonAnDao.findAll();
-    for (MonAn item : items) {
-        Object[] rowData = {
-            item.getId(),
-            item.getTenMon(),
-            item.getGiaTien()
-        };
-        model.addRow(rowData);
+        DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
+        model.setRowCount(0);
+        List<MonAn> items = MonAnDao.findAll();
+        for (MonAn item : items) {
+            Object[] rowData = {
+                item.getId(),
+                item.getTenMon(),
+                item.getGiaTien()
+            };
+            model.addRow(rowData);
+        }
     }
-    }
-
-
-
 
     public void create() {
-    int MaSD = Integer.parseInt(lblMaSd.getText().trim());
-    String tenMay = lblTenMay.getText().trim();
-    String tongTienStr = txtTongTien.getText().trim();
+        int MaSD = Integer.parseInt(lblMaSd.getText().trim());
+        String tenMay = lblTenMay.getText().trim();
+        String tongTienStr = txtTongTien.getText().trim();
 
-    try {
-        float tongTien = Float.parseFloat(tongTienStr);
+        try {
+            float tongTien = Float.parseFloat(tongTienStr);
 
-        DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
-        if (model.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Không có món nào để mua.");
-            return;
-        }
+            DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Không có món nào để mua.");
+                return;
+            }
 
-                // Giả sử ngayMua là dạng "yyyy-MM-dd"
-        java.sql.Date ngayMua = new java.sql.Date(System.currentTimeMillis());
+            // Giả sử ngayMua là dạng "yyyy-MM-dd"
+            java.sql.Date ngayMua = new java.sql.Date(System.currentTimeMillis());
 
+            for (int i = 0; i < model.getRowCount(); i++) {
+                String maMon = model.getValueAt(i, 0).toString();
+                String tenMon = model.getValueAt(i, 1).toString();
+                float gia = Float.parseFloat(model.getValueAt(i, 2).toString());
+                int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
 
-
-        for (int i = 0; i < model.getRowCount(); i++) {
-            int maMon = Integer.parseInt(model.getValueAt(i, 0).toString());
-            String tenMon = model.getValueAt(i, 1).toString();
-            float gia = Float.parseFloat(model.getValueAt(i, 2).toString());
-            int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
-
-            // Tạo đối tượng Menu có thêm ngày mua
-            Menu order = new Menu(MaSD,tenMay, maMon, tenMon, gia,ngayMua, soLuong, tongTien);
-            MenuDao.Mua(order); // Cần cập nhật lại DAO để nhận thêm NgayMua
-        }
-
-        JOptionPane.showMessageDialog(this, "Mua thành công!");
-        } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Tổng tiền hoặc giá món không hợp lệ.");
+                // Tạo đối tượng Menu có thêm ngày mua
+                Menu order = new Menu(i, MaSD, tenMay, maMon, tenMon, gia, ngayMua, soLuong, tongTien);
+                MenuDao.Mua(order); // Cần cập nhật lại DAO để nhận thêm NgayMua
+            }
+            XDialog.alert("Mua thành công");
         } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Lỗi khi mua: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi khi mua: " + e.getMessage());
         }
     }
 
     public void clear() {
-    txtSoLuong.setText("");
-    DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
-    model.setRowCount(0);
+        txtSoLuong.setText("");
+        DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+        model.setRowCount(0);
     }
-    public void NgayHienTai(){
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    lblNgayHienTai.setText("Ngày hiện tại "+sdf.format(new java.util.Date()));
+
+    public void NgayHienTai() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        lblNgayHienTai.setText("Ngày hiện tại " + sdf.format(new java.util.Date()));
     }
 
     @Override
     public void filltblDaNMua() {
-    DefaultTableModel model = (DefaultTableModel) tblDaMua.getModel();
-    model.setRowCount(0);
-    int MaSDMay = Integer.parseInt(lblMaSd.getText());
+        DefaultTableModel model = (DefaultTableModel) tblDaMua.getModel();
+        model.setRowCount(0);
+        int MaSDMay = Integer.parseInt(lblMaSd.getText());
         List<Menu> items = MenuDao.FindByIdSD(MaSDMay);
         for (Menu item : items) {
-        Object[] rowData = {
-            item.getId(),
-            item.getTenMon(),
-            item.getGiaTien(),
-            item.getSoLuong(),
-            item.getTongTien()
-        };
-        model.addRow(rowData);            
+            Object[] rowData = {
+                item.getId(),
+                item.getTenMon(),
+                item.getGiaTien(),
+                item.getSoLuong(),
+                item.getTongTien()
+            };
+            model.addRow(rowData);
         }
     }
 
     @Override
     public Menu getFromDaMua() {
-       Menu mn = new Menu();
-       mn.setId(Integer.parseInt(lblMaDaMua.getText()));
-       mn.setTongTien(Double.parseDouble(txtTongTien.getText()));
-       mn.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-       return mn;
+        Menu mn = new Menu();
+        mn.setId(Integer.parseInt(lblMaDaMua.getText()));
+        mn.setTongTien(Double.parseDouble(txtTongTien.getText()));
+        mn.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
+        return mn;
     }
 
     @Override
     public void SuaSoLuong() {
-    Menu mn = this.getFromDaMua();
-    MenuDao.UpSoluong(mn);
-    filltblDaNMua();
+        Menu mn = this.getFromDaMua();
+        MenuDao.UpSoluong(mn);
+        filltblDaNMua();
     }
-        
+
 }

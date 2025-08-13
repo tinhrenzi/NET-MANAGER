@@ -11,7 +11,7 @@ public class Menu {
     int id;
     int MaSDMay;
     private String TenMay;
-    private int maMon;
+    private String maMon;
     private String tenMon;
     private double giaTien;
     private Date NgayMua;
@@ -21,7 +21,8 @@ public class Menu {
     // Constructors
     public Menu() {}
 
-    public Menu(int MaSDMay, String TenMay, int maMon, String tenMon, double giaTien, Date NgayMua, int soLuong, double tongTien) {
+    public Menu(int id, int MaSDMay, String TenMay, String maMon, String tenMon, double giaTien, Date NgayMua, int soLuong, double tongTien) {
+        this.id = id;
         this.MaSDMay = MaSDMay;
         this.TenMay = TenMay;
         this.maMon = maMon;
@@ -48,7 +49,6 @@ public class Menu {
         this.MaSDMay = MaSDMay;
     }
 
-
     public String getTenMay() {
         return TenMay;
     }
@@ -57,14 +57,11 @@ public class Menu {
         this.TenMay = TenMay;
     }
 
-
-
-
-    public int getMaMon() {
+    public String getMaMon() {
         return maMon;
     }
 
-    public void setMaMon(int maMon) {
+    public void setMaMon(String maMon) {
         this.maMon = maMon;
     }
 
@@ -84,6 +81,14 @@ public class Menu {
         this.giaTien = giaTien;
     }
 
+    public Date getNgayMua() {
+        return NgayMua;
+    }
+
+    public void setNgayMua(Date NgayMua) {
+        this.NgayMua = NgayMua;
+    }
+
     public int getSoLuong() {
         return soLuong;
     }
@@ -99,14 +104,6 @@ public class Menu {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-
-    public Date getNgayMua() {
-        return NgayMua;
-    }
-
-    public void setNgayMua(Date NgayMua) {
-        this.NgayMua = NgayMua;
-    }
-
     
+
 }
