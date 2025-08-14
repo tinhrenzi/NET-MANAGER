@@ -59,9 +59,9 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         txtTongTien = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtTongGio = new javax.swing.JTextField();
-        jdcTuNgay = new com.toedter.calendar.JDateChooser();
+        dacMayTinhGo = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
-        dacDenNgayMay = new com.toedter.calendar.JDateChooser();
+        dacMayTinhNext = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMonAn = new javax.swing.JTable();
@@ -129,11 +129,11 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jdcTuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dacMayTinhGo, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dacDenNgayMay, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dacMayTinhNext, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,8 +172,8 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jdcTuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dacDenNgayMay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(dacMayTinhGo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dacMayTinhNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
         );
@@ -372,17 +372,14 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXemBangThongkeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemBangThongkeActionPerformed
-        if (tblSuDungMay.getSelectedRow() == 0) {
+        if (tblSuDungMay.getSelectedRow() == -1) {
             thongKeDoanhThu();
             return;
         }
     }//GEN-LAST:event_btnXemBangThongkeActionPerformed
 
     private void btnXemSuDungMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemSuDungMayActionPerformed
-        if (tblMonAn.getSelectedRow() == 0) {
-            thongKeSuDungMay();
-            return;
-        }
+    thongKeSuDungMay();
     }//GEN-LAST:event_btnXemSuDungMayActionPerformed
 
     private void btnMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonAnActionPerformed
@@ -490,9 +487,10 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     private javax.swing.JButton btnMonAn;
     private javax.swing.JButton btnXemBangThongke;
     private javax.swing.JButton btnXemSuDungMay;
-    private com.toedter.calendar.JDateChooser dacDenNgayMay;
     private com.toedter.calendar.JDateChooser dacDenNgayMenu;
     private com.toedter.calendar.JDateChooser dacDenNgayThongKe;
+    private com.toedter.calendar.JDateChooser dacMayTinhGo;
+    private com.toedter.calendar.JDateChooser dacMayTinhNext;
     private com.toedter.calendar.JDateChooser dacTuNgayThongKe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -514,7 +512,6 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private com.toedter.calendar.JDateChooser jdcMonAn;
-    private com.toedter.calendar.JDateChooser jdcTuNgay;
     private javax.swing.JTable tblDoanhThu;
     private javax.swing.JTable tblMonAn;
     private javax.swing.JTable tblSuDungMay;
@@ -559,7 +556,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             double tongTienMay = item.getThoiGianChoi() * item.getGiaTheoGio();
             model.addRow(new Object[]{
                 item.getTenMay(),
-                item.getMaMay(),
+                item.getId(),
                 String.format("%.2f", item.getThoiGianChoi()),
                 df.format(item.getGiaTheoGio()),
                 df.format(tongTienMay)
@@ -596,13 +593,13 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }
 
     private void thongKeSuDungMay() {
-        if (jdcTuNgay.getDate() == null || dacDenNgayMay.getDate() == null) {
+        if (dacMayTinhGo.getDate() == null || dacMayTinhNext.getDate() == null) {
             XDialog.alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc");
             return;
         }
 
-        Date tuNgay = new Date(jdcTuNgay.getDate().getTime());
-        Date denNgay = new Date(dacDenNgayMay.getDate().getTime());
+        Date tuNgay = new Date(dacMayTinhGo.getDate().getTime());
+        Date denNgay = new Date(dacMayTinhNext.getDate().getTime());
         DecimalFormat df = new DecimalFormat("#,### VND");
         QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
 
@@ -616,7 +613,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
             modelMay.addRow(new Object[]{
                 sdm.getTenMay(),
-                sdm.getMaMay(),
+                sdm.getId(),
                 String.format("%.2f", sdm.getThoiGianChoi()),
                 df.format(sdm.getGiaTheoGio()),
                 df.format(tienMay)

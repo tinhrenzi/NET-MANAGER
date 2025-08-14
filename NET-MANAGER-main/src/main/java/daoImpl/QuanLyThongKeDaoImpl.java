@@ -58,8 +58,8 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
                 sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setMaMay(String.valueOf(rs.getInt("SoLanSuDung"))); // Sửa lại cho đúng ý nghĩa
-                sdm.setThoiGianChoi(rs.getFloat("TongGioSuDung"));
+                sdm.setId(rs.getInt("SoLanSuDung")); // Sửa lại cho đúng ý nghĩa
+                sdm.setThoiGianChoi(rs.getDouble("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                 sdm.setTongTien(rs.getFloat("TongTien"));
                 list.add(sdm);
@@ -124,8 +124,8 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
                 sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setMaMay(rs.getString("SoLanSuDung"));
-                sdm.setThoiGianChoi(rs.getFloat("TongGioSuDung"));
+                sdm.setId(rs.getInt("SoLanSuDung"));
+                sdm.setThoiGianChoi(rs.getDouble("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                 sdm.setTongTien(rs.getFloat("TongTien"));
                 list.add(sdm);

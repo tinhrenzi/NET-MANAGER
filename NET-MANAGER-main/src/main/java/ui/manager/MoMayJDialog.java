@@ -369,7 +369,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     private void btnTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatActionPerformed
         int row = tblSDM.getSelectedRow();
         if (row < 0) {
-            XDialog.alert("Vui long chon may ban muon tat");
+            XDialog.alert("Vui lòng chọn máy bạn muốn tắt");
             return;
         }
         String trangthai = lblTrangThai.getText().trim();
@@ -410,7 +410,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         try {
             int selectedRow = tblSDM.getSelectedRow();
             if (selectedRow < 0) {
-                XDialog.alert("Vui long chon may ban muon thanh toan");
+                XDialog.alert("Vui lòng chọn máy bạn muốn thanh toán");
                 return;
             }
             if (selectedRow >= 0) {

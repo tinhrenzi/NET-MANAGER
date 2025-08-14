@@ -79,12 +79,12 @@
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="jdcTuNgay" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
+                          <Component id="dacMayTinhGo" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="dacDenNgayMay" min="-2" pref="186" max="-2" attributes="0"/>
+                              <Component id="dacMayTinhNext" min="-2" pref="186" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel7" min="-2" pref="108" max="-2" attributes="0"/>
@@ -133,8 +133,8 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jdcTuNgay" min="-2" max="-2" attributes="0"/>
-                                  <Component id="dacDenNgayMay" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dacMayTinhGo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dacMayTinhNext" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -229,14 +229,14 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtTongGio">
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="jdcTuNgay">
+            <Component class="com.toedter.calendar.JDateChooser" name="dacMayTinhGo">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x110;&#x1ebf;n ng&#xe0;y"/>
               </Properties>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="dacDenNgayMay">
+            <Component class="com.toedter.calendar.JDateChooser" name="dacMayTinhNext">
             </Component>
           </SubComponents>
         </Container>

@@ -20,12 +20,12 @@ public class SuDungMay {
     private Date NgayKetThuc;
     private Time GioBatDau;
     private Time GioKetThuc;
-    private float thoiGianChoi;
+    private double thoiGianChoi;
     private float GiaTheoGio;
     private double TongTien;
     public SuDungMay(){}
 
-    public SuDungMay(int Id, String maMay, String TenMay, String TrangThai, Date NgayChoi, Date NgayKetThuc, Time GioBatDau, Time GioKetThuc, float thoiGianChoi, float GiaTheoGio, double TongTien) {
+    public SuDungMay(int Id, String maMay, String TenMay, String TrangThai, Date NgayChoi, Date NgayKetThuc, Time GioBatDau, Time GioKetThuc, double thoiGianChoi, float GiaTheoGio, double TongTien) {
         this.Id = Id;
         this.maMay = maMay;
         this.TenMay = TenMay;
@@ -103,11 +103,11 @@ public class SuDungMay {
         this.GioKetThuc = GioKetThuc;
     }
 
-    public float getThoiGianChoi() {
+    public double getThoiGianChoi() {
         return thoiGianChoi;
     }
 
-    public void setThoiGianChoi(float thoiGianChoi) {
+    public void setThoiGianChoi(double thoiGianChoi) {
         this.thoiGianChoi = thoiGianChoi;
     }
 
