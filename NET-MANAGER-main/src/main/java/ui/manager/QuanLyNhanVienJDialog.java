@@ -730,11 +730,27 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public void delete() {
-        if (XDialog.confirm("Ban xac nhan xoa?")) {
-            String id = txtId.getText();
+        String id = txtId.getText().trim();
+
+        // Kiểm tra nếu rỗng thì báo lỗi
+        if (id.isEmpty()) {
+            XDialog.alert("Vui lòng chọn tài khoản cần xóa!");
+            return;
+        }
+
+        // Lấy tài khoản từ DB
+        Admin admin = dao.findByID(id);
+        if (admin != null && admin.getVaiTro() == 1) {
+            XDialog.alert("Không thể xóa tài khoản quản lý!");
+            return;
+        }
+
+        // Xác nhận và xóa
+        if (XDialog.confirm("Bạn xác nhận xóa?")) {
             dao.deleteByID(id);
             this.fillToTable();
             this.clear();
+            XDialog.alert("Xóa thành công!");
         }
     }
 

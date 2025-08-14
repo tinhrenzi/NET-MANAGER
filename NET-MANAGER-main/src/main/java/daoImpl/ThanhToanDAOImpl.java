@@ -5,15 +5,9 @@
 package daoImpl;
 import entity.ThanhToan;
 import util.XJdbc;
-import util.XQuery;
-
-import java.sql.Date;
-import java.util.List;
 import dao.ThanhToanDAO;
 import entity.MayTinh;
 import entity.SuDungMay;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 
 public class ThanhToanDAOImpl implements ThanhToanDAO {
     

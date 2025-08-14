@@ -48,7 +48,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
                 + "    COUNT(sdm.Id) AS SoLanSuDung, "
                 + "    SUM(DATEDIFF(SECOND, sdm.GioBatDau, sdm.GioKetThuc) / 3600.0) AS TongGioSuDung, "
                 + "    sdm.GiaTheoGio, "
-                + "    SUM(ISNULL(sdm.TongTien, 0)) AS TongTien "
+                + "    SUM((DATEDIFF(SECOND, sdm.GioBatDau, sdm.GioKetThuc) / 3600.0) * sdm.GiaTheoGio) AS TongTien "
                 + "FROM SDMAY sdm "
                 + "GROUP BY sdm.TenMay, sdm.GiaTheoGio "
                 + "ORDER BY sdm.TenMay";
@@ -58,7 +58,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
                 sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setMaMay(rs.getString("SoLanSuDung"));
+                sdm.setMaMay(String.valueOf(rs.getInt("SoLanSuDung"))); // Sửa lại cho đúng ý nghĩa
                 sdm.setThoiGianChoi(rs.getFloat("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                 sdm.setTongTien(rs.getFloat("TongTien"));

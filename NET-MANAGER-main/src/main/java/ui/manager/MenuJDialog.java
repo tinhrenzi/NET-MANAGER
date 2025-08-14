@@ -383,6 +383,8 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần hủy.");
         }
+
+
     }//GEN-LAST:event_btn_huyActionPerformed
 
     private void btn_muaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_muaActionPerformed
@@ -420,7 +422,17 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void tblTongMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTongMonAnMouseClicked
-        updateTongTien();
+        int row = tblTongMonAn.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        String tongTien = tblTongMonAn.getValueAt(row, 2).toString();
+        String soLuong = tblTongMonAn.getValueAt(row, 3).toString();
+
+        txtSoLuong.setText(soLuong);
+        txtTongTien.setText(tongTien);
+
     }//GEN-LAST:event_tblTongMonAnMouseClicked
 
     private void btn_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearActionPerformed
@@ -437,7 +449,11 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     }//GEN-LAST:event_txtSoLuongActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        SuaSoLuong();
+        if (tblOrderManager.getSelectedRow() != 0) {
+            XDialog.alert("Sua thanh cong");
+            SuaSoLuong();
+            return;
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tblDaMuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDaMuaMouseClicked
@@ -582,10 +598,13 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
                 float gia = Float.parseFloat(model.getValueAt(i, 2).toString());
                 int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
 
-                // Tạo đối tượng Menu có thêm ngày mua
-                Menu order = new Menu(i, MaSD, tenMay, maMon, tenMon, gia, ngayMua, soLuong, tongTien);
-                MenuDao.Mua(order); // Cần cập nhật lại DAO để nhận thêm NgayMua
+                // ✅ Tính tổng tiền của từng món
+                double tongTienMon = gia * soLuong;
+
+                Menu order = new Menu(i, MaSD, tenMay, maMon, tenMon, gia, ngayMua, soLuong, tongTienMon);
+                MenuDao.Mua(order);
             }
+
             XDialog.alert("Mua thành công");
         } catch (Exception e) {
             e.printStackTrace();
@@ -594,6 +613,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     }
 
     public void clear() {
+        txtTongTien.setText("");
         txtSoLuong.setText("");
         DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
         model.setRowCount(0);
@@ -625,9 +645,20 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     @Override
     public Menu getFromDaMua() {
         Menu mn = new Menu();
-        mn.setId(Integer.parseInt(lblMaDaMua.getText()));
-        mn.setTongTien(Double.parseDouble(txtTongTien.getText()));
-        mn.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
+
+        String idText = lblMaDaMua.getText().trim();
+        String tongTienText = txtTongTien.getText().trim();
+        String soLuongText = txtSoLuong.getText().trim();
+
+        if (idText.isEmpty() || tongTienText.isEmpty() || soLuongText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món từ bảng đã mua trước khi sửa.");
+            return null; // hoặc throw exception
+        }
+
+        mn.setId(Integer.parseInt(idText));
+        mn.setTongTien(Double.parseDouble(tongTienText));
+        mn.setSoLuong(Integer.parseInt(soLuongText));
+
         return mn;
     }
 

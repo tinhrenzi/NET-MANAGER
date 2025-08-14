@@ -340,12 +340,10 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         btnQLTD.setEnabled(false);
         btnQLTK.setEnabled(false);
     }else{
-        if (role == 2) { // Nhân viên
         btnQLNV.setEnabled(true);
         btnQLMT.setEnabled(true);
         btnQLTD.setEnabled(true);
         btnQLTK.setEnabled(true);
-    }
     }
 }
     private void dangXuat() {

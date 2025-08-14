@@ -89,8 +89,6 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnTimKiem" linkSize="2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnXoa" linkSize="2" min="-2" pref="93" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnMo" linkSize="2" min="-2" pref="100" max="-2" attributes="0"/>
@@ -157,7 +155,6 @@
                                   <Component id="btnMenu" linkSize="1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                   <Component id="btnThanhToan" linkSize="1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                   <Component id="btnXoa" linkSize="1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="btnTimKiem" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="359" max="-2" attributes="0"/>
@@ -447,14 +444,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnTimKiem">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimKiemActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

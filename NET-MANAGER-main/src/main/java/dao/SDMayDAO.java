@@ -14,9 +14,15 @@ import java.util.List;
  *
  * @author NITRO 5
  */
-public interface SDMayDAO{
-    void MoMay(SuDungMay SDM ,MayTinh mt);
-    void TatMay(SuDungMay SDM,MayTinh mt);
-    List<MayTinh> finMayTinh();
+public interface SDMayDAO {
+
+    void MoMay(SuDungMay SDM, MayTinh mt);
+
+    void TatMay(SuDungMay SDM, MayTinh mt);
+
     List<SuDungMay> findAll();
+
+    List<MayTinh> finMayTinh();
+
+    boolean isMayDangHoatDong(String tenMay); // Thêm phương thức mới
 }

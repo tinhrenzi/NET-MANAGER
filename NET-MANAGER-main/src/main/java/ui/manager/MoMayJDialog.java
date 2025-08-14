@@ -12,20 +12,12 @@ import daoImpl.SDMayDAOImpl;
 import entity.MayTinh;
 import entity.SuDungMay;
 import java.sql.Time;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
-import util.XQuery;
 
 /**
  *
@@ -42,7 +34,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     private Timer dongHoTimer;
     DefaultTableModel model = new DefaultTableModel();
     SDMayDAO dao = new SDMayDAOImpl();
-    MayTinhDAO dao1 = new MayTinhDAOImpl();
     List<SuDungMay> items = List.of();
     List<MayTinh> itemscp = List.of();
 
@@ -86,7 +77,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         lblTrangThai = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnXoa = new javax.swing.JButton();
-        btnTimKiem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mo May");
@@ -222,13 +212,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             }
         });
 
-        btnTimKiem.setText("Tìm kiếm");
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -276,8 +259,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnTimKiem)
-                                .addGap(18, 18, 18)
                                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnMo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,7 +271,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                         .addGap(18, 18, 18))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnMenu, btnMo, btnTat, btnThanhToan, btnTimKiem, btnXoa});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnMenu, btnMo, btnTat, btnThanhToan, btnXoa});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,8 +311,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                                     .addComponent(btnTat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnTimKiem))
+                                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -340,7 +320,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnMenu, btnMo, btnTat, btnThanhToan, btnTimKiem, btnXoa});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnMenu, btnMo, btnTat, btnThanhToan, btnXoa});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -363,14 +343,25 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     private void btnMoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoActionPerformed
         int selectedRow = tblMayTinh.getSelectedRow();
         if (selectedRow < 0) {
-            XDialog.alert("Vui long chon may ban muon mo");
+            XDialog.alert("Vui lòng chọn máy bạn muốn mở");
             return;
         }
-        String trangthai = lblTrangThai.getText();
+
+        String tenMay = tblMayTinh.getValueAt(selectedRow, 0).toString();
+        String trangthai = lblTrangThai.getText().trim();
+
+        // Kiểm tra trạng thái từ giao diện
         if (trangthai.equals("Hoạt động")) {
-            XDialog.alert("Máy đã hoạt động không thể mở tiếp");
+            XDialog.alert("Máy đã hoạt động, không thể mở tiếp");
             return;
         }
+
+        // Kiểm tra trạng thái trong cơ sở dữ liệu
+        if (dao.isMayDangHoatDong(tenMay)) {
+            XDialog.alert("Máy " + tenMay + " đang hoạt động, không thể mở thêm lần nữa");
+            return;
+        }
+
         MoMay();
         Clear();
     }//GEN-LAST:event_btnMoActionPerformed
@@ -451,10 +442,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         Clear();
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -517,13 +504,12 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         lblGiaTheoGio.setText(Gia);
         lblTrangThai.setText(Trang);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnMo;
     private javax.swing.JButton btnTat;
     private javax.swing.JButton btnThanhToan;
-    private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -573,8 +559,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 i.getNgayKetThuc(),
                 i.getGioBatDau(),
                 i.getGioKetThuc(),
-                i.getTrangThai(),
-            };
+                i.getTrangThai(),};
             model.addRow(rowdata);
         });
     }

@@ -17,10 +17,12 @@ import util.XQuery;
  *
  * @author NITRO 5
  */
-public class SDMayDAOImpl implements SDMayDAO{
+public class SDMayDAOImpl implements SDMayDAO {
+
     private Connection conn = XJdbc.openConnection();
+
     @Override
-    public void MoMay(SuDungMay SDM ,MayTinh mt) {
+    public void MoMay(SuDungMay SDM, MayTinh mt) {
         String Sql_MoMay = "insert into SDMAY (TrangThai, NgayChoi,GioBatDau,TenMay,GiaTheoGio)  values (?,?,?,?,?)";
         Object[] args = {
             "Hoạt động",
@@ -31,7 +33,7 @@ public class SDMayDAOImpl implements SDMayDAO{
         };
         XJdbc.executeUpdate(Sql_MoMay, args);
         String Sql_TrangThai = "Update MayTinh set TrangThai =? where TenMay =?";
-            Object[] i = {
+        Object[] i = {
             "Hoạt động",
             mt.getTenMay()
         };
@@ -39,31 +41,47 @@ public class SDMayDAOImpl implements SDMayDAO{
     }
 
     @Override
-    public void TatMay(SuDungMay SDM ,MayTinh mt) {
-    String Sql_TatMay = "Update SDMAY set TrangThai =?,NgayKetThuc = ?,GioKetThuc=?,TongTien =?  where Id =?";
-    Object[] args = {
-        "Chưa thanh toán",
-        SDM.getNgayKetThuc(),
-        SDM.getGioKetThuc(),
-        SDM.getTongTien(),
-        SDM.getId()
-    };
-    XJdbc.executeUpdate(Sql_TatMay, args);
-    String Sql_TrangThai = "Update MayTinh set TrangThai =? where TenMay =?";
-            Object[] i = {
+    public void TatMay(SuDungMay SDM, MayTinh mt) {
+        String Sql_TatMay = "Update SDMAY set TrangThai =?,NgayKetThuc = ?,GioKetThuc=?,TongTien =?  where Id =?";
+        Object[] args = {
+            "Chưa thanh toán",
+            SDM.getNgayKetThuc(),
+            SDM.getGioKetThuc(),
+            SDM.getTongTien(),
+            SDM.getId()
+        };
+        XJdbc.executeUpdate(Sql_TatMay, args);
+        String Sql_TrangThai = "Update MayTinh set TrangThai =? where TenMay =?";
+        Object[] i = {
             "Trống",
             mt.getTenMay()
         };
         XJdbc.executeUpdate(Sql_TrangThai, i);
     }
+
     @Override
     public List<SuDungMay> findAll() {
-    String Sql_Sle ="SELECT * from SDMAY";
-    return XQuery.getBeanList(SuDungMay.class, Sql_Sle);
+        String Sql_Sle = "SELECT * from SDMAY";
+        return XQuery.getBeanList(SuDungMay.class, Sql_Sle);
     }
+
     @Override
-    public List<MayTinh> finMayTinh(){
-    String Sql_MaTinh ="Select TenMay,TrangThai,GiaTheoGio from MayTinh";
-    return XQuery.getBeanList(MayTinh.class ,Sql_MaTinh);
-    }   
+    public List<MayTinh> finMayTinh() {
+        String Sql_MaTinh = "Select TenMay,TrangThai,GiaTheoGio from MayTinh";
+        return XQuery.getBeanList(MayTinh.class, Sql_MaTinh);
+    }
+
+    @Override
+    public boolean isMayDangHoatDong(String tenMay) {
+        String sql = "SELECT COUNT(*) FROM SDMAY WHERE TenMay = ? AND TrangThai = 'Hoạt động'";
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, tenMay);
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Trả về true nếu máy đang hoạt động
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -4,7 +4,6 @@
  */
 package ui.manager;
 
-
 import controller.QuanLyThongKeController;
 import daoImpl.QuanLyThongKeDaoImpl;
 import entity.Menu;
@@ -15,24 +14,21 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import dao.QuanLyThongKeDAO;
-
+import util.XDialog;
 
 // Import model & controller
-
-
-
-
 /**
  *
  * @author Admin
  */
-public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyThongKeController{
+public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyThongKeController {
 
     /**
      * Creates new form QuanLyThongKeJDialog
      */
     QuanLyThongKeDAO dao = new QuanLyThongKeDaoImpl();
     DefaultTableModel model;
+
     public QuanLyThongKeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -41,7 +37,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         getFillMenu();
         getFillThonKe();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,6 +108,11 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                 "Tên máy", "Số lần sử dụng", "Tổng TG sử dụng", "Giá/h", "Tổng tiền"
             }
         ));
+        tblSuDungMay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSuDungMayMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSuDungMay);
 
         jLabel6.setText("Tổng tiền tất cả máy");
@@ -190,6 +191,11 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                 "Mã món", "Tên món", "Tổng số lượng bán", "Tổng tiền món"
             }
         ));
+        tblMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMonAnMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblMonAn);
 
         jLabel11.setText("Từ ngày");
@@ -275,6 +281,11 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                 "Tổng tiền món", "Tổng tiền máy"
             }
         ));
+        tblDoanhThu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDoanhThuMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblDoanhThu);
 
         jLabel10.setText("Tổng doanh thu");
@@ -361,63 +372,77 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXemBangThongkeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemBangThongkeActionPerformed
-    thongKeTheoKhoangNgay();
+        if (tblSuDungMay.getSelectedRow() == 0) {
+            thongKeDoanhThu();
+            return;
+        }
     }//GEN-LAST:event_btnXemBangThongkeActionPerformed
 
     private void btnXemSuDungMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemSuDungMayActionPerformed
-        Date tuNgay = new java.sql.Date(jdcTuNgay.getDate().getTime());
-        Date denNgay = new java.sql.Date(dacDenNgayMay.getDate().getTime());
-
-        List<SuDungMay> list = dao.getLichSuSuDungMay(tuNgay, denNgay);
-
-        DefaultTableModel model = (DefaultTableModel) tblSuDungMay.getModel();
-        model.setRowCount(0);
-
-        DecimalFormat dfTien = new DecimalFormat("#,###");
-        DecimalFormat dfGio = new DecimalFormat("#.##");
-
-        float tongGio = 0, tongTien = 0;
-
-        for (SuDungMay sdm : list) {
-            model.addRow(new Object[]{
-                sdm.getTenMay(),
-                sdm.getMaMay(),
-                dfGio.format(sdm.getThoiGianChoi()),
-                dfTien.format(sdm.getGiaTheoGio()) + " VND",
-                dfTien.format(sdm.getTongTien()) + " VND"
-            });
-            tongGio += sdm.getThoiGianChoi();
-            tongTien += sdm.getTongTien();
+        if (tblMonAn.getSelectedRow() == 0) {
+            thongKeSuDungMay();
+            return;
         }
-
-        txtTongGio.setText(dfGio.format(tongGio));
-        txtTongTien.setText(dfTien.format(tongTien) + " VND");
     }//GEN-LAST:event_btnXemSuDungMayActionPerformed
 
     private void btnMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonAnActionPerformed
-    Date tuNgay = new java.sql.Date(jdcMonAn.getDate().getTime());
-    Date denNgay = new java.sql.Date(dacDenNgayMenu.getDate().getTime());
-
-    List<Menu> list = dao.getLichSuMenu(tuNgay, denNgay);
-    DefaultTableModel model = (DefaultTableModel) tblMonAn.getModel();
-    model.setRowCount(0);
-
-    DecimalFormat dfTien = new DecimalFormat("#,###");
-
-    float tongTien = 0;
-
-    for (Menu menu : list) {
-        model.addRow(new Object[]{
-            menu.getMaMon(), // mã món
-            menu.getTenMon(),
-            menu.getSoLuong(), 
-            dfTien.format(menu.getTongTien()) + " VND"
-        });
-        tongTien += menu.getTongTien();
-    }
-
-    txtTongMonAn.setText(dfTien.format(tongTien) + " VND");
+        if (tblDoanhThu.getSelectedRow() == 0) {
+            thongKeLichSuBanHang();
+            return;
+        }
     }//GEN-LAST:event_btnMonAnActionPerformed
+
+    private void tblSuDungMayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSuDungMayMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = tblSuDungMay.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Lấy giá trị từ dòng được chọn
+            String tongTienStr = tblSuDungMay.getValueAt(selectedRow, 4).toString();
+            String tongGioStr = tblSuDungMay.getValueAt(selectedRow, 2).toString();
+            txtTongTien.setText(tongTienStr);
+            txtTongGio.setText(tongGioStr + " giờ");
+        } else {
+            // Nếu không có dòng nào được chọn, hiển thị tổng tất cả
+            getFillSDMay();
+        }
+    }//GEN-LAST:event_tblSuDungMayMouseClicked
+
+    private void tblMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMonAnMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = tblMonAn.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Lấy giá trị từ dòng được chọn
+            String tongTienMonStr = tblMonAn.getValueAt(selectedRow, 3).toString();
+            txtTongMonAn.setText(tongTienMonStr);
+        } else {
+            // Nếu không có dòng nào được chọn, hiển thị tổng tất cả
+            getFillMenu();
+        }
+    }//GEN-LAST:event_tblMonAnMouseClicked
+
+    private void tblDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoanhThuMouseClicked
+        // TODO add your handling code here:
+        DecimalFormat df = new DecimalFormat("#,### VND");
+        int selectedRow = tblDoanhThu.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Lấy giá trị từ dòng được chọn
+            String tongTienMayStr = tblDoanhThu.getValueAt(selectedRow, 0).toString();
+            String tongTienMonStr = tblDoanhThu.getValueAt(selectedRow, 1).toString();
+            double tongDoanhThu = 0;
+            try {
+                // Loại bỏ định dạng để tính tổng
+                String tongTienMayClean = tongTienMayStr.replace(" VND", "").replace(",", "");
+                String tongTienMonClean = tongTienMonStr.replace(" VND", "").replace(",", "");
+                tongDoanhThu = Double.parseDouble(tongTienMayClean) + Double.parseDouble(tongTienMonClean);
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+            txtTongDoanhThu.setText(df.format(tongDoanhThu));
+        } else {
+            // Nếu không có dòng nào được chọn, hiển thị tổng tất cả
+            getFillThonKe();
+        }
+    }//GEN-LAST:event_tblDoanhThuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -498,18 +523,25 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     private javax.swing.JTextField txtTongMonAn;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
-    @Override
+@Override
     public List<ThongKeDoanhThu> getFillThonKe() {
         List<ThongKeDoanhThu> list = dao.getAllThonKe();
         model = (DefaultTableModel) tblDoanhThu.getModel();
         model.setRowCount(0);
+
+        DecimalFormat df = new DecimalFormat("#,### VND");
+        double tongDoanhThu = 0;
+
         for (ThongKeDoanhThu tkd : list) {
+            double tongTienMay = tkd.getTongTienMay();
+            double tongTienMon = tkd.getTongTienMon();
             model.addRow(new Object[]{
-                tkd.getTongTienMay(),
-                tkd.getTongTienMon()
+                df.format(tongTienMay),
+                df.format(tongTienMon)
             });
+            tongDoanhThu += tongTienMay + tongTienMon;
         }
-        
+        txtTongDoanhThu.setText(df.format(tongDoanhThu));
         return list;
     }
 
@@ -519,17 +551,24 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         model = (DefaultTableModel) tblSuDungMay.getModel();
         model.setRowCount(0);
 
-        DecimalFormat df = new DecimalFormat("#,###.## VND");
+        DecimalFormat df = new DecimalFormat("#,### VND");
+        double tongTienTatCa = 0;
+        float tongGio = 0;
 
         for (SuDungMay item : entity) {
+            double tongTienMay = item.getThoiGianChoi() * item.getGiaTheoGio();
             model.addRow(new Object[]{
                 item.getTenMay(),
                 item.getMaMay(),
                 String.format("%.2f", item.getThoiGianChoi()),
                 df.format(item.getGiaTheoGio()),
-                df.format(item.getTongTien())
+                df.format(tongTienMay)
             });
+            tongTienTatCa += tongTienMay;
+            tongGio += item.getThoiGianChoi();
         }
+        txtTongTien.setText(df.format(tongTienTatCa));
+        txtTongGio.setText(String.format("%.2f giờ", tongGio));
         return entity;
     }
 
@@ -539,70 +578,116 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         model = (DefaultTableModel) tblMonAn.getModel();
         model.setRowCount(0);
 
-        DecimalFormat df = new DecimalFormat("#,###.## VND");
+        DecimalFormat df = new DecimalFormat("#,### VND");
+        double tongMonAn = 0;
 
         for (Menu item : entityMenu) {
+            double tongTienMon = item.getTongTien();
             model.addRow(new Object[]{
                 item.getMaMon(),
                 item.getTenMon(),
                 item.getSoLuong(),
-                df.format(item.getTongTien())
+                df.format(tongTienMon)
             });
+            tongMonAn += tongTienMon;
         }
+        txtTongMonAn.setText(df.format(tongMonAn));
         return entityMenu;
     }
-    
-    private void thongKeTheoKhoangNgay() {
-    Date tuNgay = new Date(dacTuNgayThongKe.getDate().getTime());
-    Date denNgay = new Date(dacDenNgayThongKe.getDate().getTime());
-    DecimalFormat df = new DecimalFormat("#,### VND");
-    QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
 
-    // Lịch sử sử dụng máy
-    List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
-    DefaultTableModel modelMay = (DefaultTableModel) tblSuDungMay.getModel();
-    modelMay.setRowCount(0);
-    for (SuDungMay sdm : lsMay) {
-        modelMay.addRow(new Object[]{
-            sdm.getMaMay(),
-            sdm.getTenMay(),
-            sdm.getThoiGianChoi(),
-            sdm.getGiaTheoGio(),
-            df.format(sdm.getTongTien())
-        });
+    private void thongKeSuDungMay() {
+        if (jdcTuNgay.getDate() == null || dacDenNgayMay.getDate() == null) {
+            XDialog.alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc");
+            return;
+        }
+
+        Date tuNgay = new Date(jdcTuNgay.getDate().getTime());
+        Date denNgay = new Date(dacDenNgayMay.getDate().getTime());
+        DecimalFormat df = new DecimalFormat("#,### VND");
+        QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
+
+        // Lịch sử sử dụng máy
+        List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
+        DefaultTableModel modelMay = (DefaultTableModel) tblSuDungMay.getModel();
+        modelMay.setRowCount(0);
+        double tongTienMay = 0;
+        float tongGioSuDung = 0;
+        for (SuDungMay sdm : lsMay) {
+            double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
+            modelMay.addRow(new Object[]{
+                sdm.getTenMay(),
+                sdm.getMaMay(),
+                String.format("%.2f", sdm.getThoiGianChoi()),
+                df.format(sdm.getGiaTheoGio()),
+                df.format(tienMay)
+            });
+            tongTienMay += tienMay;
+            tongGioSuDung += sdm.getThoiGianChoi();
+        }
+        txtTongTien.setText(df.format(tongTienMay));
+        txtTongGio.setText(String.format("%.2f giờ", tongGioSuDung));
     }
 
-    // Lịch sử Menu (món ăn)
-    List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
-    DefaultTableModel modelMenu = (DefaultTableModel) tblMonAn.getModel();
-    modelMenu.setRowCount(0);
-    for (Menu m : lsMenu) {
-        modelMenu.addRow(new Object[]{
-            m.getMaMon(),
-            m.getTenMon(),
-            m.getSoLuong(),
-             df.format(m.getTongTien())
-        });
+    private void thongKeLichSuBanHang() {
+        if (jdcMonAn.getDate() == null || dacDenNgayMenu.getDate() == null) {
+            XDialog.alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc");
+            return;
+        }
+
+        Date tuNgay = new Date(jdcMonAn.getDate().getTime());
+        Date denNgay = new Date(dacDenNgayMenu.getDate().getTime());
+        DecimalFormat df = new DecimalFormat("#,### VND");
+        QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
+
+        // Lịch sử Menu (món ăn)
+        List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
+        DefaultTableModel modelMenu = (DefaultTableModel) tblMonAn.getModel();
+        modelMenu.setRowCount(0);
+        double tongMonAn = 0;
+        for (Menu m : lsMenu) {
+            modelMenu.addRow(new Object[]{
+                m.getMaMon(),
+                m.getTenMon(),
+                m.getSoLuong(),
+                df.format(m.getTongTien())
+            });
+            tongMonAn += m.getTongTien();
+        }
+        txtTongMonAn.setText(df.format(tongMonAn));
     }
-    float tongMay = 0, tongMenu = 0;
 
-    for (SuDungMay sdm : lsMay) {
-        tongMay += sdm.getTongTien();
+    private void thongKeDoanhThu() {
+        if (dacTuNgayThongKe.getDate() == null || dacDenNgayThongKe.getDate() == null) {
+            XDialog.alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc");
+            return;
+        }
+
+        Date tuNgay = new Date(dacTuNgayThongKe.getDate().getTime());
+        Date denNgay = new Date(dacDenNgayThongKe.getDate().getTime());
+        DecimalFormat df = new DecimalFormat("#,### VND");
+        QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
+
+        // Lịch sử sử dụng máy
+        List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
+        double tongTienMay = 0;
+        for (SuDungMay sdm : lsMay) {
+            double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
+            tongTienMay += tienMay;
+        }
+
+        // Lịch sử Menu (món ăn)
+        List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
+        double tongMonAn = 0;
+        for (Menu m : lsMenu) {
+            tongMonAn += m.getTongTien();
+        }
+
+        // Cập nhật bảng doanh thu
+        DefaultTableModel dtModel = (DefaultTableModel) tblDoanhThu.getModel();
+        dtModel.setRowCount(0);
+        dtModel.addRow(new Object[]{df.format(tongTienMay), df.format(tongMonAn)});
+
+        // Cập nhật tổng doanh thu
+        txtTongDoanhThu.setText(df.format(tongTienMay + tongMonAn));
     }
-
-    for (Menu menu : lsMenu) {
-        tongMenu += menu.getTongTien();
-    }
-
-
-
-    DefaultTableModel dtModel = (DefaultTableModel) tblDoanhThu.getModel();
-    dtModel.setRowCount(0); // xóa dữ liệu cũ
-    dtModel.addRow(new Object[]{df.format(tongMenu), df.format(tongMay)});
-
-    // Cập nhật tổng doanh thu
-    txtTongDoanhThu.setText(df.format(tongMenu + tongMay));
-
-}
-
 }
