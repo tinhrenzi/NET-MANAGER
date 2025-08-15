@@ -46,19 +46,33 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
         String sql = "SELECT "
                 + "    sdm.TenMay, "
                 + "    COUNT(sdm.Id) AS SoLanSuDung, "
-                + "    SUM(DATEDIFF(SECOND, sdm.GioBatDau, sdm.GioKetThuc) / 3600.0) AS TongGioSuDung, "
+                + "    SUM(DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), "
+                + "        CASE "
+                + "            WHEN sdm.GioKetThuc < sdm.GioBatDau "
+                + "            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) "
+                + "            ELSE CAST(sdm.GioKetThuc AS DATETIME) "
+                + "        END "
+                + "    ) / 3600.0) AS TongGioSuDung, "
                 + "    sdm.GiaTheoGio, "
-                + "    SUM((DATEDIFF(SECOND, sdm.GioBatDau, sdm.GioKetThuc) / 3600.0) * sdm.GiaTheoGio) AS TongTien "
+                + "    SUM((DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), "
+                + "        CASE "
+                + "            WHEN sdm.GioKetThuc < sdm.GioBatDau "
+                + "            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) "
+                + "            ELSE CAST(sdm.GioKetThuc AS DATETIME) "
+                + "        END "
+                + "    ) / 3600.0) * sdm.GiaTheoGio) AS TongTien "
                 + "FROM SDMAY sdm "
                 + "GROUP BY sdm.TenMay, sdm.GiaTheoGio "
                 + "ORDER BY sdm.TenMay";
 
-        try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = XJdbc.openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
                 sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setId(rs.getInt("SoLanSuDung")); // Sửa lại cho đúng ý nghĩa
+                sdm.setId(rs.getInt("SoLanSuDung"));
                 sdm.setThoiGianChoi(rs.getDouble("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                 sdm.setTongTien(rs.getFloat("TongTien"));
@@ -71,6 +85,8 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
         return list;
     }
+
+
 
     @Override
     public List<Menu> getAllMenu() {
