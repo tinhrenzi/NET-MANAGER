@@ -87,7 +87,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblDaMua = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        txtTongTien = new javax.swing.JTextField();
+        lblTongTien = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -101,13 +101,13 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
 
         tblOrderManager.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã đồ món", "Tên món", "Đơn Giá"
+                "Mã đồ món", "Tên món", "Đơn Giá", "Ảnh"
             }
         ));
         jScrollPane2.setViewportView(tblOrderManager);
@@ -219,6 +219,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSua, btn_them});
 
+        txtSoLuong.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSoLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSoLuongActionPerformed(evt);
@@ -294,6 +295,9 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Số lượng");
 
+        lblTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTongTien.setText("- - - - - - - -");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -314,16 +318,16 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addComponent(lblTenMay, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -332,8 +336,6 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel4, jLabel5});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtSoLuong, txtTongTien});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,23 +354,23 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
                         .addGap(27, 27, 27)
                         .addComponent(lblTenMay, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSoLuong)
+                                .addGap(6, 6, 6)))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel4, jLabel5});
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtSoLuong, txtTongTien});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -431,7 +433,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         String soLuong = tblTongMonAn.getValueAt(row, 3).toString();
 
         txtSoLuong.setText(soLuong);
-        txtTongTien.setText(tongTien);
+        lblTongTien.setText(tongTien);
 
     }//GEN-LAST:event_tblTongMonAnMouseClicked
 
@@ -449,11 +451,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     }//GEN-LAST:event_txtSoLuongActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (tblOrderManager.getSelectedRow() != 0) {
-            XDialog.alert("Sua thanh cong");
-            SuaSoLuong();
-            return;
-        }
+    SuaSoLuong();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tblDaMuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDaMuaMouseClicked
@@ -464,7 +462,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
             String Soluong = tblDaMua.getValueAt(Slt, 3).toString();
             String Tong = tblDaMua.getValueAt(Slt, 4).toString();
             txtSoLuong.setText(Soluong);
-            txtTongTien.setText(Tong);
+            lblTongTien.setText(Tong);
             lblMaDaMua.setText(id);
             lblGiaMon.setText(GiaTien);
         }
@@ -537,11 +535,11 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     private javax.swing.JLabel lblMaSd;
     private javax.swing.JLabel lblNgayHienTai;
     private javax.swing.JLabel lblTenMay;
+    private javax.swing.JLabel lblTongTien;
     private javax.swing.JTable tblDaMua;
     private javax.swing.JTable tblOrderManager;
     private javax.swing.JTable tblTongMonAn;
     private javax.swing.JTextField txtSoLuong;
-    private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
 
     private void updateTongTien() {
@@ -558,7 +556,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
                 tongTien += gia * soLuong;
             }
         }
-        txtTongTien.setText(String.valueOf(tongTien));
+        lblTongTien.setText(String.valueOf(tongTien));
     }
 
     public void fillToTable() {
@@ -569,7 +567,8 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
             Object[] rowData = {
                 item.getId(),
                 item.getTenMon(),
-                item.getGiaTien()
+                item.getGiaTien(),
+                item.getHinhANh()
             };
             model.addRow(rowData);
         }
@@ -578,7 +577,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     public void create() {
         int MaSD = Integer.parseInt(lblMaSd.getText().trim());
         String tenMay = lblTenMay.getText().trim();
-        String tongTienStr = txtTongTien.getText().trim();
+        String tongTienStr = lblTongTien.getText().trim();
 
         try {
             float tongTien = Float.parseFloat(tongTienStr);
@@ -613,7 +612,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     }
 
     public void clear() {
-        txtTongTien.setText("");
+        lblTongTien.setText("");
         txtSoLuong.setText("");
         DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
         model.setRowCount(0);
@@ -647,7 +646,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         Menu mn = new Menu();
 
         String idText = lblMaDaMua.getText().trim();
-        String tongTienText = txtTongTien.getText().trim();
+        String tongTienText = lblTongTien.getText().trim();
         String soLuongText = txtSoLuong.getText().trim();
 
         if (idText.isEmpty() || tongTienText.isEmpty() || soLuongText.isEmpty()) {
@@ -664,9 +663,14 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
 
     @Override
     public void SuaSoLuong() {
+        try {
         Menu mn = this.getFromDaMua();
         MenuDao.UpSoluong(mn);
         filltblDaNMua();
+        XDialog.alert("Sửa số lượng thành công ");
+        } catch (Exception e) {
+            XDialog.alert("Lỗi sửa số lượng");
+        }
     }
 
 }

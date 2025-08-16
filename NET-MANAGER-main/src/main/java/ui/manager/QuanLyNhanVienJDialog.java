@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
 import dao.AdminDAO;
+import util.XAuth;
 
 /**
  *
@@ -432,6 +433,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         String yearRehex = "^[0-9]{4}$";
         String passRegex = "^(?=.*[A-Z]).{7,}$";
         String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
+        String VaiTro = "Quản lý";
 
         String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
         if (year.isEmpty()) {
@@ -462,11 +464,16 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
             return;
         }
-        if (cboVaitro.getSelectedIndex() != 0) {
-            JOptionPane.showMessageDialog(this, "Quản lý không thể sửa");
+        String oldRole = tblUsermager.getValueAt(tblUsermager.getSelectedRow(), 3).toString(); 
+        String newRole = cboVaitro.getSelectedItem().toString();
+
+        if ("Quản lý".equalsIgnoreCase(oldRole) && "Nhân viên".equalsIgnoreCase(newRole)) {
+            JOptionPane.showMessageDialog(this, "Không thể hạ Quản lý xuống Nhân viên");
             return;
         }
+
         this.update();
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -586,10 +593,6 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         txtEmail.setText(tblUsermager.getValueAt(row, 6).toString());
         txtPhone.setText(tblUsermager.getValueAt(row, 7).toString());
         dacDateCre.setDate((java.sql.Date) tblUsermager.getValueAt(row, 8));
-
-        if (cboVaitro.getSelectedIndex() != 0) {
-            cboVaitro.getSelectedItem();
-        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
@@ -633,6 +636,15 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         this.setLocationRelativeTo(null);
         this.fillToTable();
         this.clear();
+    }
+
+    public void setRole() {
+        int role = XAuth.user.getVaiTro();
+        if (role == 2) { // Nhân viên
+            btnUpdate.setEnabled(false);
+        } else {
+            btnUpdate.setEnabled(true);
+        }
     }
 
     @Override

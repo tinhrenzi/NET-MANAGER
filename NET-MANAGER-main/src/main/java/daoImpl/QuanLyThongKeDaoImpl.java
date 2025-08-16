@@ -122,16 +122,24 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
                 sdm.TenMay,
                 COUNT(sdm.Id) AS SoLanSuDung,
                 SUM(
-                    DATEDIFF(SECOND, sdm.GioBatDau, sdm.GioKetThuc) / 3600.0
+                    DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                        CASE
+                            WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME))
+                            ELSE CAST(sdm.GioKetThuc AS DATETIME)
+                        END
+                    ) / 3600.0
                 ) AS TongGioSuDung,
                 sdm.GiaTheoGio,
                 SUM(ISNULL(sdm.TongTien, 0)) AS TongTien
             FROM SDMAY sdm
             WHERE sdm.NgayChoi BETWEEN ? AND ?
-            GROUP BY sdm.TenMay,sdm.GiaTheoGio
+            GROUP BY sdm.TenMay, sdm.GiaTheoGio
             ORDER BY sdm.TenMay
         """;
-        try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        try (Connection conn = XJdbc.openConnection(); 
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setDate(1, tuNgay);
             ps.setDate(2, denNgay);
@@ -152,6 +160,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
         return list;
     }
+
 
     @Override
     public List<Menu> getLichSuMenu(Date tuNgay, Date denNgay) {
