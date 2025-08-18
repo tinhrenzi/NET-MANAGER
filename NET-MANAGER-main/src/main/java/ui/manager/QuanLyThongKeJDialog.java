@@ -62,6 +62,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         dacMayTinhGo = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         dacMayTinhNext = new com.toedter.calendar.JDateChooser();
+        btnClear = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMonAn = new javax.swing.JTable();
@@ -72,6 +73,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         dacDenNgayMenu = new com.toedter.calendar.JDateChooser();
+        btnLSVH = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         btnXemBangThongke = new javax.swing.JButton();
@@ -82,6 +84,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         dacTuNgayThongKe = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         dacDenNgayThongKe = new com.toedter.calendar.JDateChooser();
+        btnTongDoanhThu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -121,6 +124,13 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         jLabel4.setText("Đến ngày");
 
+        btnClear.setText("Tổng");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -141,11 +151,13 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(52, 52, 52)
-                        .addComponent(btnXemSuDungMay, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 45, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXemSuDungMay, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
@@ -163,7 +175,9 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                         .addGap(2, 2, 2)
                         .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGap(11, 11, 11)
+                        .addComponent(btnClear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnXemSuDungMay))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -175,7 +189,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                             .addComponent(dacMayTinhGo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dacMayTinhNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Lịch Sử Sử Dụng Máy ", jPanel1);
@@ -211,6 +225,13 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         jLabel5.setText("Đến ngày");
 
+        btnLSVH.setText("Tổng");
+        btnLSVH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLSVHActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -226,7 +247,10 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                         .addComponent(dacDenNgayMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLSVH))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txtTongMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
@@ -249,8 +273,11 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                             .addComponent(jdcMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dacDenNgayMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel3))
+                            .addComponent(btnLSVH))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTongMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,6 +319,13 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         jLabel9.setText("Đến ngày");
 
+        btnTongDoanhThu.setText("Tổng");
+        btnTongDoanhThu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTongDoanhThuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -313,12 +347,13 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(197, 197, 197))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTongDoanhThu))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtTongDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                        .addComponent(btnXemBangThongke)
-                        .addGap(50, 50, 50))))
+                        .addComponent(btnXemBangThongke)))
+                .addGap(50, 50, 50))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +364,8 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTongDoanhThu))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTongDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,6 +477,21 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         }
     }//GEN-LAST:event_tblDoanhThuMouseClicked
 
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        getFillSDMay();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnLSVHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLSVHActionPerformed
+        // TODO add your handling code here:
+        getFillMenu();
+    }//GEN-LAST:event_btnLSVHActionPerformed
+
+    private void btnTongDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTongDoanhThuActionPerformed
+        // TODO add your handling code here:
+        getFillThonKe();
+    }//GEN-LAST:event_btnTongDoanhThuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -484,7 +535,10 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnLSVH;
     private javax.swing.JButton btnMonAn;
+    private javax.swing.JButton btnTongDoanhThu;
     private javax.swing.JButton btnXemBangThongke;
     private javax.swing.JButton btnXemSuDungMay;
     private com.toedter.calendar.JDateChooser dacDenNgayMenu;
