@@ -34,30 +34,31 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
      * Creates new form ThanhToan2JDialog
      */
     /**
-    * Tính số giờ chơi và thành tiền
-    *
-    * @param gioVao    Giờ vào dạng chuỗi "HH:mm"
-    * @param gioNghi   Giờ nghỉ dạng chuỗi "HH:mm"
-    * @param giaTheoGio Giá tính theo giờ
-    * @return Mảng [số giờ chơi, tổng tiền]
-    */
+     * Tính số giờ chơi và thành tiền
+     *
+     * @param gioVao Giờ vào dạng chuỗi "HH:mm"
+     * @param gioNghi Giờ nghỉ dạng chuỗi "HH:mm"
+     * @param giaTheoGio Giá tính theo giờ
+     * @return Mảng [số giờ chơi, tổng tiền]
+     */
     public ThanhToanJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
     MenuDAO dao1 = new MenuDAOImpl();
     ThanhToanDAO dao = new ThanhToanDAOImpl();
-    public ThanhToanJDialog(java.awt.Frame parent, boolean modal, String MaSDMay,String TenMay, String NgayChoi,String NgayNghi,String gioVao,String GioNghi, float giah) {
+
+    public ThanhToanJDialog(java.awt.Frame parent, boolean modal, String MaSDMay, String TenMay, String NgayChoi, String NgayNghi, String gioVao, String GioNghi, float giah) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        
+
         //fillsdmay
         lblTenMay.setText(TenMay);
         lblMaMay.setText(MaSDMay);
-        lblNgayVao.setText(NgayChoi); 
+        lblNgayVao.setText(NgayChoi);
         lblNgayNgi.setText(NgayNghi);
-        lblGioVao.setText(gioVao); 
+        lblGioVao.setText(gioVao);
         lblGioNghi.setText(GioNghi);
         lblGiaTheoGio.setText(String.valueOf(giah));
         double[] ketQua = tinhTien(NgayChoi, NgayNghi, gioVao, GioNghi, giah);
@@ -86,8 +87,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         double tienMay = getTienMayFromLabel();
         double tong = tienMay + tongTienMenu;
         lblTongTienMayVaMenu.setText(df.format(tong));
-        lblTongTienMayVaMenu.setText(df.format(tong));        
+        lblTongTienMayVaMenu.setText(df.format(tong));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -385,43 +387,43 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-    ThanhToan tt = new ThanhToan();
-    SuDungMay mt = new SuDungMay();
+        ThanhToan tt = new ThanhToan();
+        SuDungMay mt = new SuDungMay();
 
-    tt.setMaSDMay(Integer.parseInt(lblMaMay.getText()));
+        tt.setMaSDMay(Integer.parseInt(lblMaMay.getText()));
 
-    LocalDateTime start = LocalDateTime.of(
-        LocalDate.parse(lblNgayVao.getText()),
-        LocalTime.parse(lblGioVao.getText())
-    );
-    LocalDateTime end = LocalDateTime.of(
-        LocalDate.parse(lblNgayNgi.getText()),
-        LocalTime.parse(lblGioNghi.getText())
-    );
+        LocalDateTime start = LocalDateTime.of(
+                LocalDate.parse(lblNgayVao.getText()),
+                LocalTime.parse(lblGioVao.getText())
+        );
+        LocalDateTime end = LocalDateTime.of(
+                LocalDate.parse(lblNgayNgi.getText()),
+                LocalTime.parse(lblGioNghi.getText())
+        );
 
-    tt.setNgayBatDau(start);
-    tt.setNgayKetThuc(end);
-    tt.setNgayThanhToan(end);
-    mt.setThoiGianChoi(Float.parseFloat(lblTongGio.getText().replace(" giờ", "")));
-    tt.setTongGio(Double.parseDouble(lblTongGio.getText().replace(" giờ", "")));
-    tt.setGiaTheoGio(Double.parseDouble(lblGiaTheoGio.getText()));
-    tt.setTienMay(getTienMayFromLabel());
+        tt.setNgayBatDau(start);
+        tt.setNgayKetThuc(end);
+        tt.setNgayThanhToan(end);
+        mt.setThoiGianChoi(Float.parseFloat(lblTongGio.getText().replace(" giờ", "")));
+        tt.setTongGio(Double.parseDouble(lblTongGio.getText().replace(" giờ", "")));
+        tt.setGiaTheoGio(Double.parseDouble(lblGiaTheoGio.getText()));
+        tt.setTienMay(getTienMayFromLabel());
 
-    // Tính tiền menu
-    double tongTienMenu = 0;
-    for (int i = 0; i < tblMenu.getRowCount(); i++) {
-        tongTienMenu += Double.parseDouble(tblMenu.getValueAt(i, 3).toString());
-    }
-    tt.setTienMenu(tongTienMenu);
-    tt.setTongTien(tt.getTienMay() + tongTienMenu);
+        // Tính tiền menu
+        double tongTienMenu = 0;
+        for (int i = 0; i < tblMenu.getRowCount(); i++) {
+            tongTienMenu += Double.parseDouble(tblMenu.getValueAt(i, 3).toString());
+        }
+        tt.setTienMenu(tongTienMenu);
+        tt.setTongTien(tt.getTienMay() + tongTienMenu);
 
-    // Gọi DAO để lưu
-    if (dao.ThanhToan(tt) != null) {
-        TatMay();
-        JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
-    } else {
-        JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
-    }
+        // Gọi DAO để lưu
+        if (dao.ThanhToan(tt) != null) {
+            TatMay();
+            JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
+        }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     /**
@@ -498,7 +500,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JTable tblMenu;
     // End of variables declaration//GEN-END:variables
-    public static double[] tinhTien(String ngayVao, String ngayNghi, String gioVao, String gioNghi, float giaTheoGio) {
+
+    
+public static double[] tinhTien(String ngayVao, String ngayNghi, String gioVao, String gioNghi, float giaTheoGio) {
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -512,12 +516,22 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     LocalDateTime endDateTime = LocalDateTime.of(dateEnd, timeEnd);
 
     Duration duration = Duration.between(startDateTime, endDateTime);
+
     long minutes = duration.toMinutes();
-    double hoursPlayed = minutes / 60.0;
-    double tongTien = hoursPlayed * giaTheoGio;
+    int seconds = duration.toSecondsPart();
+
+    if (seconds >= 30) {
+        minutes++;
+    }
+
+    double hoursPlayed = Math.ceil((minutes / 60.0) * 100.0) / 100.0;
+
+    double tongTien = Math.ceil((hoursPlayed * giaTheoGio) * 100.0) / 100.0;
 
     return new double[]{hoursPlayed, tongTien};
-    }
+}
+
+
 
     private double getTienMayFromLabel() {
         String text = lblTongTien.getText();
@@ -532,20 +546,23 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             return 0.0;
         }
     }
+
     public SuDungMay getFromBytoShutdow() {
-    SuDungMay sdm = new SuDungMay();
-    MayTinh mt = new MayTinh();
-    sdm.setId(Integer.parseInt(lblMaMay.getText()));
-    return sdm;
+        SuDungMay sdm = new SuDungMay();
+        MayTinh mt = new MayTinh();
+        sdm.setId(Integer.parseInt(lblMaMay.getText()));
+        return sdm;
     }
+
     public MayTinh getFromOne() {
-    MayTinh mt = new MayTinh();
-    mt.setTenMay(lblTenMay.getText());
-    return mt;
+        MayTinh mt = new MayTinh();
+        mt.setTenMay(lblTenMay.getText());
+        return mt;
     }
+
     public void TatMay() {
-    SuDungMay sdm = this.getFromBytoShutdow();
-    MayTinh mt = this.getFromOne();
-    dao.TatMay(sdm,mt);
+        SuDungMay sdm = this.getFromBytoShutdow();
+        MayTinh mt = this.getFromOne();
+        dao.TatMay(sdm, mt);
     }
 }

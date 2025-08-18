@@ -43,31 +43,38 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     @Override
     public List<SuDungMay> getAllSDMay() {
         List<SuDungMay> list = new ArrayList<>();
-        String sql = "SELECT "
-                + "    sdm.TenMay, "
-                + "    COUNT(sdm.Id) AS SoLanSuDung, "
-                + "    SUM(DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), "
-                + "        CASE "
-                + "            WHEN sdm.GioKetThuc < sdm.GioBatDau "
-                + "            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) "
-                + "            ELSE CAST(sdm.GioKetThuc AS DATETIME) "
-                + "        END "
-                + "    ) / 3600.0) AS TongGioSuDung, "
-                + "    sdm.GiaTheoGio, "
-                + "    SUM((DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), "
-                + "        CASE "
-                + "            WHEN sdm.GioKetThuc < sdm.GioBatDau "
-                + "            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) "
-                + "            ELSE CAST(sdm.GioKetThuc AS DATETIME) "
-                + "        END "
-                + "    ) / 3600.0) * sdm.GiaTheoGio) AS TongTien "
-                + "FROM SDMAY sdm "
-                + "GROUP BY sdm.TenMay, sdm.GiaTheoGio "
-                + "ORDER BY sdm.TenMay";
+        String sql = "SELECT \n"
+                + "    sdm.TenMay, \n"
+                + "    COUNT(sdm.Id) AS SoLanSuDung, \n"
+                + "\n"
+                + "    SUM(CEILING(\n"
+                + "        (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), \n"
+                + "            CASE \n"
+                + "                WHEN sdm.GioKetThuc < sdm.GioBatDau \n"
+                + "                THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) \n"
+                + "                ELSE CAST(sdm.GioKetThuc AS DATETIME) \n"
+                + "            END\n"
+                + "        ) / 3600.0) * 100\n"
+                + "    ) / 100.0) AS TongGioSuDung, \n"
+                + "\n"
+                + "    sdm.GiaTheoGio, \n"
+                + "\n"
+                + "    SUM( (CEILING(\n"
+                + "        (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), \n"
+                + "            CASE \n"
+                + "                WHEN sdm.GioKetThuc < sdm.GioBatDau \n"
+                + "                THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) \n"
+                + "                ELSE CAST(sdm.GioKetThuc AS DATETIME) \n"
+                + "            END\n"
+                + "        ) / 3600.0) * 100\n"
+                + "    ) / 100.0) * sdm.GiaTheoGio ) AS TongTien \n"
+                + "\n"
+                + "FROM SDMAY sdm \n"
+                + "WHERE sdm.GioKetThuc IS NOT NULL   -- chỉ lấy máy đã kết thúc (đã thanh toán)\n"
+                + "GROUP BY sdm.TenMay, sdm.GiaTheoGio \n"
+                + "ORDER BY sdm.TenMay;";
 
-        try (Connection conn = XJdbc.openConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
@@ -85,8 +92,6 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
         return list;
     }
-
-
 
     @Override
     public List<Menu> getAllMenu() {
@@ -138,8 +143,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             ORDER BY sdm.TenMay
         """;
 
-        try (Connection conn = XJdbc.openConnection(); 
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setDate(1, tuNgay);
             ps.setDate(2, denNgay);
@@ -160,7 +164,6 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
         return list;
     }
-
 
     @Override
     public List<Menu> getLichSuMenu(Date tuNgay, Date denNgay) {

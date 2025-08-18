@@ -394,13 +394,11 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -415,7 +413,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }//GEN-LAST:event_btnXemBangThongkeActionPerformed
 
     private void btnXemSuDungMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemSuDungMayActionPerformed
-    thongKeSuDungMay();
+        thongKeSuDungMay();
     }//GEN-LAST:event_btnXemSuDungMayActionPerformed
 
     private void btnMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonAnActionPerformed
@@ -574,7 +572,8 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     private javax.swing.JTextField txtTongMonAn;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
-@Override
+
+    @Override
     public List<ThongKeDoanhThu> getFillThonKe() {
         List<ThongKeDoanhThu> list = dao.getAllThonKe();
         model = (DefaultTableModel) tblDoanhThu.getModel();
@@ -645,6 +644,8 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         txtTongMonAn.setText(df.format(tongMonAn));
         return entityMenu;
     }
+    double tongTienMay = 0;
+    float tongGioSuDung = 0;
 
     private void thongKeSuDungMay() {
         if (dacMayTinhGo.getDate() == null || dacMayTinhNext.getDate() == null) {
@@ -661,8 +662,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
         DefaultTableModel modelMay = (DefaultTableModel) tblSuDungMay.getModel();
         modelMay.setRowCount(0);
-        double tongTienMay = 0;
-        float tongGioSuDung = 0;
+
         for (SuDungMay sdm : lsMay) {
             double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
             modelMay.addRow(new Object[]{
@@ -678,6 +678,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         txtTongTien.setText(df.format(tongTienMay));
         txtTongGio.setText(String.format("%.2f giờ", tongGioSuDung));
     }
+    double tongMonAn = 0;
 
     private void thongKeLichSuBanHang() {
         if (jdcMonAn.getDate() == null || dacDenNgayMenu.getDate() == null) {
@@ -694,7 +695,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
         DefaultTableModel modelMenu = (DefaultTableModel) tblMonAn.getModel();
         modelMenu.setRowCount(0);
-        double tongMonAn = 0;
+
         for (Menu m : lsMenu) {
             modelMenu.addRow(new Object[]{
                 m.getMaMon(),
@@ -720,7 +721,6 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         // Lịch sử sử dụng máy
         List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
-        double tongTienMay = 0;
         for (SuDungMay sdm : lsMay) {
             double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
             tongTienMay += tienMay;
@@ -728,7 +728,6 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         // Lịch sử Menu (món ăn)
         List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
-        double tongMonAn = 0;
         for (Menu m : lsMenu) {
             tongMonAn += m.getTongTien();
         }

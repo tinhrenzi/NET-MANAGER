@@ -247,7 +247,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             XDialog.alert("Máy " + hang + " trùng tên" + " với máy " + tengetT);
             return;
         }
-        create();
+        update();
         clear();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 

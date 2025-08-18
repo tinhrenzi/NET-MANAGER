@@ -4,7 +4,6 @@
  */
 package ui;
 
-
 import controller.GiaoDienChinhController;
 import javax.swing.JOptionPane;
 import util.XAuth;
@@ -13,49 +12,50 @@ import util.XAuth;
  *
  * @author NITRO 5
  */
-public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChinhController{
+public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChinhController {
 
     /**
-     * Creates new form NetManagerJFrem
-     * w14
-     * h410
+     * Creates new form NetManagerJFrem w14 h410
      */
     int w = 155;
     int h = 410;
+
     public NetManagerJFrame() {
         initComponents();
         setLocationRelativeTo(null);
         this.init();
     }
-    
-    void btnopmenu(){
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-            for (int i = 0; i < w; i++) {
-                menuHeThong.setSize(i, h);
-                try {
-                    Thread.sleep(2);
-                } catch (Exception e) {
+
+    void btnopmenu() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < w; i++) {
+                    menuHeThong.setSize(i, h);
+                    try {
+                        Thread.sleep(2);
+                    } catch (Exception e) {
+                    }
                 }
             }
-        }
-    }).start();
+        }).start();
     }
-    void btnclmenu(){
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-            for (int i = w; i > 0; i--) {
-                menuHeThong.setSize(i, h);
-                try {
-                    Thread.sleep(2);
-                } catch (Exception e) {
-                }           
+
+    void btnclmenu() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = w; i > 0; i--) {
+                    menuHeThong.setSize(i, h);
+                    try {
+                        Thread.sleep(2);
+                    } catch (Exception e) {
+                    }
+                }
             }
-        }
-    }).start();
+        }).start();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -227,8 +227,8 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
         //this.dispose();
-      //new DangNhapJDialog(null, true).setVisible(true);
-      dangXuat();
+        //new DangNhapJDialog(null, true).setVisible(true);
+        dangXuat();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnQLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLNVActionPerformed
@@ -326,39 +326,41 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     public void init() {
         this.showWelcome(this);
         this.showLogin(this);
-        if(XAuth.user != null){
-        setRole();
-        }else{
+        if (XAuth.user != null) {
+            setRole();
+        } else {
             dispose();
         }
     }
+
     public void setRole() {
         int role = XAuth.user.getVaiTro();
-    if (role == 2) { // Nhân viên
-        btnQLNV.setEnabled(false);
-        btnQLMT.setEnabled(false);
-        btnQLTD.setEnabled(false);
-        btnQLTK.setEnabled(false);
-    }else{
-        btnQLNV.setEnabled(true);
-        btnQLMT.setEnabled(true);
-        btnQLTD.setEnabled(true);
-        btnQLTK.setEnabled(true);
-    }
-}
-    private void dangXuat() {
-    int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn đăng xuất?", "Đăng xuất", JOptionPane.YES_NO_OPTION);
-    if (confirm == JOptionPane.YES_OPTION) {
-        XAuth.clear();
-        this.setVisible(false);
-        DangNhapJDialog dangNhap = new DangNhapJDialog(this, true);
-        dangNhap.setVisible(true);
-        if(XAuth.isLogin()){
-        this.setVisible(true);   
-        setRole();
-        }else{
-           dispose();
+        if (role == 2) { // Nhân viên
+            btnQLNV.setEnabled(false);
+            btnQLMT.setEnabled(false);
+            btnQLTD.setEnabled(false);
+            btnQLTK.setEnabled(false);
+        } else {
+            btnQLNV.setEnabled(true);
+            btnQLMT.setEnabled(true);
+            btnQLTD.setEnabled(true);
+            btnQLTK.setEnabled(true);
         }
     }
- }
+
+    private void dangXuat() {
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn đăng xuất?", "Đăng xuất", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            XAuth.clear();
+            this.setVisible(false);
+            DangNhapJDialog dangNhap = new DangNhapJDialog(this, true);
+            dangNhap.setVisible(true);
+            if (XAuth.isLogin()) {
+                this.setVisible(true);
+                setRole();
+            } else {
+                dispose();
+            }
+        }
+    }
 }
