@@ -47,7 +47,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Nhập Mật Khẩu Mới");
 
-        jLabel3.setText("Xác Định Mật Khẩu Mới");
+        jLabel3.setText("Xác Nhận Mật Khẩu Mới");
 
         jLabel4.setText("Tên Tài Khoản");
 
@@ -72,7 +72,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
                             .addComponent(jLabel5))
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNameAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                            .addComponent(txtNameAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                             .addComponent(txtNewPassWord)
                             .addComponent(txtConfirm)
                             .addComponent(jTextField4)))

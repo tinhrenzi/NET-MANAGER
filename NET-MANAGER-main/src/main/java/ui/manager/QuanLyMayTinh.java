@@ -233,18 +233,22 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
-        // TODO add your handling code here:
-        if (tblQLMT.getSelectedRow() < 0) {
-            XDialog.alert("Vui lòng chọn máy bạn muốn sửa");
+        int hang = tblQLMT.getRowCount();
+        String tengetT = txtName.getText();
+        boolean giatri = false;
+        for (int i = 1; i < hang; i++) {
+            String tenmaytbl = tblQLMT.getValueAt(i, 1).toString().trim();
+            if (tengetT.equalsIgnoreCase(tenmaytbl)) {
+                giatri = true;
+                break;
+            }
+        }
+        if (giatri) {
+            XDialog.alert("Máy " + hang + " trùng tên" + " với máy " + tengetT);
             return;
         }
-        String gia = txtGia.getText().trim();
-        if (!gia.matches("\\d+")) { // \\ la dung de dai dien cho cac ki tu dac biet
-            // d tuong duong voi cac so [0 - 9] va + tuong duong voi lap lai nhieu lan
-            XDialog.alert("Vui lòng nhập theo định dạng số nguyên và không có đuôi số thập phân");
-            return;
-        }
-        this.update();
+        create();
+        clear();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -449,7 +453,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             XDialog.alert("Vui lòng chọn máy bạn muốn sửa");
             return;
         }
-        
+
         String tenMay = txtName.getText().trim();
         if (tenMay.isEmpty()) {
             XDialog.alert("Vui lòng nhập tên máy");

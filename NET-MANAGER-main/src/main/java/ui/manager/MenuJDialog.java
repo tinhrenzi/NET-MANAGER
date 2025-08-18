@@ -577,11 +577,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     public void create() {
         int MaSD = Integer.parseInt(lblMaSd.getText().trim());
         String tenMay = lblTenMay.getText().trim();
-        String tongTienStr = lblTongTien.getText().trim();
-
         try {
-            float tongTien = Float.parseFloat(tongTienStr);
-
             DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
             if (model.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "Không có món nào để mua.");
