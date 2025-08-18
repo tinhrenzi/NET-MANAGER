@@ -449,7 +449,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             XDialog.alert("Vui lòng chọn máy bạn muốn sửa");
             return;
         }
-
+        
         String tenMay = txtName.getText().trim();
         if (tenMay.isEmpty()) {
             XDialog.alert("Vui lòng nhập tên máy");

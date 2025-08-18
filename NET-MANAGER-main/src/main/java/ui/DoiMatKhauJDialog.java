@@ -15,8 +15,10 @@ import dao.AdminDAO;
  *
  * @author Admin
  */
-public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhauController{
+public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhauController {
+
     AdminDAO dao = new AdminDAOImpl();
+
     /**
      * Creates new form DoiMatKhauJDialog
      */
@@ -25,8 +27,6 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
         initComponents();
         setLocationRelativeTo(null);
     }
-
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -248,33 +248,41 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
 
     @Override
     public void save() {
-     String username = txtUsername.getText();
-    String password = new String(txtPassword.getPassword());
-    String newpass = new String(txtNewpass.getPassword());
-    String confirm = new String(txtConfirm.getPassword());
+        String username = txtUsername.getText().trim();
+        String oldPass = new String(txtPassword.getPassword());
+        String newPass = new String(txtNewpass.getPassword());
+        String confirm = new String(txtConfirm.getPassword());
 
-    if (!newpass.equals(confirm)) {
-        XDialog.alert("Xác nhận mật khẩu không đúng!");
-    } else if (!username.equals(XAuth.user.getTen())) {
-        XDialog.alert("Sai tên đăng nhập!");
-    } else if (!password.equals(XAuth.user.getMatKhau())) {
-        XDialog.alert("Sai mật khẩu!");
-    } else {
-        // ✅ Cập nhật mật khẩu bằng username
-        dao.updatePassword(username, newpass);
-        // ✅ Cập nhật lại trong XAuth để đồng bộ
-        XAuth.user.setMatKhau(newpass);
+        if (!username.equalsIgnoreCase(XAuth.user.getTen())) {
+            XDialog.alert("Sai tên đăng nhập!");
+            return;
+        }
+
+        if (!oldPass.equals(XAuth.user.getMatKhau())) {
+            XDialog.alert("Sai mật khẩu!");
+            return;
+        }
+
+        if (newPass.equals(oldPass)) {
+            XDialog.alert("Mật khẩu mới không được trùng với mật khẩu cũ!");
+            return;
+        }
+
+        if (!newPass.equals(confirm)) {
+            XDialog.alert("Xác nhận mật khẩu không đúng!");
+            return;
+        }
+
+        dao.updatePassword(username, newPass);
+        XAuth.user.setMatKhau(newPass);
         XDialog.alert("Đổi mật khẩu thành công!");
         this.dispose();
-    }
-    
-
     }
 
     @Override
     public void close() {
         this.dispose();
-       
+
     }
 
     public void clear() {
