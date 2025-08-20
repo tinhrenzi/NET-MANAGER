@@ -452,7 +452,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
     int soluong = Integer.parseInt(txtSoLuong.getText());
-        if (soluong <= 0) {
+        if (soluong <= -1) {
             XDialog.alert("Số lượng không được là âm");
             return;
         }
