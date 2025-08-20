@@ -451,7 +451,13 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     }//GEN-LAST:event_txtSoLuongActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-    SuaSoLuong();
+    int soluong = Integer.parseInt(txtSoLuong.getText());
+        if (soluong <= 0) {
+            XDialog.alert("Số lượng không được là âm");
+            return;
+        }
+        
+        SuaSoLuong();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tblDaMuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDaMuaMouseClicked
