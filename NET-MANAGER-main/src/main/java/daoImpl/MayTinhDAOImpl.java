@@ -50,9 +50,23 @@ public class MayTinhDAOImpl implements MayTinhDAO {
     }
 
     @Override
-    public List<MayTinh> findAll() {
-        return XQuery.getBeanList(MayTinh.class, Sql_All);
-    }
+   public List<MayTinh> findAll() {
+       List<MayTinh> list = new ArrayList<>();
+       String sql = "SELECT Id, TenMay, TrangThai, GiaTheoGio FROM MayTinh";
+       try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+           while (rs.next()) {
+               MayTinh mayTinh = new MayTinh();
+               mayTinh.setId(rs.getString("Id"));
+               mayTinh.setTenMay(rs.getString("TenMay"));
+               mayTinh.setTrangThai(rs.getString("TrangThai"));
+                   mayTinh.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
+               list.add(mayTinh);
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return list;
+   }
 
     @Override
     public MayTinh findByID(String id) {

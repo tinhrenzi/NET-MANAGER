@@ -61,14 +61,47 @@ public class SDMayDAOImpl implements SDMayDAO {
 
     @Override
     public List<SuDungMay> findAll() {
-        String Sql_Sle = "SELECT * from SDMAY";
-        return XQuery.getBeanList(SuDungMay.class, Sql_Sle);
+        List<SuDungMay> list = new ArrayList<>();
+        String sql = "SELECT Id, MaMay, TenMay, TrangThai, NgayChoi, NgayKetThuc, GioBatDau, GioKetThuc, GiaTheoGio, TongTien FROM SDMAY";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                SuDungMay suDungMay = new SuDungMay();
+                suDungMay.setId(rs.getInt("Id"));
+                suDungMay.setMaMay(rs.getString("MaMay"));
+                suDungMay.setTenMay(rs.getString("TenMay"));
+                suDungMay.setTrangThai(rs.getString("TrangThai"));
+                suDungMay.setNgayChoi(rs.getDate("NgayChoi"));
+                suDungMay.setNgayKetThuc(rs.getDate("NgayKetThuc"));
+                suDungMay.setGioBatDau(rs.getTime("GioBatDau"));
+                suDungMay.setGioKetThuc(rs.getTime("GioKetThuc"));
+                suDungMay.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
+                suDungMay.setTongTien(rs.getDouble("TongTien"));
+                // ThoiGianChoi is not in the table, so it remains unset or could be calculated if needed
+                list.add(suDungMay);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     @Override
     public List<MayTinh> finMayTinh() {
-        String Sql_MaTinh = "Select TenMay,TrangThai,GiaTheoGio from MayTinh";
-        return XQuery.getBeanList(MayTinh.class, Sql_MaTinh);
+        List<MayTinh> list = new ArrayList<>();
+        String sql = "SELECT Id, TenMay, TrangThai, GiaTheoGio FROM MayTinh";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                MayTinh mayTinh = new MayTinh();
+                mayTinh.setId(rs.getString("Id"));
+                mayTinh.setTenMay(rs.getString("TenMay"));
+                mayTinh.setTrangThai(rs.getString("TrangThai"));
+                mayTinh.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
+                list.add(mayTinh);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     @Override
