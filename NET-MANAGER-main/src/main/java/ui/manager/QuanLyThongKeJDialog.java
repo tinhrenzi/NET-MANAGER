@@ -305,7 +305,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
                 {null, null}
             },
             new String [] {
-                "Tổng tiền món", "Tổng tiền máy"
+                "Tổng tiền máy", "Tổng tiền món"
             }
         ));
         tblDoanhThu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -719,25 +719,21 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         DecimalFormat df = new DecimalFormat("#,### VND");
         QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
 
-        // Lịch sử sử dụng máy
         List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
         for (SuDungMay sdm : lsMay) {
             double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
             tongTienMay += tienMay;
         }
 
-        // Lịch sử Menu (món ăn)
         List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
         for (Menu m : lsMenu) {
             tongMonAn += m.getTongTien();
         }
 
-        // Cập nhật bảng doanh thu
         DefaultTableModel dtModel = (DefaultTableModel) tblDoanhThu.getModel();
         dtModel.setRowCount(0);
         dtModel.addRow(new Object[]{df.format(tongTienMay), df.format(tongMonAn)});
 
-        // Cập nhật tổng doanh thu
         txtTongDoanhThu.setText(df.format(tongTienMay + tongMonAn));
     }
 }

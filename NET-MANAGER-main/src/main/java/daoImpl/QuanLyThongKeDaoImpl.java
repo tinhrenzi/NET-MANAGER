@@ -23,14 +23,25 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     @Override
     public List<ThongKeDoanhThu> getAllThonKe() {
         List<ThongKeDoanhThu> list = new ArrayList<>();
-        String sql = "SELECT SUM(TongTienMay) AS TongDoanhThuMay, SUM(TongTienMon) AS TongDoanhThuMon FROM ThanhToan";
+        String sql = "SELECT "
+                + "    SUM(CEILING((DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), "
+                + "        CASE "
+                + "            WHEN sdm.GioKetThuc < sdm.GioBatDau "
+                + "            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) "
+                + "            ELSE CAST(sdm.GioKetThuc AS DATETIME) "
+                + "        END "
+                + "    ) / 3600.0) * 100) / 100.0 * sdm.GiaTheoGio) AS TongTienMay, "
+                + "    ISNULL(SUM(mn.TongTien), 0) AS TongTienMon "
+                + "FROM SDMAY sdm "
+                + "LEFT JOIN Menu mn ON sdm.Id = mn.MaSDMay "
+                + "WHERE sdm.GioKetThuc IS NOT NULL";
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
-            if (rs.next()) { // chỉ có 1 dòng kết quả
+            if (rs.next()) {
                 ThongKeDoanhThu tkd = new ThongKeDoanhThu();
-                tkd.setTongTienMay(rs.getDouble("TongDoanhThuMay"));
-                tkd.setTongTienMon(rs.getDouble("TongDoanhThuMon"));
+                tkd.setTongTienMay(rs.getDouble("TongTienMay"));
+                tkd.setTongTienMon(rs.getDouble("TongTienMon"));
                 list.add(tkd);
             }
 
@@ -70,7 +81,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
                 + "    ) / 100.0) * sdm.GiaTheoGio ) AS TongTien \n"
                 + "\n"
                 + "FROM SDMAY sdm \n"
-                + "WHERE sdm.GioKetThuc IS NOT NULL   -- chỉ lấy máy đã kết thúc (đã thanh toán)\n"
+                + "WHERE sdm.GioKetThuc IS NOT NULL\n"
                 + "GROUP BY sdm.TenMay, sdm.GiaTheoGio \n"
                 + "ORDER BY sdm.TenMay;";
 
