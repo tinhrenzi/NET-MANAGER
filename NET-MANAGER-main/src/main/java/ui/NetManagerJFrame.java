@@ -89,7 +89,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
-        btnMoMay.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconComputer.png")); // NOI18N
+        btnMoMay.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconComputer.png")); // NOI18N
         btnMoMay.setText("Mở máy");
         btnMoMay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +203,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1010, 10));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconMenuOp.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconMenuOp.png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -213,7 +213,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
 
         pack();

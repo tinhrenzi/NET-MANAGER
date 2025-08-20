@@ -637,21 +637,18 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         txtTongMonAn.setText(df.format(tongMonAn));
         return entityMenu;
     }
-    double tongTienMay = 0;
-    float tongGioSuDung = 0;
 
     private void thongKeSuDungMay() {
         if (dacMayTinhGo.getDate() == null || dacMayTinhNext.getDate() == null) {
             XDialog.alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc");
             return;
         }
-
+        double tongTienMay = 0;
+        float tongGioSuDung = 0;
         Date tuNgay = new Date(dacMayTinhGo.getDate().getTime());
         Date denNgay = new Date(dacMayTinhNext.getDate().getTime());
         DecimalFormat df = new DecimalFormat("#,### VND");
-        QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
 
-        // Lịch sử sử dụng máy
         List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
         DefaultTableModel modelMay = (DefaultTableModel) tblSuDungMay.getModel();
         modelMay.setRowCount(0);
@@ -706,7 +703,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             XDialog.alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc");
             return;
         }
-
+        double tongTienMay = 0;
         Date tuNgay = new Date(dacTuNgayThongKe.getDate().getTime());
         Date denNgay = new Date(dacDenNgayThongKe.getDate().getTime());
         DecimalFormat df = new DecimalFormat("#,### VND");

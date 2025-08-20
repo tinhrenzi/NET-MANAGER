@@ -134,25 +134,44 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     public List<SuDungMay> getLichSuSuDungMay(Date tuNgay, Date denNgay) {
         List<SuDungMay> list = new ArrayList<>();
         String sql = """
-            SELECT 
-                sdm.TenMay,
-                COUNT(sdm.Id) AS SoLanSuDung,
-                SUM(
-                    DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
-                        CASE
+        SELECT 
+            sdm.TenMay, 
+            COUNT(sdm.Id) AS SoLanSuDung, 
+            
+            SUM(
+                CEILING(
+                    (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
+                        CASE 
                             WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME))
-                            ELSE CAST(sdm.GioKetThuc AS DATETIME)
+                            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                            ELSE CAST(sdm.GioKetThuc AS DATETIME) 
                         END
-                    ) / 3600.0
-                ) AS TongGioSuDung,
-                sdm.GiaTheoGio,
-                SUM(ISNULL(sdm.TongTien, 0)) AS TongTien
-            FROM SDMAY sdm
-            WHERE sdm.NgayChoi BETWEEN ? AND ?
-            GROUP BY sdm.TenMay, sdm.GiaTheoGio
-            ORDER BY sdm.TenMay
-        """;
+                    ) / 3600.0) * 100
+                ) / 100.0
+            ) AS TongGioSuDung, 
+            
+            sdm.GiaTheoGio, 
+            
+            SUM(
+                (
+                    CEILING(
+                        (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
+                            CASE 
+                                WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                                THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                                ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                            END
+                        ) / 3600.0) * 100
+                    ) / 100.0
+                ) * sdm.GiaTheoGio
+            ) AS TongTien 
+            
+        FROM SDMAY sdm 
+        WHERE sdm.GioKetThuc IS NOT NULL
+          AND CAST(sdm.NgayChoi AS DATE) BETWEEN ? AND ?
+        GROUP BY sdm.TenMay, sdm.GiaTheoGio 
+        ORDER BY sdm.TenMay;
+    """;
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -176,36 +195,44 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
         return list;
     }
 
-    @Override
-    public List<Menu> getLichSuMenu(Date tuNgay, Date denNgay) {
-        List<Menu> list = new ArrayList<>();
-        String sql = "SELECT MaMon, TenMon, SUM(SoLuong) AS SoLuong, SUM(TongTien) AS TongTienMenu "
-                + "FROM Menu "
-                + "WHERE NgayMua BETWEEN ? AND ? "
-                + "GROUP BY MaMon, TenMon";
+@Override
+public List<Menu> getLichSuMenu(Date tuNgay, Date denNgay) {
+    List<Menu> list = new ArrayList<>();
+    String sql = """
+        SELECT 
+            m.MaMon, 
+            m.TenMon, 
+            SUM(m.SoLuong) AS SoLuong, 
+            SUM(m.TongTien) AS TongTienMenu
+        FROM Menu m
+        WHERE CAST(m.NgayMua AS DATE) BETWEEN ? AND ?
+        GROUP BY m.MaMon, m.TenMon
+        ORDER BY m.TenMon;
+    """;
 
-        try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+    try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setDate(1, tuNgay);
-            ps.setDate(2, denNgay);
+        ps.setDate(1, tuNgay);
+        ps.setDate(2, denNgay);
 
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Menu m = new Menu();
-                    m.setMaMon(rs.getString("MaMon"));
-                    m.setTenMon(rs.getString("TenMon"));
-                    m.setSoLuong(rs.getInt("SoLuong"));
-                    m.setTongTien(rs.getFloat("TongTienMenu"));
-                    list.add(m);
-                }
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Menu m = new Menu();
+                m.setMaMon(rs.getString("MaMon"));
+                m.setTenMon(rs.getString("TenMon"));
+                m.setSoLuong(rs.getInt("SoLuong"));
+                m.setTongTien(rs.getFloat("TongTienMenu"));
+                list.add(m);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-        return list;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+    return list;
+}
+
 
     @Override
     public List<ThongKeDoanhThu> getthongKeTheoKhoangNgay(Date tuNgay, Date denNgay) {
