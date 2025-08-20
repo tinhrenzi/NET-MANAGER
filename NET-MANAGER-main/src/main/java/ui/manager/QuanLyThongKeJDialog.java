@@ -88,7 +88,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Thống Kê");
 
         jLabel2.setText("Từ ngày");
@@ -427,13 +427,11 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         // TODO add your handling code here:
         int selectedRow = tblSuDungMay.getSelectedRow();
         if (selectedRow >= 0) {
-            // Lấy giá trị từ dòng được chọn
             String tongTienStr = tblSuDungMay.getValueAt(selectedRow, 4).toString();
             String tongGioStr = tblSuDungMay.getValueAt(selectedRow, 2).toString();
             txtTongTien.setText(tongTienStr);
             txtTongGio.setText(tongGioStr + " giờ");
         } else {
-            // Nếu không có dòng nào được chọn, hiển thị tổng tất cả
             getFillSDMay();
         }
     }//GEN-LAST:event_tblSuDungMayMouseClicked
@@ -442,11 +440,9 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         // TODO add your handling code here:
         int selectedRow = tblMonAn.getSelectedRow();
         if (selectedRow >= 0) {
-            // Lấy giá trị từ dòng được chọn
             String tongTienMonStr = tblMonAn.getValueAt(selectedRow, 3).toString();
             txtTongMonAn.setText(tongTienMonStr);
         } else {
-            // Nếu không có dòng nào được chọn, hiển thị tổng tất cả
             getFillMenu();
         }
     }//GEN-LAST:event_tblMonAnMouseClicked
@@ -456,12 +452,10 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         DecimalFormat df = new DecimalFormat("#,### VND");
         int selectedRow = tblDoanhThu.getSelectedRow();
         if (selectedRow >= 0) {
-            // Lấy giá trị từ dòng được chọn
             String tongTienMayStr = tblDoanhThu.getValueAt(selectedRow, 0).toString();
             String tongTienMonStr = tblDoanhThu.getValueAt(selectedRow, 1).toString();
             double tongDoanhThu = 0;
             try {
-                // Loại bỏ định dạng để tính tổng
                 String tongTienMayClean = tongTienMayStr.replace(" VND", "").replace(",", "");
                 String tongTienMonClean = tongTienMonStr.replace(" VND", "").replace(",", "");
                 tongDoanhThu = Double.parseDouble(tongTienMayClean) + Double.parseDouble(tongTienMonClean);
@@ -470,7 +464,6 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             }
             txtTongDoanhThu.setText(df.format(tongDoanhThu));
         } else {
-            // Nếu không có dòng nào được chọn, hiển thị tổng tất cả
             getFillThonKe();
         }
     }//GEN-LAST:event_tblDoanhThuMouseClicked

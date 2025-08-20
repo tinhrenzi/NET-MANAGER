@@ -184,7 +184,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        btnHinhANH.setText("Anh");
+        btnHinhANH.setText("Ảnh");
         btnHinhANH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHinhANHActionPerformed(evt);
@@ -326,37 +326,6 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     private void btnUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpActionPerformed
         // TODO add your handling code here:
-        /*  update();
-       String idText = lblMaMon.getText().trim();
-    if (idText.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn món ăn cần cập nhật trước.");
-        return; // Không làm gì nếu chưa có ID
-    }
-
-    try {
-        int id = Integer.parseInt(idText);
-
-        // Tạo đối tượng MonAn từ dữ liệu form
-        MonAn mon = new MonAn();
-        mon.setId(id);
-        mon.setTenMon(txtName.getText().trim());
-        mon.setGiaTien(Double.parseDouble(txtGia.getText().trim()));
-        mon.setSoLuong(Integer.parseInt(txtSoLuong.getText().trim()));
-        mon.setHinhANh(lblHinhAnh.getToolTipText()); // hoặc cách bạn lấy hình ảnh
-
-        // Cập nhật món ăn qua DAO
-        dao.update(mon);
-        JOptionPane.showMessageDialog(this, "Cập nhật món ăn thành công!");
-
-        // Load lại bảng
-        fillToTable();
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "ID hoặc dữ liệu nhập không hợp lệ!");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật món ăn: " + e.getMessage());
-        e.printStackTrace();
-    }*/
         if (lblMaMon.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn món ăn cần cập nhật trước.");
             return;
@@ -367,7 +336,6 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     private void btnCreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreActionPerformed
         // TODO add your handling code here:
-
         create();
     }//GEN-LAST:event_btnCreActionPerformed
 
@@ -388,18 +356,13 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     private void tblOrderManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrderManagerMouseClicked
         // TODO add your handling code here:
-        //int index = tblOrderManager.getSelectedRow();
-        //filltxt(index);
         int row = tblOrderManager.rowAtPoint(evt.getPoint());
         int col = tblOrderManager.columnAtPoint(evt.getPoint());
         if (row >= 0) {
-            filltxt(row); // vẫn fill text fields
-
-            // Lấy giá trị ô ảnh (cột 4)
+            filltxt(row);
             Object val = tblOrderManager.getValueAt(row, 4);
             if (val != null) {
                 String path = val.toString();
-                // Nếu path không tồn tại, thử thêm tiền tố thư mục ảnh của dự án
                 File f = new File(path);
                 if (!f.exists()) {
                     String alt = "src/images/" + path;
@@ -407,13 +370,12 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
                         path = alt;
                     }
                 }
-                DuongDanAnh = path; // lưu lại đường dẫn hiện tại
+                DuongDanAnh = path;
                 lblHinhAnh.setIcon(ResizeImage(path));
             } else {
                 lblHinhAnh.setIcon(null);
             }
 
-            // Nếu double-click vào cột ảnh -> mở cửa sổ xem lớn
             if (evt.getClickCount() == 2 && col == 4) {
                 Object v = tblOrderManager.getValueAt(row, 4);
                 if (v != null) {
@@ -440,7 +402,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
             f.showOpenDialog(null);
             File ftenanh = f.getSelectedFile();
 
-            DuongDanAnh = ftenanh.getAbsolutePath(); // Gán giá trị
+            DuongDanAnh = ftenanh.getAbsolutePath();
 
             lblHinhAnh.setIcon(ResizeImage(String.valueOf(DuongDanAnh)));
             System.out.println(DuongDanAnh);
@@ -579,7 +541,6 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
             return false;
         }
 
-        // Kiểm tra số lượng
         try {
             int soLuong = Integer.parseInt(soLuongText);
             if (soLuong < 0) {
@@ -606,7 +567,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
                 item.getTenMon(),
                 item.getGiaTien(),
                 item.getSoLuong(),
-                item.getHinhANh()// Có thể là tên file hoặc đường dẫn
+                item.getHinhANh()
             });
         }
     }
@@ -691,7 +652,6 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
             Object v3 = tblOrderManager.getValueAt(row, 3);
             txtSoLuong.setText(v3 != null ? v3.toString() : "");
 
-            // ảnh (cột 4)
             Object v4 = tblOrderManager.getValueAt(row, 4);
             if (v4 != null) {
                 String path = v4.toString();
@@ -711,9 +671,8 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
         }
     }
 
-    private void openImage(String path) {//điều chỉnh ảnh
+    private void openImage(String path) {
 
-        //chỗ này  nữa
         try {
             File f = new File(path);
             if (!f.exists()) {

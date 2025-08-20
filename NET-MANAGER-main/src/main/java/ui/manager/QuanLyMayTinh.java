@@ -339,7 +339,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             cboTrangThai.setSelectedIndex(-1);
         }
 
-        // So sánh chuỗi và chọn chỉ mục phù hợp
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
@@ -372,7 +371,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         if (mt.getTrangThai() != null) {
             cboTrangThai.setSelectedItem(mt.getTrangThai().trim());
         } else {
-            cboTrangThai.setSelectedIndex(0); // Mặc định "Hoạt Động"
+            cboTrangThai.setSelectedIndex(0);
         }
     }
 

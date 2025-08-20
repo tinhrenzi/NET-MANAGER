@@ -53,7 +53,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
 
-        //fillsdmay
         lblTenMay.setText(TenMay);
         lblMaMay.setText(MaSDMay);
         lblNgayVao.setText(NgayChoi);
@@ -69,9 +68,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         DecimalFormat df = new DecimalFormat("#,##0 VNĐ");
         lblTongTien.setText(df.format(tongTien));
 
-        //Filll menu
         DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
-        model.setRowCount(0); // Xóa dòng cũ
+        model.setRowCount(0);
 
         List<Menu> list = dao1.findByMay(MaSDMay);
         double tongTienMenu = 0;
@@ -409,7 +407,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         tt.setGiaTheoGio(Double.parseDouble(lblGiaTheoGio.getText()));
         tt.setTienMay(getTienMayFromLabel());
 
-        // Tính tiền menu
         double tongTienMenu = 0;
         for (int i = 0; i < tblMenu.getRowCount(); i++) {
             tongTienMenu += Double.parseDouble(tblMenu.getValueAt(i, 3).toString());
@@ -417,7 +414,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         tt.setTienMenu(tongTienMenu);
         tt.setTongTien(tt.getTienMay() + tongTienMenu);
 
-        // Gọi DAO để lưu
         if (dao.ThanhToan(tt) != null) {
             TatMay();
             JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
@@ -501,44 +497,40 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     private javax.swing.JTable tblMenu;
     // End of variables declaration//GEN-END:variables
 
-    
-public static double[] tinhTien(String ngayVao, String ngayNghi, String gioVao, String gioNghi, float giaTheoGio) {
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    public static double[] tinhTien(String ngayVao, String ngayNghi, String gioVao, String gioNghi, float giaTheoGio) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    LocalDate dateStart = LocalDate.parse(ngayVao, dateFormatter);
-    LocalDate dateEnd = LocalDate.parse(ngayNghi, dateFormatter);
+        LocalDate dateStart = LocalDate.parse(ngayVao, dateFormatter);
+        LocalDate dateEnd = LocalDate.parse(ngayNghi, dateFormatter);
 
-    LocalTime timeStart = LocalTime.parse(gioVao, timeFormatter);
-    LocalTime timeEnd = LocalTime.parse(gioNghi, timeFormatter);
+        LocalTime timeStart = LocalTime.parse(gioVao, timeFormatter);
+        LocalTime timeEnd = LocalTime.parse(gioNghi, timeFormatter);
 
-    LocalDateTime startDateTime = LocalDateTime.of(dateStart, timeStart);
-    LocalDateTime endDateTime = LocalDateTime.of(dateEnd, timeEnd);
+        LocalDateTime startDateTime = LocalDateTime.of(dateStart, timeStart);
+        LocalDateTime endDateTime = LocalDateTime.of(dateEnd, timeEnd);
 
-    Duration duration = Duration.between(startDateTime, endDateTime);
+        Duration duration = Duration.between(startDateTime, endDateTime);
 
-    long minutes = duration.toMinutes();
-    int seconds = duration.toSecondsPart();
+        long minutes = duration.toMinutes();
+        int seconds = duration.toSecondsPart();
 
-    if (seconds >= 30) {
-        minutes++;
+        if (seconds >= 30) {
+            minutes++;
+        }
+
+        double hoursPlayed = Math.ceil((minutes / 60.0) * 100.0) / 100.0;
+
+        double tongTien = Math.ceil((hoursPlayed * giaTheoGio) * 100.0) / 100.0;
+
+        return new double[]{hoursPlayed, tongTien};
     }
-
-    double hoursPlayed = Math.ceil((minutes / 60.0) * 100.0) / 100.0;
-
-    double tongTien = Math.ceil((hoursPlayed * giaTheoGio) * 100.0) / 100.0;
-
-    return new double[]{hoursPlayed, tongTien};
-}
-
-
 
     private double getTienMayFromLabel() {
         String text = lblTongTien.getText();
         if (text == null || text.trim().equals("----")) {
             return 0.0;
         }
-        // Xử lý chuỗi định dạng tiền
         text = text.replace(" VNĐ", "").replace(",", "").trim();
         try {
             return Double.parseDouble(text);

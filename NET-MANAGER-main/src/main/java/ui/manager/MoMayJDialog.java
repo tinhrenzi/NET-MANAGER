@@ -350,13 +350,11 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         String tenMay = tblMayTinh.getValueAt(selectedRow, 0).toString();
         String trangthai = lblTrangThai.getText().trim();
 
-        // Kiểm tra trạng thái từ giao diện
         if (trangthai.equals("Hoạt động")) {
             XDialog.alert("Máy đã hoạt động, không thể mở tiếp");
             return;
         }
 
-        // Kiểm tra trạng thái trong cơ sở dữ liệu
         if (dao.isMayDangHoatDong(tenMay)) {
             XDialog.alert("Máy " + tenMay + " đang hoạt động, không thể mở thêm lần nữa");
             return;
@@ -422,7 +420,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 String gioNghi = tblSDM.getValueAt(selectedRow, 6).toString();
                 float giaTheoh = (Float) tblSDM.getValueAt(selectedRow, 2);
 
-                // Mở form thanh toán và truyền dữ liệu
                 ThanhToanJDialog dialog = new ThanhToanJDialog(null, true, maMay, tenMay, ngayVao, ngayNghi, gioVao, gioNghi, giaTheoh);
                 dialog.setVisible(true);
             }

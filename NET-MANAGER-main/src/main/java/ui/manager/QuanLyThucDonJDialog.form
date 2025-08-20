@@ -366,7 +366,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnHinhANH">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Anh"/>
+            <Property name="text" type="java.lang.String" value="&#x1ea2;nh"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHinhANHActionPerformed"/>

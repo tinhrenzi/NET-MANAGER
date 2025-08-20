@@ -34,7 +34,7 @@
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="E:\NET-MANAGER\NET-MANAGER-main\src\main\java\img\IconShutDow.png"/>
+          <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER\NET-MANAGER-main\src\main\java\img\IconComputer.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="M&#x1edf; m&#xe1;y"/>
       </Properties>
@@ -197,7 +197,7 @@
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="E:\NET-MANAGER\NET-MANAGER-main\src\main\java\img\IconMenuOp.png"/>
+          <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER\NET-MANAGER-main\src\main\java\img\IconMenuOp.png"/>
         </Property>
       </Properties>
       <Events>
@@ -218,7 +218,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="E:\NET-MANAGER\NET-MANAGER-main\src\main\java\img\BackRoundNetManager.png"/>
+          <Image iconType="2" name="H:\XUONG\SUM2025\NET-MANAGER\NET-MANAGER\NET-MANAGER-main\src\main\java\img\BackRoundNetManager.png"/>
         </Property>
       </Properties>
       <Constraints>

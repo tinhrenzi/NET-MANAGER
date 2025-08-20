@@ -81,7 +81,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Quản Lý Nhân Viên");
 
         jLabel3.setText("ID");
@@ -393,7 +393,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         String yearRehex = "^[0-9]{4}$";
         String passRegex = "^(?=.*[A-Z]).{7,}$";
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-        String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
+        String phoneRegex = "^0\\d{9}$";
         if (year.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
             return;
@@ -435,7 +435,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
         String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
         String VaiTro = "Quản lý";
 
-        String phoneRegex = "^0\\d{9}$";  // Ví dụ: 0835420088
+        String phoneRegex = "^0\\d{9}$";
         if (year.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
             return;
@@ -640,7 +640,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     public void setRole() {
         int role = XAuth.user.getVaiTro();
-        if (role == 2) { // Nhân viên
+        if (role == 2) {
             btnUpdate.setEnabled(false);
         } else {
             btnUpdate.setEnabled(true);
@@ -665,7 +665,6 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     @Override
     public Admin getForm() {
         Admin users = new Admin();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
             users.setId(txtId.getText());
@@ -744,20 +743,17 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     public void delete() {
         String id = txtId.getText().trim();
 
-        // Kiểm tra nếu rỗng thì báo lỗi
         if (id.isEmpty()) {
             XDialog.alert("Vui lòng chọn tài khoản cần xóa!");
             return;
         }
 
-        // Lấy tài khoản từ DB
         Admin admin = dao.findByID(id);
         if (admin != null && admin.getVaiTro() == 1) {
             XDialog.alert("Không thể xóa tài khoản quản lý!");
             return;
         }
 
-        // Xác nhận và xóa
         if (XDialog.confirm("Bạn xác nhận xóa?")) {
             dao.deleteByID(id);
             this.fillToTable();
