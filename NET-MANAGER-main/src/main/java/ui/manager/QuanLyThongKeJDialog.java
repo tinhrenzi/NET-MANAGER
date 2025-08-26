@@ -406,10 +406,8 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXemBangThongkeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemBangThongkeActionPerformed
-        if (tblSuDungMay.getSelectedRow() == -1) {
+        
             thongKeDoanhThu();
-            return;
-        }
     }//GEN-LAST:event_btnXemBangThongkeActionPerformed
 
     private void btnXemSuDungMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemSuDungMayActionPerformed
@@ -651,20 +649,20 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         modelMay.setRowCount(0);
 
         for (SuDungMay sdm : lsMay) {
-            double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
             modelMay.addRow(new Object[]{
                 sdm.getTenMay(),
                 sdm.getId(),
                 String.format("%.2f", sdm.getThoiGianChoi()),
                 df.format(sdm.getGiaTheoGio()),
-                df.format(tienMay)
+                df.format(sdm.getTongTien())
             });
-            tongTienMay += tienMay;
+            tongTienMay += sdm.getTongTien();
             tongGioSuDung += sdm.getThoiGianChoi();
         }
         txtTongTien.setText(df.format(tongTienMay));
         txtTongGio.setText(String.format("%.2f giờ", tongGioSuDung));
     }
+
     double tongMonAn = 0;
 
     private void thongKeLichSuBanHang() {
@@ -701,6 +699,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             return;
         }
         double tongTienMay = 0;
+        double tongMonAn = 0;   // ✅ reset mỗi lần
         Date tuNgay = new Date(dacTuNgayThongKe.getDate().getTime());
         Date denNgay = new Date(dacDenNgayThongKe.getDate().getTime());
         DecimalFormat df = new DecimalFormat("#,### VND");
@@ -708,8 +707,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
         for (SuDungMay sdm : lsMay) {
-            double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
-            tongTienMay += tienMay;
+            tongTienMay += sdm.getTongTien();
         }
 
         List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
@@ -723,4 +721,5 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
         txtTongDoanhThu.setText(df.format(tongTienMay + tongMonAn));
     }
+
 }
