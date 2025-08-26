@@ -1,17 +1,17 @@
 package daoImpl;
 
-import entity.Menu;
-import entity.SuDungMay;
-import entity.ThanhToan;
-import entity.ThongKeDoanhThu;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import util.XJdbc;
+
 import dao.QuanLyThongKeDAO;
+import entity.Menu;
+import entity.SuDungMay;
+import entity.ThongKeDoanhThu;
+import util.XJdbc;
 
 public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
 
@@ -23,31 +23,55 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     @Override
     public List<ThongKeDoanhThu> getAllThonKe() {
         List<ThongKeDoanhThu> list = new ArrayList<>();
-        String sql = "SELECT "
-                + "    SUM(CEILING((DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), "
-                + "        CASE "
-                + "            WHEN sdm.GioKetThuc < sdm.GioBatDau "
-                + "            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) "
-                + "            ELSE CAST(sdm.GioKetThuc AS DATETIME) "
-                + "        END "
-                + "    ) / 3600.0) * 100) / 100.0 * sdm.GiaTheoGio) AS TongTienMay, "
-                + "    ISNULL(SUM(mn.TongTien), 0) AS TongTienMon "
-                + "FROM SDMAY sdm "
-                + "LEFT JOIN Menu mn ON sdm.Id = mn.MaSDMay "
-                + "WHERE sdm.GioKetThuc IS NOT NULL";
 
-        try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        String sqlMay = """
+        SELECT ISNULL(SUM(
+            (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                CASE 
+                    WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                    THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                    ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                END
+            ) / 3600.0) * sdm.GiaTheoGio
+        ), 0) AS TongTienMay
+        FROM SDMAY sdm
+        WHERE sdm.GioKetThuc IS NOT NULL
+    """;
 
-            if (rs.next()) {
-                ThongKeDoanhThu tkd = new ThongKeDoanhThu();
-                tkd.setTongTienMay(rs.getDouble("TongTienMay"));
-                tkd.setTongTienMon(rs.getDouble("TongTienMon"));
-                list.add(tkd);
+        String sqlMenu = """
+        SELECT ISNULL(SUM(m.TongTien), 0) AS TongTienMon
+        FROM Menu m
+    """;
+
+        double tongTienMay = 0;
+        double tongTienMon = 0;
+
+        try (Connection conn = XJdbc.openConnection()) {
+            // --- Tổng tiền máy ---
+            try (PreparedStatement ps = conn.prepareStatement(sqlMay); ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    tongTienMay = rs.getDouble("TongTienMay");
+                }
             }
+
+            // --- Tổng tiền món ---
+            try (PreparedStatement ps = conn.prepareStatement(sqlMenu); ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    tongTienMon = rs.getDouble("TongTienMon");
+                }
+            }
+
+            // --- Đưa vào đối tượng ---
+            ThongKeDoanhThu tk = new ThongKeDoanhThu();
+            tk.setTongTienMay(tongTienMay);
+            tk.setTongTienMon(tongTienMon);
+            tk.setTongDoanhThu(tongTienMay + tongTienMon);
+            list.add(tk);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return list;
     }
 
@@ -55,57 +79,48 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     public List<SuDungMay> getAllSDMay() {
         List<SuDungMay> list = new ArrayList<>();
         String sql = """
-                     SELECT 
-                                 sdm.TenMay, 
-                                 COUNT(sdm.Id) AS SoLanSuDung, 
-                                 
-                                 SUM(
-                                     CEILING(
-                                         (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
-                                             CASE 
-                                                 WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                                                 THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                                                 ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                                             END
-                                         ) / 3600.0) * 100
-                                     ) / 100.0
-                                 ) AS TongGioSuDung, 
-                                 
-                                 sdm.GiaTheoGio, 
-                                 
-                                 SUM(
-                                     (
-                                         CEILING(
-                                             (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
-                                                 CASE 
-                                                     WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                                                     THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                                                     ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                                                 END
-                                             ) / 3600.0) * 100
-                                         ) / 100.0
-                                     ) * sdm.GiaTheoGio
-                                 ) AS TongTien 
-                                 
-                             FROM SDMAY sdm 
-                             WHERE sdm.GioKetThuc IS NOT NULL
-                               AND CAST(sdm.NgayChoi AS DATE) BETWEEN ? AND ?
-                             GROUP BY sdm.TenMay, sdm.GiaTheoGio 
-                             ORDER BY sdm.TenMay;
-                     """;
+        SELECT 
+            sdm.Id,
+            sdm.MaMay,
+            sdm.TenMay,
+            COUNT(sdm.Id) AS SoLanSuDung,
+            SUM(
+                DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                    CASE 
+                        WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                        THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                        ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                    END
+                ) / 3600.0
+            ) AS TongGioSuDung,
+            sdm.GiaTheoGio,
+            SUM(
+                (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                    CASE 
+                        WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                        THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                        ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                    END
+                ) / 3600.0) * sdm.GiaTheoGio
+            ) AS TongTien
+        FROM SDMAY sdm
+        WHERE sdm.GioKetThuc IS NOT NULL
+        GROUP BY sdm.Id, sdm.MaMay, sdm.TenMay, sdm.GiaTheoGio
+        ORDER BY sdm.TenMay
+    """;
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
+                sdm.setId(rs.getInt("Id"));
+                sdm.setMaMay(rs.getString("MaMay"));
                 sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setId(rs.getInt("SoLanSuDung"));
                 sdm.setThoiGianChoi(rs.getDouble("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
-                sdm.setTongTien(rs.getFloat("TongTien"));
+                sdm.setTongTien(rs.getDouble("TongTien"));
                 list.add(sdm);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,58 +159,53 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
         List<SuDungMay> list = new ArrayList<>();
         String sql = """
         SELECT 
-            sdm.TenMay, 
-            COUNT(sdm.Id) AS SoLanSuDung, 
-            
-            SUM(
-                CEILING(
-                    (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
-                        CASE 
-                            WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                            ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                        END
-                    ) / 3600.0) * 100
-                ) / 100.0
-            ) AS TongGioSuDung, 
-            
-            sdm.GiaTheoGio, 
-            
-            SUM(
-                (
-                    CEILING(
-                        (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
-                            CASE 
-                                WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                                THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                                ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                            END
-                        ) / 3600.0) * 100
-                    ) / 100.0
-                ) * sdm.GiaTheoGio
-            ) AS TongTien 
-            
-        FROM SDMAY sdm 
-        WHERE sdm.GioKetThuc IS NOT NULL
-          AND CAST(sdm.NgayChoi AS DATE) BETWEEN ? AND ?
-        GROUP BY sdm.TenMay, sdm.GiaTheoGio 
-        ORDER BY sdm.TenMay;
+            sdm.Id,
+            sdm.MaMay,
+            sdm.TenMay,
+            sdm.NgayChoi,
+            sdm.NgayKetThuc,
+            sdm.GioBatDau,
+            sdm.GioKetThuc,
+            sdm.GiaTheoGio,
+            (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                CASE 
+                    WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                    THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                    ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                END
+            ) / 3600.0) AS TongGioSuDung,
+            ((DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                CASE 
+                    WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                    THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                    ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                END
+            ) / 3600.0) * sdm.GiaTheoGio) AS TongTien
+        FROM SDMAY sdm
+        WHERE sdm.NgayChoi BETWEEN ? AND ?
+          AND sdm.GioKetThuc IS NOT NULL
+        ORDER BY sdm.NgayChoi, sdm.TenMay
     """;
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setDate(1, tuNgay);
             ps.setDate(2, denNgay);
-            ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                SuDungMay sdm = new SuDungMay();
-                sdm.setTenMay(rs.getString("TenMay"));
-                sdm.setId(rs.getInt("SoLanSuDung"));
-                sdm.setThoiGianChoi(rs.getDouble("TongGioSuDung"));
-                sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
-                sdm.setTongTien(rs.getFloat("TongTien"));
-                list.add(sdm);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    SuDungMay sdm = new SuDungMay();
+                    sdm.setId(rs.getInt("Id"));
+                    sdm.setMaMay(rs.getString("MaMay"));
+                    sdm.setTenMay(rs.getString("TenMay"));
+                    sdm.setNgayChoi(rs.getDate("NgayChoi"));
+                    sdm.setNgayKetThuc(rs.getDate("NgayKetThuc"));
+                    sdm.setGioBatDau(rs.getTime("GioBatDau"));
+                    sdm.setGioKetThuc(rs.getTime("GioKetThuc"));
+                    sdm.setThoiGianChoi(rs.getDouble("TongGioSuDung"));
+                    sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
+                    sdm.setTongTien(rs.getDouble("TongTien"));
+                    list.add(sdm);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -245,31 +255,60 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     @Override
     public List<ThongKeDoanhThu> getthongKeTheoKhoangNgay(Date tuNgay, Date denNgay) {
         List<ThongKeDoanhThu> list = new ArrayList<>();
-        String sql
-                = "SELECT "
-                + "    ISNULL(SUM(tt.TongTien), 0) AS TongTienMay, "
-                + "    ISNULL(SUM(m.TongTien), 0) AS TongTienMenu, "
-                + "    ISNULL(SUM(tt.TongTien), 0) + ISNULL(SUM(m.TongTien), 0) AS TongDoanhThu "
-                + "FROM ThanhToan tt "
-                + "FULL OUTER JOIN Menu m ON CONVERT(DATE, tt.NgayChoi) = CONVERT(DATE, m.NgayMua) "
-                + "WHERE (tt.NgayChoi BETWEEN ? AND ? OR tt.NgayChoi IS NULL) "
-                + "  AND (m.NgayMua BETWEEN ? AND ? OR m.NgayMua IS NULL)";
 
-        try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sqlMay = """
+        SELECT ISNULL(SUM(
+            (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                CASE 
+                    WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                    THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                    ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                END
+            ) / 3600.0) * sdm.GiaTheoGio
+        ), 0) AS TongTienMay
+        FROM SDMAY sdm
+        WHERE sdm.NgayChoi BETWEEN ? AND ?
+          AND sdm.GioKetThuc IS NOT NULL
+    """;
 
-            ps.setDate(1, tuNgay);
-            ps.setDate(2, denNgay);
-            ps.setDate(3, tuNgay);
-            ps.setDate(4, denNgay);
+        String sqlMenu = """
+        SELECT ISNULL(SUM(m.TongTien), 0) AS TongTienMenu
+        FROM Menu m
+        WHERE CAST(m.NgayMua AS DATE) BETWEEN ? AND ?
+    """;
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                ThongKeDoanhThu tk = new ThongKeDoanhThu();
-                tk.setTongTienMay(rs.getFloat("TongTienMay"));
-                tk.setTongTienMon(rs.getFloat("TongTienMenu"));
-                tk.setTongDoanhThu(rs.getFloat("TongDoanhThu"));
-                list.add(tk);
+        double tongTienMay = 0;
+        double tongTienMon = 0;
+
+        try (Connection conn = XJdbc.openConnection()) {
+            // --- Tiền máy ---
+            try (PreparedStatement ps = conn.prepareStatement(sqlMay)) {
+                ps.setDate(1, tuNgay);
+                ps.setDate(2, denNgay);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        tongTienMay = rs.getDouble("TongTienMay");
+                    }
+                }
             }
+
+            // --- Tiền món ---
+            try (PreparedStatement ps = conn.prepareStatement(sqlMenu)) {
+                ps.setDate(1, tuNgay);
+                ps.setDate(2, denNgay);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        tongTienMon = rs.getDouble("TongTienMenu");
+                    }
+                }
+            }
+
+            // --- Gộp kết quả ---
+            ThongKeDoanhThu tk = new ThongKeDoanhThu();
+            tk.setTongTienMay(tongTienMay);
+            tk.setTongTienMon(tongTienMon);
+            tk.setTongDoanhThu(tongTienMay + tongTienMon);
+            list.add(tk);
 
         } catch (Exception e) {
             e.printStackTrace();
