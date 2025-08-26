@@ -214,8 +214,26 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        int hang = tblQLMT.getRowCount();
+        String tenNhap = txtName.getText().trim();
+        boolean trungTen = false;
+
+        for (int i = 0; i < hang; i++) {
+            String tenMayTrongBang = tblQLMT.getValueAt(i, 1).toString().trim();
+            if (tenNhap.equalsIgnoreCase(tenMayTrongBang)) {
+                trungTen = true;
+                break;
+            }
+        }
+
+        if (trungTen) {
+            XDialog.alert("Tên máy " + tenNhap + "đã tồn tại trong bảng!");
+            return;
+        }
+
         create();
         clear();
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tblQLMTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLMTMouseClicked
@@ -234,19 +252,22 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         int hang = tblQLMT.getRowCount();
-        String tengetT = txtName.getText();
-        boolean giatri = false;
-        for (int i = 1; i < hang; i++) {
-            String tenmaytbl = tblQLMT.getValueAt(i, 1).toString().trim();
-            if (tengetT.equalsIgnoreCase(tenmaytbl)) {
-                giatri = true;
+        String tenNhap = txtName.getText().trim();
+        boolean trungTen = false;
+
+        for (int i = 0; i < hang; i++) {
+            String tenMayTrongBang = tblQLMT.getValueAt(i, 1).toString().trim();
+            if (tenNhap.equalsIgnoreCase(tenMayTrongBang)) {
+                trungTen = true;
                 break;
             }
         }
-        if (giatri) {
-            XDialog.alert("Máy " + hang + " trùng tên" + " với máy " + tengetT);
+
+        if (trungTen) {
+            XDialog.alert("Tên máy " + tenNhap + "đã tồn tại trong bảng!");
             return;
         }
+
         update();
         clear();
     }//GEN-LAST:event_btnCapNhatActionPerformed
@@ -262,7 +283,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-
     }//GEN-LAST:event_formWindowOpened
 
     private void cboTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrangThaiActionPerformed

@@ -45,7 +45,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         pwdPassWord = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
         btnLogin = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -70,8 +69,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
             }
         });
 
-        jButton3.setText("Quên Mật Khẩu");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,18 +86,16 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
                 .addGap(0, 21, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnLogin)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3))
-                    .addComponent(jSeparator2))
+                .addComponent(jSeparator2)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogin)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,9 +115,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(jButton3))
+                .addComponent(btnLogin)
                 .addGap(0, 21, Short.MAX_VALUE))
         );
 
@@ -182,7 +175,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -259,16 +259,11 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
         );
 
         Tabpnl.addTab("Danh sách đang mua", jPanel2);
@@ -419,23 +414,39 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         String ten = tblOrderManager.getValueAt(selectedRow, 1).toString();
         float gia = Float.parseFloat(tblOrderManager.getValueAt(selectedRow, 2).toString());
 
+        int soLuongNhap = 1;
+        try {
+            String slText = txtSoLuong.getText().trim();
+            if (!slText.isEmpty()) {
+                soLuongNhap = Integer.parseInt(slText);
+                if (soLuongNhap <= 0) {
+                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.");
+                    return;
+                }
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên.");
+            return;
+        }
+
         DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
         boolean found = false;
 
         for (int i = 0; i < model.getRowCount(); i++) {
             if (model.getValueAt(i, 0).toString().equals(ma)) {
                 int currentQty = Integer.parseInt(model.getValueAt(i, 3).toString());
-                model.setValueAt(currentQty + 1, i, 3);
+                model.setValueAt(currentQty + soLuongNhap, i, 3);
                 found = true;
                 break;
             }
         }
 
         if (!found) {
-            model.addRow(new Object[]{ma, ten, gia, 1});
+            model.addRow(new Object[]{ma, ten, gia, soLuongNhap});
         }
 
         updateTongTien();
+
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void tblTongMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTongMonAnMouseClicked
@@ -471,6 +482,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
             XDialog.alert("Số lượng không được âm");
             return;
         }
+        SuaSoLuongDangMua();
         SuaSoLuong();
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -589,12 +601,17 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
             Object soLuongObj = model.getValueAt(i, 3);
 
             if (giaObj != null && soLuongObj != null) {
-                float gia = Float.parseFloat(giaObj.toString());
-                int soLuong = Integer.parseInt(soLuongObj.toString());
-                tongTien += gia * soLuong;
+                try {
+                    double gia = Double.parseDouble(giaObj.toString().trim());
+                    int soLuong = Integer.parseInt(soLuongObj.toString().trim());
+                    tongTien += gia * soLuong;
+                } catch (NumberFormatException e) {
+                }
             }
         }
-        lblTongTien.setText(String.valueOf(tongTien));
+
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#,###.##");
+        lblTongTien.setText(df.format(tongTien) + " VNĐ");
     }
 
     public void fillToTable() {
@@ -702,6 +719,56 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
             XDialog.alert("Sửa số lượng thành công ");
         } catch (Exception e) {
             XDialog.alert("Lỗi sửa số lượng");
+        }
+    }
+
+    public Menu getFromDangMua() {
+        Menu mn = new Menu();
+
+        String idText = lblMaDaMua.getText().trim();
+        String tongTienText = lblTongTien.getText().trim();
+        String soLuongText = txtSoLuong.getText().trim();
+
+        if (idText.isEmpty() || tongTienText.isEmpty() || soLuongText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món từ bảng đã mua trước khi sửa.");
+            return null;
+        }
+
+        mn.setId(Integer.parseInt(idText));
+        mn.setTongTien(Double.parseDouble(tongTienText));
+        mn.setSoLuong(Integer.parseInt(soLuongText));
+
+        return mn;
+    }
+
+    public void SuaSoLuongDangMua() {
+        int row = tblTongMonAn.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn món trong bảng đang mua để sửa.");
+            return;
+        }
+
+        String soLuongText = txtSoLuong.getText().trim();
+        if (soLuongText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng mới.");
+            return;
+        }
+
+        try {
+            int soLuong = Integer.parseInt(soLuongText);
+            if (soLuong <= 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.");
+                return;
+            }
+
+            DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+            model.setValueAt(soLuong, row, 3);
+
+            updateTongTien();
+
+            XDialog.alert("Sửa số lượng thành công trong danh sách đang mua.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên hợp lệ.");
         }
     }
 

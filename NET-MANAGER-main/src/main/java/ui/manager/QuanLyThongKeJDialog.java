@@ -417,10 +417,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }//GEN-LAST:event_btnXemSuDungMayActionPerformed
 
     private void btnMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonAnActionPerformed
-        if (tblDoanhThu.getSelectedRow() == 0) {
-            thongKeLichSuBanHang();
-            return;
-        }
+        thongKeLichSuBanHang();
     }//GEN-LAST:event_btnMonAnActionPerformed
 
     private void tblSuDungMayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSuDungMayMouseClicked
