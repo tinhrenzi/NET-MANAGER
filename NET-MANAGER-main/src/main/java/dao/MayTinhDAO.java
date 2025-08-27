@@ -16,5 +16,6 @@ public interface MayTinhDAO extends CrudDAO<MayTinh, String>{
     String layTrangThai(String maMay);
     List<String> getTatCaMaMay();
     public void capNhatTrangThai(int maMay, String trangThai);
+    List<MayTinh> finName(String name);
 
 }
