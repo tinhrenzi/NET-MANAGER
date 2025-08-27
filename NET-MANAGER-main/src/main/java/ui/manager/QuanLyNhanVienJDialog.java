@@ -15,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import util.XDialog;
 import dao.AdminDAO;
 import util.XAuth;
-
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 /**
  *
  * @author Admin
@@ -387,84 +388,141 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        String email = txtEmail.getText().trim();
-        String phone = txtPhone.getText().trim();
-        String pass = txtPass.getText().trim();
-        String year = txtNamSinh.getText().trim();
-        String yearRehex = "^[0-9]{4}$";
-        String passRegex = "^(?=.*[A-Z]).{7,}$";
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-        String phoneRegex = "^0\\d{9}$";
-        if (year.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
-            return;
-        }
-        if (pass.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
-            return;
-        }
-        if (email.isEmpty() || phone.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
-            return;
-        }
-        if (!year.matches(yearRehex)) {
-            JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
-            return;
-        }
-        if (!pass.matches(passRegex)) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ");
-            return;
-        }
-        if (!email.matches(emailRegex)) {
-            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
-            return;
-        }
-        if (!phone.matches(phoneRegex)) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
-            return;
-        }
-        this.create();
+                                         
+    String username = txtName.getText().trim();
+    String email = txtEmail.getText().trim();
+    String phone = txtPhone.getText().trim();
+    String pass = txtPass.getText().trim();
+    String year = txtNamSinh.getText().trim();
+
+    // Regex
+    String usernameRegex = "^[a-zA-Z0-9_]+$";
+    String yearRegex = "^[0-9]{4}$";
+    String passwordRegex = "^[a-zA-Z0-9_!@#$%^&*]+$";
+    String passRegex = "^(?=.*[A-Z]).{7,}$";
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    String phoneRegex = "^0\\d{9}$";
+
+    // Check username
+    if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Tên đăng nhập không được để trống");
+        return;
+    }
+    if (!username.matches(usernameRegex)) {
+        JOptionPane.showMessageDialog(this, "Tên đăng nhập không hợp lệ! (Chỉ dùng chữ không dấu, số và gạch dưới)");
+        return;
+    }
+
+    // Check các trường khác
+    if (year.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
+        return;
+    }
+    if (pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
+        return;
+    }
+    if (email.isEmpty() || phone.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
+        return;
+    }
+    if (!year.matches(yearRegex)) {
+        JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
+        return;
+    }
+    // Check Password
+    if (pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+        return;
+    }
+    if (!pass.matches(passwordRegex)) {
+        JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ! (Không được chứa dấu tiếng Việt)");
+        return;
+    }
+    if (pass.length() < 7 || !pass.matches(".*[A-Z].*")) {
+        JOptionPane.showMessageDialog(this, "Mật khẩu phải >= 7 ký tự và có ít nhất 1 chữ in hoa");
+        return;
+    }
+    if (!email.matches(emailRegex)) {
+        JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+        return;
+    }
+    if (!phone.matches(phoneRegex)) {
+        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
+        return;
+    }
+
+    this.create();
+
+
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        String email = txtEmail.getText().trim();
-        String phone = txtPhone.getText().trim();
-        String pass = txtPass.getText().trim();
-        String year = txtNamSinh.getText().trim();
-        String yearRehex = "^[0-9]{4}$";
-        String passRegex = "^(?=.*[A-Z]).{7,}$";
-        String emailRegex = "^[A-Za-z0-9+_.-]+@gmail\\.com$";
-        String VaiTro = "Quản lý";
+                                        
+    String username = txtName.getText().trim();
+    String email = txtEmail.getText().trim();
+    String phone = txtPhone.getText().trim();
+    String pass = txtPass.getText().trim();
+    String year = txtNamSinh.getText().trim();
 
-        String phoneRegex = "^0\\d{9}$";
-        if (year.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
-            return;
-        }
-        if (pass.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
-            return;
-        }
-        if (email.isEmpty() || phone.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
-            return;
-        }
-        if (!year.matches(yearRehex)) {
-            JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
-            return;
-        }
-        if (!pass.matches(passRegex)) {
-            JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ");
-            return;
-        }
-        if (!email.matches(emailRegex)) {
-            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
-            return;
-        }
-        if (!phone.matches(phoneRegex)) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
-            return;
-        }
+    // Regex
+    String usernameRegex = "^[a-zA-Z0-9_]+$";
+    String yearRegex = "^[0-9]{4}$";
+    String passRegex = "^(?=.*[A-Z]).{7,}$";
+    String passwordRegex = "^[a-zA-Z0-9_!@#$%^&*]+$";
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    String phoneRegex = "^0\\d{9}$";
+
+    // Check username
+    if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Tên đăng nhập không được để trống");
+        return;
+    }
+    if (!username.matches(usernameRegex)) {
+        JOptionPane.showMessageDialog(this, "Tên đăng nhập không hợp lệ! (Chỉ dùng chữ không dấu, số và gạch dưới)");
+        return;
+    }
+
+    // Check các trường khác
+    if (year.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
+        return;
+    }
+    if (pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Mật khẩu không được trống");
+        return;
+    }
+    if (email.isEmpty() || phone.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Không được để trống Email hoặc Số điện thoại!");
+        return;
+    }
+    if (!year.matches(yearRegex)) {
+        JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
+        return;
+    }
+    // Check Password
+    if (pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+        return;
+    }
+    if (!pass.matches(passwordRegex)) {
+        JOptionPane.showMessageDialog(this, "Mật khẩu không hợp lệ! (Không được chứa dấu tiếng Việt)");
+        return;
+    }
+    if (pass.length() < 7 || !pass.matches(".*[A-Z].*")) {
+        JOptionPane.showMessageDialog(this, "Mật khẩu phải >= 7 ký tự và có ít nhất 1 chữ in hoa");
+        return;
+    }
+    if (!email.matches(emailRegex)) {
+        JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+        return;
+    }
+    if (!phone.matches(phoneRegex)) {
+        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! (Phải bắt đầu bằng 0 và đủ 10 số)");
+        return;
+    }
+
+   
         String oldRole = tblUsermager.getValueAt(tblUsermager.getSelectedRow(), 3).toString(); 
         String newRole = cboVaitro.getSelectedItem().toString();
 
@@ -512,10 +570,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }//GEN-LAST:event_txtPassActionPerformed
 
     private void txtPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPassMouseClicked
-        String pass = txtPass.getText().trim();
-        if (pass.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Phải dài từ 6 kí tự và bắt đầu bằng chữ");
-        }
+
     }//GEN-LAST:event_txtPassMouseClicked
 
     private void txtNamSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamSinhActionPerformed
