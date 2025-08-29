@@ -23,6 +23,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     int w = 155;
     int h = 410;
     private Timer dongHoTimer;
+
     public NetManagerJFrame() {
         initComponents();
         setLocationRelativeTo(null);
@@ -265,6 +266,8 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        NgayHienTai();
+
     }//GEN-LAST:event_formWindowOpened
 
     private void lbclmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbclmenuActionPerformed
@@ -345,8 +348,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         } else {
             dispose();
         }
-        NgayHienTai();
-        DongHo();
+
     }
 
     public void setRole() {
@@ -379,19 +381,11 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         }
     }
-        public void NgayHienTai() {
+
+    public void NgayHienTai() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String ngayHienTai = sdf.format(new Date());
         lblNgayHienTai.setText("Ngày hiện tại: " + ngayHienTai);
     }
-        public void DongHo() {
-        if (dongHoTimer == null || !dongHoTimer.isRunning()) {
-            dongHoTimer = new Timer(1000, e -> {
-                Date now = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                lblGioHienTai.setText(sdf.format(now));
-            });
-            dongHoTimer.start();
-        }
-    }
+
 }
