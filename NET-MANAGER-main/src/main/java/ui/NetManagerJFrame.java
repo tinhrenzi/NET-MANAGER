@@ -5,7 +5,10 @@
 package ui;
 
 import controller.GiaoDienChinhController;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import util.XAuth;
 
 /**
@@ -19,7 +22,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
      */
     int w = 155;
     int h = 410;
-
+    private Timer dongHoTimer;
     public NetManagerJFrame() {
         initComponents();
         setLocationRelativeTo(null);
@@ -78,7 +81,9 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         btnTrandPass = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblNgayHienTai = new javax.swing.JLabel();
+        lblGioHienTai = new javax.swing.JLabel();
+        lblBackRound = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,7 +94,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
-        btnMoMay.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconComputer.png")); // NOI18N
         btnMoMay.setText("Mở máy");
         btnMoMay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +207,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1010, 10));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconMenuOp.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconMenuOp.png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -211,10 +215,18 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon("H:\\XUONG\\SUM2025\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
+        lblNgayHienTai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNgayHienTai.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lblNgayHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 230, 40));
+
+        lblGioHienTai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblGioHienTai.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lblGioHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 160, 20));
+
+        lblBackRound.setBackground(new java.awt.Color(255, 255, 255));
+        lblBackRound.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblBackRound.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
+        getContentPane().add(lblBackRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -314,11 +326,13 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JButton btnQLTK;
     private javax.swing.JButton btnTrandPass;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton lbclmenu;
+    private javax.swing.JLabel lblBackRound;
+    private javax.swing.JLabel lblGioHienTai;
+    private javax.swing.JLabel lblNgayHienTai;
     private javax.swing.JPanel menuHeThong;
     // End of variables declaration//GEN-END:variables
 
@@ -331,6 +345,8 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         } else {
             dispose();
         }
+        NgayHienTai();
+        DongHo();
     }
 
     public void setRole() {
@@ -361,6 +377,21 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             } else {
                 dispose();
             }
+        }
+    }
+        public void NgayHienTai() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String ngayHienTai = sdf.format(new Date());
+        lblNgayHienTai.setText("Ngày hiện tại: " + ngayHienTai);
+    }
+        public void DongHo() {
+        if (dongHoTimer == null || !dongHoTimer.isRunning()) {
+            dongHoTimer = new Timer(1000, e -> {
+                Date now = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                lblGioHienTai.setText(sdf.format(now));
+            });
+            dongHoTimer.start();
         }
     }
 }
