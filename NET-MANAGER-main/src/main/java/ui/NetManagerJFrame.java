@@ -20,8 +20,8 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     /**
      * Creates new form NetManagerJFrem w14 h410
      */
-    int w = 155;
-    int h = 410;
+    int w = 220;
+    int h = 670;
     private Timer dongHoTimer;
 
     public NetManagerJFrame() {
@@ -49,7 +49,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = w; i > 0; i--) {
+                for (int i = w; i > 90; i--) {
                     menuHeThong.setSize(i, h);
                     try {
                         Thread.sleep(2);
@@ -76,11 +76,13 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         btnQLTD = new javax.swing.JButton();
         btnQLMT = new javax.swing.JButton();
         btnQLTK = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
         lbclmenu = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         btnTrandPass = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         lblNgayHienTai = new javax.swing.JLabel();
         lblGioHienTai = new javax.swing.JLabel();
@@ -95,6 +97,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
+        btnMoMay.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         btnMoMay.setText("Mở máy");
         btnMoMay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +107,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         getContentPane().add(btnMoMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 160, 60));
 
         btnLogOut.setBackground(new java.awt.Color(204, 204, 204));
+        btnLogOut.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         btnLogOut.setForeground(new java.awt.Color(255, 0, 0));
         btnLogOut.setText("Đăng xuất");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -111,33 +115,43 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 btnLogOutActionPerformed(evt);
             }
         });
-        getContentPane().add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, 130, 40));
+        getContentPane().add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 20, 130, 40));
 
-        menuHeThong.setBackground(new java.awt.Color(66, 116, 176));
+        menuHeThong.setBackground(new java.awt.Color(0, 0, 0, 50));
+        menuHeThong.setForeground(new java.awt.Color(0, 0, 0, 120)
+        );
         menuHeThong.setPreferredSize(new java.awt.Dimension(140, 410));
 
-        btnQLNV.setText("Quản lý NV");
+        btnQLNV.setBackground(new java.awt.Color(50, 50, 50, 150));
+        btnQLNV.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-manager.png")); // NOI18N
+        btnQLNV.setBorder(null);
         btnQLNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQLNVActionPerformed(evt);
             }
         });
 
-        btnQLTD.setText("Quản lý thực đơn");
+        btnQLTD.setBackground(new java.awt.Color(50, 50, 50, 150));
+        btnQLTD.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-food.png")); // NOI18N
+        btnQLTD.setBorder(null);
         btnQLTD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQLTDActionPerformed(evt);
             }
         });
 
-        btnQLMT.setText("Quản lý máy tính");
+        btnQLMT.setBackground(new java.awt.Color(50, 50, 50, 150));
+        btnQLMT.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icocn-computer.png")); // NOI18N
+        btnQLMT.setBorder(null);
         btnQLMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQLMTActionPerformed(evt);
             }
         });
 
-        btnQLTK.setText("Quản lý thống kê");
+        btnQLTK.setBackground(new java.awt.Color(50, 50, 50, 150));
+        btnQLTK.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icocn-thongKe.png")); // NOI18N
+        btnQLTK.setBorder(null);
         btnQLTK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQLTKActionPerformed(evt);
@@ -152,6 +166,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
+        btnTrandPass.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         btnTrandPass.setText("Đổi mật khẩu");
         btnTrandPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,75 +174,126 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        javax.swing.GroupLayout menuHeThongLayout = new javax.swing.GroupLayout(menuHeThong);
-        menuHeThong.setLayout(menuHeThongLayout);
-        menuHeThongLayout.setHorizontalGroup(
-            menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addComponent(jSeparator2)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(menuHeThongLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnQLTD)
-                    .addComponent(btnQLMT)
-                    .addComponent(btnQLTK)
-                    .addComponent(btnTrandPass))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel1.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Quản lý món ăn");
 
-        menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK, btnTrandPass});
+        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Quản lý nhân viên");
 
-        menuHeThongLayout.setVerticalGroup(
-            menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
-                .addComponent(lbclmenu, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                .addGap(35, 35, 35)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnQLNV)
-                .addGap(18, 18, 18)
-                .addComponent(btnQLTD)
-                .addGap(18, 18, 18)
-                .addComponent(btnQLMT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnQLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTrandPass)
-                .addGap(32, 32, 32))
-        );
+        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Quản lý máy tính");
 
-        menuHeThongLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
+        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Thống kê");
 
-        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 410));
-        getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1010, 10));
-
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconMenuOp.png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        lblNgayHienTai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        javax.swing.GroupLayout menuHeThongLayout = new javax.swing.GroupLayout(menuHeThong);
+        menuHeThong.setLayout(menuHeThongLayout);
+        menuHeThongLayout.setHorizontalGroup(
+            menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2)
+            .addGroup(menuHeThongLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnTrandPass)
+                        .addContainerGap())
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnQLTK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnQLMT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnQLTD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
+                                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
+                                .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14))))))
+        );
+
+        menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK, jButton1});
+
+        menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4});
+
+        menuHeThongLayout.setVerticalGroup(
+            menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(btnQLTD))
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel1)
+                        .addGap(21, 21, 21)))
+                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(btnQLMT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addComponent(btnQLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 44, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(67, 67, 67)))
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTrandPass, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
+        );
+
+        menuHeThongLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
+
+        menuHeThongLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4});
+
+        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 660));
+
+        lblNgayHienTai.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         lblNgayHienTai.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblNgayHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 230, 40));
+        getContentPane().add(lblNgayHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 580, 300, 60));
 
         lblGioHienTai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblGioHienTai.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblGioHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 160, 20));
 
-        lblBackRound.setBackground(new java.awt.Color(255, 255, 255));
+        lblBackRound.setBackground(new java.awt.Color(0, 0, 0, 120)
+        );
         lblBackRound.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblBackRound.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
-        getContentPane().add(lblBackRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 660));
+        lblBackRound.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
+        lblBackRound.setOpaque(true);
+        getContentPane().add(lblBackRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1520, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -329,9 +395,11 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JButton btnQLTK;
     private javax.swing.JButton btnTrandPass;
     private javax.swing.JButton jButton1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton lbclmenu;
     private javax.swing.JLabel lblBackRound;
     private javax.swing.JLabel lblGioHienTai;
@@ -385,7 +453,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     public void NgayHienTai() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String ngayHienTai = sdf.format(new Date());
-        lblNgayHienTai.setText("Ngày hiện tại: " + ngayHienTai);
+        lblNgayHienTai.setText(ngayHienTai);
     }
 
 }
