@@ -128,7 +128,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Trang thanh toán\n");
+        setTitle("Giao diện thanh toán ");
+        setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -434,6 +435,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         if (dao.ThanhToan(tt) != null) {
             TatMay();
             JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
         }

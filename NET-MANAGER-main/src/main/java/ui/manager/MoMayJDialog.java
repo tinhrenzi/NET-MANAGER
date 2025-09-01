@@ -82,8 +82,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         tblMayTinh = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Giao diện mở máy ");
-        setAlwaysOnTop(true);
+        setTitle("Trang mở máy\n");
         setIconImage(    java.awt.Toolkit.getDefaultToolkit().getImage(
             "C:/Users/NITRO 5/Documents/NetBeansProjects/NET-MANAGER/NET-MANAGER-main/src/main/java/img/backroundMoMay.jpg")
 
