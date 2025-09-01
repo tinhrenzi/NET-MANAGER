@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Giao di&#x1ec7;n qu&#x1ea3;n l&#xfd; m&#xe1;y t&#xed;nh"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -52,7 +53,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="btnLamMoi" linkSize="2" min="-2" pref="96" max="-2" attributes="0"/>
+                          <Component id="btnLamMoi" min="-2" pref="96" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnThem" min="-2" pref="96" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -107,12 +108,12 @@
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="txtName" linkSize="4" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="txtName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtGia" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtGia" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -126,7 +127,7 @@
                       <Component id="btnCapNhat" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="btnXoa" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="btnThem" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="btnLamMoi" linkSize="3" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="btnLamMoi" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
               </Group>

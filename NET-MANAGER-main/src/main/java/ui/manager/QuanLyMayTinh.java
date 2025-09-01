@@ -62,6 +62,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Giao diện quản lý máy tính");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -284,8 +285,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel3, lblMaMay});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtGia, txtName});
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -342,17 +341,18 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         int hang = tblQLMT.getRowCount();
         String tenNhap = txtName.getText().trim();
         boolean trungTen = false;
-
         for (int i = 0; i < hang; i++) {
+            if (i == tblQLMT.getSelectedRow()) {
+                continue;
+            }
             String tenMayTrongBang = tblQLMT.getValueAt(i, 1).toString().trim();
             if (tenNhap.equalsIgnoreCase(tenMayTrongBang)) {
                 trungTen = true;
                 break;
             }
         }
-
         if (trungTen) {
-            XDialog.alert("Tên máy " + tenNhap + "đã tồn tại trong bảng!");
+            XDialog.alert("Tên máy " + tenNhap + " đã tồn tại trong bảng!");
             return;
         }
 
@@ -523,7 +523,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 item.getTenMay(),
                 item.getGiaTheoGio(),
                 item.getTrangThai(),
-                false
             };
             model.addRow(rowData);
         });
@@ -596,7 +595,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         MayTinh mt = this.getFormByUp();
         dao.update(mt);
         this.fillToTable();
-        XDialog.alert("Cập nhật thành công!");
+        XDialog.alert("Sủa thành công!");
     }
 
     @Override

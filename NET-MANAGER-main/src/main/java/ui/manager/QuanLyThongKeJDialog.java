@@ -87,6 +87,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         btnTongDoanhThu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Giao diện thống kê");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Thống Kê");

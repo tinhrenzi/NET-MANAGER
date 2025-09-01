@@ -73,6 +73,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Giao diện quản lý thực đơn");
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
