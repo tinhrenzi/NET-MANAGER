@@ -88,7 +88,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblNgayHienTai = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pnlMenuTop = new javax.swing.JPanel();
         lblSoMayTrong = new javax.swing.JLabel();
         lblSoMayHoatDong = new javax.swing.JLabel();
         btnMoMay = new javax.swing.JButton();
@@ -118,6 +118,9 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 menuHeThongMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                menuHeThongMouseExited(evt);
             }
         });
 
@@ -255,9 +258,17 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         lblNgayHienTai.setText("Ngày hiện tại");
         getContentPane().add(lblNgayHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 620, 240, 60));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0, 50));
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0, 0));
+        pnlMenuTop.setBackground(new java.awt.Color(0, 0, 0, 50));
+        pnlMenuTop.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        pnlMenuTop.setForeground(new java.awt.Color(0, 0, 0, 0));
+        pnlMenuTop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlMenuTopMouseEntered(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                pnlMenuTopMouseReleased(evt);
+            }
+        });
 
         lblSoMayTrong.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         lblSoMayTrong.setForeground(new java.awt.Color(255, 255, 255));
@@ -300,11 +311,11 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlMenuTopLayout = new javax.swing.GroupLayout(pnlMenuTop);
+        pnlMenuTop.setLayout(pnlMenuTopLayout);
+        pnlMenuTopLayout.setHorizontalGroup(
+            pnlMenuTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMenuTopLayout.createSequentialGroup()
                 .addGap(239, 239, 239)
                 .addComponent(lblSoMayTrong, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,13 +329,13 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLogOut, btnMoMay});
+        pnlMenuTopLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLogOut, btnMoMay});
 
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlMenuTopLayout.setVerticalGroup(
+            pnlMenuTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMenuTopLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlMenuTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMoMay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSoMayHoatDong, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,9 +344,9 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 .addGap(104, 104, 104))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnLogOut, btnMoMay, btnTrandPass});
+        pnlMenuTopLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnLogOut, btnMoMay, btnTrandPass});
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1450, 90));
+        getContentPane().add(pnlMenuTop, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1450, 90));
 
         lblGioHienTai.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         lblGioHienTai.setForeground(new java.awt.Color(255, 255, 255));
@@ -347,19 +358,27 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblName.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblName.setText("Tên");
+        lblName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 140, 50));
 
         lblAnh.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         lblAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAnh.setText("Ảnh người dùng");
-        jPanel2.add(lblAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 220, 338));
+        lblAnh.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 204, 204), new java.awt.Color(51, 51, 51)));
+        jPanel2.add(lblAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 350));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 110, 230, 350));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 170, 230, 350));
 
         lblBackRound.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
         lblBackRound.setOpaque(true);
+        lblBackRound.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblBackRoundMouseEntered(evt);
+            }
+        });
         getContentPane().add(lblBackRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 0, 1530, 690));
 
         pack();
@@ -367,12 +386,12 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
     private void btnMoMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoMayActionPerformed
         this.showMoMay(this);
-        CapNhatSoLuong();
+        CapNhat();
     }//GEN-LAST:event_btnMoMayActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         dangXuat();
-        CapNhatSoLuong();
+        CapNhat();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -380,42 +399,59 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     }//GEN-LAST:event_formWindowOpened
 
     private void menuHeThongMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHeThongMouseEntered
-
+        CapNhat();
     }//GEN-LAST:event_menuHeThongMouseEntered
 
     private void btnTrandPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrandPassActionPerformed
         new DoiMatKhauJDialog(null, true).setVisible(true);
-        CapNhatSoLuong();
+        CapNhat();
     }//GEN-LAST:event_btnTrandPassActionPerformed
 
     private void lbclmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbclmenuActionPerformed
         btnclmenu();
-        CapNhatSoLuong();
+        CapNhat();
     }//GEN-LAST:event_lbclmenuActionPerformed
 
     private void btnQLTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLTKActionPerformed
         this.showQLThongke(this);
-        CapNhatSoLuong();
+        CapNhat();
     }//GEN-LAST:event_btnQLTKActionPerformed
 
     private void btnQLMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLMTActionPerformed
         this.showQLmay(this);
-        CapNhatSoLuong();
+        CapNhat();
     }//GEN-LAST:event_btnQLMTActionPerformed
 
     private void btnQLTDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLTDActionPerformed
         this.showQLOrder(this);
-        CapNhatSoLuong();
+        CapNhat();
     }//GEN-LAST:event_btnQLTDActionPerformed
 
     private void btnQLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLNVActionPerformed
         this.showNhanVien(this);
-        CapNhatSoLuong();
+        CapNhat();
     }//GEN-LAST:event_btnQLNVActionPerformed
 
     private void menuHeThongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHeThongMouseClicked
         btnopmenu();
+        CapNhat();
     }//GEN-LAST:event_menuHeThongMouseClicked
+
+    private void pnlMenuTopMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuTopMouseReleased
+
+    }//GEN-LAST:event_pnlMenuTopMouseReleased
+
+    private void menuHeThongMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHeThongMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuHeThongMouseExited
+
+    private void lblBackRoundMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackRoundMouseEntered
+        CapNhat();
+    }//GEN-LAST:event_lblBackRoundMouseEntered
+
+    private void pnlMenuTopMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuTopMouseEntered
+        CapNhat();
+    }//GEN-LAST:event_pnlMenuTopMouseEntered
 
     /**
      * @param args the command line arguments
@@ -473,7 +509,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton lbclmenu;
@@ -485,13 +520,14 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JLabel lblSoMayHoatDong;
     private javax.swing.JLabel lblSoMayTrong;
     private javax.swing.JPanel menuHeThong;
+    private javax.swing.JPanel pnlMenuTop;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void init() {
         this.showWelcome(this);
         this.showLogin(this);
-        CapNhatSoLuong();
+        CapNhat();
         if (XAuth.user != null) {
             setRole();
         } else {
@@ -505,7 +541,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             String path = admin.getAnh();
             File f = new File(path);
 
-            // nếu file không tồn tại, thử tìm trong thư mục mặc định
             if (!f.exists()) {
                 String alt = "src/images/" + path;
                 if (new File(alt).exists()) {
@@ -515,12 +550,11 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
             lblAnh.setIcon(ResizeImage(path));
         } else {
-            lblAnh.setIcon(null); // không có ảnh thì clear
+            lblAnh.setIcon(null);
         }
     }
 
     public void setRole() {
-        Admin user = XAuth.user;
         int role = XAuth.user.getVaiTro();
         String name = XAuth.user.getTen();
         if (role == 2) { // Nhân viên
@@ -536,8 +570,14 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             btnQLTD.setEnabled(true);
             btnQLTK.setEnabled(true);
         }
+        Admin user = XAuth.user;
         loadAnhChinh(user);
-        lblName.setText(name);
+        lblName.setText("<html>"
+                + "<div style='text-align:center;'>"
+                + "<span style='color: #0D47A1; font-size: 12px;'>Người sử dụng</span><br>"
+                + "<span style='color: white; font-size: 16px; font-weight: bold;'>" + name + "</span>"
+                + "</div>"
+                + "</html>");
     }
 
     private void dangXuat() {
@@ -564,17 +604,27 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
     public void soMayHD() {
         int soMayHD = dao.getSoMayDangHoatDong();
-        lblSoMayHoatDong.setText("Số máy đang hoạt động " + soMayHD);
+        lblSoMayHoatDong.setText("<html>"
+                + "<span style='color: #00E676; font-size: 14px;'>Số máy đang hoạt động:</span> "
+                + "<span style='color: yellow; font-size: 18px; font-weight: bold;'>" + soMayHD + "</span>"
+                + "</html>");
+
     }
 
     public void soMayT() {
         int soMayTrong = dao.getSoMayDangTrong();
-        lblSoMayTrong.setText("Số máy đang trống " + soMayTrong);
+        lblSoMayTrong.setText("<html>"
+                + "<span style='color: #FF1744; font-size: 14px;'>Số máy trống:</span> "
+                + "<span style='color: white; font-size: 18px; font-weight: bold;'>" + soMayTrong + "</span>"
+                + "</html>");
+
     }
 
-    public void CapNhatSoLuong() {
+    public void CapNhat() {
         soMayHD();
         soMayT();
+        pnlMenuTop.getParent().repaint();
+        menuHeThong.getParent().repaint();
     }
 
     private void startDongHo() {
