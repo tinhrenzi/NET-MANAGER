@@ -81,9 +81,13 @@
           <Dimension value="[140, 410]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuHeThongMouseClicked"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuHeThongMouseEntered"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="90" height="660"/>
+          <AbsoluteConstraints x="0" y="0" width="80" height="660"/>
         </Constraint>
       </Constraints>
 
@@ -92,7 +96,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jSeparator2" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -105,7 +109,6 @@
                               <Component id="btnQLMT" linkSize="5" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnQLTD" linkSize="5" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnQLNV" linkSize="5" min="-2" pref="57" max="-2" attributes="0"/>
-                              <Component id="jButton1" linkSize="5" min="-2" pref="79" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -134,8 +137,7 @@
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
                           <Component id="btnQLNV" linkSize="6" min="-2" pref="46" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           <Component id="btnQLTD" linkSize="6" min="-2" max="-2" attributes="0"/>
@@ -181,9 +183,6 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnQLNV">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new java.awt.Color(50, 50, 50, 150)" type="code"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGER-main\src\main\java\img\Ui-manager-icon-manager.png"/>
             </Property>
@@ -197,9 +196,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnQLTD">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new java.awt.Color(50, 50, 50, 150)" type="code"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGER-main\src\main\java\img\Ui-manager-icon-food.png"/>
             </Property>
@@ -213,9 +209,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnQLMT">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new java.awt.Color(50, 50, 50, 150)" type="code"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGER-main\src\main\java\img\Ui-manager-icocn-computer.png"/>
             </Property>
@@ -229,9 +222,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnQLTK">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new java.awt.Color(50, 50, 50, 150)" type="code"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGER-main\src\main\java\img\Ui-manager-icocn-thongKe.png"/>
             </Property>
@@ -310,19 +300,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea;"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="36" style="0"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\img\IconMenuOp.png"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

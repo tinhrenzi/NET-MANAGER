@@ -49,7 +49,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = w; i > 90; i--) {
+                for (int i = w; i > 80; i--) {
                     menuHeThong.setSize(i, h);
                     try {
                         Thread.sleep(2);
@@ -83,7 +83,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         lblNgayHienTai = new javax.swing.JLabel();
         lblGioHienTai = new javax.swing.JLabel();
         lblBackRound = new javax.swing.JLabel();
@@ -121,8 +120,15 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         menuHeThong.setForeground(new java.awt.Color(0, 0, 0, 120)
         );
         menuHeThong.setPreferredSize(new java.awt.Dimension(140, 410));
+        menuHeThong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHeThongMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                menuHeThongMouseEntered(evt);
+            }
+        });
 
-        btnQLNV.setBackground(new java.awt.Color(50, 50, 50, 150));
         btnQLNV.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-manager.png")); // NOI18N
         btnQLNV.setBorder(null);
         btnQLNV.addActionListener(new java.awt.event.ActionListener() {
@@ -131,7 +137,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        btnQLTD.setBackground(new java.awt.Color(50, 50, 50, 150));
         btnQLTD.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-food.png")); // NOI18N
         btnQLTD.setBorder(null);
         btnQLTD.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +145,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        btnQLMT.setBackground(new java.awt.Color(50, 50, 50, 150));
         btnQLMT.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icocn-computer.png")); // NOI18N
         btnQLMT.setBorder(null);
         btnQLMT.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +153,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        btnQLTK.setBackground(new java.awt.Color(50, 50, 50, 150));
         btnQLTK.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icocn-thongKe.png")); // NOI18N
         btnQLTK.setBorder(null);
         btnQLTK.addActionListener(new java.awt.event.ActionListener() {
@@ -190,21 +193,13 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Thống kê");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\IconMenuOp.png")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout menuHeThongLayout = new javax.swing.GroupLayout(menuHeThong);
         menuHeThong.setLayout(menuHeThongLayout);
         menuHeThongLayout.setHorizontalGroup(
             menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
             .addGroup(menuHeThongLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(menuHeThongLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -215,8 +210,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                             .addComponent(btnQLTK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnQLMT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnQLTD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -231,7 +225,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                                 .addGap(14, 14, 14))))))
         );
 
-        menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK, jButton1});
+        menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
 
         menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4});
 
@@ -241,8 +235,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 .addGap(14, 14, 14)
                 .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(menuHeThongLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(47, 47, 47)
+                        .addGap(118, 118, 118)
                         .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48)
                         .addComponent(btnQLTD))
@@ -278,7 +271,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
         menuHeThongLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4});
 
-        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 660));
+        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 660));
 
         lblNgayHienTai.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         lblNgayHienTai.setForeground(new java.awt.Color(255, 255, 255));
@@ -310,10 +303,30 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         dangXuat();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
-    private void btnQLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLNVActionPerformed
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        this.showNhanVien(this);
-    }//GEN-LAST:event_btnQLNVActionPerformed
+        NgayHienTai();
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void menuHeThongMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHeThongMouseEntered
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_menuHeThongMouseEntered
+
+    private void btnTrandPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrandPassActionPerformed
+        new DoiMatKhauJDialog(null, true).setVisible(true);
+    }//GEN-LAST:event_btnTrandPassActionPerformed
+
+    private void lbclmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbclmenuActionPerformed
+        // TODO add your handling code here:
+        btnclmenu();
+    }//GEN-LAST:event_lbclmenuActionPerformed
+
+    private void btnQLTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLTKActionPerformed
+        // TODO add your handling code here:
+        this.showQLThongke(this);
+    }//GEN-LAST:event_btnQLTKActionPerformed
 
     private void btnQLMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLMTActionPerformed
         // TODO add your handling code here:
@@ -325,30 +338,15 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         this.showQLOrder(this);
     }//GEN-LAST:event_btnQLTDActionPerformed
 
-    private void btnQLTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLTKActionPerformed
+    private void btnQLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLNVActionPerformed
         // TODO add your handling code here:
-        this.showQLThongke(this);
-    }//GEN-LAST:event_btnQLTKActionPerformed
+        this.showNhanVien(this);
+    }//GEN-LAST:event_btnQLNVActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    private void menuHeThongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHeThongMouseClicked
         // TODO add your handling code here:
-        NgayHienTai();
-
-    }//GEN-LAST:event_formWindowOpened
-
-    private void lbclmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lbclmenuActionPerformed
-        // TODO add your handling code here:
-        btnclmenu();
-    }//GEN-LAST:event_lbclmenuActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        btnopmenu();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnTrandPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrandPassActionPerformed
-        new DoiMatKhauJDialog(null, true).setVisible(true);
-    }//GEN-LAST:event_btnTrandPassActionPerformed
+         btnopmenu();
+    }//GEN-LAST:event_menuHeThongMouseClicked
 
     /**
      * @param args the command line arguments
@@ -394,7 +392,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JButton btnQLTD;
     private javax.swing.JButton btnQLTK;
     private javax.swing.JButton btnTrandPass;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
