@@ -16,10 +16,11 @@ public class Admin {
     private String Email;
     private String SoDienThoai;
     private Date NgayTao;
+    private String Anh;
 
     public Admin() {}
 
-    public Admin(String Id, String Ten, String MatKhau, int VaiTro, boolean TrangThai, int NamSinh, String Email, String SoDienThoai, Date NgayTao) {
+    public Admin(String Id, String Ten, String MatKhau, int VaiTro, boolean TrangThai, int NamSinh, String Email, String SoDienThoai, Date NgayTao, String Anh) {
         this.Id = Id;
         this.Ten = Ten;
         this.MatKhau = MatKhau;
@@ -29,10 +30,16 @@ public class Admin {
         this.Email = Email;
         this.SoDienThoai = SoDienThoai;
         this.NgayTao = NgayTao;
+        this.Anh = Anh;
     }
 
+    public String getAnh() {
+        return Anh;
+    }
 
-    
+    public void setAnh(String Anh) {
+        this.Anh = Anh;
+    }
 
     public String getId() { return Id; }
     public void setId(String Id) { this.Id = Id; }

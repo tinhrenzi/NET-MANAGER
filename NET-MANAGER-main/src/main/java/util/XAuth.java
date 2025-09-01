@@ -17,7 +17,7 @@ public class XAuth {
     public static boolean isLogin() {
         return user != null;
     }
-
+    
     public static boolean isQuanLy() {
         return isLogin() && user.getVaiTro() == 1;
     }

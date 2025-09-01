@@ -9,8 +9,8 @@ import dao.AdminDAO;
 
 public class AdminDAOImpl implements AdminDAO {
 
-    private final String INSERT_SQL = "INSERT INTO Admin (Id, Ten, MatKhau, VaiTro, TrangThai, NamSinh, Email, SoDienThoai, NgayTao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final String UPDATE_SQL = "UPDATE Admin SET Ten=?, MatKhau=?, VaiTro=?, TrangThai=?, NamSinh=?, Email=?, SoDienThoai=?, NgayTao=? WHERE Id=?";
+    private final String INSERT_SQL = "INSERT INTO Admin (Id, Ten, MatKhau, VaiTro, TrangThai, NamSinh, Email, SoDienThoai, NgayTao,Anh) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String UPDATE_SQL = "UPDATE Admin SET Ten=?, MatKhau=?, VaiTro=?, TrangThai=?, NamSinh=?, Email=?, SoDienThoai=?, NgayTao=?, Anh =? WHERE Id=?";
     private final String DELETE_SQL = "DELETE FROM Admin WHERE Id=?";
     private final String SELECT_ALL_SQL = "select * from Admin";
     private final String SELECT_BY_ID_SQL = "SELECT * FROM Admin WHERE Id=?";
@@ -27,7 +27,8 @@ public class AdminDAOImpl implements AdminDAO {
             user.getNamSinh(),
             user.getEmail(),
             user.getSoDienThoai(),
-            new java.sql.Date(user.getNgayTao().getTime())
+            new java.sql.Date(user.getNgayTao().getTime()),
+            user.getAnh()
         };
         XJdbc.executeUpdate(INSERT_SQL, args);
         return user;
@@ -44,6 +45,7 @@ public class AdminDAOImpl implements AdminDAO {
             user.getEmail(),
             user.getSoDienThoai(),
             new java.sql.Date(user.getNgayTao().getTime()),
+            user.getAnh(),
             user.getId()
         };
         XJdbc.executeUpdate(UPDATE_SQL, args);

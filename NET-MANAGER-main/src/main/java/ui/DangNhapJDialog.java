@@ -70,7 +70,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
 
         txtNameAccount.setBackground(new java.awt.Color(204, 204, 204));
         txtNameAccount.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNameAccount.setToolTipText("..........................");
+        txtNameAccount.setToolTipText("");
         txtNameAccount.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtNameAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
