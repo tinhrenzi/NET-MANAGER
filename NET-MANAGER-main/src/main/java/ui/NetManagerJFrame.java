@@ -5,6 +5,8 @@
 package ui;
 
 import controller.GiaoDienChinhController;
+import dao.MayTinhDAO;
+import daoImpl.MayTinhDAOImpl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -23,7 +25,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     int w = 220;
     int h = 670;
     private Timer dongHoTimer;
-
+    MayTinhDAO dao = new MayTinhDAOImpl();
     public NetManagerJFrame() {
         initComponents();
         setLocationRelativeTo(null);
@@ -69,8 +71,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnMoMay = new javax.swing.JButton();
-        btnLogOut = new javax.swing.JButton();
         menuHeThong = new javax.swing.JPanel();
         btnQLNV = new javax.swing.JButton();
         btnQLTD = new javax.swing.JButton();
@@ -84,7 +84,11 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblNgayHienTai = new javax.swing.JLabel();
-        lblGioHienTai = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblSoMayTrong = new javax.swing.JLabel();
+        lblSoMayHoatDong = new javax.swing.JLabel();
+        btnMoMay = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
         lblBackRound = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,27 +98,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
-        btnMoMay.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        btnMoMay.setText("Mở máy");
-        btnMoMay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoMayActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnMoMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 160, 60));
-
-        btnLogOut.setBackground(new java.awt.Color(204, 204, 204));
-        btnLogOut.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        btnLogOut.setForeground(new java.awt.Color(255, 0, 0));
-        btnLogOut.setText("Đăng xuất");
-        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogOutActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 20, 130, 40));
 
         menuHeThong.setBackground(new java.awt.Color(0, 0, 0, 50));
         menuHeThong.setForeground(new java.awt.Color(0, 0, 0, 120)
@@ -253,17 +236,17 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                     .addGroup(menuHeThongLayout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(menuHeThongLayout.createSequentialGroup()
                         .addComponent(btnQLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 44, Short.MAX_VALUE))
+                        .addGap(18, 54, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(67, 67, 67)))
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTrandPass, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(btnTrandPass, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
                 .addGap(32, 32, 32))
         );
 
@@ -271,22 +254,86 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
         menuHeThongLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4});
 
-        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 660));
+        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 690));
 
         lblNgayHienTai.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         lblNgayHienTai.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblNgayHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 580, 300, 60));
+        lblNgayHienTai.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNgayHienTai.setText("Ngày hiện tại");
+        getContentPane().add(lblNgayHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 610, 300, 60));
 
-        lblGioHienTai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblGioHienTai.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblGioHienTai, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 160, 20));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0, 50));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 0, 0));
 
-        lblBackRound.setBackground(new java.awt.Color(0, 0, 0, 120)
+        lblSoMayTrong.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        lblSoMayTrong.setForeground(new java.awt.Color(255, 255, 255));
+        lblSoMayTrong.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-computer32x32.png")); // NOI18N
+        lblSoMayTrong.setText("Số máy trống");
+
+        lblSoMayHoatDong.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        lblSoMayHoatDong.setForeground(new java.awt.Color(255, 255, 255));
+        lblSoMayHoatDong.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-computer32x32.png")); // NOI18N
+        lblSoMayHoatDong.setText("Số máy hoạt động");
+
+        btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
+        btnMoMay.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        btnMoMay.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-Open32x32.png")); // NOI18N
+        btnMoMay.setText("Mở máy");
+        btnMoMay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoMayActionPerformed(evt);
+            }
+        });
+
+        btnLogOut.setBackground(new java.awt.Color(204, 204, 204));
+        btnLogOut.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        btnLogOut.setForeground(new java.awt.Color(255, 0, 0));
+        btnLogOut.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-Out32x32.png")); // NOI18N
+        btnLogOut.setText("Đăng xuất");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(lblSoMayTrong, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSoMayHoatDong, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                .addComponent(btnMoMay, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125)
+                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
-        lblBackRound.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLogOut, btnMoMay});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMoMay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSoMayHoatDong, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSoMayTrong, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(104, 104, 104))
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnLogOut, btnMoMay});
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1460, 90));
+
         lblBackRound.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
         lblBackRound.setOpaque(true);
-        getContentPane().add(lblBackRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 1520, 680));
+        getContentPane().add(lblBackRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 0, 1530, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -396,11 +443,13 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton lbclmenu;
     private javax.swing.JLabel lblBackRound;
-    private javax.swing.JLabel lblGioHienTai;
     private javax.swing.JLabel lblNgayHienTai;
+    private javax.swing.JLabel lblSoMayHoatDong;
+    private javax.swing.JLabel lblSoMayTrong;
     private javax.swing.JPanel menuHeThong;
     // End of variables declaration//GEN-END:variables
 
@@ -408,6 +457,8 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     public void init() {
         this.showWelcome(this);
         this.showLogin(this);
+        soMayHD();
+        soMayT();
         if (XAuth.user != null) {
             setRole();
         } else {
@@ -451,6 +502,14 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String ngayHienTai = sdf.format(new Date());
         lblNgayHienTai.setText(ngayHienTai);
+    }
+    public void soMayHD(){
+    int soMay  = dao.getSoMayDangHoatDong();
+    lblSoMayHoatDong.setText("Số máy đang hoạt động "+soMay);
+    }
+    public void soMayT(){
+    int soMay1  = dao.getSoMayDangTrong();
+    lblSoMayTrong.setText("Số máy đang trống "+soMay1);
     }
 
 }
