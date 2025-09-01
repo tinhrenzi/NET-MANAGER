@@ -16,9 +16,10 @@ import java.util.List;
 import util.XQuery;
 
 public class MayTinhDAOImpl implements MayTinhDAO {
+
     private final String Sql_Cre = "insert into MayTinh(TenMay,TrangThai,GiaTheoGio) values (?,?,?);";
     private final String Sql_De = "Delete from MayTinh where Id=?";
-    private final String Sql_All= "select * from MayTinh";
+    private final String Sql_All = "select * from MayTinh";
     private final String Sql_FinName = "select * from MayTinh where TenMay like ?";
 
     @Override
@@ -36,30 +37,30 @@ public class MayTinhDAOImpl implements MayTinhDAO {
     public void update(MayTinh entity) {
         String sql = "update MayTinh set TenMay =?,TrangThai=?,GiaTheoGio=? where Id= ? ";
         Object[] args = {
-        entity.getTenMay(),
-        entity.getTrangThai(),
-        entity.getGiaTheoGio(),
-        entity.getId()
+            entity.getTenMay(),
+            entity.getTrangThai(),
+            entity.getGiaTheoGio(),
+            entity.getId()
         };
         XJdbc.executeUpdate(sql, args);
     }
 
-
     @Override
     public void deleteByID(String id) {
-    XJdbc.executeUpdate(Sql_De, id);
+        XJdbc.executeUpdate(Sql_De, id);
     }
 
     @Override
     public List<MayTinh> findAll() {
-    return XQuery.getBeanList(MayTinh.class, Sql_All);
+        return XQuery.getBeanList(MayTinh.class, Sql_All);
     }
 
     @Override
     public MayTinh findByID(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-     @Override
+
+    @Override
     public void capNhatTrangThai(String maMay, String trangThai) {
         String sql = "UPDATE MayTinh SET TrangThai = ? WHERE Id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -71,13 +72,16 @@ public class MayTinhDAOImpl implements MayTinhDAO {
         }
     }
     Connection conn = XJdbc.openConnection();
+
     @Override
     public String layTrangThai(String maMay) {
         String sql = "SELECT TrangThai FROM MayTinh WHERE Id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, maMay);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getString(1);
+            if (rs.next()) {
+                return rs.getString(1);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,21 +92,21 @@ public class MayTinhDAOImpl implements MayTinhDAO {
     public List<String> getTatCaMaMay() {
         List<String> list = new ArrayList<>();
         String sql = "SELECT Id FROM MayTinh";
-        try (PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) list.add(rs.getString(1));
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
+
     @Override
     public void capNhatTrangThai(int maMay, String trangThai) {
         String sql = "UPDATE MayTinh SET TrangThai = ? WHERE Id = ?";
         try (
-            Connection con = XJdbc.openConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
-        ) {
+                Connection con = XJdbc.openConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, trangThai);
             ps.setInt(2, maMay);
             ps.executeUpdate();
@@ -113,9 +117,33 @@ public class MayTinhDAOImpl implements MayTinhDAO {
 
     @Override
     public List<MayTinh> finName(String name) {
-    return XQuery.getBeanList(MayTinh.class, Sql_FinName, name);
+        return XQuery.getBeanList(MayTinh.class, Sql_FinName, name);
+    }
+
+    @Override
+    public int getSoMayDangHoatDong() {
+        String sql = "SELECT COUNT(*) FROM MAYTINH WHERE TrangThai = N'Hoạt động'";
+        try (ResultSet rs = XJdbc.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    
+        return 0;
+    }
+
+    @Override
+    public int getSoMayDangTrong() {
+        String sql = "SELECT COUNT(*) FROM MAYTINH WHERE TrangThai = N'Trống'";
+        try (ResultSet rs = XJdbc.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
 }
-
