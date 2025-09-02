@@ -431,8 +431,8 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         }
         Object Id = tblQLMT.getValueAt(row, 0);
         Object TenMay = tblQLMT.getValueAt(row, 1);
-        Object TrangThai = tblQLMT.getValueAt(row, 3);
         Object Gia = tblQLMT.getValueAt(row, 2);
+        Object TrangThai = tblQLMT.getValueAt(row, 3);
         txtGia.setText(Gia != null ? Gia.toString() : "");
         lblMaMay.setText(Id != null ? Id.toString() : "");
         txtName.setText(TenMay != null ? TenMay.toString() : "");

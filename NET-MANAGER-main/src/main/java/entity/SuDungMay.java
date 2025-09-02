@@ -23,9 +23,10 @@ public class SuDungMay {
     private double thoiGianChoi;
     private float GiaTheoGio;
     private double TongTien;
+    private int SoLanSuDung;
     public SuDungMay(){}
 
-    public SuDungMay(int Id, String maMay, String TenMay, String TrangThai, Date NgayChoi, Date NgayKetThuc, Time GioBatDau, Time GioKetThuc, double thoiGianChoi, float GiaTheoGio, double TongTien) {
+    public SuDungMay(int Id, String maMay, String TenMay, String TrangThai, Date NgayChoi, Date NgayKetThuc, Time GioBatDau, Time GioKetThuc, double thoiGianChoi, float GiaTheoGio, double TongTien, int SoLanSuDung) {
         this.Id = Id;
         this.maMay = maMay;
         this.TenMay = TenMay;
@@ -37,6 +38,7 @@ public class SuDungMay {
         this.thoiGianChoi = thoiGianChoi;
         this.GiaTheoGio = GiaTheoGio;
         this.TongTien = TongTien;
+        this.SoLanSuDung = SoLanSuDung;
     }
 
     public int getId() {
@@ -125,6 +127,14 @@ public class SuDungMay {
 
     public void setTongTien(double TongTien) {
         this.TongTien = TongTien;
+    }
+
+    public int getSoLanSuDung() {
+        return SoLanSuDung;
+    }
+
+    public void setSoLanSuDung(int SoLanSuDung) {
+        this.SoLanSuDung = SoLanSuDung;
     }
 
     

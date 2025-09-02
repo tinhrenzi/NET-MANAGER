@@ -7,8 +7,6 @@ package ui.manager;
 import controller.QuanLyNhanVienController;
 import daoImpl.AdminDAOImpl;
 import entity.Admin;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,15 +14,11 @@ import util.XDialog;
 import dao.AdminDAO;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
 import java.io.File;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import util.XAuth;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
 
 /**
  *

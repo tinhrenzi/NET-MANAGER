@@ -49,7 +49,7 @@ public class MayTinhDAOImpl implements MayTinhDAO {
 
     @Override
     public List<MayTinh> findAll() {
-        String Sql_All = "select * from MayTinh";
+        String Sql_All = "select Id, TenMay, GiaTheoGio, TrangThai from MayTinh";
         return XQuery.getBeanList(MayTinh.class, Sql_All);
     }
 

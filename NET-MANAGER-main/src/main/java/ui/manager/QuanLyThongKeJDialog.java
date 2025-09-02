@@ -87,7 +87,6 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         btnTongDoanhThu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Giao diện thống kê");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Thống Kê");
@@ -407,7 +406,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXemBangThongkeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemBangThongkeActionPerformed
-        
+
             thongKeDoanhThu();
     }//GEN-LAST:event_btnXemBangThongkeActionPerformed
 
@@ -416,6 +415,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }//GEN-LAST:event_btnXemSuDungMayActionPerformed
 
     private void btnMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonAnActionPerformed
+
         thongKeLichSuBanHang();
     }//GEN-LAST:event_btnMonAnActionPerformed
 
@@ -598,7 +598,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             double tongTienMay = item.getThoiGianChoi() * item.getGiaTheoGio();
             model.addRow(new Object[]{
                 item.getTenMay(),
-                item.getSoLanSuDung(),
+                item.getId(),
                 String.format("%.2f", item.getThoiGianChoi()),
                 df.format(item.getGiaTheoGio()),
                 df.format(tongTienMay)
@@ -650,20 +650,20 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         modelMay.setRowCount(0);
 
         for (SuDungMay sdm : lsMay) {
+            double tienMay = sdm.getThoiGianChoi() * sdm.getGiaTheoGio();
             modelMay.addRow(new Object[]{
                 sdm.getTenMay(),
-                sdm.getSoLanSuDung(),
+                sdm.getId(),
                 String.format("%.2f", sdm.getThoiGianChoi()),
                 df.format(sdm.getGiaTheoGio()),
-                df.format(sdm.getTongTien())
+                df.format(tienMay)
             });
-            tongTienMay += sdm.getTongTien();
+            tongTienMay += tienMay;
             tongGioSuDung += sdm.getThoiGianChoi();
         }
         txtTongTien.setText(df.format(tongTienMay));
         txtTongGio.setText(String.format("%.2f giờ", tongGioSuDung));
     }
-
     double tongMonAn = 0;
 
     private void thongKeLichSuBanHang() {
@@ -677,7 +677,6 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         DecimalFormat df = new DecimalFormat("#,### VND");
         QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
 
-        // Lịch sử Menu (món ăn)
         List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
         DefaultTableModel modelMenu = (DefaultTableModel) tblMonAn.getModel();
         modelMenu.setRowCount(0);
@@ -699,28 +698,27 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             XDialog.alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc");
             return;
         }
-        double tongTienMay = 0;
-        double tongMonAn = 0;   // ✅ reset mỗi lần
+
         Date tuNgay = new Date(dacTuNgayThongKe.getDate().getTime());
         Date denNgay = new Date(dacDenNgayThongKe.getDate().getTime());
         DecimalFormat df = new DecimalFormat("#,### VND");
         QuanLyThongKeDaoImpl dao = new QuanLyThongKeDaoImpl();
 
-        List<SuDungMay> lsMay = dao.getLichSuSuDungMay(tuNgay, denNgay);
-        for (SuDungMay sdm : lsMay) {
-            tongTienMay += sdm.getTongTien();
-        }
-
-        List<Menu> lsMenu = dao.getLichSuMenu(tuNgay, denNgay);
-        for (Menu m : lsMenu) {
-            tongMonAn += m.getTongTien();
-        }
+        List<ThongKeDoanhThu> lsDoanhThu = dao.getthongKeTheoKhoangNgay(tuNgay, denNgay);
 
         DefaultTableModel dtModel = (DefaultTableModel) tblDoanhThu.getModel();
         dtModel.setRowCount(0);
-        dtModel.addRow(new Object[]{df.format(tongTienMay), df.format(tongMonAn)});
 
-        txtTongDoanhThu.setText(df.format(tongTienMay + tongMonAn));
+        if (!lsDoanhThu.isEmpty()) {
+            ThongKeDoanhThu tk = lsDoanhThu.get(0);
+            dtModel.addRow(new Object[]{
+                df.format(tk.getTongTienMay()),
+                df.format(tk.getTongTienMon())
+            });
+            txtTongDoanhThu.setText(df.format(tk.getTongDoanhThu()));
+        } else {
+            txtTongDoanhThu.setText("0 VND");
+        }
     }
 
 }
