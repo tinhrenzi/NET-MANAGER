@@ -11,6 +11,7 @@ import java.awt.Frame;
 import util.XAuth;
 import util.XDialog;
 import dao.AdminDAO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -26,6 +27,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        setIconAll();
     }
 
     /**
@@ -232,7 +234,9 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
             }
         });
     }
-
+    public void setIconAll(){
+    jLabel5.setIcon(new ImageIcon("src/main/java/img/Ui-DangNhap-icon-nguoi.png"));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;

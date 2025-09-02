@@ -272,12 +272,10 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
         lblSoMayTrong.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         lblSoMayTrong.setForeground(new java.awt.Color(255, 255, 255));
-        lblSoMayTrong.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-computer32x32.png")); // NOI18N
         lblSoMayTrong.setText("Số máy trống");
 
         lblSoMayHoatDong.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         lblSoMayHoatDong.setForeground(new java.awt.Color(255, 255, 255));
-        lblSoMayHoatDong.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-computer32x32.png")); // NOI18N
         lblSoMayHoatDong.setText("Số máy hoạt động");
 
         btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
@@ -293,7 +291,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         btnLogOut.setBackground(new java.awt.Color(204, 204, 204));
         btnLogOut.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         btnLogOut.setForeground(new java.awt.Color(255, 0, 0));
-        btnLogOut.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-Out32x32.png")); // NOI18N
         btnLogOut.setText("Đăng xuất");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +300,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
         btnTrandPass.setBackground(new java.awt.Color(204, 204, 204));
         btnTrandPass.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        btnTrandPass.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-pass32x32.png")); // NOI18N
         btnTrandPass.setText("Đổi mật khẩu");
         btnTrandPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,6 +492,18 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         return new ImageIcon(newImg);
     }
 
+    public void setIconAll() {
+        lblBackRound.setIcon(new ImageIcon("src/main/java/img/BackRoundNetManager.png"));
+        lblSoMayTrong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
+        lblSoMayHoatDong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
+        btnMoMay.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-Open32x32.png"));
+        btnTrandPass.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-pass32x32.png"));
+        btnLogOut.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-Out32x32.png"));
+        btnQLNV.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-manager.png"));
+        btnQLMT.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icocn-computer.png"));
+        btnQLTD.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-food.png"));
+        btnQLTK.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icocn-thongKe.png"));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogOut;
@@ -623,6 +631,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     public void CapNhat() {
         soMayHD();
         soMayT();
+        setIconAll();
         pnlMenuTop.getParent().repaint();
         menuHeThong.getParent().repaint();
     }
