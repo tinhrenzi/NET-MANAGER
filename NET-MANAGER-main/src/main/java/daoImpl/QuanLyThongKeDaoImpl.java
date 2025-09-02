@@ -80,10 +80,8 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
         List<SuDungMay> list = new ArrayList<>();
         String sql = """
         SELECT 
-            sdm.Id,
-            sdm.MaMay,
             sdm.TenMay,
-            COUNT(sdm.Id) AS SoLanSuDung,
+            COUNT(*) AS SoLanSuDung,
             SUM(
                 DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
                     CASE 
@@ -105,17 +103,16 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             ) AS TongTien
         FROM SDMAY sdm
         WHERE sdm.GioKetThuc IS NOT NULL
-        GROUP BY sdm.Id, sdm.MaMay, sdm.TenMay, sdm.GiaTheoGio
-        ORDER BY sdm.TenMay
+        GROUP BY sdm.MaMay, sdm.TenMay, sdm.GiaTheoGio
+        ORDER BY sdm.TenMay;
     """;
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 SuDungMay sdm = new SuDungMay();
-                sdm.setId(rs.getInt("Id"));
-                sdm.setMaMay(rs.getString("MaMay"));
                 sdm.setTenMay(rs.getString("TenMay"));
+                sdm.setSoLanSuDung(rs.getInt("SoLanSuDung"));
                 sdm.setThoiGianChoi(rs.getDouble("TongGioSuDung"));
                 sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                 sdm.setTongTien(rs.getDouble("TongTien"));
@@ -159,32 +156,33 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
         List<SuDungMay> list = new ArrayList<>();
         String sql = """
         SELECT 
-            sdm.Id,
             sdm.MaMay,
             sdm.TenMay,
-            sdm.NgayChoi,
-            sdm.NgayKetThuc,
-            sdm.GioBatDau,
-            sdm.GioKetThuc,
+            COUNT(*) AS SoLanSuDung,
             sdm.GiaTheoGio,
-            (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
-                CASE 
-                    WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                    THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                    ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                END
-            ) / 3600.0) AS TongGioSuDung,
-            ((DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
-                CASE 
-                    WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                    THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                    ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                END
-            ) / 3600.0) * sdm.GiaTheoGio) AS TongTien
+            SUM(
+                DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                    CASE 
+                        WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                        THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                        ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                    END
+                ) / 3600.0
+            ) AS TongGioSuDung,
+            SUM(
+                (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME),
+                    CASE 
+                        WHEN sdm.GioKetThuc < sdm.GioBatDau 
+                        THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
+                        ELSE CAST(sdm.GioKetThuc AS DATETIME) 
+                    END
+                ) / 3600.0) * sdm.GiaTheoGio
+            ) AS TongTien
         FROM SDMAY sdm
         WHERE sdm.NgayChoi BETWEEN ? AND ?
           AND sdm.GioKetThuc IS NOT NULL
-        ORDER BY sdm.NgayChoi, sdm.TenMay
+        GROUP BY sdm.MaMay, sdm.TenMay, sdm.GiaTheoGio
+        ORDER BY sdm.TenMay;
     """;
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -194,13 +192,8 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     SuDungMay sdm = new SuDungMay();
-                    sdm.setId(rs.getInt("Id"));
-                    sdm.setMaMay(rs.getString("MaMay"));
                     sdm.setTenMay(rs.getString("TenMay"));
-                    sdm.setNgayChoi(rs.getDate("NgayChoi"));
-                    sdm.setNgayKetThuc(rs.getDate("NgayKetThuc"));
-                    sdm.setGioBatDau(rs.getTime("GioBatDau"));
-                    sdm.setGioKetThuc(rs.getTime("GioKetThuc"));
+                    sdm.setSoLanSuDung(rs.getInt("SoLanSuDung"));
                     sdm.setThoiGianChoi(rs.getDouble("TongGioSuDung"));
                     sdm.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
                     sdm.setTongTien(rs.getDouble("TongTien"));
