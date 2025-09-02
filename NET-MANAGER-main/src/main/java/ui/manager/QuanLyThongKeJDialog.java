@@ -598,7 +598,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
             double tongTienMay = item.getThoiGianChoi() * item.getGiaTheoGio();
             model.addRow(new Object[]{
                 item.getTenMay(),
-                item.getId(),
+                item.getSoLanSuDung(),
                 String.format("%.2f", item.getThoiGianChoi()),
                 df.format(item.getGiaTheoGio()),
                 df.format(tongTienMay)
@@ -652,7 +652,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         for (SuDungMay sdm : lsMay) {
             modelMay.addRow(new Object[]{
                 sdm.getTenMay(),
-                sdm.getId(),
+                sdm.getSoLanSuDung(),
                 String.format("%.2f", sdm.getThoiGianChoi()),
                 df.format(sdm.getGiaTheoGio()),
                 df.format(sdm.getTongTien())
