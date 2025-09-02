@@ -17,13 +17,9 @@ import util.XQuery;
 
 public class MayTinhDAOImpl implements MayTinhDAO {
 
-    private final String Sql_Cre = "insert into MayTinh(TenMay,TrangThai,GiaTheoGio) values (?,?,?);";
-    private final String Sql_De = "Delete from MayTinh where Id=?";
-    private final String Sql_All = "select * from MayTinh";
-    private final String Sql_FinName = "select * from MayTinh where TenMay like ?";
-
     @Override
     public MayTinh create(MayTinh entity) {
+        String Sql_Cre = "insert into MayTinh(TenMay,TrangThai,GiaTheoGio) values (?,?,?);";
         Object[] args = {
             entity.getTenMay(),
             entity.getTrangThai(),
@@ -47,11 +43,13 @@ public class MayTinhDAOImpl implements MayTinhDAO {
 
     @Override
     public void deleteByID(String id) {
+        String Sql_De = "Delete from MayTinh where Id=?";
         XJdbc.executeUpdate(Sql_De, id);
     }
 
     @Override
     public List<MayTinh> findAll() {
+        String Sql_All = "select * from MayTinh";
         return XQuery.getBeanList(MayTinh.class, Sql_All);
     }
 
@@ -117,6 +115,7 @@ public class MayTinhDAOImpl implements MayTinhDAO {
 
     @Override
     public List<MayTinh> finName(String name) {
+        String Sql_FinName = "select * from MayTinh where TenMay like ?";
         return XQuery.getBeanList(MayTinh.class, Sql_FinName, name);
     }
 
