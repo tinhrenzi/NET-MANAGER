@@ -97,7 +97,6 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         jLabel1.setText("Đăng Nhập");
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-DangNhap-icon-nguoi.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

@@ -217,9 +217,6 @@
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGER-main\src\main\java\img\Ui-DangNhap-icon-nguoi.png"/>
-                </Property>
               </Properties>
             </Component>
           </SubComponents>

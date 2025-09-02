@@ -280,7 +280,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
         btnMoMay.setBackground(new java.awt.Color(204, 204, 204));
         btnMoMay.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        btnMoMay.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-Open32x32.png")); // NOI18N
         btnMoMay.setText("Mở máy");
         btnMoMay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
