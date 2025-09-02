@@ -11,6 +11,7 @@ import daoImpl.MayTinhDAOImpl;
 import daoImpl.SDMayDAOImpl;
 import entity.MayTinh;
 import entity.SuDungMay;
+import java.awt.event.MouseAdapter;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -203,7 +204,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     lblMaSd.setBackground(new java.awt.Color(204, 204, 204));
     lblMaSd.setForeground(new java.awt.Color(204, 204, 204));
-    lblMaSd.setText("masd");
 
     jPanel14.setBackground(new java.awt.Color(13, 71, 161));
 
@@ -226,6 +226,9 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     tblMayTinh.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             tblMayTinhMouseClicked(evt);
+        }
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            tblMayTinhMouseEntered(evt);
         }
     });
     jScrollPane15.setViewportView(tblMayTinh);
@@ -401,18 +404,24 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        String maMay = lblMaSd.getText().trim();
+        String tenMay = lblTenMay.getText();
         String trangthai = lblTrangThai.getText().trim();
+        MenuJDialog menuDialog = new MenuJDialog((java.awt.Frame) this.getParent(), true, maMay, tenMay);
         if (trangthai.equals("Đã thanh toán")) {
             XDialog.alert("Máy đã thanh toán không thể mua tiếp");
             return;
         }
-        String maMay = lblMaSd.getText();
-        String tenMay = lblTenMay.getText();
+        if (maMay.isEmpty()) {
+            showSuccessDialog("Bạn phải chọn máy đang hoạt động tại danh sách máy sử dụng", 4000);
+            menuDialog.setVisible(false);
+            return;
+        }
+
         if (maMay == null || maMay.equals("MT") || maMay.trim().isEmpty()) {
             XDialog.alert("Vui lòng chọn một máy trước khi mở menu.");
             return;
         }
-        MenuJDialog menuDialog = new MenuJDialog((java.awt.Frame) this.getParent(), true, maMay, tenMay);
         menuDialog.setVisible(true);
     }//GEN-LAST:event_btnMenuActionPerformed
 
@@ -436,21 +445,18 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     private void btnMoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoActionPerformed
         int selectedRow = tblMayTinh.getSelectedRow();
+        String trangthai = lblTrangThai.getText().trim();
         if (selectedRow < 0) {
             XDialog.alert("Vui lòng chọn máy bạn muốn mở");
             return;
         }
 
-        String tenMay = tblMayTinh.getValueAt(selectedRow, 0).toString();
-        String trangthai = lblTrangThai.getText().trim();
-
         if (trangthai.equals("Hoạt động")) {
             XDialog.alert("Máy đã hoạt động, không thể mở tiếp");
             return;
         }
-
-        if (dao.isMayDangHoatDong(tenMay)) {
-            XDialog.alert("Máy " + tenMay + " đang hoạt động, không thể mở thêm lần nữa");
+        if (trangthai.equals("Bảo trì")) {
+            showSuccessDialog("Máy hiện đang bảo trì vui lòng chọn máy khác", 2000);
             return;
         }
 
@@ -461,6 +467,10 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         Clear();
     }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void tblMayTinhMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMayTinhMouseEntered
+        CapNhat();
+    }//GEN-LAST:event_tblMayTinhMouseEntered
 
     /**
      * @param args the command line arguments
@@ -525,6 +535,30 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         lblTrangThai.setText(Trang);
     }
 
+    private void showSuccessDialog(String message, int timeMillis) {
+        JOptionPane optionPane = new JOptionPane(
+                message,
+                JOptionPane.INFORMATION_MESSAGE,
+                JOptionPane.DEFAULT_OPTION,
+                null,
+                new Object[]{},
+                null);
+
+        JDialog dialog = optionPane.createDialog(this, "Thông báo");
+
+        dialog.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                dialog.dispose();
+            }
+        });
+        new javax.swing.Timer(timeMillis, e -> dialog.dispose()).start();
+        dialog.setVisible(true);
+    }
+
+    public void CapNhat() {
+        lblMaSd.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnMo;
@@ -643,6 +677,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         lblGioBatDau.setText("");
         lblGiaTheoGio.setText(".........................");
         lblTrangThai.setText("...............");
+        lblMaSd.setText("");
         DongHo();
     }
 
@@ -669,6 +704,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     public void NgayHienTai() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String ngayHienTai = sdf.format(new Date());
-        lblNgayHienTai.setText( ngayHienTai);
+        lblNgayHienTai.setText(ngayHienTai);
     }
 }

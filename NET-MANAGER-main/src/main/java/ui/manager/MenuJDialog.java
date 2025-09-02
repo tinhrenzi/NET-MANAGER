@@ -22,7 +22,9 @@ import java.util.concurrent.TimeUnit;
 import util.XDialog;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
 import java.io.File;
+import javax.swing.JDialog;
 
 /**
  *
@@ -525,6 +527,11 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_muaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_muaActionPerformed
+        String masd = lblMaSd.getText().trim();
+        if (masd.isEmpty()) {
+            showSuccessDialog("Bạn đã bỏ qua bước chọn máy từ danh sách sử dụng", 3000);
+            return;
+        }
         this.create();
     }//GEN-LAST:event_btn_muaActionPerformed
 
@@ -604,6 +611,26 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         });
     }
 
+    private void showSuccessDialog(String message, int timeMillis) {
+        JOptionPane optionPane = new JOptionPane(
+                message,
+                JOptionPane.INFORMATION_MESSAGE,
+                JOptionPane.DEFAULT_OPTION,
+                null,
+                new Object[]{},
+                null);
+
+        JDialog dialog = optionPane.createDialog(this, "Thông báo");
+
+        dialog.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                dialog.dispose();
+            }
+        });
+        new javax.swing.Timer(timeMillis, e -> dialog.dispose()).start();
+        dialog.setVisible(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Tabpnl;
     private javax.swing.JButton btnSua;
