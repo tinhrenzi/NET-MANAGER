@@ -95,7 +95,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         jLabel7.setText("Trạng thái");
 
         cboTrangThai.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt động ", "Ngừng hoạt động", "Bảo trì" }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt động ", "Trống", "Bảo trì" }));
         cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTrangThaiActionPerformed(evt);
@@ -440,7 +440,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             String trangThai = TrangThai.toString().trim();
             if (trangThai.equalsIgnoreCase("Hoạt động")) {
                 cboTrangThai.setSelectedIndex(0);
-            } else if (trangThai.equalsIgnoreCase("Ngừng hoạt động")) {
+            } else if (trangThai.equalsIgnoreCase("Trống")) {
                 cboTrangThai.setSelectedIndex(1);
             } else if (trangThai.equalsIgnoreCase("Bảo trì")) {
                 cboTrangThai.setSelectedIndex(2);
@@ -496,8 +496,8 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     public MayTinh getForm() {
         MayTinh entity = new MayTinh();
         entity.setTenMay(txtName.getText());
-        entity.setGiaTheoGio(Integer.parseInt(txtGia.getText()));
-        entity.setTrangThai(cboTrangThai.getSelectedItem().toString());
+        entity.setGiaTheoGio(Float.parseFloat(txtGia.getText()));
+        entity.setTrangThai("Trống");
         return entity;
 
     }
@@ -506,7 +506,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         MayTinh entity = new MayTinh();
         entity.setId(lblMaMay.getText());
         entity.setTenMay(txtName.getText());
-        entity.setGiaTheoGio(Integer.parseInt(txtGia.getText()));
+        entity.setGiaTheoGio(Float.parseFloat(txtGia.getText()));
         entity.setTrangThai(cboTrangThai.getSelectedItem().toString());
         return entity;
 
