@@ -178,7 +178,6 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
         }
     });
 
-    tblSDM.setAutoCreateRowSorter(true);
     tblSDM.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
     tblSDM.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
@@ -369,6 +368,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     private void tblSDMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSDMMouseClicked
         int index = tblSDM.getSelectedRow();
         filltblSDMAY(index);
+        TatDongHo();
     }//GEN-LAST:event_tblSDMMouseClicked
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
