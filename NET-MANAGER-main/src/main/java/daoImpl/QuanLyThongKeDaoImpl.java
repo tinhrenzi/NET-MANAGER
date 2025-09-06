@@ -22,17 +22,10 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     public List<ThongKeDoanhThu> getAllThonKe() {
         List<ThongKeDoanhThu> list = new ArrayList<>();
         String sql = "SELECT "
-                + "    SUM(CEILING((DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), "
-                + "        CASE "
-                + "            WHEN sdm.GioKetThuc < sdm.GioBatDau "
-                + "            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) "
-                + "            ELSE CAST(sdm.GioKetThuc AS DATETIME) "
-                + "        END "
-                + "    ) / 3600.0) * 100) / 100.0 * sdm.GiaTheoGio) AS TongTienMay, "
-                + "    ISNULL(SUM(mn.TongTien), 0) AS TongTienMon "
-                + "FROM SDMAY sdm "
-                + "LEFT JOIN Menu mn ON sdm.Id = mn.MaSDMay "
-                + "WHERE sdm.GioKetThuc IS NOT NULL";
+                + "ISNULL(SUM(TongTienMay), 0) AS TongTienMay, "
+                + "ISNULL(SUM(TongTienMon), 0) AS TongTienMon, "
+                + "ISNULL(SUM(TongTien), 0) AS TongDoanhThu "
+                + "FROM ThanhToan";
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
@@ -40,6 +33,7 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
                 ThongKeDoanhThu tkd = new ThongKeDoanhThu();
                 tkd.setTongTienMay(rs.getDouble("TongTienMay"));
                 tkd.setTongTienMon(rs.getDouble("TongTienMon"));
+                tkd.setTongDoanhThu(rs.getDouble("TongDoanhThu"));
                 list.add(tkd);
             }
 
@@ -53,37 +47,16 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     public List<SuDungMay> getAllSDMay() {
         List<SuDungMay> list = new ArrayList<>();
         String sql = """
-                 SELECT 
-                     sdm.TenMay, 
-                     COUNT(sdm.Id) AS SoLanSuDung, 
-                     SUM(
-                         CEILING(
-                             (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
-                                 CASE 
-                                     WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                                     THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                                     ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                                 END
-                             ) / 3600.0) * 100
-                         ) / 100.0
-                     ) AS TongGioSuDung, 
-                     sdm.GiaTheoGio, 
-                     SUM(
-                         (
-                             CEILING(
-                                 (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
-                                     CASE 
-                                         WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                                         THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                                         ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                                     END
-                                 ) / 3600.0) * 100
-                             ) / 100.0
-                         ) * sdm.GiaTheoGio
-                     ) AS TongTien 
-                 FROM SDMAY sdm 
-                 WHERE sdm.GioKetThuc IS NOT NULL
-                 GROUP BY sdm.TenMay, sdm.GiaTheoGio 
+                 SELECT
+                     sdm.TenMay,
+                     COUNT(tt.Id) AS SoLanSuDung,
+                     CAST(ROUND(SUM(tt.TongGio), 2) AS DECIMAL(10,2)) AS TongGioSuDung,
+                     MAX(tt.GiaTienTheoGio) AS GiaTheoGio,
+                     SUM(tt.TongTienMay) AS TongTien 
+                 FROM ThanhToan tt
+                 JOIN SDMAY sdm ON sdm.Id = tt.MaSDMay
+                 WHERE tt.NgayThanhToan IS NOT NULL
+                 GROUP BY sdm.TenMay
                  ORDER BY sdm.TenMay;
                  """;
 
@@ -109,43 +82,17 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     public List<SuDungMay> getLichSuSuDungMay(Date tuNgay, Date denNgay) {
         List<SuDungMay> list = new ArrayList<>();
         String sql = """
-        SELECT 
-            sdm.TenMay, 
-            COUNT(sdm.Id) AS SoLanSuDung, 
-            
-            SUM(
-                CEILING(
-                    (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
-                        CASE 
-                            WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                            THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                            ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                        END
-                    ) / 3600.0) * 100
-                ) / 100.0
-            ) AS TongGioSuDung, 
-            
-            sdm.GiaTheoGio, 
-            
-            SUM(
-                (
-                    CEILING(
-                        (DATEDIFF(SECOND, CAST(sdm.GioBatDau AS DATETIME), 
-                            CASE 
-                                WHEN sdm.GioKetThuc < sdm.GioBatDau 
-                                THEN DATEADD(DAY, 1, CAST(sdm.GioKetThuc AS DATETIME)) 
-                                ELSE CAST(sdm.GioKetThuc AS DATETIME) 
-                            END
-                        ) / 3600.0) * 100
-                    ) / 100.0
-                ) * sdm.GiaTheoGio
-            ) AS TongTien 
-            
-        FROM SDMAY sdm 
-        WHERE sdm.GioKetThuc IS NOT NULL
-          AND CAST(sdm.NgayChoi AS DATE) BETWEEN ? AND ?
-        GROUP BY sdm.TenMay, sdm.GiaTheoGio 
-        ORDER BY sdm.TenMay;
+        SELECT
+                             sdm.TenMay,
+                             COUNT(tt.Id) AS SoLanSuDung,
+                             CAST(ROUND(SUM(tt.TongGio), 2) AS DECIMAL(10,2)) AS TongGioSuDung,
+                             MAX(tt.GiaTienTheoGio) AS GiaTheoGio,
+                             SUM(tt.TongTienMay) AS TongTien 
+                         FROM ThanhToan tt
+                         JOIN SDMAY sdm ON sdm.Id = tt.MaSDMay
+                         WHERE tt.NgayThanhToan IS NOT NULL
+                         GROUP BY sdm.TenMay
+                         ORDER BY sdm.TenMay;
     """;
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
