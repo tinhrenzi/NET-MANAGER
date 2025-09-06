@@ -50,6 +50,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -663,7 +664,14 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        this.delete();
+        try {
+            this.delete();
+            showSuccessDialog("Xóa thành công", 2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showSuccessDialog("Xóa không thành công", 2000);
+        }
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblUsermagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsermagerMouseClicked
@@ -844,6 +852,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cboVaitro;
     private com.toedter.calendar.JDateChooser dacDateCre;
     private javax.swing.JButton jButton1;
@@ -1015,8 +1024,6 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
             dao.deleteByID(id);
             this.fillToTable();
             this.clear();
-            showSuccessDialog("Xóa thành công", 2000);
-
         }
     }
 
