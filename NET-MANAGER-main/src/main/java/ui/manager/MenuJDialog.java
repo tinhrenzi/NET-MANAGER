@@ -368,8 +368,8 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
                         .addComponent(lblNgayHienTai, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
+                        .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -399,12 +399,11 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
                                 .addGap(32, 32, 32)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(66, 66, 66))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51)))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNgayHienTai, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -455,13 +454,23 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     }//GEN-LAST:event_tblOrderManagerMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        int sl = Integer.parseInt(txtSoLuong.getText());
-        if (sl <= -1) {
-            XDialog.alert("Số lượng không được âm");
+        int sl;
+        try {
+            sl = Integer.parseInt(txtSoLuong.getText());
+            if (sl <= 0) {
+                XDialog.alert("Số lượng phải lớn hơn 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            XDialog.alert("Số lượng phải là số nguyên hợp lệ");
             return;
         }
-        SuaSoLuongDangMua();
-        SuaSoLuong();
+
+        if (tblTongMonAn.getSelectedRow() != -1) {
+            SuaSoLuongDangMua();
+        } else {
+            SuaSoLuong();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btn_huyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_huyActionPerformed
@@ -524,6 +533,8 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         }
 
         updateTongTien();
+        txtSoLuong.setText("");
+        lblHinhAnh.setIcon(null);
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_muaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_muaActionPerformed
