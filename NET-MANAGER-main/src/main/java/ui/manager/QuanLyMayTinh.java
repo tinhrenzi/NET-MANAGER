@@ -378,7 +378,8 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     }//GEN-LAST:event_cboTrangThaiActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        this.findName();
+        String finname = txtFind.getText();
+        findName(finname);
     }//GEN-LAST:event_btnFindActionPerformed
 
     /**
@@ -522,8 +523,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                 item.getId(),
                 item.getTenMay(),
                 item.getGiaTheoGio(),
-                item.getTrangThai(),
-            };
+                item.getTrangThai(),};
             model.addRow(rowData);
         });
     }
@@ -631,30 +631,25 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     }
 
-    public void findName() {
-        String tenmay = txtFind.getText().trim();
+    public void findName(String name) {
+        String tenmay = txtFind.getText();
         if (tenmay.isEmpty()) {
             XDialog.alert("Vui lòng nhập tên máy để tìm!");
             return;
         }
-
-        List<MayTinh> result = dao.finName(tenmay);
         DefaultTableModel model = (DefaultTableModel) tblQLMT.getModel();
         model.setRowCount(0);
 
-        if (result.isEmpty()) {
-            XDialog.alert("Không tìm thấy máy nào có tên: " + tenmay);
-            return;
-        }
+        for (MayTinh item : list) {
+            if (item.getTenMay().toLowerCase().contains(tenmay.toLowerCase())) {
+                model.addRow(new Object[]{
+                    item.getId(),
+                    item.getTenMay(),
+                    item.getGiaTheoGio(),
+                    item.getTrangThai()
+                });
 
-        for (MayTinh item : result) {
-            Object[] rowData = {
-                item.getId(),
-                item.getTenMay(),
-                item.getGiaTheoGio(),
-                item.getTrangThai()
-            };
-            model.addRow(rowData);
+            }
         }
     }
 

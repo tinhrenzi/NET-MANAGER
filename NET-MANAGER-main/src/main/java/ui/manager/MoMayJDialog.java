@@ -372,9 +372,16 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     }//GEN-LAST:event_tblSDMMouseClicked
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-
         if (lblTrangThai.getText().equals("Đã thanh toán")) {
             XDialog.alert("Máy đã thanh toán không thể thanh toán tiếp");
+            return;
+        }
+        if (lblTrangThai.getText().equals("Trống")) {
+            showSuccessDialog("Vui lòng chọn máy từ bảng Danh sách sử dụng máy ", 2000);
+            return;
+        }
+        if (lblTrangThai.getText().equals("Bảo trì")) {
+            showSuccessDialog("Vui lòng chọn máy từ bảng Danh sách sử dụng máy ", 2000);
             return;
         }
 
@@ -527,8 +534,10 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     public void filltblSDMAY(int row) {
         String id = tblSDM.getValueAt(row, 0).toString();
         String Ten = tblSDM.getValueAt(row, 1).toString();
+        String GBD = tblSDM.getValueAt(row, 5).toString();
         String Trang = tblSDM.getValueAt(row, 7).toString();
         String Gia = tblSDM.getValueAt(row, 2).toString();
+        lblGioBatDau.setText(GBD);
         lblMaSd.setText(id);
         lblTenMay.setText(Ten);
         lblGiaTheoGio.setText(Gia);
