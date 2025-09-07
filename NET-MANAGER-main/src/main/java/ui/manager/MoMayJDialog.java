@@ -367,6 +367,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     private void tblSDMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSDMMouseClicked
         int index = tblSDM.getSelectedRow();
+        TatDongHo();
         filltblSDMAY(index);
     }//GEN-LAST:event_tblSDMMouseClicked
 
