@@ -108,6 +108,11 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         });
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel4MouseEntered(evt);
+            }
+        });
 
         lblNgayHienTai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -577,6 +582,10 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         lblTongTien.setText(tongTien);
     }//GEN-LAST:event_tblTongMonAnMouseClicked
 
+    private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
+        CapNhat();
+    }//GEN-LAST:event_jPanel4MouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -672,6 +681,9 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     private javax.swing.JTable tblTongMonAn;
     private javax.swing.JTextField txtSoLuong;
     // End of variables declaration//GEN-END:variables
+    public void CapNhat() {
+        filltblDaNMua();
+    }
 
     private void updateTongTien() {
         DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
