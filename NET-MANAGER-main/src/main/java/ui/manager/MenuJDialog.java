@@ -24,6 +24,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.io.File;
 import javax.swing.JDialog;
+import util.Style_Net;
 
 /**
  *
@@ -43,6 +44,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     public MenuJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Style_Net.styleAllTables(this.getContentPane());
         setLocationRelativeTo(null);
     }
     ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);

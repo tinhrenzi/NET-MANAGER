@@ -18,6 +18,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import util.Style_Net;
 import util.XAuth;
 
 /**
@@ -36,6 +37,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     public QuanLyNhanVienJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Style_Net.styleAllTables(this.getContentPane());
         fillToTable();
         setLocationRelativeTo(null);
     }

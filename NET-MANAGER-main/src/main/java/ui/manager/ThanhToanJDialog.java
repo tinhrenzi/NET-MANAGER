@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.Style_Net;
 
 /**
  *
@@ -51,6 +52,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     public ThanhToanJDialog(java.awt.Frame parent, boolean modal, String MaSDMay, String TenMay, String NgayChoi, String NgayNghi, String gioVao, String GioNghi, float giah) {
         super(parent, modal);
         initComponents();
+        Style_Net.styleAllTables(this.getContentPane());
         setLocationRelativeTo(null);
 
         lblTenMay.setText(TenMay);

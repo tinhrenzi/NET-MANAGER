@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import util.Style_Net;
 import util.XDialog;
 
 /**
@@ -41,6 +42,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Style_Net.styleAllTables(this.getContentPane());
         setLocationRelativeTo(null);
         FilltblMayTinh();
         FilltblSDMay();

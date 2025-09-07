@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import dao.QuanLyThongKeDAO;
+import util.Style_Net;
 import util.XDialog;
 
 // Import model & controller
@@ -32,6 +33,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     public QuanLyThongKeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Style_Net.styleAllTables(this.getContentPane());
         setLocationRelativeTo(null);
         getFillSDMay();
         getFillMenu();
@@ -409,7 +411,7 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
 
     private void btnXemBangThongkeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemBangThongkeActionPerformed
 
-            thongKeDoanhThu();
+        thongKeDoanhThu();
     }//GEN-LAST:event_btnXemBangThongkeActionPerformed
 
     private void btnXemSuDungMayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemSuDungMayActionPerformed

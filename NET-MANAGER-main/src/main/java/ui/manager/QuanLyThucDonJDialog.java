@@ -17,6 +17,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import util.Style_Net;
 
 /**
  *
@@ -34,6 +35,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
     public QuanLyThucDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Style_Net.styleAllTables(this.getContentPane());
         setLocationRelativeTo(null);
         open();
     }
