@@ -52,6 +52,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     public MenuJDialog(java.awt.Frame parent, boolean modal, String maMay, String TenMay) {
         super(parent, modal);
         initComponents();
+        Style_Net.styleAllTables(this.getContentPane());
         setLocationRelativeTo(null);
         fillToTable();
         scheduler.schedule(() -> {

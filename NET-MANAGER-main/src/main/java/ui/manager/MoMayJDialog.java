@@ -294,7 +294,7 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                     .addGap(18, 18, 18)
                     .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThanhToan))
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(30, 30, 30)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
