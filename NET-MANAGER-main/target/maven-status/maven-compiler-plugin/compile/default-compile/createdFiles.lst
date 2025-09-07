@@ -1,5 +1,4 @@
 ui\manager\QuanLyThongKeJDialog$3.class
-ui\manager\ThanhToanJDialog$2$1.class
 ui\WelcomeJDialog$1.class
 entity\ThongKeDoanhThu.class
 ui\manager\QuanLyNhanVienJDialog$3.class
@@ -15,6 +14,7 @@ entity\MonAn.class
 ui\manager\MenuJDialog$1.class
 ui\NetManagerJFrame$8.class
 daoImpl\MayTinhDAOImpl.class
+ui\manager\MenuJDialog$12$1.class
 ui\NetManagerJFrame$14.class
 daoImpl\AdminDAOImpl.class
 ui\manager\QuanLyThucDonJDialog$10.class
@@ -79,13 +79,13 @@ ui\NetManagerJFrame.class
 ui\manager\MoMayJDialog$5.class
 controller\DangNhapController.class
 ui\manager\QuanLyNhanVienJDialog$16$1.class
+ui\manager\ThanhToanJDialog$3.class
 dao\CrudDAO.class
 ui\DoiMatKhauJDialog$4$1.class
 ui\WelcomeJDialog.class
 dao\MonAnDAO.class
 ui\DangNhapJDialog.class
 ui\NetManagerJFrame$11.class
-ui\manager\MenuJDialog$11$1.class
 ui\manager\MoMayJDialog$10$1.class
 ui\DoiMatKhauJDialog$1.class
 ui\manager\QuanLyThongKeJDialog$6.class
@@ -96,6 +96,7 @@ controller\CrudController.class
 dao\SDMayDAO.class
 entity\Menu.class
 util\XAuth.class
+ui\manager\ThanhToanJDialog$3$1.class
 ui\manager\MenuJDialog$4.class
 ui\DangNhapJDialog$2.class
 ui\manager\QuanLyMayTinh$2.class
@@ -144,6 +145,7 @@ ui\manager\QuanLyMayTinh$4.class
 controller\MenuController.class
 controller\ThucDonController.class
 ui\manager\QuanLyNhanVienJDialog$11.class
+ui\manager\MenuJDialog$13.class
 ui\manager\MenuJDialog$7.class
 ui\manager\QuanLyThucDonJDialog$2.class
 ui\manager\QuanLyMayTinh.class
