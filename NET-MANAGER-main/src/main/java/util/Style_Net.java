@@ -38,7 +38,7 @@ public class Style_Net {
 
             // Màu sắc chủ đạo
             UIManager.put("Component.focusColor", new Color(100, 149, 237));   // Xanh Cornflower
-            UIManager.put("Button.hoverBackground", new Color(230, 240, 255));
+            UIManager.put("Button.hoverBackground", new Color(0x154D71));
             UIManager.put("Table.selectionBackground", new Color(65, 105, 225)); // xanh đậm khi chọn
             UIManager.put("Table.selectionForeground", Color.WHITE);
             UIManager.put("Table.alternateRowColor", new Color(245, 245, 245));
