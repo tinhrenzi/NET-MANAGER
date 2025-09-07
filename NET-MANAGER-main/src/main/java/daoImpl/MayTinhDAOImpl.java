@@ -43,14 +43,8 @@ public class MayTinhDAOImpl implements MayTinhDAO {
 
     @Override
     public void deleteByID(String id) {
-        String Sql_De = "Delete from MayTinh where Id=?";
-        XJdbc.executeUpdate(Sql_De, id);
-    }
-
-    @Override
-    public List<MayTinh> findAll() {
-        String Sql_All = "select Id, TenMay, GiaTheoGio, TrangThai from MayTinh";
-        return XQuery.getBeanList(MayTinh.class, Sql_All);
+        String Sql_Del = "delete from MayTinh where Id= ?";
+        XJdbc.executeUpdate(Sql_Del, id);
     }
 
     @Override
@@ -59,40 +53,17 @@ public class MayTinhDAOImpl implements MayTinhDAO {
     }
 
     @Override
-    public void capNhatTrangThai(String maMay, String trangThai) {
-        String sql = "UPDATE MayTinh SET TrangThai = ? WHERE Id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, trangThai);
-            ps.setString(2, maMay);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    Connection conn = XJdbc.openConnection();
-
-    @Override
-    public String layTrangThai(String maMay) {
-        String sql = "SELECT TrangThai FROM MayTinh WHERE Id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, maMay);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "Không rõ";
-    }
-
-    @Override
-    public List<String> getTatCaMaMay() {
-        List<String> list = new ArrayList<>();
-        String sql = "SELECT Id FROM MayTinh";
-        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+    public List<MayTinh> findAll() {
+        String Sql_All = "select * from MayTinh";
+        List<MayTinh> list = new ArrayList<>();
+        try (ResultSet rs = XJdbc.executeQuery(Sql_All)) {
             while (rs.next()) {
-                list.add(rs.getString(1));
+                MayTinh mt = new MayTinh();
+                mt.setId(rs.getString("Id"));
+                mt.setTenMay(rs.getString("TenMay"));
+                mt.setGiaTheoGio(rs.getFloat("GiaTheoGio"));
+                mt.setTrangThai(rs.getString("TrangThai"));
+                list.add(mt);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,4 +116,43 @@ public class MayTinhDAOImpl implements MayTinhDAO {
         return 0;
     }
 
+    @Override
+    public void capNhatTrangThai(String maMay, String trangThai) {
+        String sql = "UPDATE MayTinh SET TrangThai = ? WHERE Id = ?";
+        try (
+                Connection con = XJdbc.openConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, trangThai);
+            ps.setString(2, maMay);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String layTrangThai(String maMay) {
+        String sql = "SELECT TrangThai FROM MayTinh WHERE Id = ?";
+        try (ResultSet rs = XJdbc.executeQuery(sql, maMay)) {
+            if (rs.next()) {
+                return rs.getString("TrangThai");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<String> getTatCaMaMay() {
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT Id FROM MayTinh";
+        try (ResultSet rs = XJdbc.executeQuery(sql)) {
+            while (rs.next()) {
+                list.add(rs.getString("Id"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

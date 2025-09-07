@@ -8,6 +8,7 @@ import controller.QuanLyMayTinhConntroll;
 import dao.MayTinhDAO;
 import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
@@ -22,7 +23,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
      * Creates new form QuanLyMayTinh
      */
     MayTinhDAO dao = new MayTinhDAOImpl();
-    List<MayTinh> list = List.of();
+    List<MayTinh> list = new ArrayList<>();
 
     public QuanLyMayTinh(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
