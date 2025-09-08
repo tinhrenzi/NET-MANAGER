@@ -523,13 +523,28 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
             return;
         }
 
+        MonAn mon = MonAnDao.findByID(ma);
+        int tonKho = mon.getSoLuong();
+
+        if (soLuongNhap > tonKho) {
+            JOptionPane.showMessageDialog(this,
+                    "Số lượng nhập vượt quá tồn kho (" + tonKho + "). Hệ thống sẽ tự chỉnh về " + tonKho);
+            soLuongNhap = tonKho;
+        }
+
         DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
         boolean found = false;
 
         for (int i = 0; i < model.getRowCount(); i++) {
             if (model.getValueAt(i, 0).toString().equals(ma)) {
                 int currentQty = Integer.parseInt(model.getValueAt(i, 3).toString());
-                model.setValueAt(currentQty + soLuongNhap, i, 3);
+                int newQty = currentQty + soLuongNhap;
+                if (newQty > tonKho) {
+                    newQty = tonKho;
+                    JOptionPane.showMessageDialog(this,
+                            "Tổng số lượng cho món này vượt tồn kho. Đã chỉnh về " + newQty);
+                }
+                model.setValueAt(newQty, i, 3);
                 found = true;
                 break;
             }
@@ -542,6 +557,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
         updateTongTien();
         txtSoLuong.setText("");
         lblHinhAnh.setIcon(null);
+
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_muaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_muaActionPerformed
