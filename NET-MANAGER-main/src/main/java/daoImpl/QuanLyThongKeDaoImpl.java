@@ -82,18 +82,19 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
     public List<SuDungMay> getLichSuSuDungMay(Date tuNgay, Date denNgay) {
         List<SuDungMay> list = new ArrayList<>();
         String sql = """
-        SELECT
-                             sdm.TenMay,
-                             COUNT(tt.Id) AS SoLanSuDung,
-                             CAST(ROUND(SUM(tt.TongGio), 2) AS DECIMAL(10,2)) AS TongGioSuDung,
-                             MAX(tt.GiaTienTheoGio) AS GiaTheoGio,
-                             SUM(tt.TongTienMay) AS TongTien 
-                         FROM ThanhToan tt
-                         JOIN SDMAY sdm ON sdm.Id = tt.MaSDMay
-                         WHERE tt.NgayThanhToan IS NOT NULL
-                         GROUP BY sdm.TenMay
-                         ORDER BY sdm.TenMay;
-    """;
+                SELECT
+                    sdm.TenMay,
+                    COUNT(tt.Id) AS SoLanSuDung,
+                    CAST(ROUND(SUM(tt.TongGio), 2) AS DECIMAL(10,2)) AS TongGioSuDung,
+                    MAX(tt.GiaTienTheoGio) AS GiaTheoGio,
+                    SUM(tt.TongTienMay) AS TongTien 
+                FROM ThanhToan tt
+                JOIN SDMAY sdm ON sdm.Id = tt.MaSDMay
+                WHERE tt.NgayThanhToan IS NOT NULL
+                  AND tt.NgayThanhToan BETWEEN ? AND ?
+                GROUP BY sdm.TenMay
+                ORDER BY sdm.TenMay;
+            """;
 
         try (Connection conn = XJdbc.openConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -212,6 +213,6 @@ public class QuanLyThongKeDaoImpl implements QuanLyThongKeDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return list;
     }
 }
