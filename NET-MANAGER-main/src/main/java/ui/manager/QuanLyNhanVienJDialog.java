@@ -23,10 +23,10 @@ import util.XAuth;
 
 /**
  *
- * @author Admin
+ * @author LuongHiep
  */
 public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLyNhanVienController {
-
+int a;
     /**
      * Creates new form QuanLyNhanVienJDialog
      */
