@@ -36,9 +36,15 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         initComponents();
         setLocationRelativeTo(null);
         this.init();
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                setBackgroundImage("src/main/java/img/BackRoundNetManager.png");
+            }
+        });
+
     }
 
-    
     void btnopmenu() {
         new Thread(new Runnable() {
             @Override
@@ -371,7 +377,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 lblBackRoundMouseEntered(evt);
             }
         });
-        getContentPane().add(lblBackRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 0, 1530, 690));
+        getContentPane().add(lblBackRound, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1450, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -487,6 +493,20 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         });
     }
 
+    public void setBackgroundImage(String path) {
+        // Lấy kích thước Frame hiện tại
+        int width = this.getWidth();
+        int height = this.getHeight();
+
+        // Load ảnh
+        ImageIcon icon = new ImageIcon(path);
+        Image img = icon.getImage();
+        // Scale ảnh khớp với kích thước Frame
+        Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+
+        lblBackRound.setIcon(new ImageIcon(scaledImg));
+    }
+
     public ImageIcon ResizeImage(String ImagePath) {
         ImageIcon myImage = new ImageIcon(ImagePath);
         Image img = myImage.getImage();
@@ -495,7 +515,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     }
 
     public void setIconAll() {
-        lblBackRound.setIcon(new ImageIcon("src/main/java/img/BackRoundNetManager.png"));
+        setBackgroundImage("src/main/java/img/backgroundJFrame.png");
         lblSoMayTrong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
         lblSoMayHoatDong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
         btnMoMay.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-Open32x32.png"));
@@ -506,6 +526,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         btnQLTD.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-food.png"));
         btnQLTK.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icocn-thongKe.png"));
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogOut;
