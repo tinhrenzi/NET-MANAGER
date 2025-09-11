@@ -38,46 +38,45 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     int h = 690;
     private Timer dongHoTimer;
     MayTinhDAO dao = new MayTinhDAOImpl();
-
+    
     public NetManagerJFrame() {
         initComponents();
         setLocationRelativeTo(null);
         this.init();
-
+        
         this.setContentPane(new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
             }
         });
-
+        
         getContentPane().add(lblBackRound, BorderLayout.CENTER);
         lblBackRound.setLayout(new BorderLayout());
-
+        
         menuHeThong.setPreferredSize(new Dimension(80, 690));
         pnlMenuTop.setPreferredSize(new Dimension(0, 100));
         jPanel2.setPreferredSize(new Dimension(250, 0));
-
+        
         lblBackRound.add(menuHeThong, BorderLayout.WEST);
         lblBackRound.add(pnlMenuTop, BorderLayout.NORTH);
         lblBackRound.add(jPanel2, BorderLayout.EAST);
-
+        
         JPanel timePanel = new JPanel(new GridLayout(2, 1));
         timePanel.setOpaque(false);
         timePanel.add(lblGioHienTai);
         timePanel.add(lblNgayHienTai);
-
+        
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         bottomPanel.setOpaque(false);
         bottomPanel.add(timePanel);
-
+        
         lblBackRound.add(bottomPanel, BorderLayout.SOUTH);
         menuHeThong.setOpaque(false);
         pnlMenuTop.setOpaque(false);
         jPanel2.setOpaque(false);
-        lbclmenu.setOpaque(true);
     }
-
+    
     void btnopmenu() {
         new Thread(new Runnable() {
             @Override
@@ -92,7 +91,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         }).start();
     }
-
+    
     void btnclmenu() {
         new Thread(new Runnable() {
             @Override
@@ -107,15 +106,15 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         }).start();
     }
-
+    
     class BackgroundLabel extends JLabel {
-
+        
         private Image backgroundImage;
-
+        
         public BackgroundLabel(String path) {
             this.backgroundImage = new ImageIcon(path).getImage();
         }
-
+        
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -241,33 +240,33 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuHeThongLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(menuHeThongLayout.createSequentialGroup()
-                                .addComponent(btnQLMT, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(menuHeThongLayout.createSequentialGroup()
-                                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnQLTD, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnQLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(menuHeThongLayout.createSequentialGroup()
-                                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)))))
+                        .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(menuHeThongLayout.createSequentialGroup()
+                                    .addComponent(btnQLMT, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(menuHeThongLayout.createSequentialGroup()
+                                    .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnQLTD, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnQLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(menuHeThongLayout.createSequentialGroup()
+                                    .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel2))))))
                 .addGap(30, 30, 30))
         );
         menuHeThongLayout.setVerticalGroup(
             menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuHeThongLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(23, 23, 23)
                 .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
+                .addGap(65, 65, 65)
                 .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuHeThongLayout.createSequentialGroup()
@@ -532,16 +531,16 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 new NetManagerJFrame().setVisible(true);
             }
         });
-
+        
     }
-
+    
     public ImageIcon ResizeImage(String ImagePath) {
         ImageIcon myImage = new ImageIcon(ImagePath);
         Image img = myImage.getImage();
         Image newImg = img.getScaledInstance(lblAnh.getWidth(), lblAnh.getHeight(), Image.SCALE_SMOOTH);
         return new ImageIcon(newImg);
     }
-
+    
     public void setIconAll() {
         lblBackRound = new BackgroundLabel("src/main/java/img/backgroundJFrame.png");
         lblSoMayTrong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
@@ -594,25 +593,25 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         }
         startDongHo();
     }
-
+    
     private void loadAnhChinh(Admin admin) {
         if (admin.getAnh() != null && !admin.getAnh().isEmpty()) {
             String path = admin.getAnh();
             File f = new File(path);
-
+            
             if (!f.exists()) {
                 String alt = "src/images/" + path;
                 if (new File(alt).exists()) {
                     path = alt;
                 }
             }
-
+            
             lblAnh.setIcon(ResizeImage(path));
         } else {
             lblAnh.setIcon(null);
         }
     }
-
+    
     public void setRole() {
         int role = XAuth.user.getVaiTro();
         String name = XAuth.user.getTen();
@@ -638,7 +637,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 + "</div>"
                 + "</html>");
     }
-
+    
     private void dangXuat() {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn đăng xuất?", "Đăng xuất", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
@@ -654,31 +653,31 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         }
     }
-
+    
     public void NgayHienTai() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String ngayHienTai = sdf.format(new Date());
         lblNgayHienTai.setText(ngayHienTai);
     }
-
+    
     public void soMayHD() {
         int soMayHD = dao.getSoMayDangHoatDong();
         lblSoMayHoatDong.setText("<html>"
                 + "<span style='color: #00E676; font-size: 14px;'>Số máy đang hoạt động:</span> "
                 + "<span style='color: yellow; font-size: 18px; font-weight: bold;'>" + soMayHD + "</span>"
                 + "</html>");
-
+        
     }
-
+    
     public void soMayT() {
         int soMayTrong = dao.getSoMayDangTrong();
         lblSoMayTrong.setText("<html>"
                 + "<span style='color: #FF1744; font-size: 14px;'>Số máy trống:</span> "
                 + "<span style='color: white; font-size: 18px; font-weight: bold;'>" + soMayTrong + "</span>"
                 + "</html>");
-
+        
     }
-
+    
     public void CapNhat() {
         soMayHD();
         soMayT();
@@ -686,7 +685,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         pnlMenuTop.getParent().repaint();
         menuHeThong.getParent().repaint();
     }
-
+    
     private void startDongHo() {
         dongHoTimer = new Timer(1000, e -> {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
@@ -694,5 +693,5 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         });
         dongHoTimer.start();
     }
-
+    
 }
