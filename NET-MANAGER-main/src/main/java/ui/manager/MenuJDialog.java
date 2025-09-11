@@ -487,7 +487,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
             updateTongTien();
             showSuccessDialog("Đã hủy món thành công.", 2000);
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần hủy.");
+            XDialog.alert("Vui lòng chọn dòng cần hủy.");
         }
     }//GEN-LAST:event_btn_huyActionPerformed
 
