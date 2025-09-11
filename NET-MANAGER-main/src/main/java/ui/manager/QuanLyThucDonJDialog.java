@@ -374,7 +374,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
     private void btnUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpActionPerformed
         // TODO add your handling code here:
         if (lblMaMon.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn món ăn cần cập nhật trước.");
+            XDialog.alert("Vui lòng chọn món ăn cần cập nhật trước!");
             return;
         }
         update();
@@ -578,8 +578,8 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
         try {
             float gia = Float.parseFloat(giaText);
-            if (gia < 0) {
-                XDialog.alert("Đơn giá không được âm.");
+            if (gia <= 0) {
+                XDialog.alert("Đơn giá phải lớn hơn 0.");
                 return false;
             }
         } catch (NumberFormatException e) {
@@ -589,8 +589,8 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
         try {
             int soLuong = Integer.parseInt(soLuongText);
-            if (soLuong < 0) {
-                XDialog.alert("Số lượng không được âm.");
+            if (soLuong <= 0) {
+                XDialog.alert("Số lượng phải lớn hơn 0.");
                 return false;
             }
         } catch (NumberFormatException e) {
@@ -647,7 +647,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     @Override
     public void delete() {
-        if (XDialog.confirm("Ban xac nhan xoa?")) {
+        if (XDialog.confirm("Bạn xác nhận xóa?")) {
             String id = lblMaMon.getText();
             dao.deleteByID(id);
             this.fillToTable();

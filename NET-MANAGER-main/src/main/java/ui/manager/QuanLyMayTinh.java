@@ -10,6 +10,7 @@ import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.Style_Net;
 import util.XDialog;
@@ -600,7 +601,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         MayTinh mt = this.getFormByUp();
         dao.update(mt);
         this.fillToTable();
-        XDialog.alert("Sủa thành công!");
+        JOptionPane.showMessageDialog(this,"Sủa thành công!");
     }
 
     @Override
@@ -616,7 +617,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             dao.deleteByID(id);
             fillToTable();
             clear();
-            XDialog.alert("Xóa thành công!");
+            JOptionPane.showMessageDialog(this,"Xóa thành công!");
         } catch (Exception e) {
             XDialog.alert("Xóa thất bại! " + e.getMessage());
         }

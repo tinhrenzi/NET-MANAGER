@@ -12,8 +12,6 @@ import entity.MayTinh;
 import entity.Menu;
 import entity.SuDungMay;
 import entity.ThanhToan;
-import java.sql.Date;
-import java.sql.Time;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -24,6 +22,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.Style_Net;
+import util.XDialog;
 
 /**
  *
@@ -444,7 +443,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Thanh toán thất bại!");
+            XDialog.alert("Thanh toán thất bại!");
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 

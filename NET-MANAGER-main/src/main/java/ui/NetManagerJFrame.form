@@ -132,9 +132,6 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnQLNV">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGER-main\src\main\java\img\Ui-manager-icon-manager.png"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -145,9 +142,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnQLTD">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\img\Ui-manager-icon-food.png"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -158,9 +152,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnQLMT">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGER\NET-MANAGER-main\src\main\java\img\Ui-manager-icocn-computer.png"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -171,9 +162,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnQLTK">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGER-main\src\main\java\img\Ui-manager-icocn-thongKe.png"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -467,9 +455,6 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lblBackRound">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\NITRO 5\Documents\NetBeansProjects\NET-MANAGERTest\NET-MANAGER-main\src\main\java\img\BackRoundNetManager.png"/>
-        </Property>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Events>

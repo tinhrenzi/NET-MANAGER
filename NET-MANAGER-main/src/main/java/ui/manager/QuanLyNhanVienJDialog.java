@@ -525,7 +525,6 @@ int a;
         String pass = txtPass.getText().trim();
         String year = txtNamSinh.getText().trim();
 
-        // Regex
         String usernameRegex = "^[a-zA-Z0-9_]+$";
         String yearRegex = "^[0-9]{4}$";
         String passwordRegex = "^[a-zA-Z0-9_!@#$%^&*]+$";
@@ -533,7 +532,6 @@ int a;
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         String phoneRegex = "^0\\d{9}$";
 
-        // Check username
         if (username.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tên đăng nhập không được để trống");
             return;
@@ -543,7 +541,6 @@ int a;
             return;
         }
 
-        // Check các trường khác
         if (year.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Năm sinh không được trống");
             return;
@@ -560,7 +557,6 @@ int a;
             JOptionPane.showMessageDialog(this, "Năm sinh không hợp lệ");
             return;
         }
-        // Check Password
         if (pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
             return;
@@ -595,7 +591,6 @@ int a;
         String pass = txtPass.getText().trim();
         String year = txtNamSinh.getText().trim();
 
-        // Regex
         String usernameRegex = "^[a-zA-Z0-9_]+$";
         String yearRegex = "^[0-9]{4}$";
         String passRegex = "^(?=.*[A-Z]).{7,}$";

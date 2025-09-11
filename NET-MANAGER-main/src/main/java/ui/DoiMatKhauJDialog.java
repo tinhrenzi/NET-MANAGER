@@ -10,6 +10,7 @@ import javax.swing.JDialog;
 import util.XAuth;
 import util.XDialog;
 import dao.AdminDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -270,7 +271,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
 
         dao.updatePassword(username, newPass);
         XAuth.user.setMatKhau(newPass);
-        XDialog.alert("Đổi mật khẩu thành công!");
+        JOptionPane.showMessageDialog(this,"Đổi mật khẩu thành công!");
         this.dispose();
     }
 

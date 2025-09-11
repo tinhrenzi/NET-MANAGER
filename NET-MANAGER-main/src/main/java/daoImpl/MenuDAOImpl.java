@@ -1,8 +1,9 @@
 package daoImpl;
 
+import java.util.List;
+
 import dao.MenuDAO;
 import entity.Menu;
-import java.util.List;
 import util.XJdbc;
 import util.XQuery;
 
@@ -11,10 +12,7 @@ public class MenuDAOImpl implements MenuDAO {
     @Override
     public void UpSoluong(Menu entity) {
         String Sql = "update Menu set SoLuong=?, TongTien = GiaTien*? where Id = ?";
-        Object[] args = {
-            entity.getSoLuong(),
-            entity.getSoLuong(),
-            entity.getId(),};
+        Object[] args = {entity.getSoLuong(), entity.getSoLuong(), entity.getId(),};
         XJdbc.executeUpdate(Sql, args);
     }
 
@@ -22,15 +20,14 @@ public class MenuDAOImpl implements MenuDAO {
     public Menu Mua(Menu order) {
         String INSERT_SQL = "INSERT INTO Menu(MaSDMay,TenMay, MaMon, TenMon, GiaTien, NgayMua, SoLuong, TongTien) VALUES (?,?, ?, ?, ?, ?, ?,?)";
         Object[] args = {
-            order.getMaSDMay(),
-            order.getTenMay(),
-            order.getMaMon(),
-            order.getTenMon(),
-            order.getGiaTien(),
-            order.getNgayMua(),
-            order.getSoLuong(),
-            order.getTongTien()
-        };
+            order.getMaSDMay(), 
+            order.getTenMay(), 
+            order.getMaMon(), 
+            order.getTenMon(), 
+            order.getGiaTien(), 
+            order.getNgayMua(), 
+            order.getSoLuong(), 
+            order.getTongTien()};
         XJdbc.executeUpdate(INSERT_SQL, args);
         return order;
     }
@@ -52,5 +49,4 @@ public class MenuDAOImpl implements MenuDAO {
         String idmenu = "Select Id from Menu";
         return XQuery.getBeanList(Menu.class, idmenu, MaMenu);
     }
-
 }

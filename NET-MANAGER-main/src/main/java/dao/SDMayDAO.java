@@ -4,11 +4,10 @@
  */
 package dao;
 
+import java.util.List;
+
 import entity.MayTinh;
 import entity.SuDungMay;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
  *

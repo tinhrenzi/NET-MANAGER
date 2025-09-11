@@ -7,11 +7,11 @@ package ui;
 import controller.DangNhapController;
 import daoImpl.AdminDAOImpl;
 import entity.Admin;
-import java.awt.Frame;
 import util.XAuth;
 import util.XDialog;
 import dao.AdminDAO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -267,7 +267,7 @@ public class DangNhapJDialog extends javax.swing.JDialog implements DangNhapCont
         XDialog.alert("Tài khoản của bạn đang tạm dừng!");
     } else {
         XAuth.user = user;
-        XDialog.alert("Đăng nhập thành công!");
+        JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
         this.dispose();
     }
 }

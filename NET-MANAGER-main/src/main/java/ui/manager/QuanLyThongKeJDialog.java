@@ -430,7 +430,6 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
     }//GEN-LAST:event_btnXemSuDungMayActionPerformed
 
     private void btnMonAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonAnActionPerformed
-
         thongKeLichSuBanHang();
     }//GEN-LAST:event_btnMonAnActionPerformed
 
@@ -680,9 +679,10 @@ public class QuanLyThongKeJDialog extends javax.swing.JDialog implements QuanLyT
         txtTongTien.setText(df.format(tongTienMay));
         txtTongGio.setText(String.format("%.2f giờ", tongGioSuDung));
     }
-    double tongMonAn = 0;
+    
 
     private void thongKeLichSuBanHang() {
+        double tongMonAn = 0;
         if (jdcMonAn.getDate() == null || dacDenNgayMenu.getDate() == null) {
             XDialog.alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc");
             return;

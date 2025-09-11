@@ -38,6 +38,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         this.init();
     }
 
+    
     void btnopmenu() {
         new Thread(new Runnable() {
             @Override
@@ -125,7 +126,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        btnQLNV.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-manager.png")); // NOI18N
         btnQLNV.setBorder(null);
         btnQLNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +133,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        btnQLTD.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icon-food.png")); // NOI18N
         btnQLTD.setBorder(null);
         btnQLTD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +140,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        btnQLMT.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGER\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icocn-computer.png")); // NOI18N
         btnQLMT.setBorder(null);
         btnQLMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +147,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             }
         });
 
-        btnQLTK.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\Ui-manager-icocn-thongKe.png")); // NOI18N
         btnQLTK.setBorder(null);
         btnQLTK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,7 +365,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 170, 230, 350));
 
-        lblBackRound.setIcon(new javax.swing.ImageIcon("C:\\Users\\NITRO 5\\Documents\\NetBeansProjects\\NET-MANAGERTest\\NET-MANAGER-main\\src\\main\\java\\img\\BackRoundNetManager.png")); // NOI18N
         lblBackRound.setOpaque(true);
         lblBackRound.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
