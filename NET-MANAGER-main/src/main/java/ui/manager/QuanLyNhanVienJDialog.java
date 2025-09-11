@@ -26,7 +26,8 @@ import util.XAuth;
  * @author LuongHiep
  */
 public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLyNhanVienController {
-int a;
+
+    int a;
     /**
      * Creates new form QuanLyNhanVienJDialog
      */
@@ -579,7 +580,7 @@ int a;
         }
 
         this.create();
-        showSuccessDialog("Thêm thành công", 2000);
+//        showSuccessDialog("Thêm thành công", 2000);
 
     }//GEN-LAST:event_btnCreateActionPerformed
 
@@ -656,19 +657,12 @@ int a;
         }
 
         this.update();
-        showSuccessDialog("Sửa thành công", 2000);
+//        showSuccessDialog("Sửa thành công", 2000);
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        try {
-            this.delete();
-            showSuccessDialog("Xóa thành công", 2000);
-        } catch (Exception e) {
-            e.printStackTrace();
-            showSuccessDialog("Xóa không thành công", 2000);
-        }
-
+        delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblUsermagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsermagerMouseClicked
@@ -914,7 +908,6 @@ int a;
         rdo1.setSelected(entity.isTrangThai());
         rdo2.setSelected(!entity.isTrangThai());
 
-        // chỉ set ảnh nếu entity có
         if (entity.getAnh() != null && !entity.getAnh().isEmpty()) {
             DuongDanAnh = entity.getAnh();
             lblAnh.setIcon(ResizeImage(DuongDanAnh));
@@ -989,8 +982,14 @@ int a;
 
     @Override
     public void create() {
+        String id = lblID.getText().trim();
+        if (id.matches("^AD.*")) {
+            showSuccessDialog("Trùng hợp mã", 1000);
+            return;
+        }
         Admin user = this.getForm();
         dao.create(user);
+        showSuccessDialog("Thêm thành công", 1000);
         this.fillToTable();
         this.clear();
     }
@@ -999,6 +998,7 @@ int a;
     public void update() {
         Admin user = this.getForm();
         dao.update(user);
+        showSuccessDialog("Sủa thành công", 1000);
         this.fillToTable();
     }
 
@@ -1021,6 +1021,7 @@ int a;
             dao.deleteByID(id);
             this.fillToTable();
             this.clear();
+            showSuccessDialog("Xóa thành công", 1000);
         }
     }
 
