@@ -36,13 +36,6 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         initComponents();
         setLocationRelativeTo(null);
         this.init();
-        this.addComponentListener(new java.awt.event.ComponentAdapter() {
-            @Override
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                setBackgroundImage("src/main/java/img/BackRoundNetManager.png");
-            }
-        });
-
     }
 
     void btnopmenu() {
@@ -491,20 +484,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 new NetManagerJFrame().setVisible(true);
             }
         });
-    }
 
-    public void setBackgroundImage(String path) {
-        // Lấy kích thước Frame hiện tại
-        int width = this.getWidth();
-        int height = this.getHeight();
-
-        // Load ảnh
-        ImageIcon icon = new ImageIcon(path);
-        Image img = icon.getImage();
-        // Scale ảnh khớp với kích thước Frame
-        Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-
-        lblBackRound.setIcon(new ImageIcon(scaledImg));
     }
 
     public ImageIcon ResizeImage(String ImagePath) {
@@ -515,7 +495,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     }
 
     public void setIconAll() {
-        setBackgroundImage("src/main/java/img/backgroundJFrame.png");
+        lblBackRound.setIcon(new ImageIcon("src/main/java/img/backgroundJFrame.png"));
         lblSoMayTrong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
         lblSoMayHoatDong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
         btnMoMay.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-Open32x32.png"));
