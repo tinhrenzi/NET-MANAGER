@@ -8,12 +8,19 @@ import controller.GiaoDienChinhController;
 import dao.MayTinhDAO;
 import daoImpl.MayTinhDAOImpl;
 import entity.Admin;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import util.Style_Net;
 import util.XAuth;
@@ -36,6 +43,39 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         initComponents();
         setLocationRelativeTo(null);
         this.init();
+
+        this.setContentPane(new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+            }
+        });
+
+        getContentPane().add(lblBackRound, BorderLayout.CENTER);
+        lblBackRound.setLayout(new BorderLayout());
+
+        menuHeThong.setPreferredSize(new Dimension(80, 690));
+        pnlMenuTop.setPreferredSize(new Dimension(0, 100));
+        jPanel2.setPreferredSize(new Dimension(250, 0));
+
+        lblBackRound.add(menuHeThong, BorderLayout.WEST);
+        lblBackRound.add(pnlMenuTop, BorderLayout.NORTH);
+        lblBackRound.add(jPanel2, BorderLayout.EAST);
+
+        JPanel timePanel = new JPanel(new GridLayout(2, 1));
+        timePanel.setOpaque(false);
+        timePanel.add(lblGioHienTai);
+        timePanel.add(lblNgayHienTai);
+
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        bottomPanel.setOpaque(false);
+        bottomPanel.add(timePanel);
+
+        lblBackRound.add(bottomPanel, BorderLayout.SOUTH);
+        menuHeThong.setOpaque(false);
+        pnlMenuTop.setOpaque(false);
+        jPanel2.setOpaque(false);
+        lbclmenu.setOpaque(true);
     }
 
     void btnopmenu() {
@@ -66,6 +106,21 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
                 }
             }
         }).start();
+    }
+
+    class BackgroundLabel extends JLabel {
+
+        private Image backgroundImage;
+
+        public BackgroundLabel(String path) {
+            this.backgroundImage = new ImageIcon(path).getImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 
     /**
@@ -181,73 +236,66 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
         menuHeThong.setLayout(menuHeThongLayout);
         menuHeThongLayout.setHorizontalGroup(
             menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator2)
             .addGroup(menuHeThongLayout.createSequentialGroup()
                 .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuHeThongLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnQLTK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnQLTD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnQLMT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
-                        .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel3))
-                    .addComponent(jLabel2)))
+                            .addGroup(menuHeThongLayout.createSequentialGroup()
+                                .addComponent(btnQLMT, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(menuHeThongLayout.createSequentialGroup()
+                                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnQLTD, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnQLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(menuHeThongLayout.createSequentialGroup()
+                                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)))))
+                .addGap(30, 30, 30))
         );
-
-        menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
-
-        menuHeThongLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4});
-
         menuHeThongLayout.setVerticalGroup(
             menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(menuHeThongLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
                 .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuHeThongLayout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(btnQLNV, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(btnQLMT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnQLTD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(menuHeThongLayout.createSequentialGroup()
-                        .addComponent(lbclmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94)
-                        .addComponent(jLabel2)
-                        .addGap(101, 101, 101)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(71, 71, 71)))
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel2)))
+                .addGap(51, 51, 51)
                 .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnQLMT, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(menuHeThongLayout.createSequentialGroup()
-                        .addComponent(btnQLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuHeThongLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(67, 67, 67)))
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85))
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel3)))
+                .addGap(60, 60, 60)
+                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnQLTD, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel1)))
+                .addGap(58, 58, 58)
+                .addGroup(menuHeThongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnQLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(menuHeThongLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel4)))
+                .addGap(110, 110, 110)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        menuHeThongLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnQLMT, btnQLNV, btnQLTD, btnQLTK});
-
-        menuHeThongLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4});
-
-        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 690));
+        getContentPane().add(menuHeThong, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 690));
 
         lblNgayHienTai.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         lblNgayHienTai.setForeground(new java.awt.Color(255, 255, 255));
@@ -495,7 +543,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     }
 
     public void setIconAll() {
-        lblBackRound.setIcon(new ImageIcon("src/main/java/img/backgroundJFrame.png"));
+        lblBackRound = new BackgroundLabel("src/main/java/img/backgroundJFrame.png");
         lblSoMayTrong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
         lblSoMayHoatDong.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
         btnMoMay.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-Open32x32.png"));
