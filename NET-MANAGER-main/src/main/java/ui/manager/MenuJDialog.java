@@ -499,7 +499,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         int selectedRow = tblOrderManager.getSelectedRow();
         if (selectedRow == -1) {
-            XDialog.alert( "Vui lòng chọn món trong bảng OrderManager.");
+            XDialog.alert("Vui lòng chọn món trong bảng OrderManager.");
             return;
         }
 
@@ -812,8 +812,10 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     public void filltblDaNMua() {
         DefaultTableModel model = (DefaultTableModel) tblDaMua.getModel();
         model.setRowCount(0);
-        int MaSDMay = Integer.parseInt(lblMaSd.getText());
-        List<Menu> items = MenuDao.FindByIdSD(MaSDMay);
+
+        String MaSDMay = lblMaSd.getText().trim();
+
+        List<Menu> items = MenuDao.findByIdSD(MaSDMay);
         for (Menu item : items) {
             Object[] rowData = {
                 item.getId(),
@@ -850,11 +852,31 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     public void SuaSoLuong() {
         try {
             Menu mn = this.getFromDaMua();
-            MenuDao.UpSoluong(mn);
+            if (mn == null) {
+                return;
+            }
+
+            // Lấy thông tin món từ Menu cũ
+            Menu oldOrder = MenuDao.findById(mn.getId());
+            MonAn mon = MonAnDao.findByID(oldOrder.getMaMon());
+
+            if (oldOrder != null && mon != null) {
+                int soLuongCu = oldOrder.getSoLuong();
+                int soLuongMoi = mn.getSoLuong();
+
+                // Cập nhật Menu
+                MenuDao.UpSoluong(mn);
+
+                int chenhlech = soLuongCu - soLuongMoi;
+                mon.setSoLuong(mon.getSoLuong() + chenhlech);
+                MonAnDao.update(mon);
+            }
+
             filltblDaNMua();
             showSuccessDialog("Sửa số lượng thành công!", 2000);
         } catch (Exception e) {
-            XDialog.alert("Lỗi sửa số lượng");
+            e.printStackTrace();
+            XDialog.alert("Lỗi sửa số lượng: " + e.getMessage());
         }
     }
 
@@ -886,7 +908,7 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
 
         String soLuongText = txtSoLuong.getText().trim();
         if (soLuongText.isEmpty()) {
-            XDialog.alert( "Vui lòng nhập số lượng mới.");
+            XDialog.alert("Vui lòng nhập số lượng mới.");
             return;
         }
 

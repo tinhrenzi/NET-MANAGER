@@ -156,4 +156,8 @@ public static void main(String[] args) {
             } catch (SQLException e) {
         }
     }
+
+    public static ResultSet query(String select__from_Menu_WHERE_Id__, int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

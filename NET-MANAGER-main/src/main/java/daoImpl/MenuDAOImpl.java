@@ -20,33 +20,41 @@ public class MenuDAOImpl implements MenuDAO {
     public Menu Mua(Menu order) {
         String INSERT_SQL = "INSERT INTO Menu(MaSDMay,TenMay, MaMon, TenMon, GiaTien, NgayMua, SoLuong, TongTien) VALUES (?,?, ?, ?, ?, ?, ?,?)";
         Object[] args = {
-            order.getMaSDMay(), 
-            order.getTenMay(), 
-            order.getMaMon(), 
-            order.getTenMon(), 
-            order.getGiaTien(), 
-            order.getNgayMua(), 
-            order.getSoLuong(), 
+            order.getMaSDMay(),
+            order.getTenMay(),
+            order.getMaMon(),
+            order.getTenMon(),
+            order.getGiaTien(),
+            order.getNgayMua(),
+            order.getSoLuong(),
             order.getTongTien()};
         XJdbc.executeUpdate(INSERT_SQL, args);
         return order;
     }
 
     @Override
-    public List<Menu> FindByIdSD(int MaSDMay) {
-        String SELECT_ALL_SQL = "SELECT * FROM Menu where MaSDMay =?";
-        return XQuery.getBeanList(Menu.class, SELECT_ALL_SQL, MaSDMay);
+    public Menu findById(int id) {
+        String sql = "SELECT * FROM Menu WHERE Id = ?";
+        List<Menu> list = XQuery.getBeanList(Menu.class, sql, id);
+        return list.isEmpty() ? null : list.get(0);
     }
 
     @Override
-    public List<Menu> findByMay(String maMay) {
-        String SELECT_BY_MAY = "SELECT * FROM Menu WHERE MaSDMay = ?";
-        return XQuery.getBeanList(Menu.class, SELECT_BY_MAY, maMay);
+    public List<Menu> findByMay(String maSDMay) {
+        String sql = "SELECT * FROM Menu WHERE MaSDMay = ?";
+        return XQuery.getBeanList(Menu.class, sql, maSDMay);
     }
 
     @Override
-    public List<Menu> findById(String MaMenu) {
-        String idmenu = "Select Id from Menu";
-        return XQuery.getBeanList(Menu.class, idmenu, MaMenu);
+    public List<Menu> findByIdSD(String maSDMay) {
+        String sql = "SELECT * FROM Menu WHERE MaSDMay = ?";
+        return XQuery.getBeanList(Menu.class, sql, maSDMay);
     }
+
+    @Override
+    public List<Menu> findAll() {
+        String sql = "SELECT * FROM Menu";
+        return XQuery.getBeanList(Menu.class, sql);
+    }
+
 }

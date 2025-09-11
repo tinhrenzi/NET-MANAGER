@@ -409,41 +409,57 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        ThanhToan tt = new ThanhToan();
-        SuDungMay mt = new SuDungMay();
+        btnThanhToan.setEnabled(false); // tránh double-click
+        try {
+            ThanhToan tt = new ThanhToan();
+            SuDungMay mt = new SuDungMay();
 
-        tt.setMaSDMay(Integer.parseInt(lblMaMay.getText()));
+            tt.setMaSDMay(Integer.parseInt(lblMaMay.getText()));
 
-        LocalDateTime start = LocalDateTime.of(
-                LocalDate.parse(lblNgayVao.getText()),
-                LocalTime.parse(lblGioVao.getText())
-        );
-        LocalDateTime end = LocalDateTime.of(
-                LocalDate.parse(lblNgayNgi.getText()),
-                LocalTime.parse(lblGioNghi.getText())
-        );
+            LocalDateTime start = LocalDateTime.of(
+                    LocalDate.parse(lblNgayVao.getText()),
+                    LocalTime.parse(lblGioVao.getText())
+            );
+            LocalDateTime end = LocalDateTime.of(
+                    LocalDate.parse(lblNgayNgi.getText()),
+                    LocalTime.parse(lblGioNghi.getText())
+            );
 
-        tt.setNgayBatDau(start);
-        tt.setNgayKetThuc(end);
-        tt.setNgayThanhToan(end);
-        mt.setThoiGianChoi(Float.parseFloat(lblTongGio.getText().replace(" giờ", "")));
-        tt.setTongGio(Double.parseDouble(lblTongGio.getText().replace(" giờ", "")));
-        tt.setGiaTheoGio(Double.parseDouble(lblGiaTheoGio.getText()));
-        tt.setTienMay(getTienMayFromLabel());
+            tt.setNgayBatDau(start);
+            tt.setNgayKetThuc(end);
+            tt.setNgayThanhToan(end);
+            mt.setThoiGianChoi(Float.parseFloat(lblTongGio.getText().replace(" giờ", "")));
+            tt.setTongGio(Double.parseDouble(lblTongGio.getText().replace(" giờ", "")));
+            tt.setGiaTheoGio(Double.parseDouble(lblGiaTheoGio.getText()));
+            tt.setTienMay(getTienMayFromLabel());
 
-        double tongTienMenu = 0;
-        for (int i = 0; i < tblMenu.getRowCount(); i++) {
-            tongTienMenu += Double.parseDouble(tblMenu.getValueAt(i, 3).toString());
-        }
-        tt.setTienMenu(tongTienMenu);
-        tt.setTongTien(tt.getTienMay() + tongTienMenu);
+            double tongTienMenu = 0;
+            for (int i = 0; i < tblMenu.getRowCount(); i++) {
+                tongTienMenu += Double.parseDouble(tblMenu.getValueAt(i, 3).toString());
+            }
+            tt.setTienMenu(tongTienMenu);
+            tt.setTongTien(tt.getTienMay() + tongTienMenu);
 
-        if (dao.ThanhToan(tt) != null) {
-            TatMay();
-            JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
-            dispose();
-        } else {
-            XDialog.alert("Thanh toán thất bại!");
+            //  --- NEW: kiểm tra đã thanh toán chưa (tránh trừ thêm)
+            ThanhToanDAOImpl checkDao = new ThanhToanDAOImpl();
+            if (checkDao.hasThanhToanForMaSD(tt.getMaSDMay())) {
+                XDialog.alert("Phiên này đã được thanh toán trước đó. Không thực hiện trừ thêm.");
+                btnThanhToan.setEnabled(true);
+                return;
+            }
+
+            if (dao.ThanhToan(tt) != null) {
+                TatMay();
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công!");
+                dispose();
+            } else {
+                XDialog.alert("Thanh toán thất bại!");
+                btnThanhToan.setEnabled(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            XDialog.alert("Lỗi khi thanh toán: " + e.getMessage());
+            btnThanhToan.setEnabled(true);
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 

@@ -52,4 +52,18 @@ public class ThanhToanDAOImpl implements ThanhToanDAO {
         };
         XJdbc.executeUpdate(Sql_TrangThai, j);
     }
+
+    public boolean hasThanhToanForMaSD(int maSD) {
+        try {
+            String sql = "SELECT COUNT(*) FROM ThanhToan WHERE MaSDMay = ?";
+            java.sql.ResultSet rs = util.XJdbc.query(sql, maSD);
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
