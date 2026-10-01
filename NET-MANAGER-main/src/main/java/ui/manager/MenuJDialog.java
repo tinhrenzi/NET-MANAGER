@@ -18,13 +18,13 @@ import controller.MenuController;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import util.XDialog;
-import javax.swing.ImageIcon;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
-import javax.swing.JDialog;
+import javax.swing.*;
+import javax.swing.border.*;
 import util.Style_Net;
+import util.XDialog;
 
 /**
  *
@@ -41,26 +41,478 @@ public class MenuJDialog extends javax.swing.JDialog implements MenuController {
     private MonAnDAO MonAnDao = new MonAnDAOImpl();
     private MenuDAO MenuDao = new MenuDAOImpl();
 
+    // Modern Food Grid & Cart components
+    private JPanel pnlFoodGrid;
+    private JScrollPane scrollFoodGrid;
+    private JTextField txtSearchFood;
+    private JLabel lblTopMachineBadge;
+    private JLabel lblCartHeaderSub;
+    private JLabel lblCartTotalDisplay;
+    private DefaultTableModel modelCartDisplay;
+    private JTable tblCartDisplay;
+    private JButton btnPillAllFood;
+    private JButton btnPillFoodHot;
+    private JButton btnPillFoodDrink;
+    private JButton btnModernConfirmOrder;
+    private JButton btnModernClearCart;
+    private String foodFilter = "ALL";
+
     public MenuJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Style_Net.styleAllTables(this.getContentPane());
+        initNavyMenuTheme();
         setLocationRelativeTo(null);
+        fillToTable();
+        renderFoodCardGrid();
+        syncCartToDisplay();
     }
     ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public MenuJDialog(java.awt.Frame parent, boolean modal, String maMay, String TenMay) {
         super(parent, modal);
         initComponents();
-        Style_Net.styleAllTables(this.getContentPane());
+        lblTenMay.setText(TenMay);
+        lblMaSd.setText(maMay);
+        initNavyMenuTheme();
         setLocationRelativeTo(null);
         fillToTable();
         scheduler.schedule(() -> {
             filltblDaNMua();
         }, 1, TimeUnit.SECONDS);
         scheduler.shutdown();
-        lblTenMay.setText(TenMay);
-        lblMaSd.setText(maMay);
+        updateMachineTitle(TenMay, maMay);
+        renderFoodCardGrid();
+        syncCartToDisplay();
+    }
+
+    private void initNavyMenuTheme() {
+        buildModernMenuLayout();
+    }
+
+    private void buildModernMenuLayout() {
+        setTitle("NET-MANAGER - Thực Đơn & Gọi Món");
+        setSize(1280, 750);
+        setLocationRelativeTo(null);
+        getContentPane().removeAll();
+        getContentPane().setLayout(new BorderLayout(0, 0));
+
+        // 1. TOP HEADER BAR
+        JPanel pnlTop = new JPanel(new BorderLayout(16, 0));
+        pnlTop.setBackground(Color.WHITE);
+        pnlTop.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(0, 0, 1, 0, Style_Net.BORDER_HAIRLINE),
+            new EmptyBorder(12, 24, 12, 24)
+        ));
+
+        // Brand
+        JLabel lblB = new JLabel("NET-MANAGER");
+        lblB.setFont(new Font("Segoe UI", Font.BOLD, 17));
+        lblB.setForeground(Style_Net.NAVY_PRIMARY);
+        pnlTop.add(lblB, BorderLayout.WEST);
+
+        // Center machine badge
+        String machine = (lblTenMay != null && lblTenMay.getText() != null && !lblTenMay.getText().isEmpty()) ? lblTenMay.getText() : "Máy 02";
+        lblTopMachineBadge = new JLabel("Đang chọn gọi món cho: " + machine + " (Dàn máy thường)", SwingConstants.CENTER);
+        lblTopMachineBadge.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblTopMachineBadge.setForeground(Style_Net.NAVY_PRIMARY);
+        lblTopMachineBadge.setOpaque(true);
+        lblTopMachineBadge.setBackground(new Color(0xF1, 0xF5, 0xF9));
+        lblTopMachineBadge.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Style_Net.BORDER_HAIRLINE, 1, true),
+            new EmptyBorder(6, 16, 6, 16)
+        ));
+        JPanel pnlCenterWrap = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pnlCenterWrap.setOpaque(false);
+        pnlCenterWrap.add(lblTopMachineBadge);
+        pnlTop.add(pnlCenterWrap, BorderLayout.CENTER);
+
+        // Right Info
+        String cashier = (util.XAuth.user != null) ? util.XAuth.user.getTen() : "admin";
+        JLabel lblRightCashier = new JLabel("Thu ngân: " + cashier + " • 28/09/2026");
+        lblRightCashier.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblRightCashier.setForeground(Style_Net.TEXT_MUTED);
+        pnlTop.add(lblRightCashier, BorderLayout.EAST);
+
+        getContentPane().add(pnlTop, BorderLayout.NORTH);
+
+        // 2. MAIN BODY (CENTER)
+        JPanel pnlBody = new JPanel(new BorderLayout(0, 14));
+        pnlBody.setBackground(Style_Net.BG_CANVAS);
+        pnlBody.setBorder(new EmptyBorder(14, 24, 18, 24));
+
+        // Filter & Search Row
+        JPanel pnlFilterSearch = new JPanel(new BorderLayout());
+        pnlFilterSearch.setOpaque(false);
+
+        JPanel pnlPills = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        pnlPills.setOpaque(false);
+
+        btnPillAllFood = createPillButton("Tất cả món", true);
+        btnPillFoodHot = createPillButton("Đồ ăn chế biến", false);
+        btnPillFoodDrink = createPillButton("Nước giải khát", false);
+
+        btnPillAllFood.addActionListener(e -> setFoodFilter("ALL"));
+        btnPillFoodHot.addActionListener(e -> setFoodFilter("EAT"));
+        btnPillFoodDrink.addActionListener(e -> setFoodFilter("DRINK"));
+
+        pnlPills.add(btnPillAllFood);
+        pnlPills.add(btnPillFoodHot);
+        pnlPills.add(btnPillFoodDrink);
+        pnlFilterSearch.add(pnlPills, BorderLayout.WEST);
+
+        txtSearchFood = new JTextField();
+        Style_Net.styleTextField(txtSearchFood);
+        txtSearchFood.setPreferredSize(new Dimension(240, 36));
+        txtSearchFood.putClientProperty("JTextField.placeholderText", "Tìm kiếm món ăn, nước...");
+        txtSearchFood.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                renderFoodCardGrid();
+            }
+        });
+        pnlFilterSearch.add(txtSearchFood, BorderLayout.EAST);
+        pnlBody.add(pnlFilterSearch, BorderLayout.NORTH);
+
+        // Split Content Area (Left: Food Grid ~68%, Right: Cart ~32%)
+        JPanel pnlSplit = new JPanel(new BorderLayout(18, 0));
+        pnlSplit.setOpaque(false);
+
+        // Left Food Cards Grid inside ScrollPane
+        pnlFoodGrid = new JPanel(new GridLayout(0, 3, 14, 14));
+        pnlFoodGrid.setBackground(Style_Net.BG_CANVAS);
+        scrollFoodGrid = new JScrollPane(pnlFoodGrid);
+        scrollFoodGrid.setBorder(null);
+        scrollFoodGrid.getViewport().setBackground(Style_Net.BG_CANVAS);
+        pnlSplit.add(scrollFoodGrid, BorderLayout.CENTER);
+
+        // Right Cart Panel (~360px)
+        JPanel pnlCart = Style_Net.createCardPanel();
+        pnlCart.setPreferredSize(new Dimension(360, 0));
+        pnlCart.setLayout(new BorderLayout(0, 12));
+
+        // Cart Header
+        JPanel pnlCartHead = new JPanel();
+        pnlCartHead.setLayout(new BoxLayout(pnlCartHead, BoxLayout.Y_AXIS));
+        pnlCartHead.setOpaque(false);
+
+        JLabel lblCartTitle = new JLabel("GIỎ HÀNG GỌI MÓN");
+        lblCartTitle.setFont(Style_Net.FONT_HEADER);
+        lblCartTitle.setForeground(Style_Net.NAVY_PRIMARY);
+
+        lblCartHeaderSub = new JLabel("Đang chuẩn bị đơn cho " + machine);
+        lblCartHeaderSub.setFont(Style_Net.FONT_SMALL);
+        lblCartHeaderSub.setForeground(Style_Net.TEXT_MUTED);
+
+        pnlCartHead.add(lblCartTitle);
+        pnlCartHead.add(Box.createVerticalStrut(2));
+        pnlCartHead.add(lblCartHeaderSub);
+        pnlCart.add(pnlCartHead, BorderLayout.NORTH);
+
+        // Cart Table
+        String[] cartCols = {"MÓN ĂN", "SL", "ĐƠN GIÁ", "TỔNG", "XÓA"};
+        modelCartDisplay = new DefaultTableModel(cartCols, 0) {
+            @Override
+            public boolean isCellEditable(int r, int c) { return c == 4; }
+        };
+        tblCartDisplay = new JTable(modelCartDisplay);
+        Style_Net.styleTable(tblCartDisplay);
+        tblCartDisplay.setRowHeight(36);
+        tblCartDisplay.getColumnModel().getColumn(0).setPreferredWidth(120);
+        tblCartDisplay.getColumnModel().getColumn(1).setPreferredWidth(35);
+        tblCartDisplay.getColumnModel().getColumn(2).setPreferredWidth(65);
+        tblCartDisplay.getColumnModel().getColumn(3).setPreferredWidth(75);
+        tblCartDisplay.getColumnModel().getColumn(4).setPreferredWidth(45);
+
+        tblCartDisplay.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int col = tblCartDisplay.getSelectedColumn();
+                int row = tblCartDisplay.getSelectedRow();
+                if (col == 4 && row >= 0) {
+                    DefaultTableModel mOld = (DefaultTableModel) tblTongMonAn.getModel();
+                    if (row < mOld.getRowCount()) {
+                        mOld.removeRow(row);
+                        updateTongTien();
+                        syncCartToDisplay();
+                    }
+                }
+            }
+        });
+
+        JScrollPane scrollCart = new JScrollPane(tblCartDisplay);
+        scrollCart.setBorder(new LineBorder(Style_Net.BORDER_HAIRLINE, 1));
+        pnlCart.add(scrollCart, BorderLayout.CENTER);
+
+        // Cart Bottom (Total & Actions)
+        JPanel pnlCartBottom = new JPanel();
+        pnlCartBottom.setLayout(new BoxLayout(pnlCartBottom, BoxLayout.Y_AXIS));
+        pnlCartBottom.setOpaque(false);
+
+        JPanel pnlTotalRow = new JPanel(new BorderLayout());
+        pnlTotalRow.setOpaque(false);
+        JLabel lblTLabel = new JLabel("TỔNG TIỀN MÓN:");
+        lblTLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblTLabel.setForeground(Style_Net.TEXT_MUTED);
+
+        lblCartTotalDisplay = new JLabel("0 ₫");
+        lblCartTotalDisplay.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblCartTotalDisplay.setForeground(Style_Net.NAVY_PRIMARY);
+
+        pnlTotalRow.add(lblTLabel, BorderLayout.WEST);
+        pnlTotalRow.add(lblCartTotalDisplay, BorderLayout.EAST);
+        pnlCartBottom.add(pnlTotalRow);
+        pnlCartBottom.add(Box.createVerticalStrut(14));
+
+        btnModernConfirmOrder = new JButton("XÁC NHẬN GỌI MÓN (" + machine + ")");
+        Style_Net.stylePrimaryButton(btnModernConfirmOrder);
+        btnModernConfirmOrder.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        btnModernConfirmOrder.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnModernConfirmOrder.addActionListener(e -> {
+            btn_muaActionPerformed(null);
+            syncCartToDisplay();
+            renderFoodCardGrid();
+        });
+
+        btnModernClearCart = new JButton("Làm mới giỏ hàng");
+        Style_Net.styleSecondaryButton(btnModernClearCart);
+        btnModernClearCart.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        btnModernClearCart.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnModernClearCart.addActionListener(e -> {
+            clear();
+            syncCartToDisplay();
+        });
+
+        pnlCartBottom.add(btnModernConfirmOrder);
+        pnlCartBottom.add(Box.createVerticalStrut(8));
+        pnlCartBottom.add(btnModernClearCart);
+
+        pnlCart.add(pnlCartBottom, BorderLayout.SOUTH);
+        pnlSplit.add(pnlCart, BorderLayout.EAST);
+
+        pnlBody.add(pnlSplit, BorderLayout.CENTER);
+        getContentPane().add(pnlBody, BorderLayout.CENTER);
+
+        getContentPane().revalidate();
+        getContentPane().repaint();
+    }
+
+    private JButton createPillButton(String text, boolean active) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btn.setFocusPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        if (active) {
+            btn.setBackground(Style_Net.NAVY_PRIMARY);
+            btn.setForeground(Color.WHITE);
+            btn.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Style_Net.NAVY_PRIMARY, 1, true),
+                new EmptyBorder(6, 14, 6, 14)
+            ));
+        } else {
+            btn.setBackground(Color.WHITE);
+            btn.setForeground(Style_Net.NAVY_PRIMARY);
+            btn.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Style_Net.BORDER_INPUT, 1, true),
+                new EmptyBorder(6, 14, 6, 14)
+            ));
+        }
+        return btn;
+    }
+
+    private void setFoodFilter(String f) {
+        this.foodFilter = f;
+        btnPillAllFood.setBackground("ALL".equals(f) ? Style_Net.NAVY_PRIMARY : Color.WHITE);
+        btnPillAllFood.setForeground("ALL".equals(f) ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+
+        btnPillFoodHot.setBackground("EAT".equals(f) ? Style_Net.NAVY_PRIMARY : Color.WHITE);
+        btnPillFoodHot.setForeground("EAT".equals(f) ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+
+        btnPillFoodDrink.setBackground("DRINK".equals(f) ? Style_Net.NAVY_PRIMARY : Color.WHITE);
+        btnPillFoodDrink.setForeground("DRINK".equals(f) ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+
+        renderFoodCardGrid();
+    }
+
+    public void updateMachineTitle(String tenMay, String maMay) {
+        if (lblTenMay != null) lblTenMay.setText(tenMay);
+        if (lblMaSd != null) lblMaSd.setText(maMay);
+        if (lblTopMachineBadge != null) {
+            lblTopMachineBadge.setText("Đang chọn gọi món cho: " + tenMay + " (Dàn máy thường)");
+        }
+        if (lblCartHeaderSub != null) {
+            lblCartHeaderSub.setText("Đang chuẩn bị đơn cho " + tenMay);
+        }
+        if (btnModernConfirmOrder != null) {
+            btnModernConfirmOrder.setText("XÁC NHẬN GỌI MÓN (" + tenMay + ")");
+        }
+    }
+
+    private void renderFoodCardGrid() {
+        if (pnlFoodGrid == null) return;
+        pnlFoodGrid.removeAll();
+
+        List<MonAn> list = MonAnDao.findAll();
+        String search = (txtSearchFood != null && txtSearchFood.getText() != null) ? txtSearchFood.getText().trim().toLowerCase() : "";
+
+        for (MonAn m : list) {
+            String ten = m.getTenMon();
+            if (!search.isEmpty() && !ten.toLowerCase().contains(search)) {
+                continue;
+            }
+            boolean isDrink = ten.toLowerCase().contains("sting") || ten.toLowerCase().contains("coca") || ten.toLowerCase().contains("trà") || ten.toLowerCase().contains("nước") || ten.toLowerCase().contains("bia") || ten.toLowerCase().contains("cà phê");
+            if ("EAT".equals(foodFilter) && isDrink) continue;
+            if ("DRINK".equals(foodFilter) && !isDrink) continue;
+
+            JPanel card = createFoodCard(m, isDrink);
+            pnlFoodGrid.add(card);
+        }
+
+        pnlFoodGrid.revalidate();
+        pnlFoodGrid.repaint();
+    }
+
+    private JPanel createFoodCard(MonAn m, boolean isDrink) {
+        JPanel card = Style_Net.createCardPanel();
+        card.setLayout(new BorderLayout(0, 6));
+        card.setPreferredSize(new Dimension(200, 260));
+
+        // 1. Image container at top (height 120px)
+        JPanel pnlImgWrap = new JPanel(new BorderLayout());
+        pnlImgWrap.setPreferredSize(new Dimension(0, 120));
+        pnlImgWrap.setBackground(new Color(0xF8, 0xFA, 0xFC));
+        pnlImgWrap.setBorder(new LineBorder(Style_Net.BORDER_HAIRLINE, 1, true));
+
+        JLabel lblImg = new JLabel("", SwingConstants.CENTER);
+        String imgPath = m.getHinhANh();
+        File f = null;
+        if (imgPath != null && !imgPath.isEmpty()) {
+            f = new File(imgPath);
+            if (!f.exists()) f = new File("src/main/java/img/" + imgPath);
+        }
+        if (f == null || !f.exists()) {
+            String ten = m.getTenMon().toLowerCase();
+            if (ten.contains("bò húc") || ten.contains("húc") || ten.contains("sting") || ten.contains("redbull")) {
+                f = new File("src/main/java/img/Sting.jpg");
+                if (!f.exists()) f = new File("src/main/java/img/stingVang.jpg");
+            } else if (ten.contains("mì xào") || ten.contains("bò trứng") || ten.contains("mì tôm") || ten.contains("mì")) {
+                f = new File("src/main/java/img/MiTomTrung.jpg");
+            } else if (ten.contains("coca")) {
+                f = new File("src/main/java/img/CocaCola.jpg");
+            } else if (ten.contains("bánh mì") || ten.contains("pate")) {
+                f = new File("src/main/java/img/BanhMiPate.jpg");
+            } else if (ten.contains("khoai")) {
+                f = new File("src/main/java/img/khoailangchien.jpg");
+            } else if (ten.contains("trà đào") || ten.contains("trà")) {
+                f = new File("src/main/java/img/tradao.jpg");
+            } else if (ten.contains("bia")) {
+                f = new File("src/main/java/img/Bia.jpg");
+            } else if (isDrink) {
+                f = new File("src/main/java/img/CocaCola.jpg");
+            } else {
+                f = new File("src/main/java/img/MiTomTrung.jpg");
+            }
+        }
+        if (f != null && f.exists()) {
+            try {
+                ImageIcon icon = new ImageIcon(f.getAbsolutePath());
+                Image img = icon.getImage().getScaledInstance(140, 105, Image.SCALE_SMOOTH);
+                lblImg.setIcon(new ImageIcon(img));
+            } catch (Exception ex) {
+                lblImg.setText(isDrink ? "NƯỚC UỐNG" : "MÓN ĂN");
+                lblImg.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                lblImg.setForeground(Style_Net.TEXT_MUTED);
+            }
+        } else {
+            lblImg.setText(isDrink ? "NƯỚC UỐNG" : "MÓN ĂN");
+            lblImg.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            lblImg.setForeground(Style_Net.TEXT_MUTED);
+        }
+        pnlImgWrap.add(lblImg, BorderLayout.CENTER);
+
+        // Badge at top right of image container
+        JPanel pnlBadgeWrap = new JPanel(new FlowLayout(FlowLayout.RIGHT, 4, 4));
+        pnlBadgeWrap.setOpaque(false);
+        JLabel badge = (m.getSoLuong() > 0) ? Style_Net.createBadge("Còn " + m.getSoLuong(), "green") : Style_Net.createBadge("Tạm hết", "gray");
+        pnlBadgeWrap.add(badge);
+        pnlImgWrap.add(pnlBadgeWrap, BorderLayout.NORTH);
+
+        card.add(pnlImgWrap, BorderLayout.NORTH);
+
+        // 2. Info Body
+        JPanel pnlInfo = new JPanel();
+        pnlInfo.setLayout(new BoxLayout(pnlInfo, BoxLayout.Y_AXIS));
+        pnlInfo.setOpaque(false);
+
+        JLabel lblCat = new JLabel(isDrink ? "NƯỚC GIẢI KHÁT" : "ĐỒ ĂN NÓNG");
+        lblCat.setFont(new Font("Segoe UI", Font.BOLD, 10));
+        lblCat.setForeground(Style_Net.TEXT_MUTED);
+
+        JLabel lblName = new JLabel("<html><body style='width: 150px;'>" + m.getTenMon() + "</body></html>");
+        lblName.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblName.setForeground(Style_Net.NAVY_PRIMARY);
+
+        pnlInfo.add(lblCat);
+        pnlInfo.add(Box.createVerticalStrut(2));
+        pnlInfo.add(lblName);
+        card.add(pnlInfo, BorderLayout.CENTER);
+
+        // 3. Price & Add button at bottom
+        JPanel pnlBottom = new JPanel(new BorderLayout(6, 0));
+        pnlBottom.setOpaque(false);
+
+        JLabel lblPrice = new JLabel(Style_Net.formatMoney(m.getGiaTien()));
+        lblPrice.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblPrice.setForeground(Style_Net.NAVY_PRIMARY);
+
+        JButton btnAdd = new JButton("+ Thêm");
+        Style_Net.styleSecondaryButton(btnAdd);
+        btnAdd.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnAdd.addActionListener(e -> {
+            addFoodToCart(m);
+        });
+
+        pnlBottom.add(lblPrice, BorderLayout.WEST);
+        pnlBottom.add(btnAdd, BorderLayout.EAST);
+        card.add(pnlBottom, BorderLayout.SOUTH);
+
+        return card;
+    }
+
+    private void addFoodToCart(MonAn m) {
+        DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+        boolean found = false;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (model.getValueAt(i, 0).toString().equals(m.getId())) {
+                int currentQty = Integer.parseInt(model.getValueAt(i, 3).toString());
+                model.setValueAt(currentQty + 1, i, 3);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            model.addRow(new Object[]{m.getId(), m.getTenMon(), m.getGiaTien(), 1});
+        }
+        updateTongTien();
+        syncCartToDisplay();
+    }
+
+    private void syncCartToDisplay() {
+        if (modelCartDisplay == null) return;
+        modelCartDisplay.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) tblTongMonAn.getModel();
+        double sum = 0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String ten = model.getValueAt(i, 1).toString();
+            double gia = Double.parseDouble(model.getValueAt(i, 2).toString());
+            int sl = Integer.parseInt(model.getValueAt(i, 3).toString());
+            double total = gia * sl;
+            sum += total;
+            modelCartDisplay.addRow(new Object[]{ten, sl, Style_Net.formatMoney(gia), Style_Net.formatMoney(total), "Xóa"});
+        }
+        if (lblCartTotalDisplay != null) {
+            lblCartTotalDisplay.setText(Style_Net.formatMoney(sum));
+        }
     }
 
     /**

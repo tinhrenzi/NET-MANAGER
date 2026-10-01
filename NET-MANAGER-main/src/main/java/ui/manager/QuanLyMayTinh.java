@@ -8,6 +8,7 @@ import controller.QuanLyMayTinhConntroll;
 import dao.MayTinhDAO;
 import daoImpl.MayTinhDAOImpl;
 import entity.MayTinh;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,11 +28,236 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     MayTinhDAO dao = new MayTinhDAOImpl();
     List<MayTinh> list = new ArrayList<>();
 
+    private javax.swing.JLabel lblHeaderSummary;
+    private javax.swing.JComboBox<String> cboKhuVuc;
+    private javax.swing.JTextField txtMaMayDisplay;
+    private javax.swing.JButton btnThemMoiQuick;
+    private javax.swing.JButton btnResetTable;
+
     public QuanLyMayTinh(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Style_Net.styleAllTables(this.getContentPane());
+        buildModernQLMTLayout();
         this.open();
+    }
+
+    private void buildModernQLMTLayout() {
+        setTitle("NET-MANAGER - Quản Lý Danh Mục Máy Tính");
+        setSize(1100, 700);
+        setLocationRelativeTo(null);
+        getContentPane().removeAll();
+        getContentPane().setLayout(new java.awt.BorderLayout(0, 16));
+        getContentPane().setBackground(Style_Net.BG_CANVAS);
+        ((javax.swing.JPanel) getContentPane()).setBorder(new javax.swing.border.EmptyBorder(16, 20, 20, 20));
+
+        // 1. TOP HEADER BAR
+        javax.swing.JPanel pnlTopHeader = new javax.swing.JPanel(new java.awt.BorderLayout());
+        pnlTopHeader.setOpaque(false);
+
+        javax.swing.JPanel pnlTitleGroup = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
+        pnlTitleGroup.setOpaque(false);
+        javax.swing.JLabel lblBrand = new javax.swing.JLabel("NET-MANAGER");
+        lblBrand.setFont(Style_Net.FONT_BRAND);
+        lblBrand.setForeground(Style_Net.NAVY_PRIMARY);
+        javax.swing.JLabel lblSubTitle = new javax.swing.JLabel("QUẢN LÝ DANH MỤC MÁY TÍNH • CẤU HÌNH ĐƠN GIÁ");
+        lblSubTitle.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        lblSubTitle.setForeground(Style_Net.TEXT_MUTED);
+        pnlTitleGroup.add(lblBrand);
+        pnlTitleGroup.add(new javax.swing.JLabel("  "));
+        pnlTitleGroup.add(lblSubTitle);
+
+        lblHeaderSummary = new javax.swing.JLabel("Hệ thống: 0 máy trạm • Sẵn sàng");
+        lblHeaderSummary.setFont(Style_Net.FONT_LABEL);
+        lblHeaderSummary.setForeground(Style_Net.TEXT_MUTED);
+
+        pnlTopHeader.add(pnlTitleGroup, java.awt.BorderLayout.WEST);
+        pnlTopHeader.add(lblHeaderSummary, java.awt.BorderLayout.EAST);
+        getContentPane().add(pnlTopHeader, java.awt.BorderLayout.NORTH);
+
+        // 2. CENTER CONTENT (Two-column SaaS layout)
+        javax.swing.JPanel pnlCenter = new javax.swing.JPanel(new java.awt.BorderLayout(16, 0));
+        pnlCenter.setOpaque(false);
+
+        // --- LEFT CARD (Table Area) ---
+        javax.swing.JPanel pnlLeftCard = Style_Net.createCardPanel();
+        pnlLeftCard.setLayout(new java.awt.BorderLayout(0, 12));
+
+        // Left Top Bar: Search + Quick Add
+        javax.swing.JPanel pnlTableToolbar = new javax.swing.JPanel(new java.awt.BorderLayout(10, 0));
+        pnlTableToolbar.setOpaque(false);
+
+        javax.swing.JPanel pnlSearchBox = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
+        pnlSearchBox.setOpaque(false);
+        txtFind.setPreferredSize(new java.awt.Dimension(220, 36));
+        Style_Net.styleTextField(txtFind);
+        txtFind.putClientProperty("JTextField.placeholderText", "Tìm theo tên máy...");
+        Style_Net.styleSecondaryButton(btnFind);
+        btnFind.setText("Tìm kiếm");
+        btnFind.setPreferredSize(new java.awt.Dimension(95, 36));
+
+        btnResetTable = new javax.swing.JButton("Tất cả");
+        Style_Net.styleSecondaryButton(btnResetTable);
+        btnResetTable.setPreferredSize(new java.awt.Dimension(75, 36));
+        btnResetTable.addActionListener(e -> {
+            txtFind.setText("");
+            fillToTable();
+        });
+
+        pnlSearchBox.add(txtFind);
+        pnlSearchBox.add(btnFind);
+        pnlSearchBox.add(btnResetTable);
+
+        btnThemMoiQuick = new javax.swing.JButton("+ THÊM MÁY MỚI");
+        Style_Net.stylePrimaryButton(btnThemMoiQuick);
+        btnThemMoiQuick.setPreferredSize(new java.awt.Dimension(150, 36));
+        btnThemMoiQuick.addActionListener(e -> {
+            clear();
+            txtName.requestFocus();
+        });
+
+        pnlTableToolbar.add(pnlSearchBox, java.awt.BorderLayout.WEST);
+        pnlTableToolbar.add(btnThemMoiQuick, java.awt.BorderLayout.EAST);
+        pnlLeftCard.add(pnlTableToolbar, java.awt.BorderLayout.NORTH);
+
+        // Modern Table
+        Style_Net.styleTable(tblQLMT);
+        tblQLMT.setRowHeight(40);
+        jScrollPane2.setViewportView(tblQLMT);
+        jScrollPane2.setBorder(new javax.swing.border.LineBorder(Style_Net.BORDER_HAIRLINE, 1, true));
+        pnlLeftCard.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        pnlCenter.add(pnlLeftCard, java.awt.BorderLayout.CENTER);
+
+        // --- RIGHT CARD (Form Area) ---
+        javax.swing.JPanel pnlRightCard = Style_Net.createCardPanel();
+        pnlRightCard.setPreferredSize(new java.awt.Dimension(340, 560));
+        pnlRightCard.setLayout(new java.awt.BorderLayout(0, 16));
+
+        // Form Header
+        javax.swing.JPanel pnlFormHeader = new javax.swing.JPanel();
+        pnlFormHeader.setLayout(new javax.swing.BoxLayout(pnlFormHeader, javax.swing.BoxLayout.Y_AXIS));
+        pnlFormHeader.setOpaque(false);
+        javax.swing.JLabel lblFormTitle = new javax.swing.JLabel("THÔNG TIN MÁY TRẠM");
+        lblFormTitle.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 16));
+        lblFormTitle.setForeground(Style_Net.NAVY_PRIMARY);
+        lblFormTitle.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        javax.swing.JLabel lblFormDesc = new javax.swing.JLabel("Chỉnh sửa thông số đơn giá và trạng thái máy");
+        lblFormDesc.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+        lblFormDesc.setForeground(Style_Net.TEXT_MUTED);
+        lblFormDesc.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        pnlFormHeader.add(lblFormTitle);
+        pnlFormHeader.add(javax.swing.Box.createVerticalStrut(4));
+        pnlFormHeader.add(lblFormDesc);
+        pnlRightCard.add(pnlFormHeader, java.awt.BorderLayout.NORTH);
+
+        // Form Fields (Vertical Box)
+        javax.swing.JPanel pnlFormBody = new javax.swing.JPanel();
+        pnlFormBody.setLayout(new javax.swing.BoxLayout(pnlFormBody, javax.swing.BoxLayout.Y_AXIS));
+        pnlFormBody.setOpaque(false);
+
+        // Field 1: Mã máy
+        javax.swing.JLabel lblF1 = new javax.swing.JLabel("MÃ MÁY (HỆ THỐNG TỰ CẤP)");
+        lblF1.setFont(Style_Net.FONT_LABEL);
+        lblF1.setForeground(Style_Net.TEXT_MUTED);
+        lblF1.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        txtMaMayDisplay = new javax.swing.JTextField();
+        txtMaMayDisplay.setEditable(false);
+        txtMaMayDisplay.setBackground(new java.awt.Color(0xF1, 0xF5, 0xF9));
+        Style_Net.styleTextField(txtMaMayDisplay);
+        txtMaMayDisplay.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtMaMayDisplay.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 2: Tên máy
+        javax.swing.JLabel lblF2 = new javax.swing.JLabel("TÊN HIỂN THỊ CỦA MÁY");
+        lblF2.setFont(Style_Net.FONT_LABEL);
+        lblF2.setForeground(Style_Net.TEXT_MUTED);
+        lblF2.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        Style_Net.styleTextField(txtName);
+        txtName.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtName.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 3: Phân loại khu vực
+        javax.swing.JLabel lblF3 = new javax.swing.JLabel("PHÂN LOẠI KHU VỰC / PHÒNG");
+        lblF3.setFont(Style_Net.FONT_LABEL);
+        lblF3.setForeground(Style_Net.TEXT_MUTED);
+        lblF3.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        cboKhuVuc = new javax.swing.JComboBox<>(new String[]{"Dàn máy thường", "Phòng máy VIP", "Phòng Thi Đấu"});
+        cboKhuVuc.setFont(Style_Net.FONT_BODY);
+        cboKhuVuc.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        cboKhuVuc.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 4: Đơn giá
+        javax.swing.JLabel lblF4 = new javax.swing.JLabel("ĐƠN GIÁ CƯỚC (₫ / GIỜ)");
+        lblF4.setFont(Style_Net.FONT_LABEL);
+        lblF4.setForeground(Style_Net.TEXT_MUTED);
+        lblF4.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        Style_Net.styleTextField(txtGia);
+        txtGia.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtGia.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 5: Trạng thái
+        javax.swing.JLabel lblF5 = new javax.swing.JLabel("TRẠNG THÁI HIỆN TẠI");
+        lblF5.setFont(Style_Net.FONT_LABEL);
+        lblF5.setForeground(Style_Net.TEXT_MUTED);
+        lblF5.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        cboTrangThai.setFont(Style_Net.FONT_BODY);
+        cboTrangThai.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        cboTrangThai.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        pnlFormBody.add(lblF1);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(4));
+        pnlFormBody.add(txtMaMayDisplay);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(12));
+
+        pnlFormBody.add(lblF2);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(4));
+        pnlFormBody.add(txtName);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(12));
+
+        pnlFormBody.add(lblF3);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(4));
+        pnlFormBody.add(cboKhuVuc);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(12));
+
+        pnlFormBody.add(lblF4);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(4));
+        pnlFormBody.add(txtGia);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(12));
+
+        pnlFormBody.add(lblF5);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(4));
+        pnlFormBody.add(cboTrangThai);
+        pnlFormBody.add(javax.swing.Box.createVerticalGlue());
+
+        pnlRightCard.add(pnlFormBody, java.awt.BorderLayout.CENTER);
+
+        // Form Footer: Action Buttons Stack
+        javax.swing.JPanel pnlFormButtons = new javax.swing.JPanel();
+        pnlFormButtons.setLayout(new java.awt.GridLayout(3, 1, 0, 8));
+        pnlFormButtons.setOpaque(false);
+
+        btnCapNhat.setText("LƯU THAY ĐỔI CẤU HÌNH");
+        Style_Net.stylePrimaryButton(btnCapNhat);
+        btnCapNhat.setPreferredSize(new java.awt.Dimension(300, 38));
+
+        btnLamMoi.setText("LÀM MỚI FORM");
+        Style_Net.styleSecondaryButton(btnLamMoi);
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(300, 36));
+
+        btnXoa.setText("XÓA MÁY TRẠM NÀY");
+        Style_Net.styleDangerButton(btnXoa);
+        btnXoa.setPreferredSize(new java.awt.Dimension(300, 36));
+
+        pnlFormButtons.add(btnCapNhat);
+        pnlFormButtons.add(btnLamMoi);
+        pnlFormButtons.add(btnXoa);
+
+        pnlRightCard.add(pnlFormButtons, java.awt.BorderLayout.SOUTH);
+
+        pnlCenter.add(pnlRightCard, java.awt.BorderLayout.EAST);
+        getContentPane().add(pnlCenter, java.awt.BorderLayout.CENTER);
     }
 
     /**
@@ -344,6 +570,10 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+        if (lblMaMay.getText().trim().isEmpty() || lblMaMay.getText().contains("Tự động")) {
+            btnThemActionPerformed(evt);
+            return;
+        }
         int hang = tblQLMT.getRowCount();
         String tenNhap = txtName.getText().trim();
         boolean trungTen = false;
@@ -392,11 +622,6 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -404,19 +629,10 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyMayTinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(QuanLyMayTinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 QuanLyMayTinh dialog = new QuanLyMayTinh(new javax.swing.JFrame(), true);
@@ -433,31 +649,48 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
 
     public void fillTXT(int row) {
         if (row < 0 || row >= tblQLMT.getRowCount()) {
-            System.out.println("Chỉ số dòng không hợp lệ: " + row);
             return;
         }
         Object Id = tblQLMT.getValueAt(row, 0);
         Object TenMay = tblQLMT.getValueAt(row, 1);
-        Object Gia = tblQLMT.getValueAt(row, 2);
-        Object TrangThai = tblQLMT.getValueAt(row, 3);
-        txtGia.setText(Gia != null ? Gia.toString() : "");
-        lblMaMay.setText(Id != null ? Id.toString() : "");
+        Object KhuVuc = tblQLMT.getValueAt(row, 2);
+        Object TrangThai = tblQLMT.getValueAt(row, 4);
+
+        String idStr = Id != null ? Id.toString() : "";
+        lblMaMay.setText(idStr);
+        if (txtMaMayDisplay != null) {
+            txtMaMayDisplay.setText(idStr);
+        }
         txtName.setText(TenMay != null ? TenMay.toString() : "");
+        if (KhuVuc != null && cboKhuVuc != null) {
+            cboKhuVuc.setSelectedItem(KhuVuc.toString());
+        }
+
+        for (MayTinh mt : list) {
+            if (mt.getId().equals(idStr)) {
+                txtGia.setText(String.valueOf((long)mt.getGiaTheoGio()));
+                break;
+            }
+        }
+
         if (TrangThai != null) {
             String trangThai = TrangThai.toString().trim();
-            if (trangThai.equalsIgnoreCase("Hoạt động")) {
+            if (trangThai.equalsIgnoreCase("Hoạt động") || trangThai.equalsIgnoreCase("Đang dùng")) {
                 cboTrangThai.setSelectedIndex(0);
             } else if (trangThai.equalsIgnoreCase("Trống")) {
                 cboTrangThai.setSelectedIndex(1);
             } else if (trangThai.equalsIgnoreCase("Bảo trì")) {
                 cboTrangThai.setSelectedIndex(2);
             } else {
-                cboTrangThai.setSelectedIndex(-1);
+                cboTrangThai.setSelectedIndex(0);
             }
-        } else {
-            cboTrangThai.setSelectedIndex(-1);
         }
-
+        if (btnCapNhat != null) {
+            btnCapNhat.setText("✓ LƯU THAY ĐỔI CẤU HÌNH");
+        }
+        if (lblHeaderSummary != null) {
+            lblHeaderSummary.setText("Hệ thống: " + list.size() + " máy trạm • Đang chọn sửa: " + idStr + " (" + txtName.getText() + ")");
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
@@ -502,36 +735,68 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     @Override
     public MayTinh getForm() {
         MayTinh entity = new MayTinh();
-        entity.setTenMay(txtName.getText());
-        entity.setGiaTheoGio(Float.parseFloat(txtGia.getText()));
+        entity.setTenMay(txtName.getText().trim());
+        entity.setGiaTheoGio(Float.parseFloat(txtGia.getText().trim()));
         entity.setTrangThai("Trống");
         return entity;
-
     }
 
     public MayTinh getFormByUp() {
         MayTinh entity = new MayTinh();
-        entity.setId(lblMaMay.getText());
-        entity.setTenMay(txtName.getText());
-        entity.setGiaTheoGio(Float.parseFloat(txtGia.getText()));
+        entity.setId(lblMaMay.getText().trim());
+        entity.setTenMay(txtName.getText().trim());
+        entity.setGiaTheoGio(Float.parseFloat(txtGia.getText().trim()));
         entity.setTrangThai(cboTrangThai.getSelectedItem().toString());
         return entity;
-
     }
 
     @Override
     public void fillToTable() {
-        DefaultTableModel model = (DefaultTableModel) tblQLMT.getModel();
-        model.setRowCount(0);
+        DefaultTableModel model = new DefaultTableModel(
+            new String[] { "MÃ MÁY", "TÊN MÁY", "PHÂN LOẠI PHÒNG", "ĐƠN GIÁ / GIỜ", "TRẠNG THÁI" }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
+        tblQLMT.setModel(model);
         list = dao.findAll();
-        list.forEach(item -> {
-            Object[] rowData = {
+        for (MayTinh item : list) {
+            String room = "Dàn máy thường";
+            if (item.getTenMay() != null) {
+                String u = item.getTenMay().toUpperCase();
+                if (u.contains("VIP")) room = "Phòng máy VIP";
+                else if (u.contains("THI ĐẤU") || u.contains("THI DAU")) room = "Phòng Thi Đấu";
+            }
+            model.addRow(new Object[]{
                 item.getId(),
                 item.getTenMay(),
-                item.getGiaTheoGio(),
-                item.getTrangThai(),};
-            model.addRow(rowData);
-        });
+                room,
+                Style_Net.formatMoney(item.getGiaTheoGio()) + " / giờ",
+                item.getTrangThai()
+            });
+        }
+        setupQLMTRenderers();
+        if (lblHeaderSummary != null) {
+            lblHeaderSummary.setText("Hệ thống: " + list.size() + " máy trạm • Sẵn sàng");
+        }
+    }
+
+    private void setupQLMTRenderers() {
+        if (tblQLMT.getColumnCount() >= 5) {
+            tblQLMT.getColumnModel().getColumn(4).setCellRenderer((table, value, isSelected, hasFocus, row, col) -> {
+                String st = value != null ? value.toString().trim() : "";
+                javax.swing.JPanel pnl = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 7));
+                pnl.setBackground(isSelected ? table.getSelectionBackground() : java.awt.Color.WHITE);
+                if (st.equalsIgnoreCase("Trống")) {
+                    pnl.add(Style_Net.createBadge("TRỐNG", new java.awt.Color(0xEC, 0xFD, 0xF5), new java.awt.Color(0x05, 0x96, 0x69)));
+                } else if (st.equalsIgnoreCase("Bảo trì")) {
+                    pnl.add(Style_Net.createBadge("BẢO TRÌ", new java.awt.Color(0xF1, 0xF5, 0xF9), new java.awt.Color(0x64, 0x74, 0x8B)));
+                } else {
+                    pnl.add(Style_Net.createBadge("ĐANG DÙNG", new java.awt.Color(0xEF, 0xF6, 0xFF), new java.awt.Color(0x1D, 0x4E, 0xD8)));
+                }
+                return pnl;
+            });
+        }
     }
 
     @Override
@@ -566,11 +831,12 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         MayTinh mt = this.getForm();
         dao.create(mt);
         this.fillToTable();
+        JOptionPane.showMessageDialog(this, "Thêm máy thành công!");
     }
 
     @Override
     public void update() {
-        if (lblMaMay.getText().trim().isEmpty()) {
+        if (lblMaMay.getText().trim().isEmpty() || lblMaMay.getText().contains("Tự động")) {
             XDialog.alert("Vui lòng chọn máy bạn muốn sửa");
             return;
         }
@@ -601,7 +867,7 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
         MayTinh mt = this.getFormByUp();
         dao.update(mt);
         this.fillToTable();
-        JOptionPane.showMessageDialog(this,"Sủa thành công!");
+        JOptionPane.showMessageDialog(this, "Cập nhật thông số máy thành công!");
     }
 
     @Override
@@ -613,11 +879,15 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
             return;
         }
 
+        if (!XDialog.confirm("Bạn có chắc chắn muốn xóa máy " + id + " không?")) {
+            return;
+        }
+
         try {
             dao.deleteByID(id);
             fillToTable();
             clear();
-            JOptionPane.showMessageDialog(this,"Xóa thành công!");
+            JOptionPane.showMessageDialog(this, "Xóa máy thành công!");
         } catch (Exception e) {
             XDialog.alert("Xóa thất bại! " + e.getMessage());
         }
@@ -626,10 +896,19 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     @Override
     public void clear() {
         lblMaMay.setText("");
+        if (txtMaMayDisplay != null) {
+            txtMaMayDisplay.setText("(Tự động cấp khi lưu)");
+        }
         txtName.setText("");
         txtGia.setText("");
-        cboTrangThai.setSelectedIndex(0);
-        fillToTable();
+        if (cboKhuVuc != null) cboKhuVuc.setSelectedIndex(0);
+        cboTrangThai.setSelectedIndex(1);
+        if (btnCapNhat != null) {
+            btnCapNhat.setText("+ THÊM VÀO HỆ THỐNG");
+        }
+        if (lblHeaderSummary != null) {
+            lblHeaderSummary.setText("Hệ thống: " + list.size() + " máy trạm • Thêm máy mới");
+        }
     }
 
     @Override
@@ -638,25 +917,38 @@ public class QuanLyMayTinh extends javax.swing.JDialog implements QuanLyMayTinhC
     }
 
     public void findName(String name) {
-        String tenmay = txtFind.getText();
+        String tenmay = txtFind.getText().trim();
         if (tenmay.isEmpty()) {
-            XDialog.alert("Vui lòng nhập tên máy để tìm!");
+            fillToTable();
             return;
         }
-        DefaultTableModel model = (DefaultTableModel) tblQLMT.getModel();
-        model.setRowCount(0);
+        DefaultTableModel model = new DefaultTableModel(
+            new String[] { "MÃ MÁY", "TÊN MÁY", "PHÂN LOẠI PHÒNG", "ĐƠN GIÁ / GIỜ", "TRẠNG THÁI" }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
+        tblQLMT.setModel(model);
 
         for (MayTinh item : list) {
-            if (item.getTenMay().toLowerCase().contains(tenmay.toLowerCase())) {
+            if (item.getTenMay().toLowerCase().contains(tenmay.toLowerCase()) ||
+                item.getId().toLowerCase().contains(tenmay.toLowerCase())) {
+                String room = "Dàn máy thường";
+                if (item.getTenMay() != null) {
+                    String u = item.getTenMay().toUpperCase();
+                    if (u.contains("VIP")) room = "Phòng máy VIP";
+                    else if (u.contains("THI ĐẤU") || u.contains("THI DAU")) room = "Phòng Thi Đấu";
+                }
                 model.addRow(new Object[]{
                     item.getId(),
                     item.getTenMay(),
-                    item.getGiaTheoGio(),
+                    room,
+                    Style_Net.formatMoney(item.getGiaTheoGio()) + " / giờ",
                     item.getTrangThai()
                 });
-
             }
         }
+        setupQLMTRenderers();
     }
 
 }

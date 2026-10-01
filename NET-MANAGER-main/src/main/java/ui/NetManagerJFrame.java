@@ -6,15 +6,21 @@ package ui;
 
 import controller.GiaoDienChinhController;
 import dao.MayTinhDAO;
+import dao.SDMayDAO;
 import daoImpl.MayTinhDAOImpl;
+import daoImpl.SDMayDAOImpl;
 import entity.Admin;
-import java.awt.Image;
+import entity.MayTinh;
+import entity.SuDungMay;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
+import java.util.List;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.table.*;
 import util.Style_Net;
 import util.XAuth;
 
@@ -532,12 +538,445 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     private javax.swing.JLabel lblSoMayTrong;
     private javax.swing.JPanel menuHeThong;
     private javax.swing.JPanel pnlMenuTop;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
+
+    // Modern Dashboard Components
+    private JLabel lblDashboardTitle;
+    private JLabel lblDongHoTop;
+    private JLabel lblKpiRevenueVal;
+    private JLabel lblKpiHoursVal;
+    private JLabel lblKpiActiveVal;
+    private JLabel lblKpiActiveSub;
+    private JLabel lblKpiFoodVal;
+    private JTable tblDashboardActive;
+    private DefaultTableModel modelDashboardActive;
+    private JLabel lblSidebarUserName;
+    private JLabel lblSidebarUserRole;
+    private JButton btnNavMoMay;
+    private JButton btnNavThucDon;
+    private JButton btnNavMayTinh;
+    private JButton btnNavNhanVien;
+    private JButton btnNavThongKe;
+    private SDMayDAO sdMayDao = new SDMayDAOImpl();
+
+    private void initNavyFrameTheme() {
+        buildModernDashboard();
+    }
+
+    private void buildModernDashboard() {
+        setTitle("NET-MANAGER - Hệ Thống Điều Hành Phòng Máy");
+        setSize(1360, 780);
+        setLocationRelativeTo(null);
+        getContentPane().removeAll();
+        getContentPane().setLayout(new BorderLayout());
+
+        // 1. SIDEBAR (WEST) - Fixed width 230px, White background, border right
+        JPanel pnlSidebar = new JPanel(new BorderLayout());
+        pnlSidebar.setPreferredSize(new Dimension(230, 0));
+        pnlSidebar.setBackground(Color.WHITE);
+        pnlSidebar.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Style_Net.BORDER_HAIRLINE));
+
+        // Top brand & nav buttons
+        JPanel pnlSidebarTop = new JPanel();
+        pnlSidebarTop.setLayout(new BoxLayout(pnlSidebarTop, BoxLayout.Y_AXIS));
+        pnlSidebarTop.setBackground(Color.WHITE);
+        pnlSidebarTop.setBorder(new EmptyBorder(24, 16, 20, 16));
+
+        JLabel lblBrand = new JLabel("NET-MANAGER");
+        lblBrand.setFont(Style_Net.FONT_BRAND);
+        lblBrand.setForeground(Style_Net.NAVY_PRIMARY);
+        lblBrand.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblBrand.setIcon(new ImageIcon("src/main/java/img/Ui-manager-icon-computer32x32.png"));
+        lblBrand.setIconTextGap(8);
+        pnlSidebarTop.add(lblBrand);
+
+        JLabel lblBrandSub = new JLabel("HỆ THỐNG ĐIỀU HÀNH");
+        lblBrandSub.setFont(new Font("Segoe UI", Font.BOLD, 10));
+        lblBrandSub.setForeground(Style_Net.TEXT_MUTED);
+        lblBrandSub.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblBrandSub.setBorder(new EmptyBorder(3, 40, 16, 0));
+        pnlSidebarTop.add(lblBrandSub);
+
+        // Nav buttons (Clean typography, no broken emoji glyphs)
+        btnNavMoMay = createNavButton("Sơ đồ máy trạm", true);
+        btnNavMayTinh = createNavButton("Quản lý máy tính", false);
+        btnNavThucDon = createNavButton("Quản lý thực đơn", false);
+        btnNavNhanVien = createNavButton("Quản lý nhân viên", false);
+        btnNavThongKe = createNavButton("Thống kê doanh thu", false);
+
+        btnNavMoMay.addActionListener(e -> { showMoMay(this); CapNhat(); });
+        btnNavMayTinh.addActionListener(e -> { showQLmay(this); CapNhat(); });
+        btnNavThucDon.addActionListener(e -> { showQLOrder(this); CapNhat(); });
+        btnNavNhanVien.addActionListener(e -> { showNhanVien(this); CapNhat(); });
+        btnNavThongKe.addActionListener(e -> { showQLThongke(this); CapNhat(); });
+
+        pnlSidebarTop.add(btnNavMoMay);
+        pnlSidebarTop.add(Box.createVerticalStrut(6));
+        pnlSidebarTop.add(btnNavMayTinh);
+        pnlSidebarTop.add(Box.createVerticalStrut(6));
+        pnlSidebarTop.add(btnNavThucDon);
+        pnlSidebarTop.add(Box.createVerticalStrut(6));
+        pnlSidebarTop.add(btnNavNhanVien);
+        pnlSidebarTop.add(Box.createVerticalStrut(6));
+        pnlSidebarTop.add(btnNavThongKe);
+
+        pnlSidebar.add(pnlSidebarTop, BorderLayout.NORTH);
+
+        // Bottom User Card
+        JPanel pnlUserBottom = new JPanel(new BorderLayout(8, 0));
+        pnlUserBottom.setBackground(Color.WHITE);
+        pnlUserBottom.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(1, 0, 0, 0, Style_Net.BORDER_HAIRLINE),
+            new EmptyBorder(14, 16, 16, 16)
+        ));
+
+        JPanel pnlUserText = new JPanel();
+        pnlUserText.setLayout(new BoxLayout(pnlUserText, BoxLayout.Y_AXIS));
+        pnlUserText.setBackground(Color.WHITE);
+
+        lblSidebarUserName = new JLabel(XAuth.user != null ? XAuth.user.getTen() : "admin");
+        lblSidebarUserName.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblSidebarUserName.setForeground(Style_Net.NAVY_PRIMARY);
+
+        lblSidebarUserRole = new JLabel(XAuth.user != null && XAuth.user.getVaiTro() == 1 ? "Quản trị viên ca trực" : "Nhân viên ca trực");
+        lblSidebarUserRole.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        lblSidebarUserRole.setForeground(Style_Net.TEXT_MUTED);
+
+        pnlUserText.add(lblSidebarUserName);
+        pnlUserText.add(lblSidebarUserRole);
+
+        JButton btnLogout = new JButton("Đăng xuất");
+        btnLogout.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnLogout.setForeground(Style_Net.COLOR_DANGER);
+        btnLogout.setBackground(Color.WHITE);
+        btnLogout.setBorder(null);
+        btnLogout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnLogout.setContentAreaFilled(false);
+        btnLogout.addActionListener(e -> dangXuat());
+
+        pnlUserBottom.add(pnlUserText, BorderLayout.WEST);
+        pnlUserBottom.add(btnLogout, BorderLayout.EAST);
+        pnlSidebar.add(pnlUserBottom, BorderLayout.SOUTH);
+
+        getContentPane().add(pnlSidebar, BorderLayout.WEST);
+
+        // 2. MAIN DASHBOARD (CENTER)
+        JPanel pnlDashboard = new JPanel(new BorderLayout(0, 18));
+        pnlDashboard.setBackground(Style_Net.BG_CANVAS);
+        pnlDashboard.setBorder(new EmptyBorder(22, 28, 22, 28));
+
+        // Top bar
+        JPanel pnlTopBar = new JPanel(new BorderLayout());
+        pnlTopBar.setOpaque(false);
+
+        lblDashboardTitle = new JLabel("TỔNG QUAN VẬN HÀNH PHÒNG MÁY");
+        lblDashboardTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblDashboardTitle.setForeground(Style_Net.NAVY_PRIMARY);
+
+        lblDongHoTop = new JLabel("Đang tải thời gian...");
+        lblDongHoTop.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblDongHoTop.setForeground(Style_Net.TEXT_MUTED);
+
+        pnlTopBar.add(lblDashboardTitle, BorderLayout.WEST);
+        pnlTopBar.add(lblDongHoTop, BorderLayout.EAST);
+        pnlDashboard.add(pnlTopBar, BorderLayout.NORTH);
+
+        // Center content area
+        JPanel pnlCenterBody = new JPanel(new BorderLayout(0, 18));
+        pnlCenterBody.setOpaque(false);
+
+        // KPI Cards Row
+        JPanel pnlKPIContainer = new JPanel(new GridLayout(1, 4, 16, 0));
+        pnlKPIContainer.setOpaque(false);
+        pnlKPIContainer.setPreferredSize(new Dimension(0, 95));
+
+        // KPI 1: Doanh thu hôm nay
+        JPanel kpi1 = Style_Net.createCardPanel();
+        kpi1.setLayout(new BoxLayout(kpi1, BoxLayout.Y_AXIS));
+        JLabel t1 = new JLabel("DOANH THU HÔM NAY"); t1.setFont(new Font("Segoe UI", Font.BOLD, 11)); t1.setForeground(Style_Net.TEXT_MUTED);
+        lblKpiRevenueVal = new JLabel("1.845.000 ₫"); lblKpiRevenueVal.setFont(new Font("Segoe UI", Font.BOLD, 22)); lblKpiRevenueVal.setForeground(Style_Net.NAVY_PRIMARY);
+        JLabel s1 = new JLabel("↑ 12% so với hôm qua"); s1.setFont(new Font("Segoe UI", Font.PLAIN, 12)); s1.setForeground(Style_Net.COLOR_SUCCESS);
+        kpi1.add(t1); kpi1.add(Box.createVerticalStrut(3)); kpi1.add(lblKpiRevenueVal); kpi1.add(Box.createVerticalStrut(3)); kpi1.add(s1);
+
+        // KPI 2: Tổng giờ chơi
+        JPanel kpi2 = Style_Net.createCardPanel();
+        kpi2.setLayout(new BoxLayout(kpi2, BoxLayout.Y_AXIS));
+        JLabel t2 = new JLabel("TỔNG GIỜ CHƠI GHI NHẬN"); t2.setFont(new Font("Segoe UI", Font.BOLD, 11)); t2.setForeground(Style_Net.TEXT_MUTED);
+        lblKpiHoursVal = new JLabel("38.5 giờ"); lblKpiHoursVal.setFont(new Font("Segoe UI", Font.BOLD, 22)); lblKpiHoursVal.setForeground(Style_Net.NAVY_PRIMARY);
+        JLabel s2 = new JLabel("Bình quân 2.8h / máy"); s2.setFont(new Font("Segoe UI", Font.PLAIN, 12)); s2.setForeground(Style_Net.TEXT_MUTED);
+        kpi2.add(t2); kpi2.add(Box.createVerticalStrut(3)); kpi2.add(lblKpiHoursVal); kpi2.add(Box.createVerticalStrut(3)); kpi2.add(s2);
+
+        // KPI 3: Máy đang hoạt động
+        JPanel kpi3 = Style_Net.createCardPanel();
+        kpi3.setLayout(new BoxLayout(kpi3, BoxLayout.Y_AXIS));
+        JLabel t3 = new JLabel("MÁY ĐANG HOẠT ĐỘNG"); t3.setFont(new Font("Segoe UI", Font.BOLD, 11)); t3.setForeground(Style_Net.TEXT_MUTED);
+        lblKpiActiveVal = new JLabel("4 / 13 máy"); lblKpiActiveVal.setFont(new Font("Segoe UI", Font.BOLD, 22)); lblKpiActiveVal.setForeground(Style_Net.NAVY_PRIMARY);
+        lblKpiActiveSub = new JLabel("Hiệu suất phòng: 31%"); lblKpiActiveSub.setFont(new Font("Segoe UI", Font.PLAIN, 12)); lblKpiActiveSub.setForeground(Style_Net.NAVY_ACCENT);
+        kpi3.add(t3); kpi3.add(Box.createVerticalStrut(3)); kpi3.add(lblKpiActiveVal); kpi3.add(Box.createVerticalStrut(3)); kpi3.add(lblKpiActiveSub);
+
+        // KPI 4: Món bán chạy nhất
+        JPanel kpi4 = Style_Net.createCardPanel();
+        kpi4.setLayout(new BoxLayout(kpi4, BoxLayout.Y_AXIS));
+        JLabel t4 = new JLabel("MÓN BÁN CHẠY NHẤT"); t4.setFont(new Font("Segoe UI", Font.BOLD, 11)); t4.setForeground(Style_Net.TEXT_MUTED);
+        lblKpiFoodVal = new JLabel("Sting đỏ ướp lạnh"); lblKpiFoodVal.setFont(new Font("Segoe UI", Font.BOLD, 20)); lblKpiFoodVal.setForeground(Style_Net.NAVY_PRIMARY);
+        JLabel s4 = new JLabel("18 lon đã bán hôm nay"); s4.setFont(new Font("Segoe UI", Font.PLAIN, 12)); s4.setForeground(Style_Net.TEXT_MUTED);
+        kpi4.add(t4); kpi4.add(Box.createVerticalStrut(3)); kpi4.add(lblKpiFoodVal); kpi4.add(Box.createVerticalStrut(3)); kpi4.add(s4);
+
+        pnlKPIContainer.add(kpi1);
+        pnlKPIContainer.add(kpi2);
+        pnlKPIContainer.add(kpi3);
+        pnlKPIContainer.add(kpi4);
+
+        pnlCenterBody.add(pnlKPIContainer, BorderLayout.NORTH);
+
+        // Split Content Area (Left: Active Sessions Table ~65%, Right: Notices ~35%)
+        JPanel pnlSplit = new JPanel(new BorderLayout(18, 0));
+        pnlSplit.setOpaque(false);
+
+        // Left: Active Machines Card
+        JPanel pnlLeftCard = Style_Net.createCardPanel();
+        pnlLeftCard.setLayout(new BorderLayout(0, 12));
+
+        JPanel pnlLeftHeader = new JPanel(new BorderLayout());
+        pnlLeftHeader.setOpaque(false);
+        JLabel lblActiveTitle = new JLabel("CÁC MÁY ĐANG CÓ KHÁCH CHƠI");
+        lblActiveTitle.setFont(Style_Net.FONT_HEADER);
+        lblActiveTitle.setForeground(Style_Net.NAVY_PRIMARY);
+        JLabel lblActiveRealtime = new JLabel("Cập nhật thời gian thực");
+        lblActiveRealtime.setFont(Style_Net.FONT_SMALL);
+        lblActiveRealtime.setForeground(Style_Net.TEXT_MUTED);
+        pnlLeftHeader.add(lblActiveTitle, BorderLayout.WEST);
+        pnlLeftHeader.add(lblActiveRealtime, BorderLayout.EAST);
+        pnlLeftCard.add(pnlLeftHeader, BorderLayout.NORTH);
+
+        String[] cols = {"MÁY TRẠM", "GIỜ MỞ", "THỜI GIAN CHƠI", "ĐƠN GIÁ", "TẠM TÍNH", "THAO TÁC"};
+        modelDashboardActive = new DefaultTableModel(cols, 0) {
+            @Override
+            public boolean isCellEditable(int row, int col) { return col == 5; }
+        };
+        tblDashboardActive = new JTable(modelDashboardActive);
+        Style_Net.styleTable(tblDashboardActive);
+        tblDashboardActive.setRowHeight(40);
+
+        DefaultTableCellRenderer activeCellRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable tbl, Object val, boolean isSel, boolean hasFoc, int row, int col) {
+                if (col == 0) {
+                    JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 8));
+                    p.setOpaque(true);
+                    p.setBackground(isSel ? tbl.getSelectionBackground() : (row % 2 == 0 ? Color.WHITE : new Color(0xF8, 0xFA, 0xFC)));
+                    JLabel name = new JLabel(String.valueOf(val));
+                    name.setFont(new Font("Segoe UI", Font.BOLD, 13));
+                    name.setForeground(isSel ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+                    JLabel badge = Style_Net.createBadge("ĐANG CHƠI", "blue");
+                    p.add(name);
+                    p.add(badge);
+                    return p;
+                } else if (col == 2) {
+                    JLabel lbl = (JLabel) super.getTableCellRendererComponent(tbl, val, isSel, hasFoc, row, col);
+                    lbl.setFont(new Font("Segoe UI", Font.BOLD, 13));
+                    lbl.setForeground(isSel ? Color.WHITE : Style_Net.NAVY_ACCENT);
+                    return lbl;
+                } else if (col == 4) {
+                    JLabel lbl = (JLabel) super.getTableCellRendererComponent(tbl, val, isSel, hasFoc, row, col);
+                    lbl.setFont(new Font("Segoe UI", Font.BOLD, 13));
+                    lbl.setForeground(isSel ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+                    return lbl;
+                } else if (col == 5) {
+                    JButton btn = new JButton("Xem máy");
+                    Style_Net.styleSecondaryButton(btn);
+                    btn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    return btn;
+                }
+                return super.getTableCellRendererComponent(tbl, val, isSel, hasFoc, row, col);
+            }
+        };
+        for (int i = 0; i < 6; i++) {
+            tblDashboardActive.getColumnModel().getColumn(i).setCellRenderer(activeCellRenderer);
+        }
+
+        tblDashboardActive.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 || tblDashboardActive.getSelectedColumn() == 5) {
+                    showMoMay(NetManagerJFrame.this);
+                    CapNhat();
+                }
+            }
+        });
+
+        JScrollPane scrollActive = new JScrollPane(tblDashboardActive);
+        scrollActive.setBorder(new LineBorder(Style_Net.BORDER_HAIRLINE, 1));
+        pnlLeftCard.add(scrollActive, BorderLayout.CENTER);
+        pnlSplit.add(pnlLeftCard, BorderLayout.CENTER);
+
+        // Right: Operational Notices Card
+        JPanel pnlRightNotices = Style_Net.createCardPanel();
+        pnlRightNotices.setPreferredSize(new Dimension(320, 0));
+        pnlRightNotices.setLayout(new BoxLayout(pnlRightNotices, BoxLayout.Y_AXIS));
+
+        JLabel lblNoticesTitle = new JLabel("THÔNG BÁO VẬN HÀNH");
+        lblNoticesTitle.setFont(Style_Net.FONT_HEADER);
+        lblNoticesTitle.setForeground(Style_Net.NAVY_PRIMARY);
+        lblNoticesTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlRightNotices.add(lblNoticesTitle);
+        pnlRightNotices.add(Box.createVerticalStrut(14));
+
+        pnlRightNotices.add(createNoticeBox(
+            "Máy 13 đang bảo trì",
+            "Lý do: Hỏng phím cơ. Đã thông báo bộ phận kỹ thuật kiểm tra.",
+            new Color(0xD9, 0x77, 0x06),
+            new Color(0xFF, 0xFB, 0xEB)
+        ));
+        pnlRightNotices.add(Box.createVerticalStrut(10));
+
+        pnlRightNotices.add(createNoticeBox(
+            "Kho thực đơn F&B ổn định",
+            "Sting đỏ còn 50 lon, Mì tôm trứng còn 50 phần. Đủ phục vụ ca tối.",
+            Style_Net.NAVY_ACCENT,
+            new Color(0xEF, 0xF6, 0xFF)
+        ));
+        pnlRightNotices.add(Box.createVerticalStrut(10));
+
+        String cashier = (XAuth.user != null) ? XAuth.user.getTen() : "admin";
+        pnlRightNotices.add(createNoticeBox(
+            "Ca trực hiện tại",
+            "Thu ngân phụ trách: " + cashier + " (Bàn giao ca lúc 23:00).",
+            Style_Net.COLOR_SUCCESS,
+            new Color(0xF0, 0xFD, 0xF4)
+        ));
+        pnlRightNotices.add(Box.createGlue());
+
+        pnlSplit.add(pnlRightNotices, BorderLayout.EAST);
+        pnlCenterBody.add(pnlSplit, BorderLayout.CENTER);
+
+        pnlDashboard.add(pnlCenterBody, BorderLayout.CENTER);
+        getContentPane().add(pnlDashboard, BorderLayout.CENTER);
+
+        getContentPane().revalidate();
+        getContentPane().repaint();
+    }
+
+    private JButton createNavButton(String text, boolean active) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btn.setHorizontalAlignment(SwingConstants.LEFT);
+        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        btn.setPreferredSize(new Dimension(194, 44));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn.setFocusPainted(false);
+        if (active) {
+            btn.setBackground(Style_Net.NAVY_PRIMARY);
+            btn.setForeground(Color.WHITE);
+            btn.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Style_Net.NAVY_PRIMARY, 1, true),
+                new EmptyBorder(8, 14, 8, 14)
+            ));
+        } else {
+            btn.setBackground(Color.WHITE);
+            btn.setForeground(Style_Net.NAVY_PRIMARY);
+            btn.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 1, true),
+                new EmptyBorder(8, 14, 8, 14)
+            ));
+            btn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btn.setBackground(new Color(0xF1, 0xF5, 0xF9));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btn.setBackground(Color.WHITE);
+                }
+            });
+        }
+        return btn;
+    }
+
+    private JPanel createNoticeBox(String title, String desc, Color accentColor, Color bg) {
+        JPanel box = new JPanel(new BorderLayout(0, 4));
+        box.setBackground(Color.WHITE);
+        box.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
+        box.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(0, 4, 0, 0, accentColor),
+            BorderFactory.createCompoundBorder(
+                new LineBorder(Style_Net.BORDER_HAIRLINE, 1),
+                new EmptyBorder(10, 12, 10, 12)
+            )
+        ));
+
+        JLabel lblTitle = new JLabel(title);
+        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblTitle.setForeground(accentColor);
+
+        JLabel lblDesc = new JLabel("<html><body style='width: 250px;'>" + desc + "</body></html>");
+        lblDesc.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblDesc.setForeground(Style_Net.TEXT_MUTED);
+
+        box.add(lblTitle, BorderLayout.NORTH);
+        box.add(lblDesc, BorderLayout.CENTER);
+        return box;
+    }
+
+    public void refreshDashboardData() {
+        int soMayHD = dao.getSoMayDangHoatDong();
+        int soMayTrong = dao.getSoMayDangTrong();
+        int tongMay = soMayHD + soMayTrong;
+        if (tongMay == 0) tongMay = 13;
+        int pct = (int) Math.round((double) soMayHD * 100.0 / tongMay);
+
+        if (lblKpiActiveVal != null) {
+            lblKpiActiveVal.setText(soMayHD + " / " + tongMay + " máy");
+        }
+        if (lblKpiActiveSub != null) {
+            lblKpiActiveSub.setText("Hiệu suất phòng: " + pct + "%");
+        }
+
+        if (modelDashboardActive != null) {
+            modelDashboardActive.setRowCount(0);
+            List<SuDungMay> list = sdMayDao.findAll();
+            for (SuDungMay s : list) {
+                if ("Hoạt động".equalsIgnoreCase(s.getTrangThai()) || "Chưa thanh toán".equalsIgnoreCase(s.getTrangThai())) {
+                    String tenMay = s.getTenMay();
+                    String gioMo = (s.getGioBatDau() != null) ? s.getGioBatDau().toString() : "--:--:--";
+                    float rate = s.getGiaTheoGio();
+
+                    long elapsed = 0;
+                    if (s.getGioBatDau() != null) {
+                        try {
+                            java.time.LocalDate pDate = (s.getNgayChoi() != null) ? s.getNgayChoi().toLocalDate() : java.time.LocalDate.now();
+                            java.time.LocalTime sTime = s.getGioBatDau().toLocalTime();
+                            java.time.LocalDateTime sDt = java.time.LocalDateTime.of(pDate, sTime);
+                            elapsed = Math.max(0, java.time.Duration.between(sDt, java.time.LocalDateTime.now()).getSeconds());
+                        } catch (Exception ignored) {}
+                    }
+                    long h = elapsed / 3600;
+                    long m = (elapsed % 3600) / 60;
+                    String thoiGian = (h > 0) ? String.format("%02dh %02dm", h, m) : String.format("%02dm", m);
+                    long minutes = elapsed / 60;
+                    if ((elapsed % 60) >= 30) minutes++;
+                    if (minutes == 0 && elapsed > 0) minutes = 1;
+                    double hoursPlayed = Math.ceil((minutes / 60.0) * 100.0) / 100.0;
+                    double tamTinh = Math.ceil((hoursPlayed * rate) * 100.0) / 100.0;
+
+                    modelDashboardActive.addRow(new Object[]{
+                        tenMay,
+                        gioMo,
+                        thoiGian,
+                        Style_Net.formatMoney(rate) + "/h",
+                        Style_Net.formatMoney(tamTinh),
+                        "Xem máy"
+                    });
+                }
+            }
+        }
+    }
 
     @Override
     public void init() {
         this.showWelcome(this);
         this.showLogin(this);
+        initNavyFrameTheme();
         CapNhat();
         if (XAuth.user != null) {
             setRole();
@@ -548,47 +987,40 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     }
 
     private void loadAnhChinh(Admin admin) {
-        if (admin.getAnh() != null && !admin.getAnh().isEmpty()) {
+        if (lblAnh != null && admin.getAnh() != null && !admin.getAnh().isEmpty()) {
             String path = admin.getAnh();
             File f = new File(path);
-
             if (!f.exists()) {
                 String alt = "src/images/" + path;
                 if (new File(alt).exists()) {
                     path = alt;
                 }
             }
-
             lblAnh.setIcon(ResizeImage(path));
-        } else {
-            lblAnh.setIcon(null);
         }
     }
 
     public void setRole() {
+        if (XAuth.user == null) return;
         int role = XAuth.user.getVaiTro();
         String name = XAuth.user.getTen();
-        if (role == 2) { // Nhân viên
-            menuHeThong.setVisible(false);
-            btnQLNV.setEnabled(false);
-            btnQLMT.setEnabled(false);
-            btnQLTD.setEnabled(false);
-            btnQLTK.setEnabled(false);
-        } else {
-            menuHeThong.setVisible(true);
-            btnQLNV.setEnabled(true);
-            btnQLMT.setEnabled(true);
-            btnQLTD.setEnabled(true);
-            btnQLTK.setEnabled(true);
+
+        if (lblSidebarUserName != null) lblSidebarUserName.setText(name);
+        if (lblSidebarUserRole != null) {
+            lblSidebarUserRole.setText(role == 1 ? "Quản trị viên ca trực" : "Nhân viên ca trực");
         }
-        Admin user = XAuth.user;
-        loadAnhChinh(user);
-        lblName.setText("<html>"
-                + "<div style='text-align:center;'>"
-                + "<span style='color: #0D47A1; font-size: 12px;'>Người sử dụng</span><br>"
-                + "<span style='color: white; font-size: 16px; font-weight: bold;'>" + name + "</span>"
-                + "</div>"
-                + "</html>");
+
+        if (role == 2) { // Nhân viên
+            if (btnNavNhanVien != null) btnNavNhanVien.setEnabled(false);
+            if (btnNavMayTinh != null) btnNavMayTinh.setEnabled(false);
+            if (btnNavThongKe != null) btnNavThongKe.setEnabled(false);
+            if (btnNavThucDon != null) btnNavThucDon.setEnabled(false);
+        } else {
+            if (btnNavNhanVien != null) btnNavNhanVien.setEnabled(true);
+            if (btnNavMayTinh != null) btnNavMayTinh.setEnabled(true);
+            if (btnNavThongKe != null) btnNavThongKe.setEnabled(true);
+            if (btnNavThucDon != null) btnNavThucDon.setEnabled(true);
+        }
     }
 
     private void dangXuat() {
@@ -601,6 +1033,7 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
             if (XAuth.isLogin()) {
                 this.setVisible(true);
                 setRole();
+                CapNhat();
             } else {
                 dispose();
             }
@@ -610,39 +1043,45 @@ public class NetManagerJFrame extends javax.swing.JFrame implements GiaoDienChin
     public void NgayHienTai() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String ngayHienTai = sdf.format(new Date());
-        lblNgayHienTai.setText(ngayHienTai);
+        if (lblNgayHienTai != null) lblNgayHienTai.setText(ngayHienTai);
     }
 
     public void soMayHD() {
         int soMayHD = dao.getSoMayDangHoatDong();
-        lblSoMayHoatDong.setText("<html>"
-                + "<span style='color: #00E676; font-size: 14px;'>Số máy đang hoạt động:</span> "
-                + "<span style='color: yellow; font-size: 18px; font-weight: bold;'>" + soMayHD + "</span>"
-                + "</html>");
-
+        if (lblSoMayHoatDong != null) {
+            lblSoMayHoatDong.setText("<html>"
+                    + "<span style='color: #64748B; font-size: 12px; font-weight: 600;'>ĐANG HOẠT ĐỘNG: </span> "
+                    + "<span style='color: #059669; font-size: 16px; font-weight: bold;'>" + soMayHD + " MÁY</span>"
+                    + "</html>");
+        }
     }
 
     public void soMayT() {
         int soMayTrong = dao.getSoMayDangTrong();
-        lblSoMayTrong.setText("<html>"
-                + "<span style='color: #FF1744; font-size: 14px;'>Số máy trống:</span> "
-                + "<span style='color: white; font-size: 18px; font-weight: bold;'>" + soMayTrong + "</span>"
-                + "</html>");
-
+        if (lblSoMayTrong != null) {
+            lblSoMayTrong.setText("<html>"
+                    + "<span style='color: #64748B; font-size: 12px; font-weight: 600;'>MÁY TRỐNG: </span> "
+                    + "<span style='color: #0F172A; font-size: 16px; font-weight: bold;'>" + soMayTrong + " MÁY</span>"
+                    + "</html>");
+        }
     }
 
     public void CapNhat() {
         soMayHD();
         soMayT();
-        setIconAll();
-        pnlMenuTop.getParent().repaint();
-        menuHeThong.getParent().repaint();
+        refreshDashboardData();
     }
 
     private void startDongHo() {
         dongHoTimer = new Timer(1000, e -> {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm a");
-            lblGioHienTai.setText(sdf.format(new Date()));
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd/MM/yyyy • HH:mm:ss", new java.util.Locale("vi", "VN"));
+            String timeStr = sdf.format(new Date());
+            if (lblDongHoTop != null) {
+                lblDongHoTop.setText(timeStr);
+            }
+            if (lblGioHienTai != null) {
+                lblGioHienTai.setText(timeStr);
+            }
         });
         dongHoTimer.start();
     }

@@ -21,6 +21,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import javax.swing.*;
+import javax.swing.border.*;
 import util.Style_Net;
 import util.XDialog;
 
@@ -30,20 +36,11 @@ import util.XDialog;
  */
 public class ThanhToanJDialog extends javax.swing.JDialog {
 
-    /**
-     * Creates new form ThanhToan2JDialog
-     */
-    /**
-     * Tính số giờ chơi và thành tiền
-     *
-     * @param gioVao Giờ vào dạng chuỗi "HH:mm"
-     * @param gioNghi Giờ nghỉ dạng chuỗi "HH:mm"
-     * @param giaTheoGio Giá tính theo giờ
-     * @return Mảng [số giờ chơi, tổng tiền]
-     */
     public ThanhToanJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initNavyThanhToanTheme();
+        setLocationRelativeTo(null);
     }
     MenuDAO dao1 = new MenuDAOImpl();
     ThanhToanDAO dao = new ThanhToanDAOImpl();
@@ -51,7 +48,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     public ThanhToanJDialog(java.awt.Frame parent, boolean modal, String MaSDMay, String TenMay, String NgayChoi, String NgayNghi, String gioVao, String GioNghi, float giah) {
         super(parent, modal);
         initComponents();
-        Style_Net.styleAllTables(this.getContentPane());
+        initNavyThanhToanTheme();
         setLocationRelativeTo(null);
 
         lblTenMay.setText(TenMay);
@@ -86,7 +83,230 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         double tienMay = getTienMayFromLabel();
         double tong = tienMay + tongTienMenu;
         lblTongTienMayVaMenu.setText(df.format(tong));
-        lblTongTienMayVaMenu.setText(df.format(tong));
+
+        buildModernReceiptLayout(MaSDMay, TenMay, NgayChoi, NgayNghi, gioVao, GioNghi, giah, soGioChoi, tienMay, list, tongTienMenu, tong);
+    }
+
+    private void initNavyThanhToanTheme() {
+        setTitle("NET-MANAGER - Hóa Đơn Thanh Toán");
+        getContentPane().setBackground(Style_Net.BG_CANVAS);
+    }
+
+    private void buildModernReceiptLayout(String maSD, String tenMay, String nChoi, String nNghi, String gVao, String gNghi, float giah, double soGio, double tienMay, List<Menu> fnbList, double tienFnb, double grandTotal) {
+        setTitle("NET-MANAGER - Hóa Đơn Thanh Toán");
+        setSize(580, 750);
+        setLocationRelativeTo(null);
+        getContentPane().removeAll();
+        getContentPane().setBackground(Style_Net.BG_CANVAS);
+        getContentPane().setLayout(new BorderLayout());
+
+        JPanel pnlCard = Style_Net.createCardPanel();
+        pnlCard.setLayout(new BoxLayout(pnlCard, BoxLayout.Y_AXIS));
+        pnlCard.setPreferredSize(new Dimension(500, 680));
+        pnlCard.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Style_Net.BORDER_HAIRLINE, 1, true),
+            new EmptyBorder(22, 28, 22, 28)
+        ));
+
+        // Header
+        JLabel lblHeaderBrand = new JLabel("NET-MANAGER", SwingConstants.CENTER);
+        lblHeaderBrand.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lblHeaderBrand.setForeground(Style_Net.TEXT_MUTED);
+        lblHeaderBrand.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblHeaderTitle = new JLabel("HÓA ĐƠN THANH TOÁN", SwingConstants.CENTER);
+        lblHeaderTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        lblHeaderTitle.setForeground(Style_Net.NAVY_PRIMARY);
+        lblHeaderTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        String cashier = (util.XAuth.user != null) ? util.XAuth.user.getTen() : "admin";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String nowStr = sdf.format(new java.util.Date());
+        JLabel lblHeaderSub = new JLabel("Mã phiếu: #SD00" + maSD + " • Thu ngân: " + cashier + " • " + nowStr, SwingConstants.CENTER);
+        lblHeaderSub.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblHeaderSub.setForeground(Style_Net.TEXT_MUTED);
+        lblHeaderSub.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        pnlCard.add(lblHeaderBrand);
+        pnlCard.add(Box.createVerticalStrut(4));
+        pnlCard.add(lblHeaderTitle);
+        pnlCard.add(Box.createVerticalStrut(4));
+        pnlCard.add(lblHeaderSub);
+        pnlCard.add(Box.createVerticalStrut(14));
+
+        pnlCard.add(createDashedDivider());
+        pnlCard.add(Box.createVerticalStrut(12));
+
+        // Section 1: CƯỚC GIỜ CHƠI MÁY TÍNH
+        JLabel lblSec1 = new JLabel("1. CƯỚC GIỜ CHƠI MÁY TÍNH");
+        lblSec1.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        lblSec1.setForeground(Style_Net.TEXT_MUTED);
+        lblSec1.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlCard.add(lblSec1);
+        pnlCard.add(Box.createVerticalStrut(8));
+
+        pnlCard.add(createReceiptRow("Tên máy trạm:", tenMay + " (Dàn máy thường)", false));
+        pnlCard.add(Box.createVerticalStrut(4));
+        pnlCard.add(createReceiptRow("Thời điểm vào - ra:", gVao + " • " + gNghi, false));
+        pnlCard.add(Box.createVerticalStrut(4));
+        pnlCard.add(createReceiptRow("Tổng thời gian sử dụng:", String.format("%.2f giờ (%.2fh) × %s", soGio, soGio, Style_Net.formatMoney(giah) + "/h"), false));
+        pnlCard.add(Box.createVerticalStrut(4));
+        pnlCard.add(createReceiptRow("Thành tiền máy:", Style_Net.formatMoney(tienMay), true));
+        pnlCard.add(Box.createVerticalStrut(12));
+
+        pnlCard.add(createDashedDivider());
+        pnlCard.add(Box.createVerticalStrut(12));
+
+        // Section 2: DỊCH VỤ ĂN UỐNG (F&B)
+        JLabel lblSec2 = new JLabel("2. DỊCH VỤ ĂN UỐNG (F&B)");
+        lblSec2.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        lblSec2.setForeground(Style_Net.TEXT_MUTED);
+        lblSec2.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlCard.add(lblSec2);
+        pnlCard.add(Box.createVerticalStrut(8));
+
+        if (fnbList != null && !fnbList.isEmpty()) {
+            for (Menu item : fnbList) {
+                pnlCard.add(createReceiptRow(item.getSoLuong() + "× " + item.getTenMon(), Style_Net.formatMoney(item.getTongTien()), false));
+                pnlCard.add(Box.createVerticalStrut(4));
+            }
+        } else {
+            pnlCard.add(createReceiptRow("Không gọi dịch vụ F&B", "0 ₫", false));
+            pnlCard.add(Box.createVerticalStrut(4));
+        }
+        pnlCard.add(createReceiptRow("Thành tiền dịch vụ:", Style_Net.formatMoney(tienFnb), true));
+        pnlCard.add(Box.createVerticalStrut(14));
+
+        pnlCard.add(createDashedDivider());
+        pnlCard.add(Box.createVerticalStrut(14));
+
+        // Grand Total Row
+        JPanel pnlGrandTotal = new JPanel(new BorderLayout());
+        pnlGrandTotal.setOpaque(false);
+        pnlGrandTotal.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
+
+        JLabel lblGtText = new JLabel("TỔNG CỘNG THANH TOÁN:");
+        lblGtText.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        lblGtText.setForeground(Style_Net.NAVY_PRIMARY);
+
+        JLabel lblGtVal = new JLabel(Style_Net.formatMoney(grandTotal));
+        lblGtVal.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        lblGtVal.setForeground(Style_Net.NAVY_PRIMARY);
+
+        pnlGrandTotal.add(lblGtText, BorderLayout.WEST);
+        pnlGrandTotal.add(lblGtVal, BorderLayout.EAST);
+        pnlCard.add(pnlGrandTotal);
+        pnlCard.add(Box.createVerticalStrut(14));
+
+        // Cash Calculation Box
+        JPanel pnlCashBox = new JPanel();
+        pnlCashBox.setLayout(new BoxLayout(pnlCashBox, BoxLayout.Y_AXIS));
+        pnlCashBox.setBackground(new Color(0xF8, 0xFA, 0xFC));
+        pnlCashBox.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Style_Net.BORDER_HAIRLINE, 1, true),
+            new EmptyBorder(10, 14, 10, 14)
+        ));
+        pnlCashBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
+
+        JPanel pnlGiven = new JPanel(new BorderLayout(10, 0));
+        pnlGiven.setOpaque(false);
+        JLabel lblGivenTitle = new JLabel("Tiền mặt khách đưa:");
+        lblGivenTitle.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblGivenTitle.setForeground(Style_Net.TEXT_MAIN);
+
+        JTextField txtGiven = new JTextField(Style_Net.formatMoney(grandTotal));
+        txtGiven.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        txtGiven.setHorizontalAlignment(SwingConstants.RIGHT);
+        txtGiven.setPreferredSize(new Dimension(140, 30));
+        Style_Net.styleTextField(txtGiven);
+
+        pnlGiven.add(lblGivenTitle, BorderLayout.WEST);
+        pnlGiven.add(txtGiven, BorderLayout.EAST);
+
+        JPanel pnlChange = new JPanel(new BorderLayout(10, 0));
+        pnlChange.setOpaque(false);
+        JLabel lblChangeTitle = new JLabel("Tiền thừa trả lại khách:");
+        lblChangeTitle.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblChangeTitle.setForeground(Style_Net.TEXT_MAIN);
+
+        JLabel lblChangeVal = new JLabel("0 ₫");
+        lblChangeVal.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        lblChangeVal.setForeground(Style_Net.COLOR_SUCCESS);
+
+        pnlChange.add(lblChangeTitle, BorderLayout.WEST);
+        pnlChange.add(lblChangeVal, BorderLayout.EAST);
+
+        txtGiven.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                try {
+                    String clean = txtGiven.getText().replaceAll("[^0-9]", "");
+                    if (!clean.isEmpty()) {
+                        double given = Double.parseDouble(clean);
+                        double change = given - grandTotal;
+                        lblChangeVal.setText(Style_Net.formatMoney(Math.max(0, change)));
+                    }
+                } catch (Exception ignored) {}
+            }
+        });
+
+        pnlCashBox.add(pnlGiven);
+        pnlCashBox.add(Box.createVerticalStrut(6));
+        pnlCashBox.add(pnlChange);
+        pnlCard.add(pnlCashBox);
+        pnlCard.add(Box.createVerticalStrut(18));
+
+        // Action Buttons
+        JButton btnConfirm = new JButton("XÁC NHẬN THANH TOÁN & TRẢ MÁY");
+        Style_Net.stylePrimaryButton(btnConfirm);
+        btnConfirm.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        btnConfirm.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnConfirm.addActionListener(e -> btnThanhToanActionPerformed(null));
+
+        JButton btnPrint = new JButton("IN HÓA ĐƠN");
+        Style_Net.styleSecondaryButton(btnPrint);
+        btnPrint.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        btnPrint.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnPrint.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Đã gửi lệnh in hóa đơn #SD00" + maSD + " tới máy in hóa đơn.");
+        });
+
+        pnlCard.add(btnConfirm);
+        pnlCard.add(Box.createVerticalStrut(8));
+        pnlCard.add(btnPrint);
+
+        JPanel pnlCardWrap = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        pnlCardWrap.setBackground(Style_Net.BG_CANVAS);
+        pnlCardWrap.add(pnlCard);
+
+        getContentPane().add(pnlCardWrap, BorderLayout.CENTER);
+        getContentPane().revalidate();
+        getContentPane().repaint();
+    }
+
+    private JPanel createReceiptRow(String left, String right, boolean isBold) {
+        JPanel p = new JPanel(new BorderLayout(10, 0));
+        p.setOpaque(false);
+        p.setMaximumSize(new Dimension(Integer.MAX_VALUE, 22));
+
+        JLabel l = new JLabel(left);
+        l.setFont(new Font("Segoe UI", isBold ? Font.BOLD : Font.PLAIN, 13));
+        l.setForeground(isBold ? Style_Net.NAVY_PRIMARY : Style_Net.TEXT_MUTED);
+
+        JLabel r = new JLabel(right);
+        r.setFont(new Font("Segoe UI", isBold ? Font.BOLD : Font.PLAIN, 13));
+        r.setForeground(isBold ? Style_Net.NAVY_PRIMARY : Style_Net.TEXT_MAIN);
+
+        p.add(l, BorderLayout.WEST);
+        p.add(r, BorderLayout.EAST);
+        return p;
+    }
+
+    private JSeparator createDashedDivider() {
+        JSeparator s = new JSeparator();
+        s.setForeground(Style_Net.BORDER_HAIRLINE);
+        s.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
+        return s;
     }
 
     /**

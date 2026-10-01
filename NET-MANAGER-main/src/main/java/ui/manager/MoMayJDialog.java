@@ -11,11 +11,19 @@ import daoImpl.MayTinhDAOImpl;
 import daoImpl.SDMayDAOImpl;
 import entity.MayTinh;
 import entity.SuDungMay;
-import java.awt.event.MouseAdapter;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.border.*;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import util.Style_Net;
@@ -39,13 +47,803 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
     List<SuDungMay> items = List.of();
     List<MayTinh> itemscp = List.of();
 
+    // Dynamic real-time Card bindings & F&B cache
+    private final Map<String, JLabel> cardTimerMap = new ConcurrentHashMap<>();
+    private final Map<String, JLabel> cardTamTinhMap = new ConcurrentHashMap<>();
+    private final Map<String, JLabel> cardSubMap = new ConcurrentHashMap<>();
+    private final Map<Integer, Double> cacheFoodTotal = new ConcurrentHashMap<>();
+    private final Map<Integer, Integer> cacheFoodQty = new ConcurrentHashMap<>();
+
     public MoMayJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Style_Net.styleAllTables(this.getContentPane());
+        initNavyMoMayTheme();
         setLocationRelativeTo(null);
         FilltblMayTinh();
         FilltblSDMay();
+        DongHo();
+        NgayHienTai();
+    }
+
+    // Modern Card Grid & Inspector components
+    private JPanel pnlCardGrid;
+    private JScrollPane scrollGrid;
+    private String currentFilter = "ALL";
+    private MayTinh selectedMachine = null;
+    private JLabel lblInspArea;
+    private JLabel lblInspTitle;
+    private JLabel lblInspSubtitle;
+    private JLabel lblInspRateVal;
+    private JLabel lblInspStartTimeVal;
+    private JLabel lblInspDurationVal;
+    private JLabel lblInspMachineBillVal;
+    private JLabel lblInspFoodBillVal;
+    private JLabel lblInspTotalBillVal;
+    private JButton btnActionPrimary;
+    private JButton btnActionOrder;
+    private JButton btnActionShutdown;
+    private JButton btnPillAll;
+    private JButton btnPillActive;
+    private JButton btnPillFree;
+    private JButton btnPillMaint;
+    private JLabel lblTopInfoRight;
+
+    private void initNavyMoMayTheme() {
+        buildModernMoMayLayout();
+    }
+
+    private void buildModernMoMayLayout() {
+        setTitle("NET-MANAGER - Sơ Đồ Máy Trạm & Điều Khiển");
+        setSize(1320, 760);
+        setLocationRelativeTo(null);
+        getContentPane().removeAll();
+        getContentPane().setLayout(new BorderLayout(0, 0));
+
+        // 1. TOP HEADER BAR
+        JPanel pnlTop = new JPanel(new BorderLayout(16, 0));
+        pnlTop.setBackground(Color.WHITE);
+        pnlTop.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(0, 0, 1, 0, Style_Net.BORDER_HAIRLINE),
+            new EmptyBorder(12, 24, 12, 24)
+        ));
+
+        // Brand + Subtitle
+        JPanel pnlBrand = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 4));
+        pnlBrand.setOpaque(false);
+        JLabel lblB = new JLabel("NET-MANAGER");
+        lblB.setFont(new Font("Segoe UI", Font.BOLD, 17));
+        lblB.setForeground(Style_Net.NAVY_PRIMARY);
+        JLabel lblS = new JLabel("HỆ THỐNG QUẢN LÝ PHÒNG MÁY");
+        lblS.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        lblS.setForeground(Style_Net.TEXT_MUTED);
+        pnlBrand.add(lblB);
+        pnlBrand.add(lblS);
+        pnlTop.add(pnlBrand, BorderLayout.WEST);
+
+        // Filter Pills in center
+        JPanel pnlFilters = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 2));
+        pnlFilters.setOpaque(false);
+
+        btnPillAll = createPillButton("Tất cả máy (13)", true);
+        btnPillActive = createPillButton("Đang chơi (4)", false);
+        btnPillFree = createPillButton("Máy sẵn sàng (8)", false);
+        btnPillMaint = createPillButton("Bảo trì (1)", false);
+
+        btnPillAll.addActionListener(e -> setFilter("ALL"));
+        btnPillActive.addActionListener(e -> setFilter("HOAT_DONG"));
+        btnPillFree.addActionListener(e -> setFilter("TRONG"));
+        btnPillMaint.addActionListener(e -> setFilter("BAO_TRI"));
+
+        pnlFilters.add(btnPillAll);
+        pnlFilters.add(btnPillActive);
+        pnlFilters.add(btnPillFree);
+        pnlFilters.add(btnPillMaint);
+        pnlTop.add(pnlFilters, BorderLayout.CENTER);
+
+        // Right Info & Date
+        String cashier = (util.XAuth.user != null) ? util.XAuth.user.getTen() : "admin";
+        String roleStr = (util.XAuth.isQuanLy()) ? " (Quản lý)" : (util.XAuth.isNhanVien() ? " (Nhân viên)" : "");
+        String todayStr = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        lblTopInfoRight = new JLabel("Thu ngân: " + cashier + roleStr + " • " + todayStr);
+        lblTopInfoRight.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblTopInfoRight.setForeground(Style_Net.TEXT_MUTED);
+        pnlTop.add(lblTopInfoRight, BorderLayout.EAST);
+
+        getContentPane().add(pnlTop, BorderLayout.NORTH);
+
+        // 2. MAIN BODY (CENTER)
+        JPanel pnlBody = new JPanel(new BorderLayout(18, 0));
+        pnlBody.setBackground(Style_Net.BG_CANVAS);
+        pnlBody.setBorder(new EmptyBorder(16, 24, 20, 24));
+
+        // LEFT: Sơ đồ máy trạm (4-column card grid in scrollpane)
+        JPanel pnlLeft = Style_Net.createCardPanel();
+        pnlLeft.setLayout(new BorderLayout(0, 12));
+
+        // Left Header
+        JPanel pnlLeftHead = new JPanel(new BorderLayout());
+        pnlLeftHead.setOpaque(false);
+
+        JPanel pnlLeftTitles = new JPanel();
+        pnlLeftTitles.setLayout(new BoxLayout(pnlLeftTitles, BoxLayout.Y_AXIS));
+        pnlLeftTitles.setOpaque(false);
+
+        JLabel lblGridHead = new JLabel("SƠ ĐỒ MÁY TRẠM");
+        lblGridHead.setFont(Style_Net.FONT_HEADER);
+        lblGridHead.setForeground(Style_Net.NAVY_PRIMARY);
+
+        JLabel lblGridSub = new JLabel("Chọn máy tính để mở phiên, gọi món hoặc thanh toán");
+        lblGridSub.setFont(Style_Net.FONT_SMALL);
+        lblGridSub.setForeground(Style_Net.TEXT_MUTED);
+
+        pnlLeftTitles.add(lblGridHead);
+        pnlLeftTitles.add(Box.createVerticalStrut(2));
+        pnlLeftTitles.add(lblGridSub);
+
+        JLabel lblRange = new JLabel("Dàn máy 01 • 8.000 đ/h - 20.000 đ/h");
+        lblRange.setFont(Style_Net.FONT_SMALL);
+        lblRange.setForeground(Style_Net.TEXT_MUTED);
+
+        pnlLeftHead.add(pnlLeftTitles, BorderLayout.WEST);
+        // Put Filter Pills in pnlLeftHead at EAST so they are always visible right above cards
+        JPanel pnlPillsBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
+        pnlPillsBar.setOpaque(false);
+        pnlPillsBar.add(btnPillAll);
+        pnlPillsBar.add(btnPillActive);
+        pnlPillsBar.add(btnPillFree);
+        pnlPillsBar.add(btnPillMaint);
+        pnlLeftHead.add(pnlPillsBar, BorderLayout.EAST);
+        pnlLeft.add(pnlLeftHead, BorderLayout.NORTH);
+
+        // Grid Panel with Wrapper to prevent cards stretching vertically
+        pnlCardGrid = new JPanel(new GridLayout(0, 4, 12, 12));
+        pnlCardGrid.setBackground(Color.WHITE);
+
+        JPanel pnlGridWrapper = new JPanel(new BorderLayout());
+        pnlGridWrapper.setBackground(Color.WHITE);
+        pnlGridWrapper.setBorder(new EmptyBorder(8, 8, 8, 8));
+        pnlGridWrapper.add(pnlCardGrid, BorderLayout.NORTH);
+
+        scrollGrid = new JScrollPane(pnlGridWrapper);
+        scrollGrid.setBorder(null);
+        scrollGrid.getViewport().setBackground(Color.WHITE);
+        pnlLeft.add(scrollGrid, BorderLayout.CENTER);
+
+        pnlBody.add(pnlLeft, BorderLayout.CENTER);
+
+        // RIGHT: Inspector Panel (~32% width, 360px)
+        JPanel pnlInspector = Style_Net.createCardPanel();
+        pnlInspector.setPreferredSize(new Dimension(360, 0));
+        pnlInspector.setLayout(new BorderLayout(0, 14));
+
+        // Inspector Content (strictly left-aligned)
+        JPanel pnlInspContent = new JPanel();
+        pnlInspContent.setLayout(new BoxLayout(pnlInspContent, BoxLayout.Y_AXIS));
+        pnlInspContent.setOpaque(false);
+
+        lblInspArea = new JLabel("DÀN MÁY THƯỜNG • KHU 01");
+        lblInspArea.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        lblInspArea.setForeground(Style_Net.TEXT_MUTED);
+        lblInspArea.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        lblInspTitle = new JLabel("Máy 01");
+        lblInspTitle.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        lblInspTitle.setForeground(Style_Net.NAVY_PRIMARY);
+        lblInspTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        lblInspSubtitle = new JLabel("Mã phiên: #SD0028 • Trạng thái: Sẵn sàng");
+        lblInspSubtitle.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblInspSubtitle.setForeground(Style_Net.COLOR_SUCCESS);
+        lblInspSubtitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        pnlInspContent.add(lblInspArea);
+        pnlInspContent.add(Box.createVerticalStrut(4));
+        pnlInspContent.add(lblInspTitle);
+        pnlInspContent.add(Box.createVerticalStrut(2));
+        pnlInspContent.add(lblInspSubtitle);
+        pnlInspContent.add(Box.createVerticalStrut(12));
+
+        JSeparator sep = new JSeparator();
+        sep.setForeground(Style_Net.BORDER_HAIRLINE);
+        sep.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
+        sep.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pnlInspContent.add(sep);
+        pnlInspContent.add(Box.createVerticalStrut(12));
+
+        // Details key-values
+        lblInspRateVal = new JLabel("8.000 đ / giờ");
+        lblInspStartTimeVal = new JLabel("--:--:--");
+        lblInspDurationVal = new JLabel("--");
+        lblInspMachineBillVal = new JLabel("0 ₫");
+        lblInspFoodBillVal = new JLabel("0 ₫");
+
+        pnlInspContent.add(createInspRow("Đơn giá áp dụng:", lblInspRateVal));
+        pnlInspContent.add(Box.createVerticalStrut(8));
+        pnlInspContent.add(createInspRow("Thời điểm mở máy:", lblInspStartTimeVal));
+        pnlInspContent.add(Box.createVerticalStrut(8));
+        pnlInspContent.add(createInspRow("Thời gian đã chơi:", lblInspDurationVal));
+        pnlInspContent.add(Box.createVerticalStrut(8));
+        pnlInspContent.add(createInspRow("Tiền giờ chơi tạm tính:", lblInspMachineBillVal));
+        pnlInspContent.add(Box.createVerticalStrut(8));
+        pnlInspContent.add(createInspRow("Dịch vụ ăn uống (F&B):", lblInspFoodBillVal));
+        pnlInspContent.add(Box.createVerticalStrut(14));
+
+        // Total Box
+        JPanel pnlTotalBox = new JPanel(new BorderLayout(0, 4));
+        pnlTotalBox.setBackground(new Color(0xF8, 0xFA, 0xFC));
+        pnlTotalBox.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(Style_Net.BORDER_HAIRLINE, 1, true),
+            new EmptyBorder(12, 14, 12, 14)
+        ));
+        pnlTotalBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
+        pnlTotalBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel lblTotalLabel = new JLabel("TỔNG TẠM TÍNH HIỆN TẠI");
+        lblTotalLabel.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        lblTotalLabel.setForeground(Style_Net.TEXT_MUTED);
+
+        lblInspTotalBillVal = new JLabel("0 ₫");
+        lblInspTotalBillVal.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        lblInspTotalBillVal.setForeground(Style_Net.NAVY_PRIMARY);
+
+        pnlTotalBox.add(lblTotalLabel, BorderLayout.NORTH);
+        pnlTotalBox.add(lblInspTotalBillVal, BorderLayout.CENTER);
+        pnlInspContent.add(pnlTotalBox);
+
+        // Wrap Inspector Content to anchor at top
+        JPanel pnlInspTopWrapper = new JPanel(new BorderLayout());
+        pnlInspTopWrapper.setOpaque(false);
+        pnlInspTopWrapper.add(pnlInspContent, BorderLayout.NORTH);
+        pnlInspector.add(pnlInspTopWrapper, BorderLayout.CENTER);
+
+        // Action Buttons at bottom (clean text, no broken unicode symbols)
+        JPanel pnlInspActions = new JPanel();
+        pnlInspActions.setLayout(new BoxLayout(pnlInspActions, BoxLayout.Y_AXIS));
+        pnlInspActions.setOpaque(false);
+
+        btnActionPrimary = new JButton("MỞ MÁY SỬ DỤNG");
+        Style_Net.stylePrimaryButton(btnActionPrimary);
+        btnActionPrimary.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        btnActionPrimary.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        btnActionOrder = new JButton("GỌI MÓN / DỊCH VỤ F&B");
+        Style_Net.styleSecondaryButton(btnActionOrder);
+        btnActionOrder.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        btnActionOrder.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        btnActionShutdown = new JButton("TẮT MÁY TẠM THỜI");
+        Style_Net.styleDangerButton(btnActionShutdown);
+        btnActionShutdown.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
+        btnActionShutdown.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        btnActionPrimary.addActionListener(e -> {
+            if (selectedMachine == null) return;
+            boolean isAct = "Hoạt động".equalsIgnoreCase(selectedMachine.getTrangThai()) || "Đang dùng".equalsIgnoreCase(selectedMachine.getTrangThai()) || "Đang chơi".equalsIgnoreCase(selectedMachine.getTrangThai());
+            if (isAct) {
+                openThanhToan();
+            } else {
+                MoMay();
+            }
+        });
+
+        btnActionOrder.addActionListener(e -> openMenu());
+        btnActionShutdown.addActionListener(e -> TatMay());
+
+        pnlInspActions.add(btnActionPrimary);
+        pnlInspActions.add(Box.createVerticalStrut(8));
+        pnlInspActions.add(btnActionOrder);
+        pnlInspActions.add(Box.createVerticalStrut(8));
+        pnlInspActions.add(btnActionShutdown);
+
+        pnlInspector.add(pnlInspActions, BorderLayout.SOUTH);
+        pnlBody.add(pnlInspector, BorderLayout.EAST);
+
+        getContentPane().add(pnlBody, BorderLayout.CENTER);
+        getContentPane().revalidate();
+        getContentPane().repaint();
+    }
+
+    private JButton createPillButton(String text, boolean active) {
+        JButton btn = new JButton(text);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btn.setFocusPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        if (active) {
+            btn.setBackground(Style_Net.NAVY_PRIMARY);
+            btn.setForeground(Color.WHITE);
+            btn.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Style_Net.NAVY_PRIMARY, 1, true),
+                new EmptyBorder(6, 14, 6, 14)
+            ));
+        } else {
+            btn.setBackground(Color.WHITE);
+            btn.setForeground(Style_Net.NAVY_PRIMARY);
+            btn.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Style_Net.BORDER_INPUT, 1, true),
+                new EmptyBorder(6, 14, 6, 14)
+            ));
+        }
+        return btn;
+    }
+
+    private JPanel createInspRow(String title, JLabel valLabel) {
+        JPanel row = new JPanel(new BorderLayout(10, 0));
+        row.setOpaque(false);
+        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
+        row.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel t = new JLabel(title);
+        t.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        t.setForeground(Style_Net.TEXT_MUTED);
+
+        valLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        valLabel.setForeground(Style_Net.NAVY_PRIMARY);
+
+        row.add(t, BorderLayout.WEST);
+        row.add(valLabel, BorderLayout.EAST);
+        return row;
+    }
+
+    private void setFilter(String filter) {
+        this.currentFilter = filter;
+        btnPillAll.setBackground("ALL".equals(filter) ? Style_Net.NAVY_PRIMARY : Color.WHITE);
+        btnPillAll.setForeground("ALL".equals(filter) ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+
+        btnPillActive.setBackground("HOAT_DONG".equals(filter) ? Style_Net.NAVY_PRIMARY : Color.WHITE);
+        btnPillActive.setForeground("HOAT_DONG".equals(filter) ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+
+        btnPillFree.setBackground("TRONG".equals(filter) ? Style_Net.NAVY_PRIMARY : Color.WHITE);
+        btnPillFree.setForeground("TRONG".equals(filter) ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+
+        btnPillMaint.setBackground("BAO_TRI".equals(filter) ? Style_Net.NAVY_PRIMARY : Color.WHITE);
+        btnPillMaint.setForeground("BAO_TRI".equals(filter) ? Color.WHITE : Style_Net.NAVY_PRIMARY);
+
+        renderCardGrid();
+    }
+
+    private SuDungMay findActiveSession(String tenMay) {
+        if (items != null) {
+            for (SuDungMay s : items) {
+                if (tenMay.equalsIgnoreCase(s.getTenMay()) &&
+                    ("Hoạt động".equalsIgnoreCase(s.getTrangThai()) || "Chưa thanh toán".equalsIgnoreCase(s.getTrangThai()))) {
+                    return s;
+                }
+            }
+        }
+        return null;
+    }
+
+    private void openThanhToan() {
+        if (selectedMachine == null) return;
+        SuDungMay sdm = findActiveSession(selectedMachine.getTenMay());
+        String maSD = (sdm != null) ? String.valueOf(sdm.getId()) : "1";
+        SimpleDateFormat sdfD = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdfT = new SimpleDateFormat("HH:mm:ss");
+        String nChoi = (sdm != null && sdm.getNgayChoi() != null) ? sdfD.format(sdm.getNgayChoi()) : sdfD.format(new Date());
+        String nNghi = sdfD.format(new Date());
+        String gVao = (sdm != null && sdm.getGioBatDau() != null) ? sdm.getGioBatDau().toString() : sdfT.format(new Date());
+        String gNghi = sdfT.format(new Date());
+        float giah = selectedMachine.getGiaTheoGio();
+
+        ThanhToanJDialog dialog = new ThanhToanJDialog(null, true, maSD, selectedMachine.getTenMay(), nChoi, nNghi, gVao, gNghi, giah);
+        dialog.setVisible(true);
+        refreshFoodCache();
+        FilltblSDMay();
+        FilltblMayTinh();
+        renderCardGrid();
+        if (selectedMachine != null) selectMachine(selectedMachine.getTenMay());
+    }
+
+    private void openMenu() {
+        if (selectedMachine == null) return;
+        SuDungMay sdm = findActiveSession(selectedMachine.getTenMay());
+        String maSD = (sdm != null) ? String.valueOf(sdm.getId()) : "1";
+        MenuJDialog menu = new MenuJDialog(null, true, maSD, selectedMachine.getTenMay());
+        menu.setVisible(true);
+        refreshFoodCache();
+        FilltblSDMay();
+        FilltblMayTinh();
+        renderCardGrid();
+        if (selectedMachine != null) selectMachine(selectedMachine.getTenMay());
+    }
+
+    private long calculateElapsedSeconds(SuDungMay sdm) {
+        if (sdm == null || sdm.getGioBatDau() == null) return 0;
+        try {
+            LocalDate playDate = (sdm.getNgayChoi() != null) ? sdm.getNgayChoi().toLocalDate() : LocalDate.now();
+            LocalTime startTime = sdm.getGioBatDau().toLocalTime();
+            LocalDateTime startDt = LocalDateTime.of(playDate, startTime);
+            LocalDateTime now = LocalDateTime.now();
+            long diff = Duration.between(startDt, now).getSeconds();
+            return Math.max(0, diff);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    private double calculateMachineFee(long elapsedSeconds, float giaTheoGio) {
+        if (elapsedSeconds <= 0) return 0;
+        long minutes = elapsedSeconds / 60;
+        long seconds = elapsedSeconds % 60;
+        if (seconds >= 30) {
+            minutes++;
+        }
+        if (minutes == 0 && elapsedSeconds > 0) {
+            minutes = 1;
+        }
+        double hoursPlayed = Math.ceil((minutes / 60.0) * 100.0) / 100.0;
+        return Math.ceil((hoursPlayed * giaTheoGio) * 100.0) / 100.0;
+    }
+
+    private void refreshFoodCache() {
+        cacheFoodTotal.clear();
+        cacheFoodQty.clear();
+        String sql = "SELECT MaSDMay, ISNULL(SUM(TongTien), 0) AS TotalMoney, ISNULL(SUM(SoLuong), 0) AS TotalQty FROM Menu GROUP BY MaSDMay";
+        try (java.sql.ResultSet rs = util.XJdbc.executeQuery(sql)) {
+            while (rs != null && rs.next()) {
+                int maSD = rs.getInt("MaSDMay");
+                double total = rs.getDouble("TotalMoney");
+                int qty = rs.getInt("TotalQty");
+                cacheFoodTotal.put(maSD, total);
+                cacheFoodQty.put(maSD, qty);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    private double getFoodTotal(int maSD) {
+        return cacheFoodTotal.getOrDefault(maSD, 0.0);
+    }
+
+    private int getFoodQty(int maSD) {
+        return cacheFoodQty.getOrDefault(maSD, 0);
+    }
+
+    private void updateLiveTimers() {
+        if (itemscp == null) return;
+        for (MayTinh mt : itemscp) {
+            String tt = mt.getTrangThai();
+            boolean isAct = "Hoạt động".equalsIgnoreCase(tt) || "Đang dùng".equalsIgnoreCase(tt) || "Đang chơi".equalsIgnoreCase(tt);
+            if (isAct) {
+                SuDungMay sdm = findActiveSession(mt.getTenMay());
+                if (sdm != null) {
+                    long elapsed = calculateElapsedSeconds(sdm);
+                    long h = elapsed / 3600;
+                    long m = (elapsed % 3600) / 60;
+                    long s = elapsed % 60;
+                    String timeStr = String.format("%02d:%02d:%02d", h, m, s);
+                    double tienGio = calculateMachineFee(elapsed, mt.getGiaTheoGio());
+                    double tienFnb = getFoodTotal(sdm.getId());
+
+                    JLabel lblTimer = cardTimerMap.get(mt.getTenMay());
+                    if (lblTimer != null) {
+                        lblTimer.setText(timeStr);
+                    }
+                    JLabel lblTamTinh = cardTamTinhMap.get(mt.getTenMay());
+                    if (lblTamTinh != null) {
+                        lblTamTinh.setText("Tạm tính: " + Style_Net.formatMoney(tienGio + tienFnb));
+                    }
+                }
+            }
+        }
+
+        if (selectedMachine != null) {
+            String tt = selectedMachine.getTrangThai();
+            boolean isAct = "Hoạt động".equalsIgnoreCase(tt) || "Đang dùng".equalsIgnoreCase(tt) || "Đang chơi".equalsIgnoreCase(tt);
+            if (isAct && lblInspDurationVal != null) {
+                SuDungMay sdm = findActiveSession(selectedMachine.getTenMay());
+                if (sdm != null) {
+                    long elapsed = calculateElapsedSeconds(sdm);
+                    long h = elapsed / 3600;
+                    long m = (elapsed % 3600) / 60;
+                    long s = elapsed % 60;
+                    String durText = (h > 0) ? String.format("%02d giờ %02d phút %02d giây", h, m, s) : String.format("%02d phút %02d giây", m, s);
+                    lblInspDurationVal.setText(durText);
+
+                    double tienGio = calculateMachineFee(elapsed, selectedMachine.getGiaTheoGio());
+                    double tienFnb = getFoodTotal(sdm.getId());
+                    int foodQty = getFoodQty(sdm.getId());
+
+                    if (lblInspMachineBillVal != null) {
+                        lblInspMachineBillVal.setText(Style_Net.formatMoney(tienGio));
+                    }
+                    if (lblInspFoodBillVal != null) {
+                        lblInspFoodBillVal.setText(Style_Net.formatMoney(tienFnb) + (foodQty > 0 ? " (" + foodQty + " món)" : " (0 món)"));
+                    }
+                    if (lblInspTotalBillVal != null) {
+                        lblInspTotalBillVal.setText(Style_Net.formatMoney(tienGio + tienFnb));
+                    }
+                }
+            }
+        }
+    }
+
+    public void selectMachine(String tenMay) {
+        if (itemscp != null) {
+            for (MayTinh m : itemscp) {
+                if (m.getTenMay().equals(tenMay)) {
+                    selectedMachine = m;
+                    break;
+                }
+            }
+        }
+        if (selectedMachine == null) return;
+
+        if (lblTenMay != null) lblTenMay.setText(selectedMachine.getTenMay());
+        if (lblGiaTheoGio != null) lblGiaTheoGio.setText(String.valueOf(selectedMachine.getGiaTheoGio()));
+        if (lblTrangThai != null) lblTrangThai.setText(selectedMachine.getTrangThai());
+
+        SuDungMay sdm = findActiveSession(selectedMachine.getTenMay());
+        if (sdm != null) {
+            if (lblMaSd != null) lblMaSd.setText(String.valueOf(sdm.getId()));
+            if (lblGioBatDau != null) lblGioBatDau.setText(sdm.getGioBatDau() != null ? sdm.getGioBatDau().toString() : new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        } else {
+            if (lblMaSd != null) lblMaSd.setText("");
+            if (lblGioBatDau != null) lblGioBatDau.setText(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        }
+
+        updateInspectorUI();
+        renderCardGrid();
+    }
+
+    private void updateInspectorUI() {
+        if (selectedMachine == null || lblInspTitle == null) return;
+        boolean isAct = "Hoạt động".equalsIgnoreCase(selectedMachine.getTrangThai()) || "Đang dùng".equalsIgnoreCase(selectedMachine.getTrangThai()) || "Đang chơi".equalsIgnoreCase(selectedMachine.getTrangThai());
+        boolean isMaint = "Bảo trì".equalsIgnoreCase(selectedMachine.getTrangThai());
+        SuDungMay sdm = findActiveSession(selectedMachine.getTenMay());
+
+        if (lblInspArea != null && selectedMachine.getTenMay() != null) {
+            String u = selectedMachine.getTenMay().toUpperCase();
+            if (u.contains("VIP")) {
+                lblInspArea.setText("DÀN MÁY VIP • KHU CAO CẤP");
+            } else if (u.contains("THI ĐẤU")) {
+                lblInspArea.setText("DÀN MÁY THI ĐẤU • KHU ESPORTS");
+            } else {
+                lblInspArea.setText("DÀN MÁY THƯỜNG • KHU 01");
+            }
+        }
+
+        lblInspTitle.setText(selectedMachine.getTenMay());
+        lblInspRateVal.setText(Style_Net.formatMoney(selectedMachine.getGiaTheoGio()) + " / giờ");
+
+        if (isAct) {
+            String sessId = (sdm != null) ? "#SD" + String.format("%04d", sdm.getId()) : "#SD----";
+            lblInspSubtitle.setText("Mã phiên: " + sessId + " • Trạng thái: Đang hoạt động");
+            lblInspSubtitle.setForeground(Style_Net.NAVY_ACCENT);
+
+            String startTime = (sdm != null && sdm.getGioBatDau() != null) ? sdm.getGioBatDau().toString() : "--:--:--";
+            lblInspStartTimeVal.setText(startTime + " (Hôm nay)");
+
+            long elapsed = calculateElapsedSeconds(sdm);
+            long h = elapsed / 3600;
+            long m = (elapsed % 3600) / 60;
+            long s = elapsed % 60;
+            String durText = (h > 0) ? String.format("%02d giờ %02d phút %02d giây", h, m, s) : String.format("%02d phút %02d giây", m, s);
+            lblInspDurationVal.setText(durText);
+
+            double tienGio = calculateMachineFee(elapsed, selectedMachine.getGiaTheoGio());
+            double tienFnB = (sdm != null) ? getFoodTotal(sdm.getId()) : 0.0;
+            int foodQty = (sdm != null) ? getFoodQty(sdm.getId()) : 0;
+
+            lblInspMachineBillVal.setText(Style_Net.formatMoney(tienGio));
+            lblInspFoodBillVal.setText(Style_Net.formatMoney(tienFnB) + (foodQty > 0 ? " (" + foodQty + " món)" : " (0 món)"));
+            lblInspTotalBillVal.setText(Style_Net.formatMoney(tienGio + tienFnB));
+
+            btnActionPrimary.setText("THANH TOÁN & TRẢ MÁY");
+            btnActionPrimary.setEnabled(true);
+            btnActionOrder.setVisible(true);
+            btnActionShutdown.setVisible(true);
+        } else if (isMaint) {
+            lblInspSubtitle.setText("Trạng thái: Đang bảo trì");
+            lblInspSubtitle.setForeground(Style_Net.COLOR_WARNING);
+            lblInspStartTimeVal.setText("--:--:--");
+            lblInspDurationVal.setText("--");
+            lblInspMachineBillVal.setText("0 ₫");
+            lblInspFoodBillVal.setText("0 ₫");
+            lblInspTotalBillVal.setText("0 ₫");
+
+            btnActionPrimary.setText("MÁY ĐANG BẢO TRÌ");
+            btnActionPrimary.setEnabled(false);
+            btnActionOrder.setVisible(false);
+            btnActionShutdown.setVisible(false);
+        } else {
+            lblInspSubtitle.setText("Trạng thái: Máy sẵn sàng phục vụ");
+            lblInspSubtitle.setForeground(Style_Net.COLOR_SUCCESS);
+            lblInspStartTimeVal.setText("--:--:--");
+            lblInspDurationVal.setText("--");
+            lblInspMachineBillVal.setText("0 ₫");
+            lblInspFoodBillVal.setText("0 ₫");
+            lblInspTotalBillVal.setText("0 ₫");
+
+            btnActionPrimary.setText("MỞ MÁY SỬ DỤNG");
+            btnActionPrimary.setEnabled(true);
+            btnActionOrder.setVisible(false);
+            btnActionShutdown.setVisible(false);
+        }
+    }
+
+    public void renderCardGrid() {
+        if (pnlCardGrid == null) return;
+        pnlCardGrid.removeAll();
+        cardTimerMap.clear();
+        cardTamTinhMap.clear();
+        cardSubMap.clear();
+
+        List<MayTinh> list = itemscp;
+        if (list == null || list.isEmpty() || list.size() < 13) {
+            try {
+                list = new MayTinhDAOImpl().findAll();
+                itemscp = list;
+            } catch (Exception e) {
+                list = dao.finMayTinh();
+                itemscp = list;
+            }
+        }
+
+        int countAll = list.size();
+        int countActive = 0;
+        int countFree = 0;
+        int countMaint = 0;
+
+        for (MayTinh mt : list) {
+            String tt = mt.getTrangThai();
+            if ("Hoạt động".equalsIgnoreCase(tt) || "Đang dùng".equalsIgnoreCase(tt) || "Đang chơi".equalsIgnoreCase(tt)) {
+                countActive++;
+            } else if ("Bảo trì".equalsIgnoreCase(tt)) {
+                countMaint++;
+            } else {
+                countFree++;
+            }
+        }
+
+        if (btnPillAll != null) btnPillAll.setText("Tất cả máy (" + countAll + ")");
+        if (btnPillActive != null) btnPillActive.setText("Đang chơi (" + countActive + ")");
+        if (btnPillFree != null) btnPillFree.setText("Máy sẵn sàng (" + countFree + ")");
+        if (btnPillMaint != null) btnPillMaint.setText("Bảo trì (" + countMaint + ")");
+
+        for (MayTinh mt : list) {
+            String tt = mt.getTrangThai();
+            boolean isAct = "Hoạt động".equalsIgnoreCase(tt) || "Đang dùng".equalsIgnoreCase(tt) || "Đang chơi".equalsIgnoreCase(tt);
+            boolean isMaint = "Bảo trì".equalsIgnoreCase(tt);
+            boolean isFree = !isAct && !isMaint;
+
+            if ("HOAT_DONG".equals(currentFilter) && !isAct) continue;
+            if ("TRONG".equals(currentFilter) && !isFree) continue;
+            if ("BAO_TRI".equals(currentFilter) && !isMaint) continue;
+
+            JPanel card = createMachineCard(mt, isAct, isFree, isMaint);
+            pnlCardGrid.add(card);
+        }
+
+        pnlCardGrid.revalidate();
+        pnlCardGrid.repaint();
+    }
+
+    private JPanel createMachineCard(MayTinh mt, boolean isAct, boolean isFree, boolean isMaint) {
+        JPanel card = new JPanel();
+        card.setLayout(new BorderLayout(0, 6));
+        card.setBackground(Color.WHITE);
+        card.setPreferredSize(new Dimension(175, 120));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
+        card.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        boolean isSelected = (selectedMachine != null && selectedMachine.getTenMay().equals(mt.getTenMay()));
+        if (isSelected) {
+            card.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Style_Net.NAVY_PRIMARY, 2, true),
+                new EmptyBorder(8, 12, 8, 12)
+            ));
+        } else {
+            card.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Style_Net.BORDER_HAIRLINE, 1, true),
+                new EmptyBorder(9, 13, 9, 13)
+            ));
+        }
+
+        // Top Row: Machine name on left, badge on right
+        JPanel pnlTop = new JPanel(new BorderLayout());
+        pnlTop.setOpaque(false);
+        JLabel lblName = new JLabel(mt.getTenMay());
+        lblName.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblName.setForeground(Style_Net.NAVY_PRIMARY);
+        pnlTop.add(lblName, BorderLayout.WEST);
+
+        JLabel badge;
+        if (isAct) {
+            badge = Style_Net.createBadge("ĐANG CHƠI", "blue");
+        } else if (isMaint) {
+            badge = Style_Net.createBadge("BẢO TRÌ", "gray");
+        } else {
+            badge = Style_Net.createBadge("TRỐNG", "green");
+        }
+        pnlTop.add(badge, BorderLayout.EAST);
+        card.add(pnlTop, BorderLayout.NORTH);
+
+        // Center / Info Body
+        JPanel pnlBody = new JPanel();
+        pnlBody.setLayout(new BoxLayout(pnlBody, BoxLayout.Y_AXIS));
+        pnlBody.setOpaque(false);
+
+        if (isAct) {
+            SuDungMay sdm = findActiveSession(mt.getTenMay());
+            long elapsed = calculateElapsedSeconds(sdm);
+            long h = elapsed / 3600;
+            long m = (elapsed % 3600) / 60;
+            long s = elapsed % 60;
+            String timeStr = String.format("%02d:%02d:%02d", h, m, s);
+
+            JLabel lblTimer = new JLabel(timeStr);
+            lblTimer.setFont(new Font("Segoe UI", Font.BOLD, 16));
+            lblTimer.setForeground(Style_Net.NAVY_PRIMARY);
+
+            double tienGio = calculateMachineFee(elapsed, mt.getGiaTheoGio());
+            double tienFnB = (sdm != null) ? getFoodTotal(sdm.getId()) : 0.0;
+            int foodQty = (sdm != null) ? getFoodQty(sdm.getId()) : 0;
+
+            JLabel lblTamTinh = new JLabel("Tạm tính: " + Style_Net.formatMoney(tienGio + tienFnB));
+            lblTamTinh.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            lblTamTinh.setForeground(Style_Net.COLOR_SUCCESS);
+
+            String subText = "Đang phục vụ" + (foodQty > 0 ? " • " + foodQty + " món" : " • Chưa gọi món");
+            JLabel lblSub = new JLabel(subText);
+            lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+            lblSub.setForeground(Style_Net.TEXT_MUTED);
+
+            cardTimerMap.put(mt.getTenMay(), lblTimer);
+            cardTamTinhMap.put(mt.getTenMay(), lblTamTinh);
+            cardSubMap.put(mt.getTenMay(), lblSub);
+
+            pnlBody.add(lblTimer);
+            pnlBody.add(Box.createVerticalStrut(2));
+            pnlBody.add(lblTamTinh);
+            pnlBody.add(Box.createVerticalStrut(2));
+            pnlBody.add(lblSub);
+        } else if (isMaint) {
+            JLabel lblReason = new JLabel("Tạm ngừng phục vụ");
+            lblReason.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            lblReason.setForeground(Style_Net.TEXT_MUTED);
+
+            JLabel lblWait = new JLabel("Đang bảo trì thiết bị");
+            lblWait.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+            lblWait.setForeground(new Color(0x94, 0xA3, 0xB8));
+
+            pnlBody.add(Box.createVerticalStrut(6));
+            pnlBody.add(lblReason);
+            pnlBody.add(Box.createVerticalStrut(4));
+            pnlBody.add(lblWait);
+        } else {
+            JLabel lblRate = new JLabel(Style_Net.formatMoney(mt.getGiaTheoGio()) + "/giờ");
+            lblRate.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            lblRate.setForeground(Style_Net.NAVY_PRIMARY);
+
+            String desc = "Máy thường • Sẵn sàng";
+            if (mt.getTenMay() != null) {
+                String upper = mt.getTenMay().toUpperCase();
+                if (upper.contains("VIP")) {
+                    desc = "Máy VIP • Sẵn sàng";
+                } else if (upper.contains("THI ĐẤU")) {
+                    desc = "Máy Thi Đấu • Sẵn sàng";
+                }
+            }
+            JLabel lblSub = new JLabel(desc);
+            lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            lblSub.setForeground(Style_Net.TEXT_MUTED);
+
+            pnlBody.add(Box.createVerticalStrut(4));
+            pnlBody.add(lblRate);
+            pnlBody.add(Box.createVerticalStrut(4));
+            pnlBody.add(lblSub);
+        }
+        card.add(pnlBody, BorderLayout.CENTER);
+
+        card.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                selectMachine(mt.getTenMay());
+            }
+        });
+
+        return card;
     }
 
     /**
@@ -610,6 +1408,10 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             };
             model.addRow(rowdata);
         });
+        renderCardGrid();
+        if (selectedMachine == null && !itemscp.isEmpty()) {
+            selectMachine(itemscp.get(0).getTenMay());
+        }
     }
 
     @Override
@@ -629,27 +1431,42 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
                 i.getTrangThai(),};
             model.addRow(rowdata);
         });
+        refreshFoodCache();
+        renderCardGrid();
     }
 
     @Override
     public SuDungMay getFromOne() {
         SuDungMay sdm = new SuDungMay();
-        MayTinh mt = new MayTinh();
-        sdm.setGioBatDau(Time.valueOf(lblGioBatDau.getText()));
-        sdm.setGioKetThuc(Time.valueOf(lblGioBatDau.getText()));
+        Time now = new Time(System.currentTimeMillis());
+        sdm.setGioBatDau(now);
+        sdm.setGioKetThuc(now);
         sdm.setNgayChoi(new java.sql.Date(System.currentTimeMillis()));
         sdm.setNgayKetThuc(new java.sql.Date(System.currentTimeMillis()));
-        sdm.setGiaTheoGio(Float.parseFloat(lblGiaTheoGio.getText()));
+        if (selectedMachine != null) {
+            sdm.setGiaTheoGio(selectedMachine.getGiaTheoGio());
+        } else {
+            sdm.setGiaTheoGio(Float.parseFloat(lblGiaTheoGio.getText()));
+        }
         return sdm;
     }
 
     @Override
     public SuDungMay getFromBytoShutdow() {
         SuDungMay sdm = new SuDungMay();
-        MayTinh mt = new MayTinh();
-        sdm.setId(Integer.parseInt(lblMaSd.getText()));
-        sdm.setGioBatDau(Time.valueOf(lblGioBatDau.getText()));
-        sdm.setGioKetThuc(Time.valueOf(lblGioBatDau.getText()));
+        if (selectedMachine != null) {
+            SuDungMay active = findActiveSession(selectedMachine.getTenMay());
+            if (active != null) {
+                sdm.setId(active.getId());
+                sdm.setGioBatDau(active.getGioBatDau());
+            }
+        }
+        if (sdm.getId() == 0 && lblMaSd.getText() != null && !lblMaSd.getText().isEmpty()) {
+            try {
+                sdm.setId(Integer.parseInt(lblMaSd.getText()));
+            } catch (Exception ignored) {}
+        }
+        sdm.setGioKetThuc(new Time(System.currentTimeMillis()));
         sdm.setNgayChoi(new java.sql.Date(System.currentTimeMillis()));
         sdm.setNgayKetThuc(new java.sql.Date(System.currentTimeMillis()));
         return sdm;
@@ -657,6 +1474,9 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     @Override
     public MayTinh getFromTwo() {
+        if (selectedMachine != null) {
+            return selectedMachine;
+        }
         MayTinh mt = new MayTinh();
         mt.setTenMay(lblTenMay.getText());
         return mt;
@@ -664,30 +1484,45 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
 
     @Override
     public void MoMay() {
+        if (selectedMachine != null && "Hoạt động".equalsIgnoreCase(selectedMachine.getTrangThai())) {
+            XDialog.alert("Máy đã hoạt động, không thể mở tiếp");
+            return;
+        }
+        if (selectedMachine != null && "Bảo trì".equalsIgnoreCase(selectedMachine.getTrangThai())) {
+            XDialog.alert("Máy hiện đang bảo trì, vui lòng chọn máy khác");
+            return;
+        }
         SuDungMay sdm = this.getFromOne();
-
         MayTinh mt = this.getFromTwo();
         dao.MoMay(sdm, mt); // insert
         FilltblSDMay();
         FilltblMayTinh();
+        if (selectedMachine != null) {
+            selectMachine(selectedMachine.getTenMay());
+        }
     }
 
     @Override
     public void TatMay() {
         SuDungMay sdm = this.getFromBytoShutdow();
+        if (sdm == null || sdm.getId() == 0) {
+            XDialog.alert("Máy chưa mở hoặc không có phiên sử dụng cần tắt");
+            return;
+        }
         MayTinh mt = this.getFromTwo();
         dao.TatMay(sdm, mt);
         FilltblSDMay();
         FilltblMayTinh();
+        if (selectedMachine != null) {
+            selectMachine(selectedMachine.getTenMay());
+        }
     }
 
     @Override
     public void Clear() {
-        lblTenMay.setText("...................");
-        lblGioBatDau.setText("");
-        lblGiaTheoGio.setText(".........................");
-        lblTrangThai.setText("...............");
-        lblMaSd.setText("");
+        if (itemscp != null && !itemscp.isEmpty()) {
+            selectMachine(itemscp.get(0).getTenMay());
+        }
         DongHo();
     }
 
@@ -697,7 +1532,10 @@ public class MoMayJDialog extends javax.swing.JDialog implements MoMayController
             dongHoTimer = new Timer(1000, e -> {
                 Date now = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                lblGioBatDau.setText(sdf.format(now));
+                if (lblGioBatDau != null && (selectedMachine == null || !"Hoạt động".equalsIgnoreCase(selectedMachine.getTrangThai()))) {
+                    lblGioBatDau.setText(sdf.format(now));
+                }
+                updateLiveTimers();
             });
             dongHoTimer.start();
         }

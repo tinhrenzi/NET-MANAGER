@@ -12,6 +12,7 @@ import util.XDialog;
 import dao.MonAnDAO;
 import controller.MenuController;
 import controller.QuanlyThucDonController;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -32,12 +33,353 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
     List<MonAn> items = List.of();
     private String DuongDanAnh;
 
+    private javax.swing.JLabel lblTongSoMon;
+    private javax.swing.JLabel lblConHang;
+    private javax.swing.JTextField txtMaMonDisplay;
+    private javax.swing.JComboBox<String> cboDanhMuc;
+    private javax.swing.JComboBox<String> cboTinhTrang;
+    private javax.swing.JLabel lblImageName;
+    private javax.swing.JButton btnTabAll;
+    private javax.swing.JButton btnTabFood;
+    private javax.swing.JButton btnTabDrink;
+    private javax.swing.JButton btnTabSnack;
+    private String currentCategoryFilter = "ALL";
+
     public QuanLyThucDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Style_Net.styleAllTables(this.getContentPane());
+        buildModernQLTDLayout();
         setLocationRelativeTo(null);
         open();
+    }
+
+    private void buildModernQLTDLayout() {
+        setTitle("NET-MANAGER - Quản Lý Thực Đơn F&B");
+        setSize(1180, 720);
+        setLocationRelativeTo(null);
+        getContentPane().removeAll();
+        getContentPane().setLayout(new java.awt.BorderLayout(0, 16));
+        getContentPane().setBackground(Style_Net.BG_CANVAS);
+        ((javax.swing.JPanel) getContentPane()).setBorder(new javax.swing.border.EmptyBorder(16, 20, 20, 20));
+
+        // 1. TOP HEADER BAR
+        javax.swing.JPanel pnlTopHeader = new javax.swing.JPanel(new java.awt.BorderLayout());
+        pnlTopHeader.setOpaque(false);
+
+        javax.swing.JPanel pnlTitleGroup = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
+        pnlTitleGroup.setOpaque(false);
+        javax.swing.JLabel lblBrand = new javax.swing.JLabel("NET-MANAGER");
+        lblBrand.setFont(Style_Net.FONT_BRAND);
+        lblBrand.setForeground(Style_Net.NAVY_PRIMARY);
+        javax.swing.JLabel lblSubTitle = new javax.swing.JLabel("Quản lý Thực Đơn F&B");
+        lblSubTitle.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 18));
+        lblSubTitle.setForeground(Style_Net.NAVY_PRIMARY);
+        pnlTitleGroup.add(lblBrand);
+        pnlTitleGroup.add(new javax.swing.JLabel("  "));
+        pnlTitleGroup.add(lblSubTitle);
+
+        javax.swing.JPanel pnlPillsGroup = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 8, 0));
+        pnlPillsGroup.setOpaque(false);
+        lblTongSoMon = Style_Net.createBadge("Tổng số: 0 món", new java.awt.Color(0xF1, 0xF5, 0xF9), Style_Net.NAVY_PRIMARY);
+        lblConHang = Style_Net.createBadge("Còn hàng: 0 món", new java.awt.Color(0xDC, 0xFC, 0xE7), new java.awt.Color(0x16, 0x65, 0x34));
+        pnlPillsGroup.add(lblTongSoMon);
+        pnlPillsGroup.add(lblConHang);
+
+        pnlTopHeader.add(pnlTitleGroup, java.awt.BorderLayout.WEST);
+        pnlTopHeader.add(pnlPillsGroup, java.awt.BorderLayout.EAST);
+        getContentPane().add(pnlTopHeader, java.awt.BorderLayout.NORTH);
+
+        // 2. CENTER CONTENT (Two-column SaaS layout)
+        javax.swing.JPanel pnlCenter = new javax.swing.JPanel(new java.awt.BorderLayout(16, 0));
+        pnlCenter.setOpaque(false);
+
+        // --- LEFT FORM CARD (width ~380px) ---
+        javax.swing.JPanel pnlLeftCard = Style_Net.createCardPanel();
+        pnlLeftCard.setPreferredSize(new java.awt.Dimension(390, 600));
+        pnlLeftCard.setLayout(new java.awt.BorderLayout(0, 12));
+
+        javax.swing.JLabel lblFormHeader = new javax.swing.JLabel("THÔNG TIN MÓN & ĐỒ UỐNG");
+        lblFormHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 16));
+        lblFormHeader.setForeground(Style_Net.NAVY_PRIMARY);
+        pnlLeftCard.add(lblFormHeader, java.awt.BorderLayout.NORTH);
+
+        // Form Fields (Vertical Box)
+        javax.swing.JPanel pnlFormBody = new javax.swing.JPanel();
+        pnlFormBody.setLayout(new javax.swing.BoxLayout(pnlFormBody, javax.swing.BoxLayout.Y_AXIS));
+        pnlFormBody.setOpaque(false);
+
+        // Field 1: Mã món
+        javax.swing.JLabel lblF1 = new javax.swing.JLabel("Mã món");
+        lblF1.setFont(Style_Net.FONT_LABEL);
+        lblF1.setForeground(Style_Net.TEXT_MUTED);
+        lblF1.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        txtMaMonDisplay = new javax.swing.JTextField();
+        txtMaMonDisplay.setEditable(false);
+        txtMaMonDisplay.setBackground(new java.awt.Color(0xF1, 0xF5, 0xF9));
+        Style_Net.styleTextField(txtMaMonDisplay);
+        txtMaMonDisplay.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtMaMonDisplay.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 2: Tên món
+        javax.swing.JLabel lblF2 = new javax.swing.JLabel("Tên món / Đồ uống");
+        lblF2.setFont(Style_Net.FONT_LABEL);
+        lblF2.setForeground(Style_Net.TEXT_MUTED);
+        lblF2.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        Style_Net.styleTextField(txtName);
+        txtName.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtName.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 3: Phân loại danh mục
+        javax.swing.JLabel lblF3 = new javax.swing.JLabel("Phân loại danh mục");
+        lblF3.setFont(Style_Net.FONT_LABEL);
+        lblF3.setForeground(Style_Net.TEXT_MUTED);
+        lblF3.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        cboDanhMuc = new javax.swing.JComboBox<>(new String[]{"Đồ ăn chính (Mì / Cơm)", "Nước giải khát", "Snack / Ăn vặt"});
+        cboDanhMuc.setFont(Style_Net.FONT_BODY);
+        cboDanhMuc.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        cboDanhMuc.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 4 & 5: Đơn giá và Tồn kho (Side-by-side)
+        javax.swing.JPanel pnlPriceStock = new javax.swing.JPanel(new java.awt.GridLayout(1, 2, 10, 0));
+        pnlPriceStock.setOpaque(false);
+        pnlPriceStock.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 58));
+        pnlPriceStock.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        javax.swing.JPanel pnlP = new javax.swing.JPanel();
+        pnlP.setLayout(new javax.swing.BoxLayout(pnlP, javax.swing.BoxLayout.Y_AXIS));
+        pnlP.setOpaque(false);
+        javax.swing.JLabel lblFP = new javax.swing.JLabel("Đơn giá bán (VNĐ)");
+        lblFP.setFont(Style_Net.FONT_LABEL);
+        lblFP.setForeground(Style_Net.TEXT_MUTED);
+        Style_Net.styleTextField(txtGia);
+        txtGia.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        pnlP.add(lblFP);
+        pnlP.add(javax.swing.Box.createVerticalStrut(4));
+        pnlP.add(txtGia);
+
+        javax.swing.JPanel pnlS = new javax.swing.JPanel();
+        pnlS.setLayout(new javax.swing.BoxLayout(pnlS, javax.swing.BoxLayout.Y_AXIS));
+        pnlS.setOpaque(false);
+        javax.swing.JLabel lblFS = new javax.swing.JLabel("Tồn kho khả dụng");
+        lblFS.setFont(Style_Net.FONT_LABEL);
+        lblFS.setForeground(Style_Net.TEXT_MUTED);
+        Style_Net.styleTextField(txtSoLuong);
+        txtSoLuong.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        pnlS.add(lblFS);
+        pnlS.add(javax.swing.Box.createVerticalStrut(4));
+        pnlS.add(txtSoLuong);
+
+        pnlPriceStock.add(pnlP);
+        pnlPriceStock.add(pnlS);
+
+        // Field 6: Tình trạng phục vụ
+        javax.swing.JLabel lblF6 = new javax.swing.JLabel("Tình trạng phục vụ");
+        lblF6.setFont(Style_Net.FONT_LABEL);
+        lblF6.setForeground(Style_Net.TEXT_MUTED);
+        lblF6.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        cboTinhTrang = new javax.swing.JComboBox<>(new String[]{"Đang phục vụ (Còn hàng)", "Tạm ngưng phục vụ"});
+        cboTinhTrang.setFont(Style_Net.FONT_BODY);
+        cboTinhTrang.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        cboTinhTrang.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 7: Hình ảnh đại diện
+        javax.swing.JLabel lblF7 = new javax.swing.JLabel("Hình ảnh đại diện");
+        lblF7.setFont(Style_Net.FONT_LABEL);
+        lblF7.setForeground(Style_Net.TEXT_MUTED);
+        lblF7.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        javax.swing.JPanel pnlImageUpload = new javax.swing.JPanel(new java.awt.BorderLayout(10, 0));
+        pnlImageUpload.setBackground(new java.awt.Color(0xFA, 0xFA, 0xFA));
+        pnlImageUpload.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            new javax.swing.border.LineBorder(Style_Net.BORDER_HAIRLINE, 1, true),
+            new javax.swing.border.EmptyBorder(8, 8, 8, 8)
+        ));
+        pnlImageUpload.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 74));
+        pnlImageUpload.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        lblHinhAnh.setPreferredSize(new java.awt.Dimension(58, 58));
+        lblHinhAnh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHinhAnh.setBorder(new javax.swing.border.LineBorder(Style_Net.BORDER_HAIRLINE, 1, true));
+        lblHinhAnh.setOpaque(true);
+        lblHinhAnh.setBackground(java.awt.Color.WHITE);
+
+        javax.swing.JPanel pnlImgInfo = new javax.swing.JPanel();
+        pnlImgInfo.setLayout(new javax.swing.BoxLayout(pnlImgInfo, javax.swing.BoxLayout.Y_AXIS));
+        pnlImgInfo.setOpaque(false);
+        lblImageName = new javax.swing.JLabel("chua_chon_anh.jpg");
+        lblImageName.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+        lblImageName.setForeground(Style_Net.TEXT_MAIN);
+        javax.swing.JLabel lblImgSub = new javax.swing.JLabel("JPG/PNG dưới 2MB");
+        lblImgSub.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 11));
+        lblImgSub.setForeground(Style_Net.TEXT_MUTED);
+        pnlImgInfo.add(lblImageName);
+        pnlImgInfo.add(javax.swing.Box.createVerticalStrut(2));
+        pnlImgInfo.add(lblImgSub);
+
+        Style_Net.styleSecondaryButton(btnHinhANH);
+        btnHinhANH.setText("Chọn ảnh mới");
+        btnHinhANH.setPreferredSize(new java.awt.Dimension(110, 32));
+
+        pnlImageUpload.add(lblHinhAnh, java.awt.BorderLayout.WEST);
+        pnlImageUpload.add(pnlImgInfo, java.awt.BorderLayout.CENTER);
+        pnlImageUpload.add(btnHinhANH, java.awt.BorderLayout.EAST);
+
+        pnlFormBody.add(lblF1);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(txtMaMonDisplay);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(8));
+
+        pnlFormBody.add(lblF2);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(txtName);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(8));
+
+        pnlFormBody.add(lblF3);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(cboDanhMuc);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(8));
+
+        pnlFormBody.add(pnlPriceStock);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(8));
+
+        pnlFormBody.add(lblF6);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(cboTinhTrang);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(8));
+
+        pnlFormBody.add(lblF7);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(pnlImageUpload);
+        pnlFormBody.add(javax.swing.Box.createVerticalGlue());
+
+        pnlLeftCard.add(pnlFormBody, java.awt.BorderLayout.CENTER);
+
+        // Action Buttons Grid (2x2)
+        javax.swing.JPanel pnlActions = new javax.swing.JPanel(new java.awt.GridLayout(2, 2, 8, 8));
+        pnlActions.setOpaque(false);
+
+        btnUp.setText("Lưu cập nhật");
+        Style_Net.stylePrimaryButton(btnUp);
+        btnUp.setPreferredSize(new java.awt.Dimension(0, 38));
+
+        btnCre.setText("+ Thêm món mới");
+        Style_Net.stylePrimaryButton(btnCre);
+        btnCre.setBackground(Style_Net.NAVY_ACCENT);
+        btnCre.setPreferredSize(new java.awt.Dimension(0, 38));
+
+        btnDe.setText("Xóa món");
+        Style_Net.styleDangerButton(btnDe);
+        btnDe.setPreferredSize(new java.awt.Dimension(0, 36));
+
+        btnCle.setText("Làm mới form");
+        Style_Net.styleSecondaryButton(btnCle);
+        btnCle.setPreferredSize(new java.awt.Dimension(0, 36));
+
+        pnlActions.add(btnUp);
+        pnlActions.add(btnCre);
+        pnlActions.add(btnDe);
+        pnlActions.add(btnCle);
+
+        pnlLeftCard.add(pnlActions, java.awt.BorderLayout.SOUTH);
+        pnlCenter.add(pnlLeftCard, java.awt.BorderLayout.WEST);
+
+        // --- RIGHT TABLE CARD ---
+        javax.swing.JPanel pnlRightCard = Style_Net.createCardPanel();
+        pnlRightCard.setLayout(new java.awt.BorderLayout(0, 12));
+
+        // Top category pills & search
+        javax.swing.JPanel pnlRightTop = new javax.swing.JPanel(new java.awt.BorderLayout(10, 0));
+        pnlRightTop.setOpaque(false);
+
+        javax.swing.JPanel pnlTabs = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
+        pnlTabs.setOpaque(false);
+
+        btnTabAll = new javax.swing.JButton("Tất cả (0)");
+        btnTabFood = new javax.swing.JButton("Đồ ăn (0)");
+        btnTabDrink = new javax.swing.JButton("Đồ uống (0)");
+        btnTabSnack = new javax.swing.JButton("Snack (0)");
+
+        java.awt.event.ActionListener tabListener = e -> {
+            Object src = e.getSource();
+            if (src == btnTabFood) currentCategoryFilter = "FOOD";
+            else if (src == btnTabDrink) currentCategoryFilter = "DRINK";
+            else if (src == btnTabSnack) currentCategoryFilter = "SNACK";
+            else currentCategoryFilter = "ALL";
+            applyCategoryStyle();
+            filterTableData();
+        };
+
+        btnTabAll.addActionListener(tabListener);
+        btnTabFood.addActionListener(tabListener);
+        btnTabDrink.addActionListener(tabListener);
+        btnTabSnack.addActionListener(tabListener);
+
+        applyCategoryStyle();
+
+        pnlTabs.add(btnTabAll);
+        pnlTabs.add(btnTabFood);
+        pnlTabs.add(btnTabDrink);
+        pnlTabs.add(btnTabSnack);
+
+        javax.swing.JPanel pnlSearch = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 0));
+        pnlSearch.setOpaque(false);
+        txtFinid.setPreferredSize(new java.awt.Dimension(200, 36));
+        Style_Net.styleTextField(txtFinid);
+        txtFinid.putClientProperty("JTextField.placeholderText", "Tìm tên món hoặc mã...");
+        txtFinid.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                filterTableData();
+            }
+        });
+
+        Style_Net.styleSecondaryButton(btnFindId);
+        btnFindId.setText("Tìm");
+        btnFindId.setPreferredSize(new java.awt.Dimension(65, 36));
+
+        pnlSearch.add(txtFinid);
+        pnlSearch.add(btnFindId);
+
+        pnlRightTop.add(pnlTabs, java.awt.BorderLayout.WEST);
+        pnlRightTop.add(pnlSearch, java.awt.BorderLayout.EAST);
+        pnlRightCard.add(pnlRightTop, java.awt.BorderLayout.NORTH);
+
+        // Modern Table
+        Style_Net.styleTable(tblOrderManager);
+        tblOrderManager.setRowHeight(40);
+        jScrollPane1.setViewportView(tblOrderManager);
+        jScrollPane1.setBorder(new javax.swing.border.LineBorder(Style_Net.BORDER_HAIRLINE, 1, true));
+        pnlRightCard.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        pnlCenter.add(pnlRightCard, java.awt.BorderLayout.CENTER);
+        getContentPane().add(pnlCenter, java.awt.BorderLayout.CENTER);
+    }
+
+    private void applyCategoryStyle() {
+        javax.swing.JButton[] tabs = {btnTabAll, btnTabFood, btnTabDrink, btnTabSnack};
+        String[] keys = {"ALL", "FOOD", "DRINK", "SNACK"};
+        for (int i = 0; i < tabs.length; i++) {
+            if (tabs[i] == null) continue;
+            boolean active = keys[i].equals(currentCategoryFilter);
+            if (active) {
+                tabs[i].setBackground(Style_Net.NAVY_PRIMARY);
+                tabs[i].setForeground(java.awt.Color.WHITE);
+                tabs[i].setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+                tabs[i].setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                    new javax.swing.border.LineBorder(Style_Net.NAVY_PRIMARY, 1, true),
+                    new javax.swing.border.EmptyBorder(6, 14, 6, 14)
+                ));
+            } else {
+                tabs[i].setBackground(java.awt.Color.WHITE);
+                tabs[i].setForeground(Style_Net.TEXT_MAIN);
+                tabs[i].setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+                tabs[i].setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                    new javax.swing.border.LineBorder(Style_Net.BORDER_HAIRLINE, 1, true),
+                    new javax.swing.border.EmptyBorder(6, 14, 6, 14)
+                ));
+            }
+            tabs[i].setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        }
     }
 
     /**
@@ -442,22 +784,23 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
     }//GEN-LAST:event_txtSoLuongActionPerformed
 
     private void btnHinhANHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHinhANHActionPerformed
-        // TODO add your handling code here:
         try {
-            JFileChooser f = new JFileChooser("C:\\DUANXUONG\\NET-MANAGER");
-            f.setDialogTitle("Mở file");
-            f.showOpenDialog(null);
-            File ftenanh = f.getSelectedFile();
-
-            DuongDanAnh = ftenanh.getAbsolutePath();
-
-            lblHinhAnh.setIcon(ResizeImage(String.valueOf(DuongDanAnh)));
-            System.out.println(DuongDanAnh);
+            File initDir = new File("src/main/java/img");
+            if (!initDir.exists()) initDir = new File(".");
+            JFileChooser f = new JFileChooser(initDir);
+            f.setDialogTitle("Chọn hình ảnh món ăn / đồ uống");
+            int result = f.showOpenDialog(this);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File ftenanh = f.getSelectedFile();
+                DuongDanAnh = ftenanh.getName();
+                if (lblImageName != null) {
+                    lblImageName.setText(ftenanh.getName());
+                }
+                lblHinhAnh.setIcon(ResizeImage(ftenanh.getAbsolutePath()));
+            }
         } catch (Exception ex) {
-            System.out.println("chưa chọn ảnh");
-            System.out.println(DuongDanAnh);
+            System.out.println("Lỗi chọn ảnh: " + ex.getMessage());
         }
-
     }//GEN-LAST:event_btnHinhANHActionPerformed
 
     /**
@@ -503,11 +846,27 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
     }
 
     public ImageIcon ResizeImage(String ImagePath) {
-        ImageIcon myImage = new ImageIcon(ImagePath);
-        Image img = myImage.getImage();
-        Image newImg = img.getScaledInstance(lblHinhAnh.getWidth(), lblHinhAnh.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon image = new ImageIcon(newImg);
-        return image;
+        if (ImagePath == null || ImagePath.trim().isEmpty()) return null;
+        File f = new File(ImagePath);
+        if (!f.exists()) {
+            File f1 = new File("src/main/java/img/" + ImagePath);
+            if (f1.exists()) f = f1;
+            else {
+                File f2 = new File("src/images/" + ImagePath);
+                if (f2.exists()) f = f2;
+            }
+        }
+        if (!f.exists()) return null;
+        try {
+            ImageIcon myImage = new ImageIcon(f.getAbsolutePath());
+            Image img = myImage.getImage();
+            int w = (lblHinhAnh != null && lblHinhAnh.getWidth() > 0) ? lblHinhAnh.getWidth() : 58;
+            int h = (lblHinhAnh != null && lblHinhAnh.getHeight() > 0) ? lblHinhAnh.getHeight() : 58;
+            Image newImg = img.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+            return new ImageIcon(newImg);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -546,17 +905,22 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     @Override
     public void setForm(MonAn entity) {
-        MonAn Od = new MonAn();
-        Od.setTenMon(txtName.getText().trim());
-        Od.setGiaTien(Float.parseFloat(txtGia.getText().trim()));
-        Od.setSoLuong(Integer.parseInt(txtSoLuong.getText().trim()));
-        Od.setHinhANh(DuongDanAnh);
+        txtName.setText(entity.getTenMon());
+        txtGia.setText(String.valueOf((long)entity.getGiaTien()));
+        txtSoLuong.setText(String.valueOf(entity.getSoLuong()));
+        DuongDanAnh = entity.getHinhANh();
+        if (lblImageName != null) {
+            lblImageName.setText(DuongDanAnh != null ? new File(DuongDanAnh).getName() : "chua_chon_anh.jpg");
+        }
+        if (lblHinhAnh != null && DuongDanAnh != null) {
+            lblHinhAnh.setIcon(ResizeImage(DuongDanAnh));
+        }
     }
 
     @Override
     public MonAn getForm() {
         MonAn Od = new MonAn();
-        if (!lblMaMon.getText().trim().isEmpty()) {
+        if (!lblMaMon.getText().trim().isEmpty() && !lblMaMon.getText().contains("Tự động")) {
             Od.setId(lblMaMon.getText().trim());
         }
         Od.setTenMon(txtName.getText().trim());
@@ -589,8 +953,8 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
         try {
             int soLuong = Integer.parseInt(soLuongText);
-            if (soLuong <= 0) {
-                XDialog.alert("Số lượng phải lớn hơn 0.");
+            if (soLuong < 0) {
+                XDialog.alert("Số lượng không được âm.");
                 return false;
             }
         } catch (NumberFormatException e) {
@@ -601,26 +965,115 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
         return true;
     }
 
+    private String getCategoryForItem(String name) {
+        if (name == null) return "Đồ ăn";
+        String u = name.toUpperCase();
+        if (u.contains("STING") || u.contains("HÚC") || u.contains("HUC") || u.contains("CÀ PHÊ") ||
+            u.contains("CA PHE") || u.contains("COCA") || u.contains("NƯỚC") || u.contains("NUOC") ||
+            u.contains("TRÀ") || u.contains("TRA") || u.contains("PEPSI") || u.contains("REVIVE")) {
+            return "Đồ uống";
+        } else if (u.contains("KHOAI") || u.contains("SNACK") || u.contains("BIM") || u.contains("OISHI")) {
+            return "Snack";
+        }
+        return "Đồ ăn";
+    }
+
     @Override
     public void fillToTable() {
-        DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
-        model.setRowCount(0);
         items = dao.findAll();
 
+        int countAll = items.size();
+        int countFood = 0;
+        int countDrink = 0;
+        int countSnack = 0;
+        int inStockCount = 0;
+
         for (MonAn item : items) {
+            String cat = getCategoryForItem(item.getTenMon());
+            if (cat.equals("Đồ ăn")) countFood++;
+            else if (cat.equals("Đồ uống")) countDrink++;
+            else if (cat.equals("Snack")) countSnack++;
+            if (item.getSoLuong() > 0) inStockCount++;
+        }
+
+        if (lblTongSoMon != null) lblTongSoMon.setText("Tổng số: " + countAll + " món");
+        if (lblConHang != null) lblConHang.setText("Còn hàng: " + inStockCount + " món");
+        if (btnTabAll != null) btnTabAll.setText("Tất cả (" + countAll + ")");
+        if (btnTabFood != null) btnTabFood.setText("Đồ ăn (" + countFood + ")");
+        if (btnTabDrink != null) btnTabDrink.setText("Đồ uống (" + countDrink + ")");
+        if (btnTabSnack != null) btnTabSnack.setText("Snack (" + countSnack + ")");
+
+        filterTableData();
+    }
+
+    public void filterTableData() {
+        DefaultTableModel model = new DefaultTableModel(
+            new String[]{"MÃ MÓN", "TÊN MÓN ĂN / NƯỚC", "PHÂN LOẠI", "ĐƠN GIÁ", "TỒN KHO", "TRẠNG THÁI"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
+        tblOrderManager.setModel(model);
+
+        String keyword = txtFinid != null ? txtFinid.getText().trim().toLowerCase() : "";
+
+        for (MonAn item : items) {
+            String cat = getCategoryForItem(item.getTenMon());
+            // Filter by Category Pill
+            if ("FOOD".equals(currentCategoryFilter) && !cat.equals("Đồ ăn")) continue;
+            if ("DRINK".equals(currentCategoryFilter) && !cat.equals("Đồ uống")) continue;
+            if ("SNACK".equals(currentCategoryFilter) && !cat.equals("Snack")) continue;
+
+            // Filter by search keyword
+            if (!keyword.isEmpty()) {
+                String idStr = item.getId() != null ? item.getId().toLowerCase() : "";
+                String nameStr = item.getTenMon() != null ? item.getTenMon().toLowerCase() : "";
+                if (!idStr.contains(keyword) && !nameStr.contains(keyword)) {
+                    continue;
+                }
+            }
+
+            String st = item.getSoLuong() > 0 ? "Sẵn sàng" : "Tạm hết";
             model.addRow(new Object[]{
                 item.getId(),
                 item.getTenMon(),
-                item.getGiaTien(),
+                cat,
+                Style_Net.formatMoney(item.getGiaTien()),
                 item.getSoLuong(),
-                item.getHinhANh()
+                st
+            });
+        }
+        setupQLTDRenderers();
+    }
+
+    private void setupQLTDRenderers() {
+        if (tblOrderManager.getColumnCount() >= 6) {
+            // Category renderer
+            tblOrderManager.getColumnModel().getColumn(2).setCellRenderer((table, value, isSelected, hasFocus, row, col) -> {
+                String cat = value != null ? value.toString() : "";
+                javax.swing.JPanel pnl = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 7));
+                pnl.setBackground(isSelected ? table.getSelectionBackground() : java.awt.Color.WHITE);
+                pnl.add(Style_Net.createBadge(cat, "gray"));
+                return pnl;
+            });
+
+            // Status renderer
+            tblOrderManager.getColumnModel().getColumn(5).setCellRenderer((table, value, isSelected, hasFocus, row, col) -> {
+                String st = value != null ? value.toString() : "";
+                javax.swing.JPanel pnl = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 7));
+                pnl.setBackground(isSelected ? table.getSelectionBackground() : java.awt.Color.WHITE);
+                if ("Sẵn sàng".equalsIgnoreCase(st)) {
+                    pnl.add(Style_Net.createBadge("Sẵn sàng", "green"));
+                } else {
+                    pnl.add(Style_Net.createBadge("Tạm hết", "red"));
+                }
+                return pnl;
             });
         }
     }
 
     @Override
     public void edit() {
-
     }
 
     @Override
@@ -632,6 +1085,7 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
         dao.create(Od);
         this.fillToTable();
         this.clear();
+        JOptionPane.showMessageDialog(this, "Thêm món thành công!");
     }
 
     @Override
@@ -647,94 +1101,102 @@ public class QuanLyThucDonJDialog extends javax.swing.JDialog implements QuanlyT
 
     @Override
     public void delete() {
-        if (XDialog.confirm("Bạn xác nhận xóa?")) {
+        if (lblMaMon.getText().trim().isEmpty() || lblMaMon.getText().contains("Tự động")) {
+            XDialog.alert("Vui lòng chọn món cần xóa!");
+            return;
+        }
+        if (XDialog.confirm("Bạn xác nhận xóa món " + lblMaMon.getText() + "?")) {
             String id = lblMaMon.getText();
             dao.deleteByID(id);
             this.fillToTable();
             this.clear();
+            JOptionPane.showMessageDialog(this, "Xóa món thành công!");
         }
     }
 
     @Override
     public void clear() {
         lblMaMon.setText("");
+        if (txtMaMonDisplay != null) {
+            txtMaMonDisplay.setText("(Tự động cấp khi thêm)");
+        }
         txtName.setText("");
         txtGia.setText("");
         txtSoLuong.setText("");
-        lblHinhAnh.setIcon(null);
+        if (cboDanhMuc != null) cboDanhMuc.setSelectedIndex(0);
+        if (cboTinhTrang != null) cboTinhTrang.setSelectedIndex(0);
+        if (lblImageName != null) lblImageName.setText("chua_chon_anh.jpg");
+        if (lblHinhAnh != null) lblHinhAnh.setIcon(null);
+        DuongDanAnh = null;
     }
 
     @Override
     public void setEditable(boolean editable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void finbyid() {
-        String id = txtFinid.getText().trim();
-        MonAn od = dao.findByID(id);
-        DefaultTableModel model = (DefaultTableModel) tblOrderManager.getModel();
-        model.setRowCount(0);
-
-        if (od != null) {
-            Object[] row = {
-                od.getId(),
-                od.getTenMon(),
-                od.getGiaTien(),
-                od.getSoLuong(),
-                od.getHinhANh()
-            };
-            model.addRow(row);
-        }
+        filterTableData();
     }
 
     public void filltxt(int row) {
-        for (int col = 0; col < 4; col++) {
-            Object v0 = tblOrderManager.getValueAt(row, 0);
-            lblMaMon.setText(v0 != null ? v0.toString() : "");
-            Object v1 = tblOrderManager.getValueAt(row, 1);
-            txtName.setText(v1 != null ? v1.toString() : "");
-            Object v2 = tblOrderManager.getValueAt(row, 2);
-            txtGia.setText(v2 != null ? v2.toString() : "");
-            Object v3 = tblOrderManager.getValueAt(row, 3);
-            txtSoLuong.setText(v3 != null ? v3.toString() : "");
+        if (row < 0 || row >= tblOrderManager.getRowCount()) return;
+        Object idVal = tblOrderManager.getValueAt(row, 0);
+        String idStr = idVal != null ? idVal.toString() : "";
+        lblMaMon.setText(idStr);
+        if (txtMaMonDisplay != null) {
+            txtMaMonDisplay.setText(idStr);
+        }
 
-            Object v4 = tblOrderManager.getValueAt(row, 4);
-            if (v4 != null) {
-                String path = v4.toString();
-                File f = new File(path);
-                if (!f.exists()) {
-                    String alt = "src/images/" + path;
-                    if (new File(alt).exists()) {
-                        path = alt;
-                    }
+        for (MonAn item : items) {
+            if (item.getId().equals(idStr)) {
+                txtName.setText(item.getTenMon() != null ? item.getTenMon() : "");
+                txtGia.setText(String.valueOf((long)item.getGiaTien()));
+                txtSoLuong.setText(String.valueOf(item.getSoLuong()));
+
+                String cat = getCategoryForItem(item.getTenMon());
+                if (cboDanhMuc != null) {
+                    if (cat.equals("Đồ uống")) cboDanhMuc.setSelectedIndex(1);
+                    else if (cat.equals("Snack")) cboDanhMuc.setSelectedIndex(2);
+                    else cboDanhMuc.setSelectedIndex(0);
                 }
-                DuongDanAnh = path;
-                lblHinhAnh.setIcon(ResizeImage(path));
-            } else {
-                lblHinhAnh.setIcon(null);
-                DuongDanAnh = null;
+
+                if (cboTinhTrang != null) {
+                    cboTinhTrang.setSelectedIndex(item.getSoLuong() > 0 ? 0 : 1);
+                }
+
+                DuongDanAnh = item.getHinhANh();
+                if (lblImageName != null) {
+                    lblImageName.setText(DuongDanAnh != null ? new File(DuongDanAnh).getName() : "chua_chon_anh.jpg");
+                }
+                if (lblHinhAnh != null) {
+                    lblHinhAnh.setIcon(ResizeImage(DuongDanAnh));
+                }
+                break;
             }
         }
     }
 
     private void openImage(String path) {
-
         try {
             File f = new File(path);
             if (!f.exists()) {
-                String alt = "src/images/" + path;
-                if (new File(alt).exists()) {
-                    path = alt;
+                File f1 = new File("src/main/java/img/" + path);
+                if (f1.exists()) f = f1;
+                else {
+                    File f2 = new File("src/images/" + path);
+                    if (f2.exists()) f = f2;
                 }
             }
-            ImageIcon icon = new ImageIcon(path);
+            if (!f.exists()) return;
+            ImageIcon icon = new ImageIcon(f.getAbsolutePath());
             Image img = icon.getImage();
-            Image newImg = img.getScaledInstance(800, 800, Image.SCALE_SMOOTH);
+            Image newImg = img.getScaledInstance(600, 600, Image.SCALE_SMOOTH);
             ImageIcon big = new ImageIcon(newImg);
             javax.swing.JLabel lb = new javax.swing.JLabel(big);
             javax.swing.JScrollPane sp = new javax.swing.JScrollPane(lb);
-            sp.setPreferredSize(new java.awt.Dimension(900, 820));
-            javax.swing.JOptionPane.showMessageDialog(this, sp, "Xem ảnh lớn", javax.swing.JOptionPane.PLAIN_MESSAGE);
+            sp.setPreferredSize(new java.awt.Dimension(650, 650));
+            javax.swing.JOptionPane.showMessageDialog(this, sp, "Chi tiết hình ảnh món", javax.swing.JOptionPane.PLAIN_MESSAGE);
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Không thể mở ảnh: " + e.getMessage());
         }

@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.XDialog;
 import dao.AdminDAO;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.io.File;
@@ -35,12 +36,272 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     List<Admin> items = List.of();
     private String DuongDanAnh;
 
+    private javax.swing.JLabel lblHeaderSummary;
+    private javax.swing.JTextField txtMaNVDisplay;
+    private javax.swing.JButton btnThemNVQuick;
+    private javax.swing.JButton btnShowAllNV;
+
     public QuanLyNhanVienJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Style_Net.styleAllTables(this.getContentPane());
+        buildModernQLNVLayout();
         fillToTable();
         setLocationRelativeTo(null);
+    }
+
+    private void buildModernQLNVLayout() {
+        setTitle("NET-MANAGER - Quản Lý Nhân Sự & Phân Quyền");
+        setSize(1100, 700);
+        setLocationRelativeTo(null);
+        getContentPane().removeAll();
+        getContentPane().setLayout(new java.awt.BorderLayout(0, 16));
+        getContentPane().setBackground(Style_Net.BG_CANVAS);
+        ((javax.swing.JPanel) getContentPane()).setBorder(new javax.swing.border.EmptyBorder(16, 20, 20, 20));
+
+        // 1. TOP HEADER BAR
+        javax.swing.JPanel pnlTopHeader = new javax.swing.JPanel(new java.awt.BorderLayout());
+        pnlTopHeader.setOpaque(false);
+
+        javax.swing.JPanel pnlTitleGroup = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
+        pnlTitleGroup.setOpaque(false);
+        javax.swing.JLabel lblBrand = new javax.swing.JLabel("NET-MANAGER");
+        lblBrand.setFont(Style_Net.FONT_BRAND);
+        lblBrand.setForeground(Style_Net.NAVY_PRIMARY);
+        javax.swing.JLabel lblSubTitle = new javax.swing.JLabel("QUẢN LÝ NHÂN SỰ • PHÂN QUYỀN VẬN HÀNH");
+        lblSubTitle.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        lblSubTitle.setForeground(Style_Net.TEXT_MUTED);
+        pnlTitleGroup.add(lblBrand);
+        pnlTitleGroup.add(new javax.swing.JLabel("  "));
+        pnlTitleGroup.add(lblSubTitle);
+
+        lblHeaderSummary = new javax.swing.JLabel("Tổng nhân sự: 0 tài khoản • Sẵn sàng");
+        lblHeaderSummary.setFont(Style_Net.FONT_LABEL);
+        lblHeaderSummary.setForeground(Style_Net.TEXT_MUTED);
+
+        pnlTopHeader.add(pnlTitleGroup, java.awt.BorderLayout.WEST);
+        pnlTopHeader.add(lblHeaderSummary, java.awt.BorderLayout.EAST);
+        getContentPane().add(pnlTopHeader, java.awt.BorderLayout.NORTH);
+
+        // 2. CENTER CONTENT (Two-column SaaS layout)
+        javax.swing.JPanel pnlCenter = new javax.swing.JPanel(new java.awt.BorderLayout(16, 0));
+        pnlCenter.setOpaque(false);
+
+        // --- LEFT TABLE CARD ---
+        javax.swing.JPanel pnlLeftCard = Style_Net.createCardPanel();
+        pnlLeftCard.setLayout(new java.awt.BorderLayout(0, 12));
+
+        // Search + Quick Add Bar
+        javax.swing.JPanel pnlToolbar = new javax.swing.JPanel(new java.awt.BorderLayout(10, 0));
+        pnlToolbar.setOpaque(false);
+
+        javax.swing.JPanel pnlSearch = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
+        pnlSearch.setOpaque(false);
+        txtFindbyid.setPreferredSize(new java.awt.Dimension(240, 36));
+        Style_Net.styleTextField(txtFindbyid);
+        txtFindbyid.putClientProperty("JTextField.placeholderText", "Tìm theo tên hoặc số điện thoại...");
+        txtFindbyid.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent e) {
+                filterTableData();
+            }
+        });
+
+        Style_Net.styleSecondaryButton(btnFind);
+        btnFind.setText("Tìm kiếm");
+        btnFind.setPreferredSize(new java.awt.Dimension(95, 36));
+
+        btnShowAllNV = new javax.swing.JButton("Tất cả");
+        Style_Net.styleSecondaryButton(btnShowAllNV);
+        btnShowAllNV.setPreferredSize(new java.awt.Dimension(75, 36));
+        btnShowAllNV.addActionListener(e -> {
+            txtFindbyid.setText("");
+            fillToTable();
+        });
+
+        pnlSearch.add(txtFindbyid);
+        pnlSearch.add(btnFind);
+        pnlSearch.add(btnShowAllNV);
+
+        btnThemNVQuick = new javax.swing.JButton("+ THÊM NHÂN VIÊN");
+        Style_Net.stylePrimaryButton(btnThemNVQuick);
+        btnThemNVQuick.setPreferredSize(new java.awt.Dimension(160, 36));
+        btnThemNVQuick.addActionListener(e -> {
+            clear();
+            txtName.requestFocus();
+        });
+
+        pnlToolbar.add(pnlSearch, java.awt.BorderLayout.WEST);
+        pnlToolbar.add(btnThemNVQuick, java.awt.BorderLayout.EAST);
+        pnlLeftCard.add(pnlToolbar, java.awt.BorderLayout.NORTH);
+
+        // Modern Table
+        Style_Net.styleTable(tblUsermager);
+        tblUsermager.setRowHeight(40);
+        jScrollPane1.setViewportView(tblUsermager);
+        jScrollPane1.setBorder(new javax.swing.border.LineBorder(Style_Net.BORDER_HAIRLINE, 1, true));
+        pnlLeftCard.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        pnlCenter.add(pnlLeftCard, java.awt.BorderLayout.CENTER);
+
+        // --- RIGHT FORM CARD (width ~350px) ---
+        javax.swing.JPanel pnlRightCard = Style_Net.createCardPanel();
+        pnlRightCard.setPreferredSize(new java.awt.Dimension(350, 560));
+        pnlRightCard.setLayout(new java.awt.BorderLayout(0, 16));
+
+        // Form Header
+        javax.swing.JPanel pnlFormHeader = new javax.swing.JPanel();
+        pnlFormHeader.setLayout(new javax.swing.BoxLayout(pnlFormHeader, javax.swing.BoxLayout.Y_AXIS));
+        pnlFormHeader.setOpaque(false);
+        javax.swing.JLabel lblFormTitle = new javax.swing.JLabel("THÔNG TIN NHÂN SỰ");
+        lblFormTitle.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 16));
+        lblFormTitle.setForeground(Style_Net.NAVY_PRIMARY);
+        lblFormTitle.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        javax.swing.JLabel lblFormDesc = new javax.swing.JLabel("Phân quyền chức năng và thông tin liên hệ");
+        lblFormDesc.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+        lblFormDesc.setForeground(Style_Net.TEXT_MUTED);
+        lblFormDesc.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        pnlFormHeader.add(lblFormTitle);
+        pnlFormHeader.add(javax.swing.Box.createVerticalStrut(4));
+        pnlFormHeader.add(lblFormDesc);
+        pnlRightCard.add(pnlFormHeader, java.awt.BorderLayout.NORTH);
+
+        // Form Fields
+        javax.swing.JPanel pnlFormBody = new javax.swing.JPanel();
+        pnlFormBody.setLayout(new javax.swing.BoxLayout(pnlFormBody, javax.swing.BoxLayout.Y_AXIS));
+        pnlFormBody.setOpaque(false);
+
+        // Field 1: Mã định danh
+        javax.swing.JLabel lblF1 = new javax.swing.JLabel("MÃ ĐỊNH DANH");
+        lblF1.setFont(Style_Net.FONT_LABEL);
+        lblF1.setForeground(Style_Net.TEXT_MUTED);
+        lblF1.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        txtMaNVDisplay = new javax.swing.JTextField();
+        txtMaNVDisplay.setEditable(false);
+        txtMaNVDisplay.setBackground(new java.awt.Color(0xF1, 0xF5, 0xF9));
+        Style_Net.styleTextField(txtMaNVDisplay);
+        txtMaNVDisplay.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtMaNVDisplay.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 2: Tên tài khoản
+        javax.swing.JLabel lblF2 = new javax.swing.JLabel("TÊN TÀI KHOẢN ĐĂNG NHẬP");
+        lblF2.setFont(Style_Net.FONT_LABEL);
+        lblF2.setForeground(Style_Net.TEXT_MUTED);
+        lblF2.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        Style_Net.styleTextField(txtName);
+        txtName.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtName.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 3: Mật khẩu
+        javax.swing.JLabel lblF3 = new javax.swing.JLabel("MẬT KHẨU TRUY CẬP");
+        lblF3.setFont(Style_Net.FONT_LABEL);
+        lblF3.setForeground(Style_Net.TEXT_MUTED);
+        lblF3.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        Style_Net.styleTextField(txtPass);
+        txtPass.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtPass.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 4: Phân quyền vai trò
+        javax.swing.JLabel lblF4 = new javax.swing.JLabel("PHÂN QUYỀN VAI TRÒ");
+        lblF4.setFont(Style_Net.FONT_LABEL);
+        lblF4.setForeground(Style_Net.TEXT_MUTED);
+        lblF4.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        cboVaitro.setFont(Style_Net.FONT_BODY);
+        cboVaitro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Quản lý (Toàn quyền hệ thống)", "Nhân viên (Mở máy, gọi món, thu tiền)"}));
+        cboVaitro.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        cboVaitro.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 5: Số điện thoại
+        javax.swing.JLabel lblF5 = new javax.swing.JLabel("SỐ ĐIỆN THOẠI LIÊN HỆ");
+        lblF5.setFont(Style_Net.FONT_LABEL);
+        lblF5.setForeground(Style_Net.TEXT_MUTED);
+        lblF5.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        Style_Net.styleTextField(txtPhone);
+        txtPhone.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtPhone.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        // Field 6: Email
+        javax.swing.JLabel lblF6 = new javax.swing.JLabel("ĐỊA CHỈ EMAIL");
+        lblF6.setFont(Style_Net.FONT_LABEL);
+        lblF6.setForeground(Style_Net.TEXT_MUTED);
+        lblF6.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        Style_Net.styleTextField(txtEmail);
+        txtEmail.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 36));
+        txtEmail.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+
+        pnlFormBody.add(lblF1);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(txtMaNVDisplay);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(10));
+
+        pnlFormBody.add(lblF2);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(txtName);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(10));
+
+        pnlFormBody.add(lblF3);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(txtPass);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(10));
+
+        pnlFormBody.add(lblF4);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(cboVaitro);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(10));
+
+        pnlFormBody.add(lblF5);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(txtPhone);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(10));
+
+        pnlFormBody.add(lblF6);
+        pnlFormBody.add(javax.swing.Box.createVerticalStrut(3));
+        pnlFormBody.add(txtEmail);
+        pnlFormBody.add(javax.swing.Box.createVerticalGlue());
+
+        pnlRightCard.add(pnlFormBody, java.awt.BorderLayout.CENTER);
+
+        // Form Buttons
+        javax.swing.JPanel pnlFormButtons = new javax.swing.JPanel(new java.awt.GridLayout(3, 1, 0, 8));
+        pnlFormButtons.setOpaque(false);
+
+        btnUpdate.setText("LƯU THÔNG TIN NHÂN VIÊN");
+        Style_Net.stylePrimaryButton(btnUpdate);
+        btnUpdate.setPreferredSize(new java.awt.Dimension(300, 38));
+
+        jButton2.setText("LÀM MỚI FORM");
+        Style_Net.styleSecondaryButton(jButton2);
+        jButton2.setPreferredSize(new java.awt.Dimension(300, 36));
+        for (java.awt.event.ActionListener al : jButton2.getActionListeners()) {
+            jButton2.removeActionListener(al);
+        }
+        jButton2.addActionListener(e -> clear());
+
+        btnDelete.setText("TẠM KHÓA / XÓA TÀI KHOẢN");
+        Style_Net.styleDangerButton(btnDelete);
+        btnDelete.setPreferredSize(new java.awt.Dimension(300, 36));
+        for (java.awt.event.ActionListener al : btnDelete.getActionListeners()) {
+            btnDelete.removeActionListener(al);
+        }
+        btnDelete.addActionListener(e -> delete());
+
+        tblUsermager.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int r = tblUsermager.getSelectedRow();
+                if (r >= 0) fillTXT(r);
+            }
+        });
+
+        pnlFormButtons.add(btnUpdate);
+        pnlFormButtons.add(jButton2);
+        pnlFormButtons.add(btnDelete);
+
+        pnlRightCard.add(pnlFormButtons, java.awt.BorderLayout.SOUTH);
+
+        pnlCenter.add(pnlRightCard, java.awt.BorderLayout.EAST);
+        getContentPane().add(pnlCenter, java.awt.BorderLayout.CENTER);
     }
 
     /**
@@ -585,6 +846,10 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        if (lblID.getText().trim().isEmpty() || lblID.getText().contains("Tự động") || lblID.getText().contains("mặc định")) {
+            btnCreateActionPerformed(evt);
+            return;
+        }
 
         String username = txtName.getText().trim();
         String email = txtEmail.getText().trim();
@@ -796,46 +1061,73 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }
 
     public void fillTXT(int row) {
-        Admin user = new Admin();
-        lblID.setText(tblUsermager.getValueAt(row, 0).toString());
-        txtName.setText(tblUsermager.getValueAt(row, 1).toString());
-        txtPass.setText(tblUsermager.getValueAt(row, 2).toString());
-        cboVaitro.setSelectedItem(tblUsermager.getValueAt(row, 3).toString());
-        String status = tblUsermager.getValueAt(row, 4).toString();
-        if (status.equalsIgnoreCase("Hoạt động")) {
-            rdo1.setSelected(true);
-        } else {
-            rdo2.setSelected(true);
+        if (row < 0 || row >= tblUsermager.getRowCount()) return;
+        Object idVal = tblUsermager.getValueAt(row, 0);
+        String idStr = idVal != null ? idVal.toString() : "";
+        lblID.setText(idStr);
+        if (txtMaNVDisplay != null) {
+            txtMaNVDisplay.setText(idStr);
         }
 
-        txtNamSinh.setText(tblUsermager.getValueAt(row, 5).toString());
-        txtEmail.setText(tblUsermager.getValueAt(row, 6).toString());
-        txtPhone.setText(tblUsermager.getValueAt(row, 7).toString());
-        dacDateCre.setDate((java.sql.Date) tblUsermager.getValueAt(row, 8));
-        Object getAnh = tblUsermager.getValueAt(row, 9);
-        if (getAnh != null) {
-            String path = getAnh.toString();
-            File f = new File(path);
-            if (!f.exists()) {
-                String alt = "src/images/" + path;
-                if (new File(alt).exists()) {
-                    path = alt;
+        for (Admin user : items) {
+            if (user.getId().equals(idStr)) {
+                txtName.setText(user.getTen() != null ? user.getTen() : "");
+                txtPass.setText(user.getMatKhau() != null ? user.getMatKhau() : "");
+                txtPhone.setText(user.getSoDienThoai() != null ? user.getSoDienThoai() : "");
+                txtEmail.setText(user.getEmail() != null ? user.getEmail() : "");
+                txtNamSinh.setText(String.valueOf(user.getNamSinh()));
+                if (cboVaitro != null) {
+                    cboVaitro.setSelectedIndex(user.getVaiTro() == 1 ? 0 : 1);
                 }
+                rdo1.setSelected(user.isTrangThai());
+                rdo2.setSelected(!user.isTrangThai());
+
+                if (user.getNgayTao() != null) {
+                    dacDateCre.setDate(user.getNgayTao());
+                }
+
+                DuongDanAnh = user.getAnh();
+                if (lblAnh != null) {
+                    if (DuongDanAnh != null && !DuongDanAnh.isEmpty()) {
+                        lblAnh.setIcon(ResizeImage(DuongDanAnh));
+                    } else {
+                        lblAnh.setIcon(null);
+                    }
+                }
+                break;
             }
-            DuongDanAnh = path;
-            lblAnh.setIcon(ResizeImage(path));
-        } else {
-            lblAnh.setIcon(null);
-            DuongDanAnh = null;
+        }
+
+        if (btnUpdate != null) {
+            btnUpdate.setText("✓ LƯU THÔNG TIN NHÂN VIÊN");
+        }
+        if (lblHeaderSummary != null) {
+            lblHeaderSummary.setText("Tổng nhân sự: " + items.size() + " tài khoản • Đang chọn: " + idStr + " (" + txtName.getText() + ")");
         }
     }
 
     public ImageIcon ResizeImage(String ImagePath) {
-        ImageIcon myImage = new ImageIcon(ImagePath);
-        Image img = myImage.getImage();
-        Image newImg = img.getScaledInstance(lblAnh.getWidth(), lblAnh.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon image = new ImageIcon(newImg);
-        return image;
+        if (ImagePath == null || ImagePath.trim().isEmpty()) return null;
+        File f = new File(ImagePath);
+        if (!f.exists()) {
+            File f1 = new File("src/main/java/img/" + ImagePath);
+            if (f1.exists()) f = f1;
+            else {
+                File f2 = new File("src/images/" + ImagePath);
+                if (f2.exists()) f = f2;
+            }
+        }
+        if (!f.exists()) return null;
+        try {
+            ImageIcon myImage = new ImageIcon(f.getAbsolutePath());
+            Image img = myImage.getImage();
+            int w = (lblAnh != null && lblAnh.getWidth() > 0) ? lblAnh.getWidth() : 60;
+            int h = (lblAnh != null && lblAnh.getHeight() > 0) ? lblAnh.getHeight() : 60;
+            Image newImg = img.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+            return new ImageIcon(newImg);
+        } catch (Exception ex) {
+            return null;
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
@@ -887,7 +1179,7 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     }
 
     public void setRole() {
-        int role = XAuth.user.getVaiTro();
+        int role = XAuth.user != null ? XAuth.user.getVaiTro() : 1;
         if (role == 2) {
             btnUpdate.setEnabled(false);
         } else {
@@ -898,21 +1190,24 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     @Override
     public void setForm(Admin entity) {
         lblID.setText(entity.getId());
+        if (txtMaNVDisplay != null) txtMaNVDisplay.setText(entity.getId());
         txtName.setText(entity.getTen());
         txtPass.setText(entity.getMatKhau());
         txtEmail.setText(entity.getEmail());
-        cboVaitro.setSelectedItem(entity.getVaiTro() == 1 ? "Quản lý" : "Nhân viên");
+        cboVaitro.setSelectedIndex(entity.getVaiTro() == 1 ? 0 : 1);
         txtPhone.setText(entity.getSoDienThoai());
         txtNamSinh.setText(String.valueOf(entity.getNamSinh()));
-        dacDateCre.setDate(entity.getNgayTao());
+        if (entity.getNgayTao() != null) {
+            dacDateCre.setDate(entity.getNgayTao());
+        }
         rdo1.setSelected(entity.isTrangThai());
         rdo2.setSelected(!entity.isTrangThai());
 
         if (entity.getAnh() != null && !entity.getAnh().isEmpty()) {
             DuongDanAnh = entity.getAnh();
-            lblAnh.setIcon(ResizeImage(DuongDanAnh));
+            if (lblAnh != null) lblAnh.setIcon(ResizeImage(DuongDanAnh));
         } else {
-            lblAnh.setIcon(null);
+            if (lblAnh != null) lblAnh.setIcon(null);
             DuongDanAnh = null;
         }
     }
@@ -920,76 +1215,114 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     @Override
     public Admin getForm() {
         Admin users = new Admin();
-
         try {
-            users.setId(lblID.getText());
-            users.setTen(txtName.getText());
-            users.setMatKhau(txtPass.getText());
-            users.setVaiTro(cboVaitro.getSelectedIndex() + 1);
+            String id = lblID.getText().trim();
+            if (!id.isEmpty() && !id.contains("Tự động")) {
+                users.setId(id);
+            }
+            users.setTen(txtName.getText().trim());
+            users.setMatKhau(txtPass.getText().trim());
+            users.setVaiTro(cboVaitro.getSelectedIndex() == 0 ? 1 : 2);
             users.setTrangThai(rdo1.isSelected());
-            users.setEmail(txtEmail.getText());
-            users.setSoDienThoai(txtPhone.getText());
-            users.setNamSinh(Integer.parseInt(txtNamSinh.getText()));
-            users.setNgayTao(dacDateCre.getDate());
+            users.setEmail(txtEmail.getText().trim());
+            users.setSoDienThoai(txtPhone.getText().trim());
+            String namSinhStr = txtNamSinh.getText().trim();
+            users.setNamSinh(!namSinhStr.isEmpty() ? Integer.parseInt(namSinhStr) : 2000);
+            users.setNgayTao(dacDateCre.getDate() != null ? dacDateCre.getDate() : new java.util.Date());
             users.setAnh(DuongDanAnh);
         } catch (Exception ex) {
-            ex.printStackTrace();
             return null;
         }
-
         return users;
     }
 
     @Override
     public void fillToTable() {
-        DefaultTableModel model = (DefaultTableModel) tblUsermager.getModel();
-        model.setRowCount(0);
         items = dao.findAll();
-        items.forEach(item -> {
-            String Vaitro = switch (item.getVaiTro()) {
-                case 1 ->
-                    "Quản lý";
-                case 2 ->
-                    "Nhân viên";
-                default ->
-                    "ko ro";
-            };
-            Object[] rowData = {
+        if (lblHeaderSummary != null) {
+            lblHeaderSummary.setText("Tổng nhân sự: " + items.size() + " tài khoản • Sẵn sàng");
+        }
+        filterTableData();
+    }
+
+    public void filterTableData() {
+        DefaultTableModel model = new DefaultTableModel(
+            new String[]{"MÃ NV", "TÊN TÀI KHOẢN", "SỐ ĐIỆN THOẠI", "EMAIL", "VAI TRÒ", "TRẠNG THÁI"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
+        tblUsermager.setModel(model);
+
+        String keyword = txtFindbyid != null ? txtFindbyid.getText().trim().toLowerCase() : "";
+
+        for (Admin item : items) {
+            if (!keyword.isEmpty()) {
+                String idStr = item.getId() != null ? item.getId().toLowerCase() : "";
+                String nameStr = item.getTen() != null ? item.getTen().toLowerCase() : "";
+                String phoneStr = item.getSoDienThoai() != null ? item.getSoDienThoai().toLowerCase() : "";
+                if (!idStr.contains(keyword) && !nameStr.contains(keyword) && !phoneStr.contains(keyword)) {
+                    continue;
+                }
+            }
+
+            String roleName = item.getVaiTro() == 1 ? "Quản lý" : "Nhân viên";
+            String st = item.isTrangThai() ? "Hoạt động" : "Tạm khóa";
+
+            model.addRow(new Object[]{
                 item.getId(),
                 item.getTen(),
-                item.getMatKhau(),
-                Vaitro,
-                item.isTrangThai() ? "Hoạt động" : "Không hoạt động",
-                item.getNamSinh(),
-                item.getEmail(),
                 item.getSoDienThoai(),
-                item.getNgayTao(),
-                item.getAnh()
-            };
-            model.addRow(rowData);
-        });
+                item.getEmail(),
+                roleName,
+                st
+            });
+        }
+        setupQLNVRenderers();
+    }
+
+    private void setupQLNVRenderers() {
+        if (tblUsermager.getColumnCount() >= 6) {
+            // Vai trò renderer
+            tblUsermager.getColumnModel().getColumn(4).setCellRenderer((table, value, isSelected, hasFocus, row, col) -> {
+                String role = value != null ? value.toString() : "";
+                javax.swing.JPanel pnl = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 7));
+                pnl.setBackground(isSelected ? table.getSelectionBackground() : java.awt.Color.WHITE);
+                if ("Quản lý".equalsIgnoreCase(role)) {
+                    pnl.add(Style_Net.createBadge("Quản lý", Style_Net.NAVY_PRIMARY, java.awt.Color.WHITE));
+                } else {
+                    pnl.add(Style_Net.createBadge("Nhân viên", new java.awt.Color(0xF1, 0xF5, 0xF9), new java.awt.Color(0x47, 0x55, 0x69)));
+                }
+                return pnl;
+            });
+
+            // Trạng thái renderer
+            tblUsermager.getColumnModel().getColumn(5).setCellRenderer((table, value, isSelected, hasFocus, row, col) -> {
+                String st = value != null ? value.toString() : "";
+                javax.swing.JLabel lbl = new javax.swing.JLabel(st.equalsIgnoreCase("Hoạt động") ? "• Hoạt động" : "• Tạm khóa", javax.swing.SwingConstants.CENTER);
+                lbl.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+                lbl.setForeground(st.equalsIgnoreCase("Hoạt động") ? new java.awt.Color(0x10, 0xB9, 0x81) : new java.awt.Color(0xEF, 0x44, 0x44));
+                javax.swing.JPanel pnl = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 8));
+                pnl.setBackground(isSelected ? table.getSelectionBackground() : java.awt.Color.WHITE);
+                pnl.add(lbl);
+                return pnl;
+            });
+        }
     }
 
     @Override
     public void edit() {
-        int row = tblUsermager.getSelectedRow();
-
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Vui long chon dong can chinh sua");
-            return;
-        }
     }
 
     @Override
     public void create() {
-        String id = lblID.getText().trim();
-        if (id.matches("^AD.*")) {
-            showSuccessDialog("Trùng hợp mã", 1000);
+        Admin user = this.getForm();
+        if (user == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
             return;
         }
-        Admin user = this.getForm();
         dao.create(user);
-        showSuccessDialog("Thêm thành công", 1000);
+        JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
         this.fillToTable();
         this.clear();
     }
@@ -997,8 +1330,12 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
     @Override
     public void update() {
         Admin user = this.getForm();
+        if (user == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại thông tin!");
+            return;
+        }
         dao.update(user);
-        showSuccessDialog("Sủa thành công", 1000);
+        JOptionPane.showMessageDialog(this, "Cập nhật thông tin nhân viên thành công!");
         this.fillToTable();
     }
 
@@ -1027,17 +1364,26 @@ public class QuanLyNhanVienJDialog extends javax.swing.JDialog implements QuanLy
 
     @Override
     public void clear() {
-        txtNamSinh.setText("");
-        dacDateCre.setDate(null);
-        txtEmail.setText("");
-        txtFindbyid.setText("");
-        lblAnh.setIcon(null);
-        lblID.setText("Mã mặc định là AD");
+        lblID.setText("");
+        if (txtMaNVDisplay != null) {
+            txtMaNVDisplay.setText("(Tự động cấp khi thêm)");
+        }
         txtName.setText("");
         txtPass.setText("");
         txtPhone.setText("");
-        buttonGroup1.clearSelection();
-
+        txtEmail.setText("");
+        txtNamSinh.setText("");
+        dacDateCre.setDate(new java.util.Date());
+        if (cboVaitro != null) cboVaitro.setSelectedIndex(1);
+        rdo1.setSelected(true);
+        if (lblAnh != null) lblAnh.setIcon(null);
+        DuongDanAnh = null;
+        if (btnUpdate != null) {
+            btnUpdate.setText("+ THÊM VÀO HỆ THỐNG");
+        }
+        if (lblHeaderSummary != null) {
+            lblHeaderSummary.setText("Tổng nhân sự: " + items.size() + " tài khoản • Thêm nhân sự mới");
+        }
     }
 
     @Override

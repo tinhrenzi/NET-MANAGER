@@ -10,6 +10,7 @@ import javax.swing.JDialog;
 import util.XAuth;
 import util.XDialog;
 import dao.AdminDAO;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,7 +27,32 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog implements DoiMatKhau
     public DoiMatKhauJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initNavyDMKTheme();
         setLocationRelativeTo(null);
+    }
+
+    private void initNavyDMKTheme() {
+        setTitle("NET-MANAGER - Đổi Mật Khẩu");
+        getContentPane().setBackground(Color.WHITE);
+        jLabel1.setText("Đổi Mật Khẩu");
+        jLabel1.setFont(util.Style_Net.FONT_TITLE);
+        jLabel1.setForeground(util.Style_Net.NAVY_PRIMARY);
+
+        util.Style_Net.stylePrimaryButton(btnConfirm);
+        util.Style_Net.styleSecondaryButton(btnClose);
+        util.Style_Net.styleSecondaryButton(jButton1);
+
+        util.Style_Net.styleTextField(txtUsername);
+        javax.swing.JPasswordField[] pwds = {txtPassword, txtNewpass, txtConfirm};
+        for (javax.swing.JPasswordField p : pwds) {
+            p.setBackground(Color.WHITE);
+            p.setForeground(util.Style_Net.TEXT_MAIN);
+            p.setFont(util.Style_Net.FONT_BODY);
+            p.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                new javax.swing.border.LineBorder(util.Style_Net.BORDER_INPUT, 1, true),
+                new javax.swing.border.EmptyBorder(6, 10, 6, 10)
+            ));
+        }
     }
 
     /**
